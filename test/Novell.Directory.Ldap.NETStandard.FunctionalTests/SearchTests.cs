@@ -18,6 +18,7 @@ namespace Novell.Directory.Ldap.NETStandard.FunctionalTests
                 ldapConnection =>
                 {
                     var lsc = ldapConnection.Search(TestsConfig.LdapServer.BaseDn, LdapConnection.SCOPE_SUB, "cn=" + ldapEntry.getAttribute("cn").StringValue, null, false);
+                    Assert.Equal(1, lsc.Count);
                     var entries = new List<LdapEntry>();
                     foreach(var entry in lsc)
                     {
