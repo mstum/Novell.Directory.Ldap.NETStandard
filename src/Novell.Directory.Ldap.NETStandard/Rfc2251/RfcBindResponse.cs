@@ -54,14 +54,14 @@ namespace Novell.Directory.Ldap.Rfc2251
             get
             {
                 if (size() == 5)
-                    return (Asn1OctetString) ((Asn1Tagged) get_Renamed(4)).taggedValue();
+                    return (Asn1OctetString) ((Asn1Tagged) get_Renamed(4)).TaggedValue;
 
                 if (size() == 4)
                 {
                     // could be referral or serverSaslCreds
                     var obj = get_Renamed(3);
                     if (obj is Asn1Tagged)
-                        return (Asn1OctetString) ((Asn1Tagged) obj).taggedValue();
+                        return (Asn1OctetString) ((Asn1Tagged) obj).TaggedValue;
                 }
 
                 return null;
@@ -88,7 +88,7 @@ namespace Novell.Directory.Ldap.Rfc2251
                 var id = obj.getIdentifier();
                 if (id.Tag == RfcLdapResult.REFERRAL)
                 {
-                    var content = ((Asn1OctetString) obj.taggedValue()).byteValue();
+                    var content = ((Asn1OctetString) obj.TaggedValue).byteValue();
                     var bais = new MemoryStream(SupportClass.ToByteArray(content));
                     set_Renamed(3, new RfcReferral(dec, bais, content.Length));
                 }

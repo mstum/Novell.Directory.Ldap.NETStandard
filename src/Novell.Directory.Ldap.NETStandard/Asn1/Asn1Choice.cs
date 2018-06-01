@@ -110,15 +110,6 @@ namespace Novell.Directory.Ldap.Asn1
         */
 
         /// <summary>
-        ///     Returns the CHOICE value stored in this Asn1Choice
-        ///     as an Asn1Object.
-        /// </summary>
-        public Asn1Object choiceValue()
-        {
-            return content;
-        }
-
-        /// <summary>
         ///     This method will return the Asn1Identifier of the
         ///     encoded Asn1Object.We  override the parent method
         ///     as the identifier of an Asn1Choice depends on the

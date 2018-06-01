@@ -67,11 +67,11 @@ namespace Novell.Directory.Ldap.Events.Edir.EventData
                     break;
 
                 case DebugParameterType.BINARY:
-                    objData = ((Asn1OctetString) dseObject.taggedValue()).byteValue();
+                    objData = ((Asn1OctetString) dseObject.TaggedValue).byteValue();
                     break;
 
                 case DebugParameterType.STRING:
-                    objData = ((Asn1OctetString) dseObject.taggedValue()).stringValue();
+                    objData = ((Asn1OctetString) dseObject.TaggedValue).stringValue();
                     break;
 
                 case DebugParameterType.TIMESTAMP:
@@ -108,7 +108,7 @@ namespace Novell.Directory.Ldap.Events.Edir.EventData
 
         protected int getTaggedIntValue(Asn1Tagged tagVal)
         {
-            var obj = tagVal.taggedValue();
+            var obj = tagVal.TaggedValue;
             var dataBytes = SupportClass.ToByteArray(((Asn1OctetString) obj).byteValue());
 
             var decodedData = new MemoryStream(dataBytes);
@@ -121,7 +121,7 @@ namespace Novell.Directory.Ldap.Events.Edir.EventData
 
         protected Asn1Sequence getTaggedSequence(Asn1Tagged tagVal)
         {
-            var obj = tagVal.taggedValue();
+            var obj = tagVal.TaggedValue;
             var dataBytes = SupportClass.ToByteArray(((Asn1OctetString) obj).byteValue());
 
             var decodedData = new MemoryStream(dataBytes);

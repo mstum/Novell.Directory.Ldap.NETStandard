@@ -61,6 +61,7 @@ namespace Novell.Directory.Ldap.Asn1
                     value.setIdentifier(getIdentifier());
                 }
             }
+            get { return content; }
         }
 
         /// <summary>
@@ -144,12 +145,6 @@ namespace Novell.Directory.Ldap.Asn1
 
         /* Asn1Tagged specific methods
         */
-
-        /// <summary> Returns the Asn1Object stored in this Asn1Tagged object</summary>
-        public Asn1Object taggedValue()
-        {
-            return content;
-        }
 
         /// <summary> Return a String representation of this Asn1Object.</summary>
         public override string ToString()

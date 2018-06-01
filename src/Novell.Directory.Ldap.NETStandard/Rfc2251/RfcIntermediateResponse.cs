@@ -122,12 +122,12 @@ namespace Novell.Directory.Ldap.Rfc2251
                 {
                     case TAG_RESPONSE_NAME:
                         set_Renamed(i, new RfcLdapOID(
-                            ((Asn1OctetString) obj.taggedValue()).byteValue()));
+                            ((Asn1OctetString) obj.TaggedValue).byteValue()));
                         m_responseNameIndex = i;
                         break;
 
                     case TAG_RESPONSE:
-                        set_Renamed(i, obj.taggedValue());
+                        set_Renamed(i, obj.TaggedValue);
                         m_responseValueIndex = i;
                         break;
                 }

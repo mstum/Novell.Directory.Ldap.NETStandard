@@ -90,19 +90,19 @@ namespace Novell.Directory.Ldap.Rfc2251
                     switch (id.Tag)
                     {
                         case RfcLdapResult.REFERRAL:
-                            var content = ((Asn1OctetString) obj.taggedValue()).byteValue();
+                            var content = ((Asn1OctetString) obj.TaggedValue).byteValue();
                             var bais = new MemoryStream(SupportClass.ToByteArray(content));
                             set_Renamed(i, new RfcReferral(dec, bais, content.Length));
                             referralIndex = i;
                             break;
 
                         case ResponseNameTag:
-                            set_Renamed(i, new RfcLdapOID(((Asn1OctetString) obj.taggedValue()).byteValue()));
+                            set_Renamed(i, new RfcLdapOID(((Asn1OctetString) obj.TaggedValue).byteValue()));
                             responseNameIndex = i;
                             break;
 
                         case ResponseTag:
-                            set_Renamed(i, obj.taggedValue());
+                            set_Renamed(i, obj.TaggedValue);
                             responseIndex = i;
                             break;
                     }

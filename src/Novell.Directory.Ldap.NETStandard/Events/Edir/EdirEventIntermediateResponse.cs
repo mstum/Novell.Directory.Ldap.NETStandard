@@ -101,22 +101,22 @@ namespace Novell.Directory.Ldap.Events.Edir
                 {
                     case EdirEventDataType.EDIR_TAG_ENTRY_EVENT_DATA:
                         event_response_data = new EntryEventData(EdirEventDataType.EDIR_TAG_ENTRY_EVENT_DATA,
-                            objTagged.taggedValue());
+                            objTagged.TaggedValue);
                         break;
 
                     case EdirEventDataType.EDIR_TAG_VALUE_EVENT_DATA:
                         event_response_data = new ValueEventData(EdirEventDataType.EDIR_TAG_VALUE_EVENT_DATA,
-                            objTagged.taggedValue());
+                            objTagged.TaggedValue);
                         break;
 
                     case EdirEventDataType.EDIR_TAG_DEBUG_EVENT_DATA:
                         event_response_data = new DebugEventData(EdirEventDataType.EDIR_TAG_DEBUG_EVENT_DATA,
-                            objTagged.taggedValue());
+                            objTagged.TaggedValue);
                         break;
 
                     case EdirEventDataType.EDIR_TAG_GENERAL_EVENT_DATA:
                         event_response_data = new GeneralDSEventData(EdirEventDataType.EDIR_TAG_GENERAL_EVENT_DATA,
-                            objTagged.taggedValue());
+                            objTagged.TaggedValue);
                         break;
 
                     case EdirEventDataType.EDIR_TAG_SKULK_DATA:
@@ -125,46 +125,46 @@ namespace Novell.Directory.Ldap.Events.Edir
 
                     case EdirEventDataType.EDIR_TAG_BINDERY_EVENT_DATA:
                         event_response_data = new BinderyObjectEventData(EdirEventDataType.EDIR_TAG_BINDERY_EVENT_DATA,
-                            objTagged.taggedValue());
+                            objTagged.TaggedValue);
                         break;
 
                     case EdirEventDataType.EDIR_TAG_DSESEV_INFO:
                         event_response_data = new SecurityEquivalenceEventData(EdirEventDataType.EDIR_TAG_DSESEV_INFO,
-                            objTagged.taggedValue());
+                            objTagged.TaggedValue);
                         break;
 
                     case EdirEventDataType.EDIR_TAG_MODULE_STATE_DATA:
                         event_response_data = new ModuleStateEventData(EdirEventDataType.EDIR_TAG_MODULE_STATE_DATA,
-                            objTagged.taggedValue());
+                            objTagged.TaggedValue);
                         break;
 
                     case EdirEventDataType.EDIR_TAG_NETWORK_ADDRESS:
                         event_response_data = new NetworkAddressEventData(EdirEventDataType.EDIR_TAG_NETWORK_ADDRESS,
-                            objTagged.taggedValue());
+                            objTagged.TaggedValue);
                         break;
 
                     case EdirEventDataType.EDIR_TAG_CONNECTION_STATE:
                         event_response_data = new ConnectionStateEventData(EdirEventDataType.EDIR_TAG_CONNECTION_STATE,
-                            objTagged.taggedValue());
+                            objTagged.TaggedValue);
                         break;
 
                     case EdirEventDataType.EDIR_TAG_CHANGE_SERVER_ADDRESS:
                         event_response_data =
                             new ChangeAddressEventData(EdirEventDataType.EDIR_TAG_CHANGE_SERVER_ADDRESS,
-                                objTagged.taggedValue());
+                                objTagged.TaggedValue);
                         break;
 
                     /*
                           case EdirEventDataType.EDIR_TAG_CHANGE_CONFIG_PARAM :
                               responsedata =
                                   new ChangeConfigEventData(
-                                      taggedobject.taggedValue());
+                                      taggedobject.TaggedValue);
               
                               break;
               
                           case EdirEventDataType.EDIR_TAG_STATUS_LOG :
                               responsedata =
-                                  new StatusLogEventData(taggedobject.taggedValue());
+                                  new StatusLogEventData(taggedobject.TaggedValue);
               
                               break;
                     */

@@ -154,7 +154,7 @@ namespace Novell.Directory.Ldap.Rfc2251
                 var id = obj.getIdentifier();
                 if (id.Tag == REFERRAL)
                 {
-                    var content = ((Asn1OctetString) obj.taggedValue()).byteValue();
+                    var content = ((Asn1OctetString) obj.TaggedValue).byteValue();
                     var bais = new MemoryStream(SupportClass.ToByteArray(content));
                     set_Renamed(3, new RfcReferral(dec, bais, content.Length));
                 }

@@ -195,7 +195,7 @@ namespace Novell.Directory.Ldap.Rfc2251
             // to its appropriate application type.
             var protocolOp = (Asn1Tagged) get_Renamed(1);
             var protocolOpId = protocolOp.getIdentifier();
-            content = ((Asn1OctetString) protocolOp.taggedValue()).byteValue();
+            content = ((Asn1OctetString) protocolOp.TaggedValue).byteValue();
             bais = new MemoryStream(SupportClass.ToByteArray(content));
 
             switch (protocolOpId.Tag)
@@ -256,7 +256,7 @@ namespace Novell.Directory.Ldap.Rfc2251
                 //   Asn1Identifier controlsId = protocolOp.getIdentifier();
                 // we could check to make sure we have controls here....
 
-                content = ((Asn1OctetString) controls.taggedValue()).byteValue();
+                content = ((Asn1OctetString) controls.TaggedValue).byteValue();
                 bais = new MemoryStream(SupportClass.ToByteArray(content));
                 set_Renamed(2, new RfcControls(dec, bais, content.Length));
             }

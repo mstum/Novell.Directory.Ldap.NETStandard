@@ -162,7 +162,7 @@ namespace Novell.Directory.Ldap.Events.Edir.EventData
 
         protected int getTaggedIntValue(Asn1Tagged tagvalue, GeneralEventField tagid)
         {
-            var obj = tagvalue.taggedValue();
+            var obj = tagvalue.TaggedValue;
 
             if ((int) tagid != tagvalue.getIdentifier().Tag)
             {
@@ -181,7 +181,7 @@ namespace Novell.Directory.Ldap.Events.Edir.EventData
 
         protected string getTaggedStringValue(Asn1Tagged tagvalue, GeneralEventField tagid)
         {
-            var obj = tagvalue.taggedValue();
+            var obj = tagvalue.TaggedValue;
 
             if ((int) tagid != tagvalue.getIdentifier().Tag)
             {
@@ -200,7 +200,7 @@ namespace Novell.Directory.Ldap.Events.Edir.EventData
 
         protected Asn1Sequence getTaggedSequence(Asn1Tagged tagvalue, GeneralEventField tagid)
         {
-            var obj = tagvalue.taggedValue();
+            var obj = tagvalue.TaggedValue;
 
             if ((int) tagid != tagvalue.getIdentifier().Tag)
             {

@@ -204,7 +204,7 @@ namespace Novell.Directory.Ldap.Asn1
 
                 /* determine the encoded length of the base type. */
                 var encodedContent = new MemoryStream();
-                t.taggedValue().encode(this, encodedContent);
+                t.TaggedValue.encode(this, encodedContent);
 
                 encodeLength((int) encodedContent.Length, out_Renamed);
                 sbyte[] temp_sbyteArray;
@@ -216,7 +216,7 @@ namespace Novell.Directory.Ldap.Asn1
             }
             else
             {
-                t.taggedValue().encode(this, out_Renamed);
+                t.TaggedValue.encode(this, out_Renamed);
             }
         }
 

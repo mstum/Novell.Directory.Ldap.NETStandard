@@ -571,7 +571,7 @@ namespace Novell.Directory.Ldap.Rfc2251
             else
             {
                 var topOfStack = (Asn1Tagged) filterStack.Peek();
-                var value_Renamed = topOfStack.taggedValue();
+                var value_Renamed = topOfStack.TaggedValue;
                 if (value_Renamed == null)
                 {
                     topOfStack.TaggedValue = current;
@@ -1061,7 +1061,7 @@ namespace Novell.Directory.Ldap.Rfc2251
                     }
                     else
                     {
-                        var asn1 = root.taggedValue();
+                        var asn1 = root.TaggedValue;
 
                         if (asn1 is RfcLdapString)
                         {
@@ -1091,7 +1091,7 @@ namespace Novell.Directory.Ldap.Rfc2251
                                 //return substring value
                                 var substrs = (Asn1SequenceOf) sub.get_Renamed(1);
                                 var tag = (Asn1Tagged) substrs.get_Renamed(index / 2);
-                                var value_Renamed = (RfcLdapString) tag.taggedValue();
+                                var value_Renamed = (RfcLdapString) tag.TaggedValue;
                                 toReturn = value_Renamed.stringValue();
                                 index++;
                             }
@@ -1126,7 +1126,7 @@ namespace Novell.Directory.Ldap.Rfc2251
                                 index = 0;
                             }
                             toReturn =
-                                ((Asn1OctetString) ((Asn1Tagged) exMatch.get_Renamed(index++)).taggedValue())
+                                ((Asn1OctetString) ((Asn1Tagged) exMatch.get_Renamed(index++)).TaggedValue)
                                 .stringValue();
                             if (index > 2)
                             {
