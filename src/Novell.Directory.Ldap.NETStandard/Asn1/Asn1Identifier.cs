@@ -179,7 +179,7 @@ namespace Novell.Directory.Ldap.Asn1
         ///     Private-use tag class.
         ///     PRIVATE = 3
         /// </summary>
-        public const int PRIVATE = 3;
+        private const int PRIVATE = 3;
 
 
         /* Private variables

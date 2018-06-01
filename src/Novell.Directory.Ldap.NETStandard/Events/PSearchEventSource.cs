@@ -40,7 +40,7 @@ namespace Novell.Directory.Ldap.Events
     /// </summary>
     public class PSearchEventSource : LdapEventSource
     {
-        protected SearchResultEventHandler search_result_event;
+        private SearchResultEventHandler search_result_event;
 
         /// <summary>
         ///     Caller has to register with this event in order to be notified of
@@ -60,7 +60,7 @@ namespace Novell.Directory.Ldap.Events
             }
         }
 
-        protected SearchReferralEventHandler search_referral_event;
+        private SearchReferralEventHandler search_referral_event;
 
         /// <summary>
         ///     Caller has to register with this event in order to be notified of
