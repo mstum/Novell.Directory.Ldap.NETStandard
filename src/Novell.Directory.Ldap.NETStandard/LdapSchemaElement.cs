@@ -152,13 +152,13 @@ namespace Novell.Directory.Ldap
         protected string oid = "";
 
         /// <summary> The description for the schema element.</summary>
-        [CLSCompliant(false)] protected internal string description = "";
+        [CLSCompliant(false)] protected string description = "";
 
         /// <summary>
         ///     If present, indicates that the element is obsolete, no longer in use in
         ///     the directory.
         /// </summary>
-        [CLSCompliant(false)] protected internal bool obsolete = false;
+        [CLSCompliant(false)] protected bool obsolete = false;
 
         /// <summary>
         ///     A string array of optional, or vendor-specific, qualifiers for the
