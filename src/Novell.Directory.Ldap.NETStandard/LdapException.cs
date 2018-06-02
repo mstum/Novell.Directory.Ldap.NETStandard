@@ -1220,7 +1220,7 @@ namespace Novell.Directory.Ldap
         /// </summary>
         public override string ToString()
         {
-            return GetExceptionString("LdapException");
+            return "Exception string " + GetExceptionString("LdapException");
         }
 
         /// <summary>

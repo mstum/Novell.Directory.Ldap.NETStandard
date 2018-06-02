@@ -140,6 +140,10 @@ namespace Novell.Directory.Ldap.NETStandard.StressTests
                                 ThreadId = Thread.CurrentThread.ManagedThreadId
                             });
                             _logger.LogError("Error in runner thread - {0}", ex);
+                            if (ex.InnerException != null)
+                            {
+                                _logger.LogError("Error in runner thread - inner {0}", ex.InnerException.ToString());
+                            }
                         }
                     }
                     i++;
