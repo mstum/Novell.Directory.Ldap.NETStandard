@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.LdapConstraints.cs
 //
@@ -129,6 +130,7 @@ namespace Novell.Directory.Ldap
             ReferralFollowing = doReferrals;
             _refHandler = handler;
             HopLimit = hopLimit;
+
             // Get a unique constraints name for debug
         }
 

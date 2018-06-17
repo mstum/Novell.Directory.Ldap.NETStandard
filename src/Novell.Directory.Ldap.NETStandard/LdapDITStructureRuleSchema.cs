@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.LdapDITStructureRuleSchema.cs
 //
@@ -182,7 +183,7 @@ namespace Novell.Directory.Ldap
         /// <returns>
         ///     A list of all structure rules that are superior to this structure rule.
         /// </returns>
-        public string[] Superiors { get; } = {string.Empty};
+        public string[] Superiors { get; } = {string.Empty };
 
         /// <summary>
         ///     Returns a string in a format suitable for directly adding to a

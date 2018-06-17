@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Controls.LdapSortControl.cs
 //
@@ -87,7 +88,7 @@ namespace Novell.Directory.Ldap.Controls
         ///     server does not support this control.
         /// </param>
         public LdapSortControl(LdapSortKey key, bool critical)
-            : this(new[] {key}, critical)
+            : this(new[] {key }, critical)
         {
         }
 
@@ -115,14 +116,16 @@ namespace Novell.Directory.Ldap.Controls
 
                 if ((object)keys[i].MatchRule != null)
                 {
-                    key.Add(new Asn1Tagged(new Asn1Identifier(Asn1Identifier.Context, false, OrderingRule),
+                    key.Add(new Asn1Tagged(
+                        new Asn1Identifier(Asn1Identifier.Context, false, OrderingRule),
                         new Asn1OctetString(keys[i].MatchRule), false));
                 }
 
                 if (keys[i].Reverse)
                 {
                     // only add if true
-                    key.Add(new Asn1Tagged(new Asn1Identifier(Asn1Identifier.Context, false, ReverseOrder),
+                    key.Add(new Asn1Tagged(
+                        new Asn1Identifier(Asn1Identifier.Context, false, ReverseOrder),
                         new Asn1Boolean(true), false));
                 }
 

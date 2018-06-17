@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Extensions.BackupRestoreConstants.cs
 //
@@ -139,7 +140,8 @@ namespace Novell.Directory.Ldap.Extensions
                     }
                     catch (FormatException e)
                     {
-                        throw new LdapLocalException("Invalid Modification Timestamp send in the request",
+                        throw new LdapLocalException(
+                            "Invalid Modification Timestamp send in the request",
                             LdapException.EncodingError, e);
                     }
 

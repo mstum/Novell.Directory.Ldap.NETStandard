@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Events.Edir.MonitorEventRequest.cs
 //
@@ -48,6 +49,7 @@ namespace Novell.Directory.Ldap.Events.Edir
              * server in response to a MonitorEventRequest
              */
             LdapExtendedResponse.Register(EventOids.NldapMonitorEventsResponse, typeof(MonitorEventResponse));
+
             // Also try to register EdirEventIntermediateResponse
             LdapIntermediateResponse.Register(EventOids.NldapEventNotification, typeof(EdirEventIntermediateResponse));
         } // end of static constructor
@@ -111,7 +113,8 @@ namespace Novell.Directory.Ldap.Events.Edir
             }
             catch (Exception e)
             {
-                throw new LdapException(ExceptionMessages.EncodingError,
+                throw new LdapException(
+                    ExceptionMessages.EncodingError,
                     LdapException.EncodingError,
                     null, e);
             }

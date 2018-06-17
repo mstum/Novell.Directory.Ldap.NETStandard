@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Events.Edir.EdirEventSource.cs
 //
@@ -44,7 +45,8 @@ namespace Novell.Directory.Ldap.Events.Edir
         ///     get corresponding Edir events.
         /// </summary>
         public delegate
-            void EdirEventHandler(object source,
+            void EdirEventHandler(
+                object source,
                 EdirEventArgs objEdirEventArgs);
 
         private readonly LdapConnection _mConnection;
@@ -115,7 +117,8 @@ namespace Novell.Directory.Ldap.Events.Edir
             StopEventPolling();
         }
 
-        protected override bool NotifyEventListeners(LdapMessage sourceMessage,
+        protected override bool NotifyEventListeners(
+            LdapMessage sourceMessage,
             EventClassifiers aClassification,
             int nType)
         {
@@ -127,8 +130,10 @@ namespace Novell.Directory.Ldap.Events.Edir
                     if (sourceMessage.Type == LdapMessage.IntermediateResponse &&
                         sourceMessage is EdirEventIntermediateResponse)
                     {
-                        _edirEvent(this,
-                            new EdirEventArgs(sourceMessage,
+                        _edirEvent(
+                            this,
+                            new EdirEventArgs(
+                                sourceMessage,
                                 EventClassifiers.ClassificationEdirEvent));
                         bListenersNotified = true;
                     }

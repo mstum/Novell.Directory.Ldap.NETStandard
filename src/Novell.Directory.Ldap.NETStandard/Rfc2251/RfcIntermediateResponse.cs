@@ -20,6 +20,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Rfc2251.RfcIntermediateResponse.cs
 //
@@ -98,6 +99,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         [CLSCompliant(false)]
         public RfcIntermediateResponse(IAsn1Decoder dec, Stream inRenamed, int len)
             : base(dec, inRenamed, len)
+
         // throws IOException
         {
             // super(dec, in, len);

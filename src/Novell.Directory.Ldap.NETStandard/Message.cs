@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Message.cs
 //
@@ -261,6 +262,7 @@ namespace Novell.Directory.Ldap
         internal void SendMessage()
         {
             _conn.WriteMessage(this);
+
             // Start the timer thread
             if (_mslimit != 0)
             {
@@ -324,6 +326,7 @@ namespace Novell.Directory.Ldap
                     }
 
                     LdapMessage msg = new LdapAbandonRequest(MessageId, cont);
+
                     // Send abandon message to server
                     _conn.WriteMessage(msg);
                 }
@@ -346,8 +349,10 @@ namespace Novell.Directory.Ldap
             {
                 _replies.Add(new LdapResponse(informUserEx, _conn.ActiveReferral));
                 StopTimer();
+
                 // wake up waiting threads to receive exception
                 SleepersAwake();
+
                 // Message will get cleaned up when last response removed from queue
             }
             else
@@ -388,11 +393,14 @@ namespace Novell.Directory.Ldap
             }
 
             _stackTraceCleanup = Environment.StackTrace;
+
             // Let GC clean up this stuff, leave name in case finalized is called
             _conn = null;
             Request = null;
+
             // agent = null;  // leave this reference
             _queue = null;
+
             // replies = null; //leave this since we use it as a semaphore
             _bindprops = null;
         }
@@ -420,6 +428,7 @@ namespace Novell.Directory.Ldap
                 default:
                     int res;
                     StopTimer();
+
                     // Accept no more results for this message
                     // Leave on connection queue so we can abandon if necessary
                     _acceptReplies = false;
@@ -432,11 +441,13 @@ namespace Novell.Directory.Ldap
                             if (_conn == null)
                             {
                                 var logger = Logger.Factory.CreateLogger<Message>();
-                                logger.LogError("Null connection; creation stack {0}, cleanup stack {1}",
+                                logger.LogError(
+                                    "Null connection; creation stack {0}, cleanup stack {1}",
                                     _stackTraceCreation, _stackTraceCleanup);
                             }
 
                             int id;
+
                             // We either have success or failure on the bind
                             if (res == LdapException.Success)
                             {
@@ -528,8 +539,10 @@ namespace Novell.Directory.Ldap
                     {
                         Thread.Sleep(new TimeSpan(_timeToWait));
                         _message._acceptReplies = false;
+
                         // Note: Abandon clears the bind semaphore after failed bind.
-                        _message.Abandon(null,
+                        _message.Abandon(
+                            null,
                             new InterThreadException("Client request timed out", null, LdapException.LdapTimeout, null,
                                 _message));
                     }

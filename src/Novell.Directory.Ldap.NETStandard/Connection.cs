@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Connection.cs
 //
@@ -74,6 +75,7 @@ namespace Novell.Directory.Ldap
         private const int ContinueReading = -99;
 
         private const int StopReading = -98;
+
         // Connection number & name used only for debug
 
         // These attributes can be retreived using the getProperty
@@ -447,6 +449,7 @@ namespace Novell.Directory.Ldap
                     var readerException = _deadReaderException;
                     _deadReaderException = null;
                     _deadReader = null;
+
                     // Reader thread terminated
                     throw new LdapException(ExceptionMessages.ConnectionReader, LdapException.ConnectError, null,
                         readerException);
@@ -595,7 +598,7 @@ namespace Novell.Directory.Ldap
                 {
                     _sock = null;
                     _socket = null;
-                    throw new LdapException(ExceptionMessages.ConnectionError, new object[] {host, port},
+                    throw new LdapException(ExceptionMessages.ConnectionError, new object[] {host, port },
                         LdapException.ConnectError, null, se);
                 }
 
@@ -603,13 +606,14 @@ namespace Novell.Directory.Ldap
                 {
                     _sock = null;
                     _socket = null;
-                    throw new LdapException(ExceptionMessages.ConnectionError, new object[] {host, port},
+                    throw new LdapException(ExceptionMessages.ConnectionError, new object[] {host, port },
                         LdapException.ConnectError, null, ioe);
                 }
 
                 // Set host and port
                 Host = host;
                 Port = port;
+
                 // start the reader thread
                 StartReader();
                 _clientActive = true; // Client is up
@@ -681,6 +685,7 @@ namespace Novell.Directory.Ldap
                         */
                         var notify = new InterThreadException(ExceptionMessages.ConnectionClosed, null,
                             LdapException.ConnectError, null, null);
+
                         // Destroy old connection
                         Destroy("destroy clone", 0, notify);
                     }
@@ -717,6 +722,7 @@ namespace Novell.Directory.Ldap
         internal void WriteMessage(Message info)
         {
             _messages.Add(info);
+
             // For bind requests, if not connected, attempt to reconnect
             if (info.BindRequest && Connected == false && (object)Host != null)
             {
@@ -730,7 +736,7 @@ namespace Novell.Directory.Ldap
             }
             else
             {
-                throw new LdapException(ExceptionMessages.ConnectionClosed, new object[] {Host, Port},
+                throw new LdapException(ExceptionMessages.ConnectionClosed, new object[] {Host, Port },
                     LdapException.ConnectError, null);
             }
         }
@@ -744,6 +750,7 @@ namespace Novell.Directory.Ldap
         internal void WriteMessage(LdapMessage msg)
         {
             int id;
+
             // Get the correct semaphore id for bind operations
             if (BindSemId == 0)
             {
@@ -780,7 +787,7 @@ namespace Novell.Directory.Ldap
                 if (msg.Type == LdapMessage.BindRequest && Ssl)
                 {
                     var strMsg = GetSslHandshakeErrors();
-                    throw new LdapException(strMsg, new object[] {Host, Port}, LdapException.SslHandshakeFailed, null,
+                    throw new LdapException(strMsg, new object[] {Host, Port }, LdapException.SslHandshakeFailed, null,
                         ioe);
                 }
 
@@ -799,12 +806,12 @@ namespace Novell.Directory.Ldap
                     if (_unsolSvrShutDnNotification)
                     {
                         // got server shutdown
-                        throw new LdapException(ExceptionMessages.ServerShutdownReq, new object[] {Host, Port},
+                        throw new LdapException(ExceptionMessages.ServerShutdownReq, new object[] {Host, Port },
                             LdapException.ConnectError, null, ioe);
                     }
 
                     // Other I/O Exceptions on host:port are reported as is
-                    throw new LdapException(ExceptionMessages.IoException, new object[] {Host, Port},
+                    throw new LdapException(ExceptionMessages.IoException, new object[] {Host, Port },
                         LdapException.ConnectError, null, ioe);
                 }
             }
@@ -965,7 +972,7 @@ namespace Novell.Directory.Ldap
         ///     set or changed.  In particular after client.Connection.startTLS()
         ///     It assumes the reader thread is not running.
         /// </summary>
-        internal void StartReader()
+        private void StartReader()
         {
             // Start Reader Thread
             var r = new Thread(new ReaderThread(this).Run)
@@ -1038,12 +1045,14 @@ namespace Novell.Directory.Ldap
                 _stopReaderMessageId = StopReading;
                 _outStream?.Dispose();
                 _inStream?.Dispose();
+
                 // this.sock.Shutdown(SocketShutdown.Both);
                 // this.sock.Close();
                 WaitForReader(null);
                 _socket = _nonTlsBackup;
                 _inStream = _socket.GetStream();
                 _outStream = _socket.GetStream();
+
                 // Allow the new reader to start
                 _stopReaderMessageId = ContinueReading;
             }
@@ -1127,6 +1136,7 @@ namespace Novell.Directory.Ldap
                 }
 
                 _isStopping = true;
+
                 // This is quite silly as we want to stop the thread gracefully but is not always possible as the Read on socket is blocking
                 // Using ReadAdync will not do any good as the method taking the CancellationToken as parameter is not implemented
                 // Dispose will break forcefully the Read.
@@ -1227,8 +1237,9 @@ namespace Novell.Directory.Ldap
                                 */
                                 if (_enclosingInstance._unsolSvrShutDnNotification)
                                 {
-                                    notify = new InterThreadException(ExceptionMessages.ServerShutdownReq,
-                                        new object[] {_enclosingInstance.Host, _enclosingInstance.Port},
+                                    notify = new InterThreadException(
+                                        ExceptionMessages.ServerShutdownReq,
+                                        new object[] {_enclosingInstance.Host, _enclosingInstance.Port },
                                         LdapException.ConnectError, null, null);
 
                                     return;
@@ -1250,8 +1261,9 @@ namespace Novell.Directory.Ldap
                     if (_enclosingInstance._stopReaderMessageId != StopReading && _enclosingInstance._clientActive)
                     {
                         // Connection lost waiting for results from host:port
-                        notify = new InterThreadException(ExceptionMessages.ConnectionWait,
-                            new object[] {_enclosingInstance.Host, _enclosingInstance.Port}, LdapException.ConnectError,
+                        notify = new InterThreadException(
+                            ExceptionMessages.ConnectionWait,
+                            new object[] {_enclosingInstance.Host, _enclosingInstance.Port }, LdapException.ConnectError,
                             ex, info);
                     }
 

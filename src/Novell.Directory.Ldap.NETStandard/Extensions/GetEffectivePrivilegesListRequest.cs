@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Extensions.GetEffectivePrivilegesResponse.cs
 //
@@ -57,7 +58,8 @@ namespace Novell.Directory.Ldap.Extensions
         /// </summary>
         static GetEffectivePrivilegesListRequest()
         {
-            LdapExtendedResponse.Register(ReplicationConstants.GetEffectiveListPrivilegesRes,
+            LdapExtendedResponse.Register(
+                ReplicationConstants.GetEffectiveListPrivilegesRes,
                 typeof(GetEffectivePrivilegesListResponse));
         }
 

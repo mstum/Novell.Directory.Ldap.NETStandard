@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.LdapSchemaElement.cs
 //
@@ -62,10 +63,10 @@ namespace Novell.Directory.Ldap
         ///     These optional qualifiers begin with "X-"; the Novell eDirectory
         ///     specific qualifiers begin with "X-NDS".
         /// </summary>
-        private string[] _qualifier = {string.Empty};
+        private string[] _qualifier = {string.Empty };
 
         /// <summary> The names of the schema element.</summary>
-        protected internal string[] names = {string.Empty};
+        protected internal string[] names = {string.Empty };
 
         /// <summary> The OID for the schema element.</summary>
         protected string Oid = string.Empty;

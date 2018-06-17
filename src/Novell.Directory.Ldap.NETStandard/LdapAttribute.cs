@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.LdapAttribute.cs
 //
@@ -200,6 +201,7 @@ namespace Novell.Directory.Ldap
                     var ibytes = encoder.GetBytes(attrStrings[i]);
                     var sbytes = SupportClass.ToSByteArray(ibytes);
                     Add(sbytes);
+
 // this.add(attrStrings[i].getBytes("UTF-8"));
                 }
                 catch (IOException e)
@@ -246,6 +248,7 @@ namespace Novell.Directory.Ldap
 
                 var size = _values.Length;
                 var bva = new sbyte[size][];
+
                 // Deep copy so application cannot change values
                 for (int i = 0, u = size; i < u; i++)
                 {
@@ -281,8 +284,10 @@ namespace Novell.Directory.Ldap
                     {
                         var encoder = Encoding.GetEncoding("utf-8");
                         var dchar = encoder.GetChars(SupportClass.ToByteArray((sbyte[])_values[j]));
+
 // char[] dchar = encoder.GetChars((byte[])values[j]);
                         sva[j] = new string(dchar);
+
 // sva[j] = new String((sbyte[]) values[j], "UTF-8");
                     }
                     catch (IOException uee)
@@ -322,6 +327,7 @@ namespace Novell.Directory.Ldap
                     {
                         var encoder = Encoding.GetEncoding("utf-8");
                         var dchar = encoder.GetChars(SupportClass.ToByteArray((sbyte[])_values[0]));
+
 // char[] dchar = encoder.GetChars((byte[]) this.values[0]);
                         rval = new string(dchar);
                     }
@@ -483,6 +489,7 @@ namespace Novell.Directory.Ldap
                 var ibytes = encoder.GetBytes(attrString);
                 var sbytes = SupportClass.ToSByteArray(ibytes);
                 Add(sbytes);
+
 // this.add(attrString.getBytes("UTF-8"));
             }
             catch (IOException ue)
@@ -615,6 +622,7 @@ namespace Novell.Directory.Ldap
                 // Get InputStream from the URL
                 var webRequest = WebRequest.Create(url);
                 var inRenamed = webRequest.GetResponseAsync().ResultAndUnwrap().GetResponseStream();
+
                 // Read the bytes into buffers and store the them in an arraylist
                 var bufs = new ArrayList();
                 var buf = new sbyte[4096];
@@ -842,6 +850,7 @@ namespace Novell.Directory.Ldap
                 var ibytes = encoder.GetBytes(attrString);
                 var sbytes = SupportClass.ToSByteArray(ibytes);
                 RemoveValue(sbytes);
+
 // this.removeValue(attrString.getBytes("UTF-8"));
             }
             catch (IOException uee)
@@ -932,7 +941,7 @@ namespace Novell.Directory.Ldap
         {
             if (_values == null)
             {
-                _values = new object[] {bytes};
+                _values = new object[] {bytes };
             }
             else
             {
@@ -1037,6 +1046,7 @@ namespace Novell.Directory.Ldap
                         }
 
                         var encoder = Encoding.GetEncoding("utf-8");
+
 // char[] dchar = encoder.GetChars((byte[]) values[i]);
                         var dchar = encoder.GetChars(SupportClass.ToByteArray((sbyte[])_values[i]));
                         var sval = new string(dchar);

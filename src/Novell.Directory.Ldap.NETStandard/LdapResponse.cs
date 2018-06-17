@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.LdapResponse.cs
 //
@@ -288,7 +289,8 @@ namespace Novell.Directory.Ldap
 
                     case LdapException.Referral:
                         var refs = Referrals;
-                        ex = new LdapReferralException("Automatic referral following not enabled",
+                        ex = new LdapReferralException(
+                            "Automatic referral following not enabled",
                             LdapException.Referral, ErrorMessage);
                         ((LdapReferralException)ex).SetReferrals(refs);
                         break;

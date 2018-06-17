@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.LdapExtendedRequest.cs
 //
@@ -62,7 +63,8 @@ namespace Novell.Directory.Ldap
         public LdapExtendedRequest(LdapExtendedOperation op, LdapControl[] cont)
             : base(
                 ExtendedRequest,
-                new RfcExtendedRequest(new RfcLdapOid(op.GetId()),
+                new RfcExtendedRequest(
+                    new RfcLdapOid(op.GetId()),
                     op.GetValue() != null ? new Asn1OctetString(op.GetValue()) : null), cont)
         {
         }

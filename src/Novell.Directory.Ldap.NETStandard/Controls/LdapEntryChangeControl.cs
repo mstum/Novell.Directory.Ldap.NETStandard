@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Controls.LdapEntryChangeControl.cs
 //
@@ -103,6 +104,7 @@ namespace Novell.Directory.Ldap.Controls
 
             // check for optional elements
             if (sequence.Size() > 1 && ChangeType == 8)
+
                 // 8 means modifyDN
             {
                 // get the previous DN - it is encoded as an octet string

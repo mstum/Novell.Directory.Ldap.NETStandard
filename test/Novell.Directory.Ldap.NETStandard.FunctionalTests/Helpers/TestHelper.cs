@@ -13,7 +13,8 @@ namespace Novell.Directory.Ldap.NETStandard.FunctionalTests.Helpers
 
         public static void WithLdapConnection(Action<ILdapConnection> actionOnConnectedLdapConnection, bool useSsl = false, bool disableEnvTransportSecurity = false)
         {
-            WithLdapConnectionImpl<object>((ldapConnection) =>
+            WithLdapConnectionImpl<object>(
+                (ldapConnection) =>
             {
                 actionOnConnectedLdapConnection(ldapConnection);
                 return null;

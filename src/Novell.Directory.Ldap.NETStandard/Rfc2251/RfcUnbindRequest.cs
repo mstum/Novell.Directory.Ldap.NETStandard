@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Rfc2251.RfcUnbindRequest.cs
 //
@@ -44,7 +45,7 @@ namespace Novell.Directory.Ldap.Rfc2251
     {
         public IRfcRequest DupRequest(string baseRenamed, string filter, bool request)
         {
-            throw new LdapException(ExceptionMessages.NoDupRequest, new object[] {"unbind"},
+            throw new LdapException(ExceptionMessages.NoDupRequest, new object[] {"unbind" },
                 LdapException.LdapNotSupported, null);
         }
 

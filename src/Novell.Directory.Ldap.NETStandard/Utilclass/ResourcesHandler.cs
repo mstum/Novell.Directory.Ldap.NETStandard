@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Utilclass.ResourcesHandler.cs
 //
@@ -121,6 +122,7 @@ namespace Novell.Directory.Ldap.Utilclass
                 var strB = new StringBuilder();
                 strB.AppendFormat(pattern, arguments);
                 pattern = strB.ToString();
+
                 // MessageFormat mf = new MessageFormat(pattern);
                 // pattern=System.String.Format(locale,pattern,arguments);
                 // mf.setLocale(locale);
@@ -170,7 +172,7 @@ namespace Novell.Directory.Ldap.Utilclass
             }
             catch (ArgumentNullException)
             {
-                result = GetMessage(ExceptionMessages.UnknownResult, new object[] {code}, locale);
+                result = GetMessage(ExceptionMessages.UnknownResult, new object[] {code }, locale);
             }
 
             return result;

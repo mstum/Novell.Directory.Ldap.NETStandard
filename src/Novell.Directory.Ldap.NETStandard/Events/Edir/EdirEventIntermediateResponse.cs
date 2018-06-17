@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Events.Edir.EdirEventIntermediateResponse.cs
 //
@@ -83,22 +84,26 @@ namespace Novell.Directory.Ldap.Events.Edir
                 switch ((EdirEventDataType)objTagged.GetIdentifier().Tag)
                 {
                     case EdirEventDataType.EdirTagEntryEventData:
-                        EventResponseDataObject = new EntryEventData(EdirEventDataType.EdirTagEntryEventData,
+                        EventResponseDataObject = new EntryEventData(
+                            EdirEventDataType.EdirTagEntryEventData,
                             objTagged.TaggedValue);
                         break;
 
                     case EdirEventDataType.EdirTagValueEventData:
-                        EventResponseDataObject = new ValueEventData(EdirEventDataType.EdirTagValueEventData,
+                        EventResponseDataObject = new ValueEventData(
+                            EdirEventDataType.EdirTagValueEventData,
                             objTagged.TaggedValue);
                         break;
 
                     case EdirEventDataType.EdirTagDebugEventData:
-                        EventResponseDataObject = new DebugEventData(EdirEventDataType.EdirTagDebugEventData,
+                        EventResponseDataObject = new DebugEventData(
+                            EdirEventDataType.EdirTagDebugEventData,
                             objTagged.TaggedValue);
                         break;
 
                     case EdirEventDataType.EdirTagGeneralEventData:
-                        EventResponseDataObject = new GeneralDsEventData(EdirEventDataType.EdirTagGeneralEventData,
+                        EventResponseDataObject = new GeneralDsEventData(
+                            EdirEventDataType.EdirTagGeneralEventData,
                             objTagged.TaggedValue);
                         break;
 
@@ -107,33 +112,39 @@ namespace Novell.Directory.Ldap.Events.Edir
                         break;
 
                     case EdirEventDataType.EdirTagBinderyEventData:
-                        EventResponseDataObject = new BinderyObjectEventData(EdirEventDataType.EdirTagBinderyEventData,
+                        EventResponseDataObject = new BinderyObjectEventData(
+                            EdirEventDataType.EdirTagBinderyEventData,
                             objTagged.TaggedValue);
                         break;
 
                     case EdirEventDataType.EdirTagDsesevInfo:
-                        EventResponseDataObject = new SecurityEquivalenceEventData(EdirEventDataType.EdirTagDsesevInfo,
+                        EventResponseDataObject = new SecurityEquivalenceEventData(
+                            EdirEventDataType.EdirTagDsesevInfo,
                             objTagged.TaggedValue);
                         break;
 
                     case EdirEventDataType.EdirTagModuleStateData:
-                        EventResponseDataObject = new ModuleStateEventData(EdirEventDataType.EdirTagModuleStateData,
+                        EventResponseDataObject = new ModuleStateEventData(
+                            EdirEventDataType.EdirTagModuleStateData,
                             objTagged.TaggedValue);
                         break;
 
                     case EdirEventDataType.EdirTagNetworkAddress:
-                        EventResponseDataObject = new NetworkAddressEventData(EdirEventDataType.EdirTagNetworkAddress,
+                        EventResponseDataObject = new NetworkAddressEventData(
+                            EdirEventDataType.EdirTagNetworkAddress,
                             objTagged.TaggedValue);
                         break;
 
                     case EdirEventDataType.EdirTagConnectionState:
-                        EventResponseDataObject = new ConnectionStateEventData(EdirEventDataType.EdirTagConnectionState,
+                        EventResponseDataObject = new ConnectionStateEventData(
+                            EdirEventDataType.EdirTagConnectionState,
                             objTagged.TaggedValue);
                         break;
 
                     case EdirEventDataType.EdirTagChangeServerAddress:
                         EventResponseDataObject =
-                            new ChangeAddressEventData(EdirEventDataType.EdirTagChangeServerAddress,
+                            new ChangeAddressEventData(
+                                EdirEventDataType.EdirTagChangeServerAddress,
                                 objTagged.TaggedValue);
                         break;
 

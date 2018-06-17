@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.LdapMessage.cs
 //
@@ -579,7 +580,7 @@ namespace Novell.Directory.Ldap
 
                 /* If found, get LDAPControl constructor */
                 Type[] argsClass = {typeof(string), typeof(bool), typeof(sbyte[]) };
-                object[] args = {oid, critical, valueRenamed};
+                object[] args = {oid, critical, valueRenamed };
                 Exception ex = null;
                 try
                 {
@@ -589,6 +590,7 @@ namespace Novell.Directory.Ldap
                     {
                         /* Call the control constructor for a registered Class*/
                         object ctl = null;
+
 // ctl = ctlConstructor.newInstance(args);
                         ctl = ctlConstructor.Invoke(args);
                         return (LdapControl)ctl;

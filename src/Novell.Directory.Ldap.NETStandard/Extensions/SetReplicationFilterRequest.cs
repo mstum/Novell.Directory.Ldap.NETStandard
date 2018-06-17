@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Extensions.SetReplicationFilterRequest.cs
 //
@@ -102,6 +103,7 @@ namespace Novell.Directory.Ldap.Extensions
                 }
 
                 var i = 0;
+
                 // for every element in the array
                 while (i < replicationFilter.Length && replicationFilter[i] != null)
                 {

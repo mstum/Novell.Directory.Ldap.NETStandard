@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Events.Edir.MonitorEventResponse.cs
 //
@@ -48,7 +49,8 @@ namespace Novell.Directory.Ldap.Events.Edir
 
             if (returnedValue == null)
             {
-                throw new LdapException(LdapException.ResultCodeToString(ResultCode),
+                throw new LdapException(
+                    LdapException.ResultCodeToString(ResultCode),
                     ResultCode,
                     null);
             }

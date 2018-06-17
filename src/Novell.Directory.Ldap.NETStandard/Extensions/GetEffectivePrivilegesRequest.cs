@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Extensions.GetEffectivePrivilegesRequest.cs
 //
@@ -61,7 +62,8 @@ namespace Novell.Directory.Ldap.Extensions
                 * Register the extendedresponse class which is returned by the
                 * server in response to a ListReplicasRequest
                 */
-            LdapExtendedResponse.Register(ReplicationConstants.GetEffectivePrivilegesRes,
+            LdapExtendedResponse.Register(
+                ReplicationConstants.GetEffectivePrivilegesRes,
                 typeof(GetEffectivePrivilegesResponse));
         }
 

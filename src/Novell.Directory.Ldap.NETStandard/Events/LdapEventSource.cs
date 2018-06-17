@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Events.LdapEventSource.cs
 //
@@ -51,7 +52,8 @@ namespace Novell.Directory.Ldap.Events
         /// <summary>
         ///     DirectoryEventHandler is the delegate definition for DirectoryExceptionEvent.
         /// </summary>
-        public delegate void DirectoryExceptionEventHandler(object source,
+        public delegate void DirectoryExceptionEventHandler(
+            object source,
             DirectoryExceptionEventArgs objDirectoryExceptionEventArgs);
 
         protected internal const int EventTypeUnknown = -1;
@@ -320,7 +322,8 @@ namespace Novell.Directory.Ldap.Events
                     {
                         ((LdapResponse)response).ChkResultCode();
 
-                        _mObjLdapEventSource.NotifyEventListeners(response,
+                        _mObjLdapEventSource.NotifyEventListeners(
+                            response,
                             EventClassifiers.ClassificationUnknown,
                             EventTypeUnknown);
                     }
@@ -331,7 +334,8 @@ namespace Novell.Directory.Ldap.Events
                 }
                 else
                 {
-                    _mObjLdapEventSource.NotifyEventListeners(response,
+                    _mObjLdapEventSource.NotifyEventListeners(
+                        response,
                         EventClassifiers.ClassificationUnknown,
                         EventTypeUnknown);
                 }

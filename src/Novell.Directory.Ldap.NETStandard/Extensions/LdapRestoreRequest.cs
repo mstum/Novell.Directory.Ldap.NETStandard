@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Extensions.BackupRestoreConstants.cs
 //
@@ -137,6 +138,7 @@ namespace Novell.Directory.Ldap.Extensions
                 chunkSizesString = chunkSizesString.Substring(index + 1);
 
                 int chunkIndex;
+
                 // Construct chunks array
                 var chunks = new int[chunkSize];
                 /*
@@ -152,7 +154,8 @@ namespace Novell.Directory.Ldap.Extensions
                         break;
                     }
 
-                    chunks[i] = int.Parse(chunkSizesString.Substring(0,
+                    chunks[i] = int.Parse(chunkSizesString.Substring(
+                        0,
                         chunkIndex));
                     chunkSizesString = chunkSizesString.Substring(chunkIndex + 1);
                 }

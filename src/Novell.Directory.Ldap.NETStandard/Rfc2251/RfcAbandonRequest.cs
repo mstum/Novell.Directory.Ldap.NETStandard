@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Rfc2251.RfcAbandonRequest.cs
 //
@@ -54,7 +55,7 @@ namespace Novell.Directory.Ldap.Rfc2251
 
         public IRfcRequest DupRequest(string baseRenamed, string filter, bool reference)
         {
-            throw new LdapException(ExceptionMessages.NoDupRequest, new object[] {"Abandon"},
+            throw new LdapException(ExceptionMessages.NoDupRequest, new object[] {"Abandon" },
                 LdapException.LdapNotSupported, null);
         }
 

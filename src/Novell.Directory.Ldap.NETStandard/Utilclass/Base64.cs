@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Utilclass.Base64.cs
 //
@@ -106,9 +107,9 @@ namespace Novell.Directory.Ldap.Utilclass
         /// </summary>
         private static readonly sbyte[][] LowerBoundMask =
         {
-            new sbyte[] {0, 0}, new[] { (sbyte)0x1E, (sbyte)0x00},
-            new[] { (sbyte)0x0F, (sbyte)0x20}, new[] { (sbyte)0x07, (sbyte)0x30}, new[] { (sbyte)0x02, (sbyte)0x38},
-            new[] { (sbyte)0x01, (sbyte)0x3C}
+            new sbyte[] {0, 0 }, new[] { (sbyte)0x1E, (sbyte)0x00 },
+            new[] { (sbyte)0x0F, (sbyte)0x20 }, new[] { (sbyte)0x07, (sbyte)0x30 }, new[] { (sbyte)0x02, (sbyte)0x38 },
+            new[] { (sbyte)0x01, (sbyte)0x3C }
         };
 
         /// <summary>mask to AND with a continuation byte: should equal continuationResult. </summary>
@@ -311,6 +312,7 @@ namespace Novell.Directory.Ldap.Utilclass
             {
                 // the last four bytes of encodedChars is in the form of '**=='
                 twoPads = true;
+
                 // the first two bytes of the last four-bytes of encodedChars will
                 // be decoded into one byte.
                 dByteLen = gn * 3 - 2;
@@ -320,6 +322,7 @@ namespace Novell.Directory.Ldap.Utilclass
             {
                 // the last four bytes of encodedChars is in the form of '***='
                 onePad = true;
+
                 // the first two bytes of the last four-bytes of encodedChars will
                 // be decoded into two bytes.
                 dByteLen = gn * 3 - 1;
@@ -424,6 +427,7 @@ namespace Novell.Directory.Ldap.Utilclass
             {
                 // the last four bytes of ebs is in the form of '**=='
                 twoPads = true;
+
                 // the first two bytes of the last four-bytes of ebs will be
                 // decoded into one byte.
                 dByteLen = gn * 3 - 2;
@@ -433,6 +437,7 @@ namespace Novell.Directory.Ldap.Utilclass
             {
                 // the last four bytes of ebs is in the form of '***='
                 onePad = true;
+
                 // the first two bytes of the last four-bytes of ebs will be
                 // decoded into two bytes.
                 dByteLen = gn * 3 - 1;
@@ -532,6 +537,7 @@ namespace Novell.Directory.Ldap.Utilclass
             if (len > 0)
             {
                 int testChar = bytes[0];
+
                 // unsafe if first character is a NON-SAFE-INIT-CHAR
                 if (testChar == 0x00 || testChar == 0x0A || testChar == 0x0D || testChar == 0x20 || testChar == 0x3A ||
                     testChar == 0x3C || testChar < 0)

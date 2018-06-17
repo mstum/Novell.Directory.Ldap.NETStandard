@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.LdapSchema.cs
 //
@@ -149,6 +150,7 @@ namespace Novell.Directory.Ldap
             : base(ent.Dn, ent.GetAttributeSet())
         {
             InitBlock();
+
             // reset all definitions
             for (var i = 0; i < SchemaTypeNames.Length; i++)
             {

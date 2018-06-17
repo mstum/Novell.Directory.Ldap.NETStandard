@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.LdapCompareAttrNames.cs
 //
@@ -141,6 +142,7 @@ namespace Novell.Directory.Ldap
             if (attrNames.Length != ascendingFlags.Length)
             {
                 throw new LdapException(ExceptionMessages.UnequalLengths, LdapException.InappropriateMatching, null);
+
                 // "Length of attribute Name array does not equal length of Flags array"
             }
 

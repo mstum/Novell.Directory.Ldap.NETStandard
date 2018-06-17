@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Controls.LdapVirtualListControl.cs
 //
@@ -375,7 +376,8 @@ namespace Novell.Directory.Ldap.Controls
             * to this option (as indicated by the greaterthanOrEqual field)
             * in the ASN.1.
             */
-            _mVlvRequest.Add(new Asn1Tagged(new Asn1Identifier(Asn1Identifier.Context, false, Greaterthanorequal),
+            _mVlvRequest.Add(new Asn1Tagged(
+                new Asn1Identifier(Asn1Identifier.Context, false, Greaterthanorequal),
                 new Asn1OctetString(_mJumpTo), false));
 
             /* Add the optional context string if one is available.

@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.LdapDN.cs
 //
@@ -101,6 +102,7 @@ namespace Novell.Directory.Ldap
             }
 
             i++;
+
             // check for a space or # at the beginning of a string.
             if (escapedS[i] == ' ' || escapedS[i] == '#')
             {
@@ -241,6 +243,7 @@ namespace Novell.Directory.Ldap
             }
 
             i++;
+
             // check if the first two chars are "\ " (slash space) or "\#"
             if (rdn[i] == '\\' && i + 1 < rdn.Length - 1 && (rdn[i + 1] == ' ' || rdn[i + 1] == '#'))
             {

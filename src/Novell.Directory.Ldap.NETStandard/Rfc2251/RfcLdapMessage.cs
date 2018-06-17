@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Rfc2251.RfcLdapMessage.cs
 //
@@ -202,6 +203,7 @@ namespace Novell.Directory.Ldap.Rfc2251
             if (Size() > 2)
             {
                 var controls = (Asn1Tagged)get_Renamed(2);
+
                 // Asn1Identifier controlsId = protocolOp.getIdentifier();
                 // we could check to make sure we have controls here....
 

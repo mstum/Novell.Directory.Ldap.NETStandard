@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Events.PSearchEventSource.cs
 //
@@ -115,7 +116,8 @@ namespace Novell.Directory.Ldap.Events
 
             // Create the persistent search control
             var psCtrl =
-                new LdapPersistSearchControl((int)eventchangetype, // any change
+                new LdapPersistSearchControl(
+                    (int)eventchangetype, // any change
                     changeonly, // only get changes
                     true, // return entry change controls
                     true); // control is critcal
@@ -182,7 +184,8 @@ namespace Novell.Directory.Ldap.Events
         {
             // perform the search with no attributes returned
             _mQueue =
-                _mConnection.Search(_mSearchBase, // container to search
+                _mConnection.Search(
+                    _mSearchBase, // container to search
                     _mScope, // search container's subtree
                     _mFilter, // search filter, all objects
                     _mAttrs, // don't return attributes
@@ -209,7 +212,8 @@ namespace Novell.Directory.Ldap.Events
             StopEventPolling();
         }
 
-        protected override bool NotifyEventListeners(LdapMessage sourceMessage,
+        protected override bool NotifyEventListeners(
+            LdapMessage sourceMessage,
             EventClassifiers aClassification,
             int nType)
         {
@@ -224,7 +228,8 @@ namespace Novell.Directory.Ldap.Events
                 case LdapMessage.SearchResultReference:
                     if (_searchReferralEvent != null)
                     {
-                        _searchReferralEvent(this,
+                        _searchReferralEvent(
+                            this,
                             new SearchReferralEventArgs(
                                 sourceMessage,
                                 aClassification,
@@ -244,13 +249,15 @@ namespace Novell.Directory.Ldap.Events
                             if (control is LdapEntryChangeControl)
                             {
                                 changeType = (LdapEventType)((LdapEntryChangeControl)control).ChangeType;
+
                                 // TODO: Why is this continue here..? (from Java code..)
                                 // TODO: Why are we interested only in the last changeType..?
                             }
                         }
 
                         // if no changeType then value is TYPE_UNKNOWN
-                        _searchResultEvent(this,
+                        _searchResultEvent(
+                            this,
                             new SearchResultEventArgs(
                                 sourceMessage,
                                 aClassification,
@@ -263,7 +270,8 @@ namespace Novell.Directory.Ldap.Events
                 case LdapMessage.SearchResult:
                     // This is a generic LDAP Event
                     // TODO: Why the type is ANY...? (java code)
-                    NotifyDirectoryListeners(new LdapEventArgs(sourceMessage,
+                    NotifyDirectoryListeners(new LdapEventArgs(
+                        sourceMessage,
                         EventClassifiers.ClassificationLdapPsearch,
                         LdapEventType.LdapPsearchAny));
                     bListenersNotified = true;

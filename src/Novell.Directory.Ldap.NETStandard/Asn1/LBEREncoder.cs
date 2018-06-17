@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Asn1.LBEREncoder.cs
 //
@@ -104,6 +105,7 @@ namespace Novell.Directory.Ldap.Asn1
             Encode(n.GetIdentifier(), outRenamed);
             outRenamed.WriteByte((byte)len); // Length
             for (var i = len - 1; i >= 0; i--)
+
                 // Content
             {
                 outRenamed.WriteByte((byte)octets[i]);

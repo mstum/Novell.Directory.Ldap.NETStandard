@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Extensions.BackupRestoreConstants.cs
 //
@@ -187,6 +188,7 @@ namespace Novell.Directory.Ldap.Extensions
                 chunks = new int[chunksSize];
 
                 var asn1ChunksSet = (Asn1Set)asn1ChunksSeq.get_Renamed(1);
+
                 // Iterate through asn1_chunksSet and put each size into chunks array
 
                 for (var index = 0; index < chunksSize; index++)

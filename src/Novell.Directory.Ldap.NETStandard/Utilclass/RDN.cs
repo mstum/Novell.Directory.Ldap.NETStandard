@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Utilclass.RDN.cs
 //
@@ -63,6 +64,7 @@ namespace Novell.Directory.Ldap.Utilclass
             RawValue = rdn;
             var dn = new Dn(rdn);
             var rdns = dn.RdNs;
+
             // there should only be one rdn
             if (rdns.Count != 1)
             {
@@ -173,6 +175,7 @@ namespace Novell.Directory.Ldap.Utilclass
             {
                 // verify that the current value and type exists in the other list
                 j = 0;
+
                 // May need a more intellegent compare
                 while (j < _values.Count &&
                        (!((string)_values[i]).ToUpper().Equals(((string)rdn._values[j]).ToUpper()) ||
@@ -182,6 +185,7 @@ namespace Novell.Directory.Ldap.Utilclass
                 }
 
                 if (j >= rdn._values.Count)
+
                     // couldn't find first value
                 {
                     return false;
@@ -202,6 +206,7 @@ namespace Novell.Directory.Ldap.Utilclass
         private bool EqualAttrType(string attr1, string attr2)
         {
             if (char.IsDigit(attr1[0]) ^ char.IsDigit(attr2[0]))
+
                 // isDigit tests if it is an OID
             {
                 throw new ArgumentException("OID numbers are not " + "currently compared to attribute names");

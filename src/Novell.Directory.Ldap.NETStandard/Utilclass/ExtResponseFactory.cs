@@ -33,6 +33,7 @@ namespace Novell.Directory.Ldap.Utilclass
         public static LdapExtendedResponse ConvertToExtendedResponse(RfcLdapMessage inResponse)
         {
             var tempResponse = new LdapExtendedResponse(inResponse);
+
             // Get the oid stored in the Extended response
             var inOid = tempResponse.Id;
             if (inOid == null)
@@ -50,7 +51,7 @@ namespace Novell.Directory.Ldap.Utilclass
                 }
 
                 Type[] argsClass = {typeof(RfcLdapMessage) };
-                object[] args = {inResponse};
+                object[] args = {inResponse };
                 Exception ex;
                 try
                 {

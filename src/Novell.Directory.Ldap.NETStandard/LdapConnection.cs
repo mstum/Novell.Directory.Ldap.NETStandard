@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.LdapConnection.cs
 //
@@ -175,6 +176,7 @@ namespace Novell.Directory.Ldap
         public LdapConnection()
         {
             InitBlock();
+
             // Get a unique connection name for debug
             Connection = new Connection();
         }
@@ -550,7 +552,8 @@ namespace Novell.Directory.Ldap
             {
                 if (!Connection.AreMessagesComplete())
                 {
-                    throw new LdapLocalException(ExceptionMessages.OutstandingOperations,
+                    throw new LdapLocalException(
+                        ExceptionMessages.OutstandingOperations,
                         LdapException.OperationsError);
                 }
 
@@ -604,7 +607,8 @@ namespace Novell.Directory.Ldap
             {
                 if (!Connection.AreMessagesComplete())
                 {
-                    throw new LdapLocalException(ExceptionMessages.OutstandingOperations,
+                    throw new LdapLocalException(
+                        ExceptionMessages.OutstandingOperations,
                         LdapException.OperationsError);
                 }
 
@@ -3104,6 +3108,7 @@ namespace Novell.Directory.Ldap
             Exception ex = null;
             LdapConnection rconn = null;
             var rh = _defSearchCons.getReferralHandler();
+
             // Check if we use LdapRebind to get authentication credentials
             if (rh == null || rh is ILdapAuthHandler)
             {
@@ -3132,6 +3137,7 @@ namespace Novell.Directory.Ldap
                         rconn.Bind(LdapV3, dn, pw);
                         ex = null;
                         refInfo = new ReferralInfo(rconn, referrals, url);
+
                         // Indicate this connection created to follow referral
                         rconn.Connection.ActiveReferral = refInfo;
                         break;
@@ -3215,14 +3221,16 @@ namespace Novell.Directory.Ldap
                 }
                 else
                 {
-                    ldapex = new LdapLocalException(ExceptionMessages.ServerConnectError,
-                        new object[] {Connection.Host},
+                    ldapex = new LdapLocalException(
+                        ExceptionMessages.ServerConnectError,
+                        new object[] {Connection.Host },
                         LdapException.ConnectError, ex);
                 }
 
                 // Error attempting to follow a referral
                 var rex = new LdapReferralException(ExceptionMessages.ReferralError, ldapex);
                 rex.SetReferrals(referrals);
+
                 // Use last URL string for the failed referral
                 rex.FailedReferral = referrals[referrals.Length - 1];
                 throw rex;
@@ -3462,6 +3470,7 @@ namespace Novell.Directory.Ldap
                     }
 
                     break;
+
                 // We are allowed to get a referral for the following
 
                 case LdapMessage.AddRequest:
@@ -3473,7 +3482,7 @@ namespace Novell.Directory.Ldap
                 case LdapMessage.ModifyRequest:
                     break;
                 default:
-                    throw new LdapLocalException(ExceptionMessages.ImproperReferral, new object[] {msg.Type},
+                    throw new LdapLocalException(ExceptionMessages.ImproperReferral, new object[] {msg.Type },
                         LdapException.LocalError);
             }
 
@@ -3486,7 +3495,7 @@ namespace Novell.Directory.Ldap
         * @param list the list of the connections
         */
 
-        internal void ReleaseReferralConnections(ArrayList list)
+        private void ReleaseReferralConnections(ArrayList list)
         {
             if (list == null)
             {
@@ -3496,10 +3505,9 @@ namespace Novell.Directory.Ldap
             // Release referral connections
             for (var i = list.Count - 1; i >= 0; i--)
             {
-                LdapConnection rconn = null;
                 try
                 {
-                    rconn = (LdapConnection)list[i];
+                    var rconn = (LdapConnection)list[i];
                     list.RemoveAt(i);
                     rconn.Disconnect();
                 }
@@ -3599,7 +3607,7 @@ namespace Novell.Directory.Ldap
         /// </seealso>
         public string GetSchemaDn(string dn)
         {
-            string[] attrSubSchema = {"subschemaSubentry"};
+            string[] attrSubSchema = {"subschemaSubentry" };
 
             /* Read the entries subschemaSubentry attribute. Throws an exception if
             * no entries are returned. */
@@ -3609,13 +3617,13 @@ namespace Novell.Directory.Ldap
             var values = attr.StringValueArray;
             if (values == null || values.Length < 1)
             {
-                throw new LdapLocalException(ExceptionMessages.NoSchema, new object[] {dn},
+                throw new LdapLocalException(ExceptionMessages.NoSchema, new object[] {dn },
                     LdapException.NoResultsReturned);
             }
 
             if (values.Length > 1)
             {
-                throw new LdapLocalException(ExceptionMessages.MultipleSchema, new object[] {dn},
+                throw new LdapLocalException(ExceptionMessages.MultipleSchema, new object[] {dn },
                     LdapException.ConstraintViolation);
             }
 

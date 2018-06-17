@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Extensions.GetEffectivePrivilegesResponse.cs
 //
@@ -46,7 +47,7 @@ namespace Novell.Directory.Ldap.Extensions
         /// </summary>
 
         // Identity returned by the server
-        private readonly int[] _privileges = {0};
+        private readonly int[] _privileges = {0 };
 
         public GetEffectivePrivilegesListResponse(RfcLdapMessage rfcMessage)
             : base(rfcMessage)

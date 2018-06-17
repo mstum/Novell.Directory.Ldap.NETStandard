@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.MessageAgent.cs
 //
@@ -51,6 +52,7 @@ namespace Novell.Directory.Ldap
         internal MessageAgent()
         {
             InitBlock();
+
             // Get a unique agent id for debug
         }
 
@@ -219,6 +221,7 @@ namespace Novell.Directory.Ldap
         ///     constraints associated with this request.
         /// </param>
         internal void Abandon(int msgId, LdapConstraints cons)
+
             // , boolean informUser)
         {
             Message info = null;
@@ -244,6 +247,7 @@ namespace Novell.Directory.Ldap
             for (var i = 0; i < size; i++)
             {
                 info = (Message)_messages[i];
+
                 // Message complete and no more replies, remove from id list
                 SupportClass.VectorRemoveElement(_messages, info);
                 info.Abandon(null, null);
@@ -319,6 +323,7 @@ namespace Novell.Directory.Ldap
         ///     Returns a response queued, or waits if none queued.
         /// </summary>
 
+
 // internal System.Object getLdapMessage(System.Int32 msgId)
         internal object GetLdapMessage(int msgId)
         {
@@ -328,6 +333,7 @@ namespace Novell.Directory.Ldap
         internal object GetLdapMessage(Integer32 msgId)
         {
             object rfcMsg;
+
             // If no messages for this agent, just return null
             if (_messages.Count == 0)
             {
@@ -376,12 +382,14 @@ namespace Novell.Directory.Ldap
                         info = (Message)_messages[next];
                         _indexLastRead = next++;
                         rfcMsg = info.Reply;
+
                         // Check this request is complete
                         if (!info.AcceptsReplies() && !info.HasReplies())
                         {
                             // Message complete & no more replies, remove from id list
                             SupportClass.VectorRemoveElement(_messages, info); // remove from list
                             info.Abandon(null, null); // Get rid of resources
+
                             // Start loop at next message that is now moved
                             // to the current position in the Vector.
                             i -= 1;

@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.LdapReferralException.cs
 //
@@ -263,8 +264,10 @@ namespace Novell.Directory.Ldap
             // Add failed referral information
             if ((object)FailedReferral != null)
             {
-                tmsg = ResourcesHandler.GetMessage("FAILED_REFERRAL",
-                    new object[] {"LdapReferralException", FailedReferral});
+                tmsg = ResourcesHandler.GetMessage(
+                    "FAILED_REFERRAL",
+                    new object[] {"LdapReferralException", FailedReferral });
+
                 // If found no string from resource file, use a default string
                 if (tmsg.ToUpper().Equals("SERVER_MSG".ToUpper()))
                 {
@@ -279,8 +282,10 @@ namespace Novell.Directory.Ldap
             {
                 for (var i = 0; i < _referrals.Length; i++)
                 {
-                    tmsg = ResourcesHandler.GetMessage("REFERRAL_ITEM",
-                        new object[] {"LdapReferralException", _referrals[i]});
+                    tmsg = ResourcesHandler.GetMessage(
+                        "REFERRAL_ITEM",
+                        new object[] {"LdapReferralException", _referrals[i] });
+
                     // If found no string from resource file, use a default string
                     if (tmsg.ToUpper().Equals("SERVER_MSG".ToUpper()))
                     {

@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Asn1.Asn1Identifier.cs
 //
@@ -140,6 +141,7 @@ namespace Novell.Directory.Ldap.Asn1
             Constructed = (r & 0x20) != 0;
             Tag = r & 0x1F; // if tag < 30 then its a single octet identifier.
             if (Tag == 0x1F)
+
                 // if true, its a multiple octet identifier.
             {
                 Tag = DecodeTagNumber(inRenamed);
@@ -233,6 +235,7 @@ namespace Novell.Directory.Ldap.Asn1
             Constructed = (r & 0x20) != 0;
             Tag = r & 0x1F; // if tag < 30 then its a single octet identifier.
             if (Tag == 0x1F)
+
                 // if true, its a multiple octet identifier.
             {
                 Tag = DecodeTagNumber(inRenamed);

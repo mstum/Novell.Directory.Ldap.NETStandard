@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Events.DirectoryEventArgs.cs
 //
@@ -41,7 +42,8 @@ namespace Novell.Directory.Ldap.Events
     {
         protected EventClassifiers EClassification;
 
-        public DirectoryEventArgs(LdapMessage sourceMessage,
+        public DirectoryEventArgs(
+            LdapMessage sourceMessage,
             EventClassifiers aClassification)
             : base(sourceMessage)
         {

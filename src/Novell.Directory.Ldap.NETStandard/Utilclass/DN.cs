@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Utilclass.DN.cs
 //
@@ -226,6 +227,7 @@ namespace Novell.Directory.Ldap.Utilclass
                         if (currChar == '.')
                         {
                             tokenBuf[tokenIndex++] = currChar;
+
                             // The state remains at OID_ATTR_TYPE
                         }
                         else
@@ -278,6 +280,7 @@ namespace Novell.Directory.Ldap.Utilclass
                         else
                         {
                             valueStart = currIndex;
+
                             // check this character again in the UNQUOTED_RDN_VALUE state
                             currIndex--;
                             state = UnquotedRdnValue;
@@ -433,6 +436,7 @@ namespace Novell.Directory.Ldap.Utilclass
                             }
 
                             rawValue = dnString.Substring(valueStart, currIndex - valueStart);
+
                             // skip any spaces
                             while (currChar == ' ' && currIndex < lastIndex)
                             {
@@ -552,6 +556,7 @@ namespace Novell.Directory.Ldap.Utilclass
         private bool IsAlpha(char ch)
         {
             if (ch < 91 && ch > 64 || ch < 123 && ch > 96)
+
                 // ASCII A-Z
             {
                 return true;
@@ -574,6 +579,7 @@ namespace Novell.Directory.Ldap.Utilclass
         private bool IsDigit(char ch)
         {
             if (ch < 58 && ch > 47)
+
                 // ASCII 0-9
             {
                 return true;
@@ -595,6 +601,7 @@ namespace Novell.Directory.Ldap.Utilclass
         private static bool IsHexDigit(char ch)
         {
             if (ch < 58 && ch > 47 || ch < 71 && ch > 64 || ch < 103 && ch > 96)
+
                 // ASCII A-F
             {
                 return true;
@@ -644,16 +651,19 @@ namespace Novell.Directory.Ldap.Utilclass
             int result;
 
             if (hex1 < 58 && hex1 > 47)
+
                 // ASCII 0-9
             {
                 result = (hex1 - 48) * 16;
             }
             else if (hex1 < 71 && hex1 > 64)
+
                 // ASCII a-f
             {
                 result = (hex1 - 55) * 16;
             }
             else if (hex1 < 103 && hex1 > 96)
+
                 // ASCII A-F
             {
                 result = (hex1 - 87) * 16;
@@ -664,16 +674,19 @@ namespace Novell.Directory.Ldap.Utilclass
             }
 
             if (hex0 < 58 && hex0 > 47)
+
                 // ASCII 0-9
             {
                 result += hex0 - 48;
             }
             else if (hex0 < 71 && hex0 > 64)
+
                 // ASCII a-f
             {
                 result += hex0 - 55;
             }
             else if (hex0 < 103 && hex0 > 96)
+
                 // ASCII A-F
             {
                 result += hex0 - 87;
@@ -805,6 +818,7 @@ namespace Novell.Directory.Ldap.Utilclass
         {
             var i = containerDn._rdnList.Count - 1; // index to an RDN of the ContainerDN
             var j = _rdnList.Count - 1; // index to an RDN of the ContainedDN
+
             // Search from the end of the DN for an RDN that matches the end RDN of
             // containerDN.
             while (!((Rdn)_rdnList[j]).Equals((Rdn)containerDn._rdnList[i]))
@@ -821,6 +835,7 @@ namespace Novell.Directory.Ldap.Utilclass
 
             i--; // avoid a redundant compare
             j--;
+
             // step backwards to verify that all RDNs in containerDN exist in this DN
             for (; i >= 0 && j >= 0; i--, j--)
             {
@@ -831,6 +846,7 @@ namespace Novell.Directory.Ldap.Utilclass
             }
 
             if (j == 0 && i == 0)
+
                 // the DNs are identical and thus not contained
             {
                 return false;

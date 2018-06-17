@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.LdapModifyRequest.cs
 //
@@ -90,10 +91,12 @@ namespace Novell.Directory.Ldap
             {
                 // Get the RFC request object for this request
                 var req = (RfcModifyRequest)Asn1Object.GetRequest();
+
                 // get beginning sequenceOf modifications
                 var seqof = req.Modifications;
                 var mods = seqof.ToArray();
                 var modifications = new LdapModification[mods.Length];
+
                 // Process each modification
                 for (var m = 0; m < mods.Length; m++)
                 {
@@ -108,6 +111,7 @@ namespace Novell.Directory.Ldap
                     // Contains operation and sequence for the attribute
                     var opArray = opSeq.ToArray();
                     var asn1Op = (Asn1Enumerated)opArray[0];
+
                     // get the operation
                     var op = asn1Op.IntValue();
                     var attrSeq = (Asn1Sequence)opArray[1];

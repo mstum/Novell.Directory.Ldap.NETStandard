@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.LdapSearchResults.cs
 //
@@ -51,6 +52,7 @@ namespace Novell.Directory.Ldap
         private int _referenceCount; // # Search Result Reference in vector
 
         private int _referenceIndex; // Current position in vector
+
         // private ArrayList referralConn = null; // Referral Connections
 
         /// <summary>
@@ -152,6 +154,7 @@ namespace Novell.Directory.Ldap
                                 // LdapResponse
                                 var resp = (LdapResponse)msg;
                                 var resultCode = resp.ResultCode;
+
                                 // Check for an embedded exception
                                 if (resp.HasException())
                                 {
@@ -275,6 +278,7 @@ namespace Novell.Directory.Ldap
             ResetVectors();
 
             object element = null;
+
             // Check for Search References & deliver to app as they come in
             // We only get here if not following referrals/references
             if (_referenceIndex < _referenceCount)
@@ -320,7 +324,7 @@ namespace Novell.Directory.Ldap
                 // If not a Search Entry, Search Result, or search continuation
                 // we are very confused.
                 // LdapSearchResults.next(): No entry found & request is not complete
-                throw new LdapException(ExceptionMessages.ReferralLocal, new object[] {"next"},
+                throw new LdapException(ExceptionMessages.ReferralLocal, new object[] {"next" },
                     LdapException.LocalError, null);
             }
 

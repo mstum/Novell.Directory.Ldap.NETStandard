@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.LdapCompareRequest.cs
 //
@@ -67,8 +68,10 @@ namespace Novell.Directory.Ldap
         public LdapCompareRequest(string dn, string name, sbyte[] valueRenamed, LdapControl[] cont)
             : base(
                 CompareRequest,
-                new RfcCompareRequest(new RfcLdapDn(dn),
-                    new RfcAttributeValueAssertion(new RfcAttributeDescription(name),
+                new RfcCompareRequest(
+                    new RfcLdapDn(dn),
+                    new RfcAttributeValueAssertion(
+                        new RfcAttributeDescription(name),
                         new RfcAssertionValue(valueRenamed))), cont)
         {
         }

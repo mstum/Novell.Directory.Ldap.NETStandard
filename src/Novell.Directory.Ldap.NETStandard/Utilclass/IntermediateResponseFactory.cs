@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Utilclass.IntermediateResponseFactory.cs
 //
@@ -61,9 +62,11 @@ namespace Novell.Directory.Ldap.Utilclass
              *                          and an LDAP error code.
              */
         public static LdapIntermediateResponse ConvertToIntermediateResponse(RfcLdapMessage inResponse)
+
             // throws LDAPException
         {
             var tempResponse = new LdapIntermediateResponse(inResponse);
+
             // Get the oid stored in the Extended response
             var inOid = tempResponse.GetId();
 
@@ -78,7 +81,7 @@ namespace Novell.Directory.Ldap.Utilclass
                 }
 
                 Type[] argsClass = {typeof(RfcLdapMessage) };
-                object[] args = {inResponse};
+                object[] args = {inResponse };
                 Exception ex;
                 try
                 {

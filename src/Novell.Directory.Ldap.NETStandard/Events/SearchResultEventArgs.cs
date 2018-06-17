@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Events.SearchResultEventArgs.cs
 //
@@ -39,7 +40,8 @@ namespace Novell.Directory.Ldap.Events
     /// </summary>
     public class SearchResultEventArgs : LdapEventArgs
     {
-        public SearchResultEventArgs(LdapMessage sourceMessage,
+        public SearchResultEventArgs(
+            LdapMessage sourceMessage,
             EventClassifiers aClassification,
             LdapEventType aType)
             : base(sourceMessage, EventClassifiers.ClassificationLdapPsearch, aType)

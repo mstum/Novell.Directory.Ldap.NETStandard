@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.Asn1.Asn1OctetString.cs
 //
@@ -94,6 +95,7 @@ namespace Novell.Directory.Ldap.Asn1
                 var sbytes = SupportClass.ToSByteArray(ibytes);
 
                 _content = sbytes;
+
 // this.content = content.getBytes("UTF8");
             }
             catch (IOException uee)
@@ -159,6 +161,7 @@ namespace Novell.Directory.Ldap.Asn1
                 var encoder = Encoding.GetEncoding("utf-8");
                 var dchar = encoder.GetChars(SupportClass.ToByteArray(_content));
                 s = new string(dchar);
+
 // sbyte *sb=content;
 // s = new  String(sb,0,content.Length, new System.Text.UTF8Encoding());
             }

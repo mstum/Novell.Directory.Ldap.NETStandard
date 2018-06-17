@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.LdapSearchConstraints.cs
 //
@@ -109,6 +110,7 @@ namespace Novell.Directory.Ldap
         public LdapSearchConstraints()
         {
             InitBlock();
+
             // Get a unique connection name for debug
         }
 
@@ -235,6 +237,7 @@ namespace Novell.Directory.Ldap
             Dereference = dereference;
             MaxResults = maxResults;
             BatchSize = batchSize;
+
             // Get a unique connection name for debug
         }
 

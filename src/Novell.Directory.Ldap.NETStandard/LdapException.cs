@@ -20,6 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *******************************************************************************/
+
 //
 // Novell.Directory.Ldap.LdapException.cs
 //
@@ -829,6 +830,7 @@ namespace Novell.Directory.Ldap
 
                 }
             */
+
         // The Result Code
 
         // The Root Cause
@@ -1241,8 +1243,10 @@ namespace Novell.Directory.Ldap
             // Format the basic exception information
 
             // Craft a string from the resouce file
-            var msg = ResourcesHandler.GetMessage("TOSTRING",
+            var msg = ResourcesHandler.GetMessage(
+                "TOSTRING",
                 new object[] {exception, base.Message, ResultCode, ResultCodeToString() });
+
             // If found no string from resource file, use a default string
             if (msg.ToUpper().Equals("TOSTRING".ToUpper()))
             {
@@ -1252,7 +1256,8 @@ namespace Novell.Directory.Ldap
             // Add server message
             if ((object)_serverMessage != null && _serverMessage.Length != 0)
             {
-                tmsg = ResourcesHandler.GetMessage("SERVER_MSG", new object[] {exception, _serverMessage});
+                tmsg = ResourcesHandler.GetMessage("SERVER_MSG", new object[] {exception, _serverMessage });
+
                 // If found no string from resource file, use a default string
                 if (tmsg.ToUpper().Equals("SERVER_MSG".ToUpper()))
                 {
@@ -1265,7 +1270,8 @@ namespace Novell.Directory.Ldap
             // Add Matched DN message
             if ((object)MatchedDn != null)
             {
-                tmsg = ResourcesHandler.GetMessage("MATCHED_DN", new object[] {exception, MatchedDn});
+                tmsg = ResourcesHandler.GetMessage("MATCHED_DN", new object[] {exception, MatchedDn });
+
                 // If found no string from resource file, use a default string
                 if (tmsg.ToUpper().Equals("MATCHED_DN".ToUpper()))
                 {
