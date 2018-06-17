@@ -66,19 +66,19 @@ namespace Novell.Directory.Ldap.Rfc2251
         internal RfcModifyRequest(Asn1Object[] origRequest, string baseRenamed) : base(origRequest, origRequest.Length)
         {
             // Replace the base if specified, otherwise keep original base
-            if ((object) baseRenamed != null)
+            if ((object)baseRenamed != null)
             {
                 set_Renamed(0, new RfcLdapDn(baseRenamed));
             }
         }
 
         /// <summary>
-        ///     Return the Modifications for this request
+        ///     Return the Modifications for this request.
         /// </summary>
         /// <returns>
         ///     the modifications for this request.
         /// </returns>
-        public Asn1SequenceOf Modifications => (Asn1SequenceOf) get_Renamed(1);
+        public Asn1SequenceOf Modifications => (Asn1SequenceOf)get_Renamed(1);
 
         public IRfcRequest DupRequest(string baseRenamed, string filter, bool request)
         {
@@ -86,14 +86,14 @@ namespace Novell.Directory.Ldap.Rfc2251
         }
 
         /// <summary>
-        ///     Return the String value of the DN associated with this request
+        ///     Return the String value of the DN associated with this request.
         /// </summary>
         /// <returns>
         ///     the DN for this request.
         /// </returns>
         public string GetRequestDn()
         {
-            return ((RfcLdapDn) get_Renamed(0)).StringValue();
+            return ((RfcLdapDn)get_Renamed(0)).StringValue();
         }
 
         //*************************************************************************

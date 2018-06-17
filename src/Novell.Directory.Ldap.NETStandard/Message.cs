@@ -92,7 +92,7 @@ namespace Novell.Directory.Ldap
             }
         }
 
-        /// <summary> sets the agent for this message</summary>
+        /// <summary> sets the agent for this message.</summary>
         internal MessageAgent Agent
         {
             set => MessageAgent = value;
@@ -114,7 +114,7 @@ namespace Novell.Directory.Ldap
         internal int MessageId { get; }
 
         /// <summary>
-        ///     gets the operation complete status for this message
+        ///     gets the operation complete status for this message.
         /// </summary>
         /// <returns>
         ///     the true if the operation is complete, i.e.
@@ -122,12 +122,11 @@ namespace Novell.Directory.Ldap
         /// </returns>
         internal bool Complete { get; private set; }
 
-
         /// <summary>
-        ///     Gets the next reply from the reply queue if one exists
+        ///     Gets the next reply from the reply queue if one exists.
         /// </summary>
         /// <returns>
-        ///     the next reply message on the reply queue or null if none
+        ///     the next reply message on the reply queue or null if none.
         /// </returns>
         internal object Reply
         {
@@ -163,22 +162,20 @@ namespace Novell.Directory.Ldap
         }
 
         /// <summary>
-        ///     gets the LdapMessage request associated with this message
+        ///     gets the LdapMessage request associated with this message.
         /// </summary>
         /// <returns>
-        ///     the LdapMessage request associated with this message
+        ///     the LdapMessage request associated with this message.
         /// </returns>
         internal LdapMessage Request { get; private set; }
 
-
         internal bool BindRequest => _bindprops != null;
 
-
         /// <summary>
-        ///     gets the MessageAgent associated with this message
+        ///     gets the MessageAgent associated with this message.
         /// </summary>
         /// <returns>
-        ///     the MessageAgent associated with this message
+        ///     the MessageAgent associated with this message.
         /// </returns>
         internal MessageAgent MessageAgent { get; private set; }
 
@@ -188,10 +185,10 @@ namespace Novell.Directory.Ldap
         }
 
         /// <summary>
-        ///     Returns true if replies are queued
+        ///     Returns true if replies are queued.
         /// </summary>
         /// <returns>
-        ///     false if no replies are queued, otherwise true
+        ///     false if no replies are queued, otherwise true.
         /// </returns>
         internal bool HasReplies()
         {
@@ -205,10 +202,10 @@ namespace Novell.Directory.Ldap
         }
 
         /// <summary>
-        ///     Gets the next reply from the reply queue or waits until one is there
+        ///     Gets the next reply from the reply queue or waits until one is there.
         /// </summary>
         /// <returns>
-        ///     the next reply message on the reply queue or null
+        ///     the next reply message on the reply queue or null.
         /// </returns>
         internal object WaitForReply()
         {
@@ -254,7 +251,7 @@ namespace Novell.Directory.Ldap
         ///     Returns true if replies are accepted for this request.
         /// </summary>
         /// <returns>
-        ///     false if replies are no longer accepted for this request
+        ///     false if replies are no longer accepted for this request.
         /// </returns>
         internal bool AcceptsReplies()
         {
@@ -400,7 +397,6 @@ namespace Novell.Directory.Ldap
             _bindprops = null;
         }
 
-
         internal void PutReply(RfcLdapMessage message)
         {
             if (!_acceptReplies)
@@ -430,7 +426,7 @@ namespace Novell.Directory.Ldap
                     Complete = true;
                     if (_bindprops != null)
                     {
-                        res = ((IRfcResponse) message.Response).GetResultCode().IntValue();
+                        res = ((IRfcResponse)message.Response).GetResultCode().IntValue();
                         if (res != LdapException.SaslBindInProgress)
                         {
                             if (_conn == null)
@@ -473,7 +469,7 @@ namespace Novell.Directory.Ldap
             SleepersAwake();
         }
 
-        /// <summary> stops the timeout timer from running</summary>
+        /// <summary> stops the timeout timer from running.</summary>
         internal void StopTimer()
         {
             // If timer thread started, stop it
@@ -483,7 +479,7 @@ namespace Novell.Directory.Ldap
             }
         }
 
-        /// <summary> Notifies all waiting threads</summary>
+        /// <summary> Notifies all waiting threads.</summary>
         private void SleepersAwake()
         {
             // Notify any thread waiting for this message id
@@ -505,7 +501,6 @@ namespace Novell.Directory.Ldap
             private readonly Message _message;
 
             private readonly int _timeToWait;
-
 
             internal Timeout(Message enclosingInstance, int interval, Message msg)
             {

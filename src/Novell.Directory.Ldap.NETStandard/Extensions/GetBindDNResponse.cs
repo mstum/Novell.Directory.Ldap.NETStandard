@@ -40,7 +40,7 @@ namespace Novell.Directory.Ldap.Extensions
     ///     An object in this class is generated from an LdapExtendedResponse object
     ///     using the ExtendedResponseFactory class.
     ///     The GetBindDNResponse extension uses the following OID:
-    ///     2.16.840.1.113719.1.27.100.32
+    ///     2.16.840.1.113719.1.27.100.32.
     /// </summary>
     public class GetBindDnResponse : LdapExtendedResponse
     {
@@ -51,7 +51,7 @@ namespace Novell.Directory.Ldap.Extensions
         ///     The constructor parses the responseValue which has the following
         ///     format:
         ///     responseValue ::=
-        ///     identity   OCTET STRING
+        ///     identity   OCTET STRING.
         /// </summary>
         /// <exception>
         ///     IOException The return value could not be decoded.
@@ -75,7 +75,7 @@ namespace Novell.Directory.Ldap.Extensions
                 }
 
                 // The only parameter returned should be an octet string
-                var asn1Identity = (Asn1OctetString) decoder.Decode(returnedValue);
+                var asn1Identity = (Asn1OctetString)decoder.Decode(returnedValue);
                 if (asn1Identity == null)
                 {
                     throw new IOException("Decoding error");
@@ -83,7 +83,7 @@ namespace Novell.Directory.Ldap.Extensions
 
                 // Convert to normal string object
                 Identity = asn1Identity.StringValue();
-                if ((object) Identity == null)
+                if ((object)Identity == null)
                 {
                     throw new IOException("Decoding error");
                 }

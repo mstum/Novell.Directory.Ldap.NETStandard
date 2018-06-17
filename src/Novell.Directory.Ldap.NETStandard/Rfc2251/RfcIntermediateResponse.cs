@@ -42,7 +42,7 @@ namespace Novell.Directory.Ldap.Rfc2251
     ///     encoded response from
     ///     pre Falcon-sp1 server
     ///     responseName     [10] LDAPOID OPTIONAL,
-    ///     responseValue    [11] OCTET STRING OPTIONAL }
+    ///     responseValue    [11] OCTET STRING OPTIONAL }.
     /// </summary>
     public class RfcIntermediateResponse : Asn1Sequence, IRfcResponse
     {
@@ -59,7 +59,6 @@ namespace Novell.Directory.Ldap.Rfc2251
         private readonly int _mResponseValueIndex;
 
         private int _mReferralIndex;
-
 
         //*************************************************************************
         // Constructors for ExtendedResponse
@@ -96,7 +95,6 @@ namespace Novell.Directory.Ldap.Rfc2251
          * oid of the response. The element at m_responseValueIndex will be set
          * to an ASN1OctetString containing the value bytes.
          */
-
         [CLSCompliant(false)]
         public RfcIntermediateResponse(IAsn1Decoder dec, Stream inRenamed, int len) : base(dec, inRenamed, len)
         //		throws IOException
@@ -121,13 +119,13 @@ namespace Novell.Directory.Ldap.Rfc2251
 
             for (; i < Size(); i++)
             {
-                var obj = (Asn1Tagged) get_Renamed(i);
+                var obj = (Asn1Tagged)get_Renamed(i);
                 var id = obj.GetIdentifier();
                 switch (id.Tag)
                 {
                     case TagResponseName:
                         set_Renamed(i, new RfcLdapOid(
-                            ((Asn1OctetString) obj.TaggedValue).ByteValue()));
+                            ((Asn1OctetString)obj.TaggedValue).ByteValue()));
                         _mResponseNameIndex = i;
                         break;
 
@@ -143,7 +141,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         {
             if (Size() > 3)
             {
-                return (Asn1Enumerated) get_Renamed(0);
+                return (Asn1Enumerated)get_Renamed(0);
             }
 
             return null;
@@ -153,7 +151,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         {
             if (Size() > 3)
             {
-                return new RfcLdapDn(((Asn1OctetString) get_Renamed(1)).ByteValue());
+                return new RfcLdapDn(((Asn1OctetString)get_Renamed(1)).ByteValue());
             }
 
             return null;
@@ -163,7 +161,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         {
             if (Size() > 3)
             {
-                return new RfcLdapString(((Asn1OctetString) get_Renamed(2)).ByteValue());
+                return new RfcLdapString(((Asn1OctetString)get_Renamed(2)).ByteValue());
             }
 
             return null;
@@ -171,27 +169,26 @@ namespace Novell.Directory.Ldap.Rfc2251
 
         public RfcReferral GetReferral()
         {
-            return Size() > 3 ? (RfcReferral) get_Renamed(3) : null;
+            return Size() > 3 ? (RfcReferral)get_Renamed(3) : null;
         }
 
         public RfcLdapOid GetResponseName()
         {
             return _mResponseNameIndex >= 0
-                ? (RfcLdapOid) get_Renamed(_mResponseNameIndex)
+                ? (RfcLdapOid)get_Renamed(_mResponseNameIndex)
                 : null;
         }
 
         public Asn1OctetString GetResponse()
         {
             return _mResponseValueIndex != 0
-                ? (Asn1OctetString) get_Renamed(_mResponseValueIndex)
+                ? (Asn1OctetString)get_Renamed(_mResponseValueIndex)
                 : null;
         }
 
         /**
          * Override getIdentifier to return an application-wide id.
          */
-
         public override Asn1Identifier GetIdentifier()
         {
             return new Asn1Identifier(Asn1Identifier.Application, true,

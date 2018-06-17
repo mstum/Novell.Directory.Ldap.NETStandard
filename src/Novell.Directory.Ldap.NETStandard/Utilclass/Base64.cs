@@ -102,20 +102,20 @@ namespace Novell.Directory.Ldap.Utilclass
         ///     If the first byte indicates that a sequence has three bytes in a
         ///     sequence. Then the top five bits cannot be zero.  Notice the index into
         ///     the array is one less than the number of bytes in a sequence.
-        ///     A validity test for this could be:
+        ///     A validity test for this could be:.
         /// </summary>
         private static readonly sbyte[][] LowerBoundMask =
         {
-            new sbyte[] {0, 0}, new[] {(sbyte) 0x1E, (sbyte) 0x00},
-            new[] {(sbyte) 0x0F, (sbyte) 0x20}, new[] {(sbyte) 0x07, (sbyte) 0x30}, new[] {(sbyte) 0x02, (sbyte) 0x38},
-            new[] {(sbyte) 0x01, (sbyte) 0x3C}
+            new sbyte[] {0, 0}, new[] { (sbyte)0x1E, (sbyte)0x00},
+            new[] { (sbyte)0x0F, (sbyte)0x20}, new[] { (sbyte)0x07, (sbyte)0x30}, new[] { (sbyte)0x02, (sbyte)0x38},
+            new[] { (sbyte)0x01, (sbyte)0x3C}
         };
 
-        /// <summary>mask to AND with a continuation byte: should equal continuationResult </summary>
-        private static readonly sbyte ContinuationMask = (sbyte) SupportClass.Identity(0xC0);
+        /// <summary>mask to AND with a continuation byte: should equal continuationResult. </summary>
+        private static readonly sbyte ContinuationMask = (sbyte)SupportClass.Identity(0xC0);
 
-        /// <summary>expected result of ANDing a continuation byte with continuationMask </summary>
-        private static readonly sbyte ContinuationResult = (sbyte) SupportClass.Identity(0x80);
+        /// <summary>expected result of ANDing a continuation byte with continuationMask. </summary>
+        private static readonly sbyte ContinuationResult = (sbyte)SupportClass.Identity(0x80);
 
         /// <summary>
         ///     Default constructor, don't allow instances of the
@@ -124,7 +124,6 @@ namespace Novell.Directory.Ldap.Utilclass
         private Base64()
         {
         }
-
 
         /// <summary>
         ///     Encodes the specified String into a base64 encoded String object.
@@ -158,7 +157,7 @@ namespace Novell.Directory.Ldap.Utilclass
         ///     the byte array to be encoded.
         /// </param>
         /// <returns>
-        ///     a String containing the base64 encoded data
+        ///     a String containing the base64 encoded data.
         /// </returns>
         [CLSCompliant(false)]
         public static string Encode(sbyte[] inputBytes)
@@ -179,6 +178,7 @@ namespace Novell.Directory.Ldap.Utilclass
             {
                 ntb = len / 3;
             }
+
             // the last one or two bytes will be encoded into
             // four bytes with one or two paddings
             else
@@ -191,6 +191,7 @@ namespace Novell.Directory.Ldap.Utilclass
             {
                 twoPaddings = true;
             }
+
             // need one padding
             else if (len % 3 == 2)
             {
@@ -252,7 +253,6 @@ namespace Novell.Directory.Ldap.Utilclass
 
             return new string(encodedChars);
         }
-
 
         /// <summary>
         ///     Decodes the input base64 encoded String.
@@ -352,7 +352,7 @@ namespace Novell.Directory.Ldap.Utilclass
             for (i = 0, j = 0, k = 1; i < ecLen; i += 4, j += 3, k++)
             {
                 // build decodedBytes[j].
-                decodedBytes[j] = (sbyte) ((Dmap[encodedChars[i]] << 2) | ((Dmap[encodedChars[i + 1]] & 0x30) >> 4));
+                decodedBytes[j] = (sbyte)((Dmap[encodedChars[i]] << 2) | ((Dmap[encodedChars[i + 1]] & 0x30) >> 4));
 
                 // build decodedBytes[j+1]
                 if (k == gn && twoPads)
@@ -361,7 +361,7 @@ namespace Novell.Directory.Ldap.Utilclass
                 }
 
                 decodedBytes[j + 1] =
-                    (sbyte) (((Dmap[encodedChars[i + 1]] & 0x0f) << 4) | ((Dmap[encodedChars[i + 2]] & 0x3c) >> 2));
+                    (sbyte)(((Dmap[encodedChars[i + 1]] & 0x0f) << 4) | ((Dmap[encodedChars[i + 2]] & 0x3c) >> 2));
 
                 // build decodedBytes[j+2]
                 if (k == gn && onePad)
@@ -370,7 +370,7 @@ namespace Novell.Directory.Ldap.Utilclass
                 }
 
                 decodedBytes[j + 2] =
-                    (sbyte) (((Dmap[encodedChars[i + 2]] & 0x03) << 6) | (Dmap[encodedChars[i + 3]] & 0x3f));
+                    (sbyte)(((Dmap[encodedChars[i + 2]] & 0x03) << 6) | (Dmap[encodedChars[i + 3]] & 0x3f));
             }
 
             return decodedBytes;
@@ -393,7 +393,7 @@ namespace Novell.Directory.Ldap.Utilclass
         ///     The end index + 1 of the base64 encoded data.
         /// </param>
         /// <returns>
-        ///     The decoded byte array
+        ///     The decoded byte array.
         /// </returns>
         [CLSCompliant(false)]
         public static sbyte[] Decode(StringBuilder encodedSBuf, int start, int end)
@@ -465,7 +465,7 @@ namespace Novell.Directory.Ldap.Utilclass
             {
                 // build decodedBytes[j].
                 decodedBytes[j] =
-                    (sbyte) ((Dmap[encodedSBuf[start + i]] << 2) | ((Dmap[encodedSBuf[start + i + 1]] & 0x30) >> 4));
+                    (sbyte)((Dmap[encodedSBuf[start + i]] << 2) | ((Dmap[encodedSBuf[start + i + 1]] & 0x30) >> 4));
 
                 // build decodedBytes[j+1]
                 if (k == gn && twoPads)
@@ -523,7 +523,7 @@ namespace Novell.Directory.Ldap.Utilclass
         ///     the bytes to be checked.
         /// </param>
         /// <returns>
-        ///     true if encoding not required for LDIF
+        ///     true if encoding not required for LDIF.
         /// </returns>
         [CLSCompliant(false)]
         public static bool IsLdifSafe(sbyte[] bytes)
@@ -593,7 +593,7 @@ namespace Novell.Directory.Ldap.Utilclass
         ///     the String to be checked.
         /// </param>
         /// <returns>
-        ///     true if encoding not required for LDIF
+        ///     true if encoding not required for LDIF.
         /// </returns>
         public static bool IsLdifSafe(string str)
         {
@@ -698,8 +698,8 @@ namespace Novell.Directory.Ldap.Utilclass
         ///     2-byte characters). UTF-8 can be encoded as USC2 and UCS4 (4-byte
         ///     characters).  Some valid UTF-8 characters cannot be represented as UCS2
         ///     characters. To determine if all UTF-8 sequences can be encoded into
-        ///     UCS2 characters (a Java String), specify the <code>isUCS2Only</code>
-        ///     parameter as <code>true</code>.
+        ///     UCS2 characters (a Java String), specify the. <code>isUCS2Only</code>
+        ///     parameter as. <code>true</code>.
         /// </summary>
         /// <param name="array">
         ///     An array of bytes that are to be tested for valid UTF-8
@@ -707,14 +707,14 @@ namespace Novell.Directory.Ldap.Utilclass
         /// </param>
         /// <param name="isUcs2Only">
         ///     true if the UTF-8 values must be restricted to fit
-        ///     within UCS2 encoding (2 bytes)
+        ///     within UCS2 encoding (2 bytes).
         /// </param>
         /// <returns>
         ///     true if all values in the byte array are valid UTF-8
-        ///     sequences.  If <code>isUCS2Only</code> is
+        ///     sequences.  If. <code>isUCS2Only</code> is.
         ///     <code>true</code>, the method returns false if a UTF-8
         ///     sequence generates any character that cannot be
-        ///     represented as a UCS2 character (Java String)
+        ///     represented as a UCS2 character (Java String).
         /// </returns>
         [CLSCompliant(false)]
         public static bool IsValidUtf8(sbyte[] array, bool isUcs2Only)

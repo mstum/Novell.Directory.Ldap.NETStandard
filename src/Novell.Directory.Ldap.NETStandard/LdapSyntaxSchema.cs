@@ -83,12 +83,12 @@ namespace Novell.Directory.Ldap
             {
                 var parser = new SchemaParser(raw);
 
-                if ((object) parser.Id != null)
+                if ((object)parser.Id != null)
                 {
                     Oid = parser.Id;
                 }
 
-                if ((object) parser.Description != null)
+                if ((object)parser.Description != null)
                 {
                     Description = parser.Description;
                 }
@@ -96,7 +96,7 @@ namespace Novell.Directory.Ldap
                 var qualifiers = parser.Qualifiers;
                 while (qualifiers.MoveNext())
                 {
-                    var attrQualifier = (AttributeQualifier) qualifiers.Current;
+                    var attrQualifier = (AttributeQualifier)qualifiers.Current;
                     SetQualifier(attrQualifier.Name, attrQualifier.Values);
                 }
 
@@ -120,12 +120,12 @@ namespace Novell.Directory.Ldap
             var valueBuffer = new StringBuilder("( ");
             string token;
 
-            if ((object) (token = Id) != null)
+            if ((object)(token = Id) != null)
             {
                 valueBuffer.Append(token);
             }
 
-            if ((object) (token = Description) != null)
+            if ((object)(token = Description) != null)
             {
                 valueBuffer.Append(" DESC ");
                 valueBuffer.Append("'" + token + "'");
@@ -138,7 +138,7 @@ namespace Novell.Directory.Ldap
                 string[] qualValue;
                 while (en.MoveNext())
                 {
-                    qualName = (string) en.Current;
+                    qualName = (string)en.Current;
                     valueBuffer.Append(" " + qualName + " ");
                     if ((qualValue = GetQualifier(qualName)) != null)
                     {

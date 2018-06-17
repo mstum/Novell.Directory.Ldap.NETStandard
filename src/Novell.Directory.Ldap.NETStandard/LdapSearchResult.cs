@@ -63,7 +63,7 @@ namespace Novell.Directory.Ldap
         ///     the LdapEntry represented by this search result.
         /// </param>
         /// <param name="cont">
-        ///     controls associated with the search result
+        ///     controls associated with the search result.
         /// </param>
         public LdapSearchResult(LdapEntry entry, LdapControl[] cont)
         {
@@ -79,7 +79,7 @@ namespace Novell.Directory.Ldap
         ///     Returns the entry of a server's search response.
         /// </summary>
         /// <returns>
-        ///     The LdapEntry associated with this LdapSearchResult
+        ///     The LdapEntry associated with this LdapSearchResult.
         /// </returns>
         public LdapEntry Entry
         {
@@ -89,25 +89,25 @@ namespace Novell.Directory.Ldap
                 {
                     var attrs = new LdapAttributeSet();
 
-                    var attrList = ((RfcSearchResultEntry) Message.Response).Attributes;
+                    var attrList = ((RfcSearchResultEntry)Message.Response).Attributes;
 
                     var seqArray = attrList.ToArray();
                     for (var i = 0; i < seqArray.Length; i++)
                     {
-                        var seq = (Asn1Sequence) seqArray[i];
-                        var attr = new LdapAttribute(((Asn1OctetString) seq.get_Renamed(0)).StringValue());
+                        var seq = (Asn1Sequence)seqArray[i];
+                        var attr = new LdapAttribute(((Asn1OctetString)seq.get_Renamed(0)).StringValue());
 
-                        var setRenamed = (Asn1Set) seq.get_Renamed(1);
+                        var setRenamed = (Asn1Set)seq.get_Renamed(1);
                         object[] setArray = setRenamed.ToArray();
                         for (var j = 0; j < setArray.Length; j++)
                         {
-                            attr.AddValue(((Asn1OctetString) setArray[j]).ByteValue());
+                            attr.AddValue(((Asn1OctetString)setArray[j]).ByteValue());
                         }
 
                         attrs.Add(attr);
                     }
 
-                    _entry = new LdapEntry(((RfcSearchResultEntry) Message.Response).ObjectName.StringValue(), attrs);
+                    _entry = new LdapEntry(((RfcSearchResultEntry)Message.Response).ObjectName.StringValue(), attrs);
                 }
 
                 return _entry;

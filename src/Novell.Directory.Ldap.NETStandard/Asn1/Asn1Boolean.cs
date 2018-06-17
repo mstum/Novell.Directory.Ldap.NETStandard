@@ -59,7 +59,7 @@ namespace Novell.Directory.Ldap.Asn1
         /// </summary>
         /// <param name="content">
         ///     The boolean value to be contained in the
-        ///     this Asn1Boolean object
+        ///     this Asn1Boolean object.
         /// </param>
         public Asn1Boolean(bool content) : base(Id)
         {
@@ -73,15 +73,15 @@ namespace Novell.Directory.Ldap.Asn1
         /// <param name="dec">
         ///     The decoder object to use when decoding the
         ///     input stream.  Sometimes a developer might want to pass
-        ///     in his/her own decoder object
+        ///     in his/her own decoder object.
         /// </param>
         /// <param name="in">
-        ///     A byte stream that contains the encoded ASN.1
+        ///     A byte stream that contains the encoded ASN.1.
         /// </param>
         [CLSCompliant(false)]
         public Asn1Boolean(IAsn1Decoder dec, Stream inRenamed, int len) : base(Id)
         {
-            _content = (bool) dec.DecodeBoolean(inRenamed, len);
+            _content = (bool)dec.DecodeBoolean(inRenamed, len);
         }
 
         /* Asn1Object implementation

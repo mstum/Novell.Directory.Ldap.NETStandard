@@ -46,7 +46,7 @@ namespace Novell.Directory.Ldap.Extensions
     ///     The requestValue has the following format:
     ///     requestValue ::=
     ///     flags   INTEGER
-    ///     dn      LdapDN
+    ///     dn      LdapDN.
     /// </summary>
     public class MergePartitionsRequest : LdapExtendedOperation
     {
@@ -71,7 +71,7 @@ namespace Novell.Directory.Ldap.Extensions
         {
             try
             {
-                if ((object) dn == null)
+                if ((object)dn == null)
                 {
                     throw new ArgumentException(ExceptionMessages.ParamError);
                 }

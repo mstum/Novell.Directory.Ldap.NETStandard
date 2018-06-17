@@ -60,7 +60,7 @@ namespace Novell.Directory.Ldap
         ///     The queue for the search results.
         /// </param>
         /// <param name="cons">
-        ///     The LdapSearchConstraints associated with this search
+        ///     The LdapSearchConstraints associated with this search.
         /// </param>
         internal LdapSearchResults(LdapSearchQueue queue, LdapSearchConstraints cons)
         {
@@ -127,7 +127,7 @@ namespace Novell.Directory.Ldap
                             if (msg is LdapSearchResult)
                             {
                                 // Search Entry
-                                object entry = ((LdapSearchResult) msg).Entry;
+                                object entry = ((LdapSearchResult)msg).Entry;
                                 _entries.Add(entry);
                                 i++;
                                 _entryCount++;
@@ -135,7 +135,7 @@ namespace Novell.Directory.Ldap
                             else if (msg is LdapSearchResultReference)
                             {
                                 // Search Ref
-                                var refs = ((LdapSearchResultReference) msg).Referrals;
+                                var refs = ((LdapSearchResultReference)msg).Referrals;
 
                                 if (_cons.ReferralFollowing)
                                 {
@@ -150,7 +150,7 @@ namespace Novell.Directory.Ldap
                             else
                             {
                                 // LdapResponse
-                                var resp = (LdapResponse) msg;
+                                var resp = (LdapResponse)msg;
                                 var resultCode = resp.ResultCode;
                                 // Check for an embedded exception
                                 if (resp.HasException())
@@ -212,7 +212,7 @@ namespace Novell.Directory.Ldap
         ///     received.
         /// </summary>
         /// <returns>
-        ///     The number of items received but not retrieved by the application
+        ///     The number of items received but not retrieved by the application.
         /// </returns>
         public int Count
         {
@@ -279,7 +279,7 @@ namespace Novell.Directory.Ldap
             // We only get here if not following referrals/references
             if (_referenceIndex < _referenceCount)
             {
-                var refs = (string[]) _references[_referenceIndex++];
+                var refs = (string[])_references[_referenceIndex++];
                 var rex = new LdapReferralException(ExceptionMessages.ReferenceNofollow);
                 rex.SetReferrals(refs);
                 throw rex;
@@ -292,9 +292,9 @@ namespace Novell.Directory.Ldap
                 if (element is LdapResponse)
                 {
                     // Search done w/bad status
-                    if (((LdapResponse) element).HasException())
+                    if (((LdapResponse)element).HasException())
                     {
-                        var lr = (LdapResponse) element;
+                        var lr = (LdapResponse)element;
                         var ri = lr.ActiveReferral;
 
                         if (ri != null)
@@ -308,11 +308,11 @@ namespace Novell.Directory.Ldap
                     }
 
                     // Throw an exception if not success
-                    ((LdapResponse) element).ChkResultCode();
+                    ((LdapResponse)element).ChkResultCode();
                 }
                 else if (element is LdapException)
                 {
-                    throw (LdapException) element;
+                    throw (LdapException)element;
                 }
             }
             else
@@ -324,12 +324,12 @@ namespace Novell.Directory.Ldap
                     LdapException.LocalError, null);
             }
 
-            return (LdapEntry) element;
+            return (LdapEntry)element;
         }
 
         /// <summary>Returns an enumerator that iterates through a collection.</summary>
         /// <returns>An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.</returns>
-        /// <filterpriority>2</filterpriority>
+        /// <filterpriority>2.</filterpriority>
         public IEnumerator<LdapEntry> GetEnumerator()
         {
             while (HasMore())

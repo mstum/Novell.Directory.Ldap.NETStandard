@@ -29,7 +29,6 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-
 using System;
 using Novell.Directory.Ldap.Controls;
 
@@ -48,8 +47,7 @@ namespace Novell.Directory.Ldap.Events
         public delegate
             void SearchReferralEventHandler(
                 object source,
-                SearchReferralEventArgs objArgs
-            );
+                SearchReferralEventArgs objArgs);
 
         /// <summary>
         ///     SearchResultEventHandler is the delegate definition for SearchResultEvent.
@@ -59,8 +57,7 @@ namespace Novell.Directory.Ldap.Events
         public delegate
             void SearchResultEventHandler(
                 object source,
-                SearchResultEventArgs objArgs
-            );
+                SearchResultEventArgs objArgs);
 
         private readonly string[] _mAttrs;
 
@@ -87,8 +84,7 @@ namespace Novell.Directory.Ldap.Events
             bool typesOnly,
             LdapSearchConstraints constraints,
             LdapEventType eventchangetype,
-            bool changeonly
-        )
+            bool changeonly)
         {
             // validate the input arguments
             if (conn == null
@@ -119,7 +115,7 @@ namespace Novell.Directory.Ldap.Events
 
             //Create the persistent search control
             var psCtrl =
-                new LdapPersistSearchControl((int) eventchangetype, // any change
+                new LdapPersistSearchControl((int)eventchangetype, // any change
                     changeonly, //only get changes
                     true, //return entry change controls
                     true); //control is critcal
@@ -169,12 +165,12 @@ namespace Novell.Directory.Ldap.Events
         protected override int GetListeners()
         {
             var nListeners = 0;
-            if (null != _searchResultEvent)
+            if (_searchResultEvent != null)
             {
                 nListeners = _searchResultEvent.GetInvocationList().Length;
             }
 
-            if (null != _searchReferralEvent)
+            if (_searchReferralEvent != null)
             {
                 nListeners += _searchReferralEvent.GetInvocationList().Length;
             }
@@ -201,8 +197,7 @@ namespace Novell.Directory.Ldap.Events
                 throw new LdapException(
                     null,
                     LdapException.LocalError,
-                    "Unable to Obtain Message Id"
-                );
+                    "Unable to Obtain Message Id");
             }
 
             StartEventPolling(_mQueue, _mConnection, ids[0]);
@@ -219,7 +214,7 @@ namespace Novell.Directory.Ldap.Events
             int nType)
         {
             var bListenersNotified = false;
-            if (null == sourceMessage)
+            if (sourceMessage == null)
             {
                 return bListenersNotified;
             }
@@ -227,21 +222,20 @@ namespace Novell.Directory.Ldap.Events
             switch (sourceMessage.Type)
             {
                 case LdapMessage.SearchResultReference:
-                    if (null != _searchReferralEvent)
+                    if (_searchReferralEvent != null)
                     {
                         _searchReferralEvent(this,
                             new SearchReferralEventArgs(
                                 sourceMessage,
                                 aClassification,
-                                (LdapEventType) nType)
-                        );
+                                (LdapEventType)nType));
                         bListenersNotified = true;
                     }
 
                     break;
 
                 case LdapMessage.SearchResponse:
-                    if (null != _searchResultEvent)
+                    if (_searchResultEvent != null)
                     {
                         var changeType = LdapEventType.TypeUnknown;
                         var controls = sourceMessage.Controls;
@@ -249,7 +243,7 @@ namespace Novell.Directory.Ldap.Events
                         {
                             if (control is LdapEntryChangeControl)
                             {
-                                changeType = (LdapEventType) ((LdapEntryChangeControl) control).ChangeType;
+                                changeType = (LdapEventType)((LdapEntryChangeControl)control).ChangeType;
                                 // TODO: Why is this continue here..? (from Java code..)
                                 // TODO: Why are we interested only in the last changeType..?
                             }
@@ -260,8 +254,7 @@ namespace Novell.Directory.Ldap.Events
                             new SearchResultEventArgs(
                                 sourceMessage,
                                 aClassification,
-                                changeType)
-                        );
+                                changeType));
                         bListenersNotified = true;
                     }
 

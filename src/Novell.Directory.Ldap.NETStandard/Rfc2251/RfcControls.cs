@@ -43,7 +43,7 @@ namespace Novell.Directory.Ldap.Rfc2251
     /// </summary>
     public class RfcControls : Asn1SequenceOf
     {
-        /// <summary> Controls context specific tag</summary>
+        /// <summary> Controls context specific tag.</summary>
         public const int Controls = 0;
 
         //*************************************************************************
@@ -66,7 +66,7 @@ namespace Novell.Directory.Ldap.Rfc2251
             // Convert each SEQUENCE element to a Control
             for (var i = 0; i < Size(); i++)
             {
-                var tempControl = new RfcControl((Asn1Sequence) get_Renamed(i));
+                var tempControl = new RfcControl((Asn1Sequence)get_Renamed(i));
                 set_Renamed(i, tempControl);
             }
         }

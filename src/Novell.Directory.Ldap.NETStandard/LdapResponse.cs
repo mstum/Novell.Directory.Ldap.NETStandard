@@ -61,11 +61,11 @@ namespace Novell.Directory.Ldap
         ///     to follow a referral.
         /// </summary>
         /// <param name="ex">
-        ///     The exception
+        ///     The exception.
         /// </param>
         /// <param name="activeReferral">
         ///     The referral actually used to create the
-        ///     connection
+        ///     connection.
         /// </param>
         public LdapResponse(InterThreadException ex, ReferralInfo activeReferral)
         {
@@ -114,18 +114,18 @@ namespace Novell.Directory.Ldap
         /// <param name="matchedDn">
         ///     The name of the lowest entry that was matched
         ///     for some error result codes, an empty string
-        ///     or <code>null</code> if none.
+        ///     or. <code>null</code> if none.
         /// </param>
         /// <param name="serverMessage">
         ///     A diagnostic message returned by the server,
-        ///     an empty string or <code>null</code> if none.
+        ///     an empty string or. <code>null</code> if none.
         /// </param>
         /// <param name="referrals">
         ///     The referral URLs returned for a REFERRAL result
-        ///     code or <code>null</code> if none.
+        ///     code or. <code>null</code> if none.
         /// </param>
         /// <param name="controls">
-        ///     Any controls returned by the server or
+        ///     Any controls returned by the server or.
         ///     <code>null</code> if none.
         /// </param>
         /// <seealso cref="LdapMessage">
@@ -164,7 +164,7 @@ namespace Novell.Directory.Ldap
 				Console.WriteLine(" Response is non null" + str);
 				return str;
 */
-                return ((IRfcResponse) Message.Response).GetErrorMessage().StringValue();
+                return ((IRfcResponse)Message.Response).GetErrorMessage().StringValue();
             }
         }
 
@@ -184,7 +184,7 @@ namespace Novell.Directory.Ldap
                     return _exception.MatchedDn;
                 }
 
-                return ((IRfcResponse) Message.Response).GetMatchedDn().StringValue();
+                return ((IRfcResponse)Message.Response).GetMatchedDn().StringValue();
             }
         }
 
@@ -199,7 +199,7 @@ namespace Novell.Directory.Ldap
             get
             {
                 string[] referrals = null;
-                var refRenamed = ((IRfcResponse) Message.Response).GetReferral();
+                var refRenamed = ((IRfcResponse)Message.Response).GetReferral();
 
                 if (refRenamed == null)
                 {
@@ -212,16 +212,16 @@ namespace Novell.Directory.Ldap
                     referrals = new string[size];
                     for (var i = 0; i < size; i++)
                     {
-                        var aRef = ((Asn1OctetString) refRenamed.get_Renamed(i)).StringValue();
+                        var aRef = ((Asn1OctetString)refRenamed.get_Renamed(i)).StringValue();
                         try
                         {
                             // get the referral URL
                             var urlRef = new LdapUrl(aRef);
-                            if ((object) urlRef.GetDn() == null)
+                            if ((object)urlRef.GetDn() == null)
                             {
                                 var origMsg = Asn1Object.RequestingMessage.Asn1Object;
                                 string dn;
-                                if ((object) (dn = origMsg.RequestDn) != null)
+                                if ((object)(dn = origMsg.RequestDn) != null)
                                 {
                                     urlRef.SetDn(dn);
                                     aRef = urlRef.ToString();
@@ -259,12 +259,12 @@ namespace Novell.Directory.Ldap
                     return _exception.ResultCode;
                 }
 
-                if ((IRfcResponse) Message.Response is RfcIntermediateResponse)
+                if ((IRfcResponse)Message.Response is RfcIntermediateResponse)
                 {
                     return 0;
                 }
 
-                return ((IRfcResponse) Message.Response).GetResultCode().IntValue();
+                return ((IRfcResponse)Message.Response).GetResultCode().IntValue();
             }
         }
 
@@ -288,7 +288,7 @@ namespace Novell.Directory.Ldap
                         var refs = Referrals;
                         ex = new LdapReferralException("Automatic referral following not enabled",
                             LdapException.Referral, ErrorMessage);
-                        ((LdapReferralException) ex).SetReferrals(refs);
+                        ((LdapReferralException)ex).SetReferrals(refs);
                         break;
 
                     default:
@@ -359,10 +359,10 @@ namespace Novell.Directory.Ldap
         }
 
         /// <summary>
-        ///     Returns an embedded exception response
+        ///     Returns an embedded exception response.
         /// </summary>
         /// <returns>
-        ///     an embedded exception if any
+        ///     an embedded exception if any.
         /// </returns>
         internal LdapException Exception => _exception;
 
@@ -371,7 +371,7 @@ namespace Novell.Directory.Ldap
         ///     connection created to follow referrals.
         /// </summary>
         /// <returns>
-        ///     the referral being followed
+        ///     the referral being followed.
         /// </returns>
         internal ReferralInfo ActiveReferral
         {
@@ -384,12 +384,12 @@ namespace Novell.Directory.Ldap
         {
             Asn1Sequence ret;
 
-            if ((object) matchedDn == null)
+            if ((object)matchedDn == null)
             {
                 matchedDn = string.Empty;
             }
 
-            if ((object) serverMessage == null)
+            if ((object)serverMessage == null)
             {
                 serverMessage = string.Empty;
             }
@@ -473,10 +473,10 @@ namespace Novell.Directory.Ldap
         /* Methods from LdapMessage */
 
         /// <summary>
-        ///     Indicates if this response is an embedded exception response
+        ///     Indicates if this response is an embedded exception response.
         /// </summary>
         /// <returns>
-        ///     true if contains an embedded Ldapexception
+        ///     true if contains an embedded Ldapexception.
         /// </returns>
         /*package*/
         internal bool HasException()

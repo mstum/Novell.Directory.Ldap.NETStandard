@@ -112,7 +112,7 @@ namespace Novell.Directory.Ldap.Asn1
         ///     of this Asn1Structed object.
         /// </summary>
         /// <returns>
-        ///     an array of Asn1Objects
+        ///     an array of Asn1Objects.
         /// </returns>
         public Asn1Object[] ToArray()
         {
@@ -196,7 +196,7 @@ namespace Novell.Directory.Ldap.Asn1
         ///     object.
         /// </summary>
         /// <param name="type">
-        ///     the Type to put in the String representing this structured object
+        ///     the Type to put in the String representing this structured object.
         /// </param>
         /// <returns>
         ///     the String representation of this object.

@@ -45,7 +45,7 @@ namespace Novell.Directory.Ldap.Extensions
     ///     2.16.840.1.113719.1.27.100.19
     ///     The requestValue has the following format:
     ///     requestValue ::=
-    ///     serverName  LdapDN
+    ///     serverName  LdapDN.
     /// </summary>
     public class ListReplicasRequest : LdapExtendedOperation
     {
@@ -72,7 +72,7 @@ namespace Novell.Directory.Ldap.Extensions
         {
             try
             {
-                if ((object) serverName == null)
+                if ((object)serverName == null)
                 {
                     throw new ArgumentException(ExceptionMessages.ParamError);
                 }

@@ -48,13 +48,13 @@ namespace Novell.Directory.Ldap.Rfc2251
         //*************************************************************************
 
         /// <summary>
-        ///     Constructs an RFCAddRequest
+        ///     Constructs an RFCAddRequest.
         /// </summary>
         /// <param name="entry">
-        ///     the entry
+        ///     the entry.
         /// </param>
         /// <param name="attributes">
-        ///     the Attributes making up the Entry
+        ///     the Attributes making up the Entry.
         /// </param>
         public RfcAddRequest(RfcLdapDn entry, RfcAttributeList attributes) : base(2)
         {
@@ -66,22 +66,22 @@ namespace Novell.Directory.Ldap.Rfc2251
         ///     Constructs a new Add Request using data from an existing request.
         /// </summary>
         /// <param name="origRequest">
-        ///     the original request data
+        ///     the original request data.
         /// </param>
         /// <param name="base">
-        ///     if not null, replaces the dn of the original request
+        ///     if not null, replaces the dn of the original request.
         /// </param>
         internal RfcAddRequest(Asn1Object[] origRequest, string baseRenamed) : base(origRequest, origRequest.Length)
         {
             // Replace the base if specified, otherwise keep original base
-            if ((object) baseRenamed != null)
+            if ((object)baseRenamed != null)
             {
                 set_Renamed(0, new RfcLdapDn(baseRenamed));
             }
         }
 
-        /// <summary> Gets the attributes of the entry</summary>
-        public RfcAttributeList Attributes => (RfcAttributeList) get_Renamed(1);
+        /// <summary> Gets the attributes of the entry.</summary>
+        public RfcAttributeList Attributes => (RfcAttributeList)get_Renamed(1);
 
         public IRfcRequest DupRequest(string baseRenamed, string filter, bool request)
         {
@@ -90,7 +90,7 @@ namespace Novell.Directory.Ldap.Rfc2251
 
         public string GetRequestDn()
         {
-            return ((RfcLdapDn) get_Renamed(0)).StringValue();
+            return ((RfcLdapDn)get_Renamed(0)).StringValue();
         }
 
         //*************************************************************************

@@ -48,7 +48,6 @@ namespace Novell.Directory.Ldap.Extensions
          */
         public const string NldapLdapRestoreRequest = "2.16.840.1.113719.1.27.100.98";
 
-
         /**
          * A constant for eDirectory LDAP Based Restore Response OID.
          */

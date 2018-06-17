@@ -81,10 +81,10 @@ namespace Novell.Directory.Ldap.Asn1
         ///     Asn1 sequence.
         /// </summary>
         /// <param name="newContent">
-        ///     the array containing the Asn1 data for the sequence
+        ///     the array containing the Asn1 data for the sequence.
         /// </param>
         /// <param name="size">
-        ///     Specifies the number of items in the array
+        ///     Specifies the number of items in the array.
         /// </param>
         public Asn1Sequence(Asn1Object[] newContent, int size) : base(Id, newContent, size)
         {
@@ -97,10 +97,10 @@ namespace Novell.Directory.Ldap.Asn1
         /// <param name="dec">
         ///     The decoder object to use when decoding the
         ///     input stream.  Sometimes a developer might want to pass
-        ///     in his/her own decoder object
+        ///     in his/her own decoder object.
         /// </param>
         /// <param name="in">
-        ///     A byte stream that contains the encoded ASN.1
+        ///     A byte stream that contains the encoded ASN.1.
         /// </param>
         [CLSCompliant(false)]
         public Asn1Sequence(IAsn1Decoder dec, Stream inRenamed, int len) : base(Id)

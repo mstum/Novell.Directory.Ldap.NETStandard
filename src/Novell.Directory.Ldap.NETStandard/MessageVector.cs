@@ -36,7 +36,7 @@ using System.Linq;
 namespace Novell.Directory.Ldap
 {
     /// <summary>
-    ///     The <code>MessageVector</code> class implements additional semantics
+    ///     The. <code>MessageVector</code> class implements additional semantics
     ///     to Vector needed for handling messages.
     /// </summary>
     internal class MessageVector : ArrayList
@@ -68,7 +68,7 @@ namespace Novell.Directory.Ldap
         ///     object. It finds the object and returns it in an atomic operation.
         /// </summary>
         /// <param name="msgId">
-        ///     The msgId of the Message object to return
+        ///     The msgId of the Message object to return.
         /// </param>
         /// <returns>
         ///     The Message object corresponding to this MsgId.

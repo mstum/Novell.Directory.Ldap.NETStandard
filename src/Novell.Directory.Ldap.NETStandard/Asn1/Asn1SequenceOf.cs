@@ -64,7 +64,6 @@ namespace Novell.Directory.Ldap.Asn1
         {
         }
 
-
         /// <summary>
         ///     Constructs an Asn1SequenceOf object with the specified
         ///     number of placeholders for Asn1Objects. However there
@@ -76,7 +75,6 @@ namespace Novell.Directory.Ldap.Asn1
         public Asn1SequenceOf(int size) : base(Id, size)
         {
         }
-
 
         /// <summary>
         ///     A copy constructor which creates an Asn1SequenceOf from an
@@ -91,7 +89,6 @@ namespace Novell.Directory.Ldap.Asn1
         {
         }
 
-
         /// <summary>
         ///     Constructs an Asn1SequenceOf object by decoding data from an
         ///     input stream.
@@ -99,10 +96,10 @@ namespace Novell.Directory.Ldap.Asn1
         /// <param name="dec">
         ///     The decoder object to use when decoding the
         ///     input stream.  Sometimes a developer might want to pass
-        ///     in his/her own decoder object
+        ///     in his/her own decoder object.
         /// </param>
         /// <param name="in">
-        ///     A byte stream that contains the encoded ASN.1
+        ///     A byte stream that contains the encoded ASN.1.
         /// </param>
         [CLSCompliant(false)]
         public Asn1SequenceOf(IAsn1Decoder dec, Stream inRenamed, int len) : base(Id)
@@ -110,11 +107,10 @@ namespace Novell.Directory.Ldap.Asn1
             DecodeStructured(dec, inRenamed, len);
         }
 
-
         /* Asn1SequenceOf specific methods
         */
 
-        /// <summary> Returns a String representation of this Asn1SequenceOf object</summary>
+        /// <summary> Returns a String representation of this Asn1SequenceOf object.</summary>
         [CLSCompliant(false)]
         public override string ToString()
         {

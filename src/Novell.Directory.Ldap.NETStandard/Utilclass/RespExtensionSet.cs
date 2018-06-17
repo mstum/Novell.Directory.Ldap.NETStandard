@@ -56,7 +56,6 @@ namespace Novell.Directory.Ldap.Utilclass
         /// </returns>
         public override int Count => _map.Count;
 
-
         /* Adds a responseExtension to the current list of registered responses.
         *
         */
@@ -77,7 +76,7 @@ namespace Novell.Directory.Ldap.Utilclass
         ///     returned from this iterator are not in any particular order.
         /// </summary>
         /// <returns>
-        ///     iterator over the responses in this set
+        ///     iterator over the responses in this set.
         /// </returns>
         public override IEnumerator GetEnumerator()
         {
@@ -95,7 +94,7 @@ namespace Novell.Directory.Ldap.Utilclass
             {
                 if (_map.ContainsKey(searchOid))
                 {
-                    return (Type) _map[searchOid];
+                    return (Type)_map[searchOid];
                 }
 
                 /* The requested extension does not have a registered response class */

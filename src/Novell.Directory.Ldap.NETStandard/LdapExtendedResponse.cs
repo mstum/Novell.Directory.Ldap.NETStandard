@@ -70,7 +70,7 @@ namespace Novell.Directory.Ldap
         {
             get
             {
-                var respOid = ((RfcExtendedResponse) Message.Response).ResponseName;
+                var respOid = ((RfcExtendedResponse)Message.Response).ResponseName;
                 return respOid?.StringValue();
             }
         }
@@ -88,7 +88,7 @@ namespace Novell.Directory.Ldap
         {
             get
             {
-                var tempString = ((RfcExtendedResponse) Message.Response).Response;
+                var tempString = ((RfcExtendedResponse)Message.Response).Response;
                 return tempString?.ByteValue();
             }
         }

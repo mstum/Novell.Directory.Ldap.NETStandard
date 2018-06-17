@@ -46,7 +46,7 @@ namespace Novell.Directory.Ldap.Events
         {
         }
 
-        public LdapEntry Entry => ((LdapSearchResult) LdapMessage).Entry;
+        public LdapEntry Entry => ((LdapSearchResult)LdapMessage).Entry;
 
         public override string ToString()
         {
@@ -64,12 +64,12 @@ namespace Novell.Directory.Ldap.Events
         private string GetStringRepresentaionOfEventInformation()
         {
             var buf = new StringBuilder();
-            var result = (LdapSearchResult) LdapMessage;
+            var result = (LdapSearchResult)LdapMessage;
 
             buf.AppendFormat("(Entry={0})", result.Entry);
             var controls = result.Controls;
 
-            if (null != controls)
+            if (controls != null)
             {
                 buf.Append("(Controls=");
                 var i = 0;

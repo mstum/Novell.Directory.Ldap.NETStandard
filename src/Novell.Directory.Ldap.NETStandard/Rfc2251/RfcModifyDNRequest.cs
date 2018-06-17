@@ -77,7 +77,7 @@ namespace Novell.Directory.Ldap.Rfc2251
             : base(origRequest, origRequest.Length)
         {
             // Replace the base if specified, otherwise keep original base
-            if ((object) baseRenamed != null)
+            if ((object)baseRenamed != null)
             {
                 set_Renamed(0, new RfcLdapDn(baseRenamed));
             }
@@ -90,7 +90,7 @@ namespace Novell.Directory.Ldap.Rfc2251
 
         public string GetRequestDn()
         {
-            return ((RfcLdapDn) get_Renamed(0)).StringValue();
+            return ((RfcLdapDn)get_Renamed(0)).StringValue();
         }
 
         //*************************************************************************

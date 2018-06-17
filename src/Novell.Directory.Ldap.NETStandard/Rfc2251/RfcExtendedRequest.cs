@@ -82,12 +82,11 @@ namespace Novell.Directory.Ldap.Rfc2251
             }
         }
 
-
         /// <summary>
         ///     Constructs an extended request from an existing request.
         /// </summary>
         /// <param name="origRequest">
-        ///     Asn1Object of existing request
+        ///     Asn1Object of existing request.
         /// </param>
         public RfcExtendedRequest(Asn1Object[] origRequest) : base(origRequest, origRequest.Length)
         {

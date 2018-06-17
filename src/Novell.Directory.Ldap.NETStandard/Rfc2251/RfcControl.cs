@@ -85,7 +85,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         {
         }
 
-        /// <summary> Constructs a Control object by decoding from an Asn1Sequence</summary>
+        /// <summary> Constructs a Control object by decoding from an Asn1Sequence.</summary>
         public RfcControl(Asn1Sequence seqObj) : base(3)
         {
             var len = seqObj.Size();
@@ -96,7 +96,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         }
 
         /// <summary> </summary>
-        public Asn1OctetString ControlType => (Asn1OctetString) get_Renamed(0);
+        public Asn1OctetString ControlType => (Asn1OctetString)get_Renamed(0);
 
         /// <summary>
         ///     Returns criticality.
@@ -112,7 +112,7 @@ namespace Novell.Directory.Ldap.Rfc2251
                     var obj = get_Renamed(1);
                     if (obj is Asn1Boolean)
                     {
-                        return (Asn1Boolean) obj;
+                        return (Asn1Boolean)obj;
                     }
                 }
 
@@ -136,7 +136,7 @@ namespace Novell.Directory.Ldap.Rfc2251
                 if (Size() > 2)
                 {
                     // MUST be a control value
-                    return (Asn1OctetString) get_Renamed(2);
+                    return (Asn1OctetString)get_Renamed(2);
                 }
 
                 if (Size() > 1)
@@ -145,7 +145,7 @@ namespace Novell.Directory.Ldap.Rfc2251
                     var obj = get_Renamed(1);
                     if (obj is Asn1OctetString)
                     {
-                        return (Asn1OctetString) obj;
+                        return (Asn1OctetString)obj;
                     }
                 }
 

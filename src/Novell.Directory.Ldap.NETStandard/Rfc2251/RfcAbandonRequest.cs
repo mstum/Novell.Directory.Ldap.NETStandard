@@ -46,7 +46,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         // Constructor for AbandonRequest
         //*************************************************************************
 
-        /// <summary> Constructs an RfcAbandonRequest</summary>
+        /// <summary> Constructs an RfcAbandonRequest.</summary>
         public RfcAbandonRequest(int msgId) : base(msgId)
         {
         }

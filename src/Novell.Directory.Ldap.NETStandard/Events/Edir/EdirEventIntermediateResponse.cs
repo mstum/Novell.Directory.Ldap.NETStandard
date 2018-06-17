@@ -29,7 +29,6 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-
 using System.IO;
 using Novell.Directory.Ldap.Asn1;
 using Novell.Directory.Ldap.Events.Edir.EventData;
@@ -72,16 +71,16 @@ namespace Novell.Directory.Ldap.Events.Edir
         private void ProcessMessage(sbyte[] returnedValue)
         {
             var decoder = new LberDecoder();
-            var sequence = (Asn1Sequence) decoder.Decode(returnedValue);
+            var sequence = (Asn1Sequence)decoder.Decode(returnedValue);
 
-            EventType = (EdirEventType) ((Asn1Integer) sequence.get_Renamed(0)).IntValue();
-            EventResultType = (EdirEventResultType) ((Asn1Integer) sequence.get_Renamed(1)).IntValue();
+            EventType = (EdirEventType)((Asn1Integer)sequence.get_Renamed(0)).IntValue();
+            EventResultType = (EdirEventResultType)((Asn1Integer)sequence.get_Renamed(1)).IntValue();
 
             if (sequence.Size() > 2)
             {
-                var objTagged = (Asn1Tagged) sequence.get_Renamed(2);
+                var objTagged = (Asn1Tagged)sequence.get_Renamed(2);
 
-                switch ((EdirEventDataType) objTagged.GetIdentifier().Tag)
+                switch ((EdirEventDataType)objTagged.GetIdentifier().Tag)
                 {
                     case EdirEventDataType.EdirTagEntryEventData:
                         EventResponseDataObject = new EntryEventData(EdirEventDataType.EdirTagEntryEventData,

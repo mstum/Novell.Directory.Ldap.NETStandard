@@ -76,7 +76,7 @@ namespace Novell.Directory.Ldap
         ///     '#' if it comes at the beginning of the string, and
         ///     ' ' (space) if it comes at the beginning or the end of a string.
         ///     Note that single-valued attributes can be used because of ambiguity. See
-        ///     RFC 2253
+        ///     RFC 2253.
         /// </summary>
         /// <param name="rdn">
         ///     The RDN to escape.
@@ -126,13 +126,12 @@ namespace Novell.Directory.Ldap
             return escapedS.ToString();
         }
 
-
         /// <summary>
         ///     Returns the individual components of a distinguished name (DN).
         /// </summary>
         /// <param name="dn">
         ///     The distinguished name, for example, "cn=Babs
-        ///     Jensen,ou=Accounting,o=Acme,c=US"
+        ///     Jensen,ou=Accounting,o=Acme,c=US".
         /// </param>
         /// <param name="noTypes">
         ///     If true, returns only the values of the
@@ -200,14 +199,13 @@ namespace Novell.Directory.Ldap
         ///     as per RFC 2253, section4.
         /// </summary>
         /// <returns>
-        ///     a normalized string
+        ///     a normalized string.
         /// </returns>
         public static string Normalize(string dn)
         {
             var testDn = new Dn(dn);
             return testDn.ToString();
         }
-
 
         /// <summary>
         ///     Returns the RDN after unescaping the characters requiring escaping.
@@ -218,7 +216,7 @@ namespace Novell.Directory.Ldap
         ///     ',' '+' '"' '\' 'LESSTHAN' 'GREATERTHAN' ';'
         ///     '#' if it comes at the beginning of the Attribute Name
         ///     (without the '\').
-        ///     ' ' (space) if it comes at the beginning or the end of the Attribute Name
+        ///     ' ' (space) if it comes at the beginning or the end of the Attribute Name.
         /// </summary>
         /// <param name="rdn">
         ///     The RDN to unescape.

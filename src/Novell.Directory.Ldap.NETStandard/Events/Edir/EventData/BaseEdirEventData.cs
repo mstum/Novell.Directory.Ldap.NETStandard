@@ -47,7 +47,7 @@ namespace Novell.Directory.Ldap.Events.Edir.EventData
         {
             EventDataType = eventDataType;
 
-            var byteData = SupportClass.ToByteArray(((Asn1OctetString) message).ByteValue());
+            var byteData = SupportClass.ToByteArray(((Asn1OctetString)message).ByteValue());
             DecodedData = new MemoryStream(byteData);
             Decoder = new LberDecoder();
         }

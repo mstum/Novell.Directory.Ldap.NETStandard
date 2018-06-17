@@ -29,7 +29,6 @@
 // (C) 2006 Novell, Inc (http://www.novell.com)
 //
 
-
 using System;
 using System.IO;
 using System.Text;
@@ -62,7 +61,6 @@ using Novell.Directory.Ldap.Asn1;
 * &nbsp;&nbsp;&nbsp;&nbsp; revision&nbsp;&nbsp;&nbsp;			INTEGER<br>
 * &nbsp;&nbsp;&nbsp;&nbsp; passwd&nbsp;&nbsp;&nbsp;			OCTET STRING</p>
 */
-
 namespace Novell.Directory.Ldap.Extensions
 {
     public class LdapBackupRequest : LdapExtendedOperation
@@ -83,7 +81,7 @@ namespace Novell.Directory.Ldap.Extensions
         * @param objectDN 		The DN of the object to be backed up
         * <br>
         * @param passwd 		The encrypted password required for the object to
-        * be backed up
+        * be backed up.
         * <br>
         * @param stateInfo     The state information of the object to backup.
         * This parameter is a String which contains combination of modification
@@ -96,7 +94,6 @@ namespace Novell.Directory.Ldap.Extensions
         * @exception LdapException A general exception which includes an error
         *                          message and an LDAP error code.
         */
-
         public LdapBackupRequest(string objectDn, byte[] passwd, string stateInfo) :
             base(BackupRestoreConstants.NldapLdapBackupRequest, null)
         {
@@ -116,7 +113,6 @@ namespace Novell.Directory.Ldap.Extensions
                 {
                     passwd = Encoding.UTF8.GetBytes(string.Empty);
                 }
-
 
                 if (stateInfo == null)
                 {

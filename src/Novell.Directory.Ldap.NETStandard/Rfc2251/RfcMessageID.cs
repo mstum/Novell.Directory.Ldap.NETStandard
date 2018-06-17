@@ -72,10 +72,10 @@ namespace Novell.Directory.Ldap.Rfc2251
         }
 
         /// <summary>
-        ///     Increments the message number atomically
+        ///     Increments the message number atomically.
         /// </summary>
         /// <returns>
-        ///     the new message number
+        ///     the new message number.
         /// </returns>
         private static int MessageId
         {

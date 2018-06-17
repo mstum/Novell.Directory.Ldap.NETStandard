@@ -47,7 +47,7 @@ namespace Novell.Directory.Ldap.Controls
         ///     is done in reverse (descending) order.
         ///     An OID for a matching rule may be appended
         ///     following a ":".
-        ///     Examples:
+        ///     Examples:.
         ///     <ul>
         ///         <li> "cn" (sorts in ascending order by the cn attribute)</li>
         ///         <li> "-cn" (sorts in descending order by the cn attribute) </li>

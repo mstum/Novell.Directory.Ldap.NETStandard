@@ -43,7 +43,7 @@ namespace Novell.Directory.Ldap.Extensions
     ///     The requestValue has the following format:
     ///     requestValue ::=
     ///     serverName       LdapDN
-    ///     delay            INTEGER
+    ///     delay            INTEGER.
     /// </summary>
     public class SchemaSyncRequest : LdapExtendedOperation
     {
@@ -66,7 +66,7 @@ namespace Novell.Directory.Ldap.Extensions
         {
             try
             {
-                if ((object) serverName == null)
+                if ((object)serverName == null)
                 {
                     throw new ArgumentException(ExceptionMessages.ParamError);
                 }

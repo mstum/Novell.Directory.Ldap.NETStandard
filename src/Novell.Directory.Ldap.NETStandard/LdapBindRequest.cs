@@ -85,7 +85,7 @@ namespace Novell.Directory.Ldap
         ///     Retrieves the Authentication DN for a bind request.
         /// </summary>
         /// <returns>
-        ///     the Authentication DN for a bind request
+        ///     the Authentication DN for a bind request.
         /// </returns>
         public string AuthenticationDn => Asn1Object.RequestDn;
 

@@ -58,7 +58,7 @@ namespace Novell.Directory.Ldap.Asn1
     ///     </pre>
     ///     Note: CONSTRUCTED types are made up of other CONSTRUCTED or PRIMITIVE
     ///     types.
-    ///     The tag is defined as:
+    ///     The tag is defined as:.
     ///     <pre>
     ///         bit 5 4 3 2 1 TAG
     ///         ------------- ---------------------------------------------
@@ -73,28 +73,27 @@ namespace Novell.Directory.Ldap.Asn1
     {
         /// <summary>
         ///     IsUniversal tag class.
-        ///     UNIVERSAL = 0
+        ///     UNIVERSAL = 0.
         /// </summary>
         public const int Universal = 0;
 
         /// <summary>
         ///     IsApplication-wide tag class.
-        ///     APPLICATION = 1
+        ///     APPLICATION = 1.
         /// </summary>
         public const int Application = 1;
 
         /// <summary>
         ///     IsContext-specific tag class.
-        ///     CONTEXT = 2
+        ///     CONTEXT = 2.
         /// </summary>
         public const int Context = 2;
 
         /// <summary>
         ///     IsPrivate-use tag class.
-        ///     PRIVATE = 3
+        ///     PRIVATE = 3.
         /// </summary>
         private const int Private = 3;
-
 
         /* IsPrivate variables
         */
@@ -112,7 +111,7 @@ namespace Novell.Directory.Ldap.Asn1
         ///     Set to true if constructed and false if primitive.
         /// </param>
         /// <param name="tag">
-        ///     The tag of this identifier
+        ///     The tag of this identifier.
         /// </param>
         public Asn1Identifier(int tagClass, bool constructed, int tag)
         {

@@ -51,7 +51,7 @@ namespace Novell.Directory.Ldap.Rfc2251
 
         /// <summary>
         ///     The only time a client will create a SearchResultEntry is when it is
-        ///     decoding it from an InputStream
+        ///     decoding it from an InputStream.
         /// </summary>
         [CLSCompliant(false)]
         public RfcSearchResultEntry(IAsn1Decoder dec, Stream inRenamed, int len) : base(dec, inRenamed, len)
@@ -65,10 +65,10 @@ namespace Novell.Directory.Ldap.Rfc2251
         }
 
         /// <summary> </summary>
-        public Asn1OctetString ObjectName => (Asn1OctetString) get_Renamed(0);
+        public Asn1OctetString ObjectName => (Asn1OctetString)get_Renamed(0);
 
         /// <summary> </summary>
-        public Asn1Sequence Attributes => (Asn1Sequence) get_Renamed(1);
+        public Asn1Sequence Attributes => (Asn1Sequence)get_Renamed(1);
 
         //*************************************************************************
         // Accessors

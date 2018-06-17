@@ -48,10 +48,10 @@ namespace Novell.Directory.Ldap.Controls
         private static readonly int OrderingRule = 0;
         private static readonly int ReverseOrder = 1;
 
-        /// <summary> The requestOID of the sort control</summary>
+        /// <summary> The requestOID of the sort control.</summary>
         private static readonly string RequestOid = "1.2.840.113556.1.4.473";
 
-        /// <summary> The responseOID of the sort control</summary>
+        /// <summary> The responseOID of the sort control.</summary>
         private static readonly string ResponseOid = "1.2.840.113556.1.4.474";
 
         static LdapSortControl()
@@ -111,7 +111,7 @@ namespace Novell.Directory.Ldap.Controls
 
                 key.Add(new Asn1OctetString(keys[i].Key));
 
-                if ((object) keys[i].MatchRule != null)
+                if ((object)keys[i].MatchRule != null)
                 {
                     key.Add(new Asn1Tagged(new Asn1Identifier(Asn1Identifier.Context, false, OrderingRule),
                         new Asn1OctetString(keys[i].MatchRule), false));

@@ -73,7 +73,7 @@ namespace Novell.Directory.Ldap.Asn1
         /// </summary>
         /// <param name="id">
         ///     An Asn1Identifier object representing the CLASS,
-        ///     FORM and TAG)
+        ///     FORM and TAG).
         /// </param>
         public virtual void SetIdentifier(Asn1Identifier id)
         {

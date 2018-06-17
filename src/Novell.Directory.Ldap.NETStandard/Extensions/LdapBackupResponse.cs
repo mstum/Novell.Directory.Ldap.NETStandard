@@ -45,7 +45,6 @@ using Novell.Directory.Ldap.Rfc2251;
  *  &nbsp;&nbsp;&nbsp;2.16.840.1.113719.1.27.100.97</p>
  *
  */
-
 namespace Novell.Directory.Ldap.Extensions
 {
     public class LdapBackupResponse : LdapExtendedResponse
@@ -72,7 +71,7 @@ namespace Novell.Directory.Ldap.Extensions
         /**
         * Constructs an object from the responseValue which contains the backup data.
         *  <p>The constructor parses the responseValue which has the following
-        *  format:<br>
+        *  format:.<br>
         *  responseValue ::=<br>
         *  <p>databufferLength ::= INTEGER <br>
         *  mts(modification time stamp) ::= INTEGER<br>
@@ -87,7 +86,6 @@ namespace Novell.Directory.Ldap.Extensions
         *
         * @exception IOException The responseValue could not be decoded.
         */
-
         public LdapBackupResponse(RfcLdapMessage rfcMessage) : base(rfcMessage)
         {
             var modificationTime = 0; // Modifaction timestamp of the Object
@@ -123,7 +121,7 @@ namespace Novell.Directory.Ldap.Extensions
                 var currentPtr = new MemoryStream(returnedValue);
 
                 // Parse bufferLength
-                var asn1BufferLength = (Asn1Integer) decoder
+                var asn1BufferLength = (Asn1Integer)decoder
                     .Decode(currentPtr);
                 if (asn1BufferLength == null)
                 {
@@ -133,7 +131,7 @@ namespace Novell.Directory.Ldap.Extensions
                 _bufferLength = asn1BufferLength.IntValue();
 
                 // Parse modificationTime
-                var asn1ModificationTime = (Asn1Integer) decoder
+                var asn1ModificationTime = (Asn1Integer)decoder
                     .Decode(currentPtr);
                 if (asn1ModificationTime == null)
                 {
@@ -143,7 +141,7 @@ namespace Novell.Directory.Ldap.Extensions
                 modificationTime = asn1ModificationTime.IntValue();
 
                 // Parse revision
-                var asn1Revision = (Asn1Integer) decoder
+                var asn1Revision = (Asn1Integer)decoder
                     .Decode(currentPtr);
                 if (asn1Revision == null)
                 {
@@ -156,14 +154,13 @@ namespace Novell.Directory.Ldap.Extensions
                 _stateInfo = modificationTime + "+" + revision;
 
                 // Parse returnedBuffer
-                var asn1ReturnedBuffer = (Asn1OctetString) decoder.Decode(currentPtr);
+                var asn1ReturnedBuffer = (Asn1OctetString)decoder.Decode(currentPtr);
                 if (asn1ReturnedBuffer == null)
                 {
                     throw new IOException("Decoding error");
                 }
 
                 _returnedBuffer = SupportClass.ToByteArray(asn1ReturnedBuffer.ByteValue());
-
 
                 /*
                  * Parse chunks array
@@ -175,7 +172,7 @@ namespace Novell.Directory.Ldap.Extensions
                  * 	       }
                  */
 
-                var asn1ChunksSeq = (Asn1Sequence) decoder
+                var asn1ChunksSeq = (Asn1Sequence)decoder
                     .Decode(currentPtr);
                 if (asn1ChunksSeq == null)
                 {
@@ -183,18 +180,18 @@ namespace Novell.Directory.Ldap.Extensions
                 }
 
                 //Get number of chunks returned from server
-                chunksSize = ((Asn1Integer) asn1ChunksSeq.get_Renamed(0)).IntValue();
+                chunksSize = ((Asn1Integer)asn1ChunksSeq.get_Renamed(0)).IntValue();
 
                 //Construct chunks array
                 chunks = new int[chunksSize];
 
-                var asn1ChunksSet = (Asn1Set) asn1ChunksSeq.get_Renamed(1);
+                var asn1ChunksSet = (Asn1Set)asn1ChunksSeq.get_Renamed(1);
                 //Iterate through asn1_chunksSet and put each size into chunks array
 
                 for (var index = 0; index < chunksSize; index++)
                 {
-                    var asn1EachSeq = (Asn1Sequence) asn1ChunksSet.get_Renamed(index);
-                    chunks[index] = ((Asn1Integer) asn1EachSeq.get_Renamed(0)).IntValue();
+                    var asn1EachSeq = (Asn1Sequence)asn1ChunksSet.get_Renamed(index);
+                    chunks[index] = ((Asn1Integer)asn1EachSeq.get_Renamed(0)).IntValue();
                 }
 
                 //Construct a temporary StringBuffer and append chunksSize, each size
@@ -230,7 +227,6 @@ namespace Novell.Directory.Ldap.Extensions
          *
          * @return bufferLength as integer.
          */
-
         public int GetBufferLength()
         {
             return _bufferLength;
@@ -245,7 +241,6 @@ namespace Novell.Directory.Ldap.Extensions
          *
          * @return stateInfo as String.
          */
-
         public string GetStatusInfo()
         {
             return _stateInfo;
@@ -253,14 +248,13 @@ namespace Novell.Directory.Ldap.Extensions
 
         /**
          * Returns the data in String as::<br>
-         * no_of_chunks;sizeOf(chunk1);sizeOf(chunk2)…sizeOf(chunkn)<br>
+         * no_of_chunks;sizeOf(chunk1);sizeOf(chunk2)…sizeOf(chunkn).<br>
          * where<br>
          * no_of_chunks => Represents the number of chunks of data returned from server<br>
          * sizeOf(chunkn) => Represents the size of data in chunkn<br>
          *
          * @return chunkSizesString as String.
          */
-
         public string GetChunkSizesString()
         {
             return _chunkSizesString;
@@ -271,7 +265,6 @@ namespace Novell.Directory.Ldap.Extensions
          *
          * @return returnedBuffer as byte[].
          */
-
         public byte[] GetReturnedBuffer()
         {
             return _returnedBuffer;

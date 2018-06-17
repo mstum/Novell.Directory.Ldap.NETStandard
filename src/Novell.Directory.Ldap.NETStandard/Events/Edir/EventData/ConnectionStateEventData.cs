@@ -44,10 +44,10 @@ namespace Novell.Directory.Ldap.Events.Edir.EventData
         {
             var length = new int[1];
 
-            ConnectionDn = ((Asn1OctetString) Decoder.Decode(DecodedData, length)).StringValue();
-            OldFlags = ((Asn1Integer) Decoder.Decode(DecodedData, length)).IntValue();
-            NewFlags = ((Asn1Integer) Decoder.Decode(DecodedData, length)).IntValue();
-            SourceModule = ((Asn1OctetString) Decoder.Decode(DecodedData, length)).StringValue();
+            ConnectionDn = ((Asn1OctetString)Decoder.Decode(DecodedData, length)).StringValue();
+            OldFlags = ((Asn1Integer)Decoder.Decode(DecodedData, length)).IntValue();
+            NewFlags = ((Asn1Integer)Decoder.Decode(DecodedData, length)).IntValue();
+            SourceModule = ((Asn1OctetString)Decoder.Decode(DecodedData, length)).StringValue();
 
             DataInitDone();
         }

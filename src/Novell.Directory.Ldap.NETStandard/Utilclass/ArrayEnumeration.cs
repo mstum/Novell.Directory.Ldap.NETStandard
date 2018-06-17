@@ -40,10 +40,10 @@ namespace Novell.Directory.Ldap.Utilclass
         private int _index;
 
         /// <summary>
-        ///     Constructor to create the Enumeration
+        ///     Constructor to create the Enumeration.
         /// </summary>
         /// <param name="eArray">
-        ///     the array to use for the Enumeration
+        ///     the array to use for the Enumeration.
         /// </param>
         public ArrayEnumeration(object[] eArray)
         {

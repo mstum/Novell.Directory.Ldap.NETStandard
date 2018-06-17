@@ -47,13 +47,13 @@ namespace Novell.Directory.Ldap.Extensions
     ///     2.16.840.1.113719.1.27.100.55
     ///     The requestValue has the following format:
     ///     requestValue ::=
-    ///     NULL
+    ///     NULL.
     /// </summary>
     public class TriggerBackgroundProcessRequest : LdapExtendedOperation
     {
         /// <summary>
         ///     Constants used to refer to different Novell eDirectory
-        ///     background processes
+        ///     background processes.
         /// </summary>
         public const int LdapBkProcessBklinker = 1;
 

@@ -55,6 +55,7 @@ namespace Novell.Directory.Ldap.NETStandard.FunctionalTests.Helpers
                     ldapConnection.SecureSocketLayer = true;
                     ldapPort = TestsConfig.LdapServer.ServerPortSsl;
                 }
+
                 ldapConnection.Connect(TestsConfig.LdapServer.ServerAddress, ldapPort);
 
                 T retValue;
@@ -74,6 +75,7 @@ namespace Novell.Directory.Ldap.NETStandard.FunctionalTests.Helpers
                 {
                     retValue = funcOnConnectedLdapConnection(ldapConnection);
                 }
+
                 return retValue;
             }
         }
@@ -82,7 +84,9 @@ namespace Novell.Directory.Ldap.NETStandard.FunctionalTests.Helpers
         {
             var transportSecurity = useSsl ? TransportSecurity.Ssl : TransportSecurity.Off;
             if(disableEnvTransportSecurity)
+            {
                 return transportSecurity;
+            }
 
             var envValue = Environment.GetEnvironmentVariable("TRANSPORT_SECURITY");
             if (!string.IsNullOrWhiteSpace(envValue))

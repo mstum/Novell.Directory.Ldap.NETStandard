@@ -45,9 +45,9 @@ namespace Novell.Directory.Ldap.Events.Edir.EventData
 
         public DseTimeStamp(Asn1Sequence dseObject)
         {
-            NSeconds = ((Asn1Integer) dseObject.get_Renamed(0)).IntValue();
-            ReplicaNumber = ((Asn1Integer) dseObject.get_Renamed(1)).IntValue();
-            NEvent = ((Asn1Integer) dseObject.get_Renamed(2)).IntValue();
+            NSeconds = ((Asn1Integer)dseObject.get_Renamed(0)).IntValue();
+            ReplicaNumber = ((Asn1Integer)dseObject.get_Renamed(1)).IntValue();
+            NEvent = ((Asn1Integer)dseObject.get_Renamed(2)).IntValue();
         }
 
         public int Seconds => NSeconds;

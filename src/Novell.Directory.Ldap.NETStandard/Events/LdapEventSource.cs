@@ -92,23 +92,23 @@ namespace Novell.Directory.Ldap.Events
             nListeners += GetListeners();
 
             // Get Listeners registered for generic events
-            if (null != _directoryEvent)
+            if (_directoryEvent != null)
             {
                 nListeners += _directoryEvent.GetInvocationList().Length;
             }
 
             // Get Listeners registered for exception events
-            if (null != _directoryExceptionEvent)
+            if (_directoryExceptionEvent != null)
             {
                 nListeners += _directoryExceptionEvent.GetInvocationList().Length;
             }
 
-            if (0 == nListeners)
+            if (nListeners == 0)
             {
                 return ListenersCount.Zero;
             }
 
-            if (1 == nListeners)
+            if (nListeners == 1)
             {
                 return ListenersCount.One;
             }
@@ -199,7 +199,7 @@ namespace Novell.Directory.Ldap.Events
                 throw new ArgumentException("No parameter can be Null.");
             }
 
-            if (null == MObjEventsGenerator)
+            if (MObjEventsGenerator == null)
             {
                 MObjEventsGenerator = new EventsGenerator(this, queue, conn, msgid)
                 {
@@ -212,28 +212,21 @@ namespace Novell.Directory.Ldap.Events
 
         protected void StopEventPolling()
         {
-            if (null != MObjEventsGenerator)
+            if (MObjEventsGenerator != null)
             {
                 MObjEventsGenerator.StopEventPolling();
                 MObjEventsGenerator = null;
             }
         } // end of method StopEventPolling
 
-        protected abstract bool
-            NotifyEventListeners(LdapMessage sourceMessage,
-                EventClassifiers aClassification,
-                int nType);
+        protected abstract bool NotifyEventListeners(LdapMessage sourceMessage, EventClassifiers aClassification, int nType);
 
-        protected void NotifyListeners(LdapMessage sourceMessage,
-            EventClassifiers aClassification,
-            int nType)
+        protected void NotifyListeners(LdapMessage sourceMessage, EventClassifiers aClassification, int nType)
         {
             // first let the actual source Notify the listeners with
             // appropriate EventArgs
 
-            var bListenersNotified = NotifyEventListeners(sourceMessage,
-                aClassification,
-                nType);
+            var bListenersNotified = NotifyEventListeners(sourceMessage, aClassification, nType);
 
             if (!bListenersNotified)
             {
@@ -243,27 +236,19 @@ namespace Novell.Directory.Ldap.Events
             }
         }
 
-        protected void NotifyDirectoryListeners(LdapMessage sourceMessage,
-            EventClassifiers aClassification)
+        private void NotifyDirectoryListeners(LdapMessage sourceMessage, EventClassifiers aClassification)
         {
-            NotifyDirectoryListeners(new DirectoryEventArgs(sourceMessage,
-                aClassification));
+            NotifyDirectoryListeners(new DirectoryEventArgs(sourceMessage, aClassification));
         }
 
         protected void NotifyDirectoryListeners(DirectoryEventArgs objDirectoryEventArgs)
         {
-            if (null != _directoryEvent)
-            {
-                _directoryEvent(this, objDirectoryEventArgs);
-            }
+            _directoryEvent?.Invoke(this, objDirectoryEventArgs);
         }
 
-        protected void NotifyExceptionListeners(LdapMessage sourceMessage, LdapException ldapException)
+        private void NotifyExceptionListeners(LdapMessage sourceMessage, LdapException ldapException)
         {
-            if (null != _directoryExceptionEvent)
-            {
-                _directoryExceptionEvent(this, new DirectoryExceptionEventArgs(sourceMessage, ldapException));
-            }
+            _directoryExceptionEvent?.Invoke(this, new DirectoryExceptionEventArgs(sourceMessage, ldapException));
         }
 
         protected enum ListenersCount
@@ -272,7 +257,6 @@ namespace Novell.Directory.Ldap.Events
             One,
             MoreThanOne
         }
-
 
         /// <summary>
         ///     This is a nested class that is supposed to monitor
@@ -284,17 +268,11 @@ namespace Novell.Directory.Ldap.Events
             private readonly LdapEventSource _mObjLdapEventSource;
             private readonly LdapMessageQueue _searchqueue;
             private volatile bool _isrunning = true;
-            private LdapConnection _ldapconnection;
 
-
-            public EventsGenerator(LdapEventSource objEventSource,
-                LdapMessageQueue queue,
-                LdapConnection conn,
-                int msgid)
+            public EventsGenerator(LdapEventSource objEventSource, LdapMessageQueue queue, LdapConnection conn, int msgid)
             {
                 _mObjLdapEventSource = objEventSource;
                 _searchqueue = queue;
-                _ldapconnection = conn;
                 _messageid = msgid;
                 SleepTime = DefaultSleepTime;
             } // end of Constructor
@@ -302,9 +280,9 @@ namespace Novell.Directory.Ldap.Events
             /// <summary>
             ///     SleepTime controls the duration after which event polling is repeated.
             /// </summary>
-            public int SleepTime { get; set; }
+            public int SleepTime { private get; set; }
 
-            protected void Run()
+            private void Run()
             {
                 while (_isrunning)
                 {
@@ -334,13 +312,13 @@ namespace Novell.Directory.Ldap.Events
                 }
             } // end of method run
 
-            protected void Processmessage(LdapMessage response)
+            private void Processmessage(LdapMessage response)
             {
                 if (response is LdapResponse)
                 {
                     try
                     {
-                        ((LdapResponse) response).ChkResultCode();
+                        ((LdapResponse)response).ChkResultCode();
 
                         _mObjLdapEventSource.NotifyEventListeners(response,
                             EventClassifiers.ClassificationUnknown,

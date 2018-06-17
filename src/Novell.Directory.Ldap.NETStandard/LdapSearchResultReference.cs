@@ -49,6 +49,7 @@ namespace Novell.Directory.Ldap
         {
             _nameLock = new object();
         }
+
         /*package*/
 
         /// <summary>
@@ -71,11 +72,11 @@ namespace Novell.Directory.Ldap
         {
             get
             {
-                var references = ((RfcSearchResultReference) Message.Response).ToArray();
+                var references = ((RfcSearchResultReference)Message.Response).ToArray();
                 _srefs = new string[references.Length];
                 for (var i = 0; i < references.Length; i++)
                 {
-                    _srefs[i] = ((Asn1OctetString) references[i]).StringValue();
+                    _srefs[i] = ((Asn1OctetString)references[i]).StringValue();
                 }
 
                 return _srefs;

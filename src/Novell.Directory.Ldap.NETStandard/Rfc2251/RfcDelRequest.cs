@@ -69,7 +69,7 @@ namespace Novell.Directory.Ldap.Rfc2251
 
         public IRfcRequest DupRequest(string baseRenamed, string filter, bool request)
         {
-            if ((object) baseRenamed == null)
+            if ((object)baseRenamed == null)
             {
                 return new RfcDelRequest(ByteValue());
             }
@@ -86,7 +86,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         ///     Override getIdentifier() to return the appropriate application-wide id
         ///     representing this delete request. The getIdentifier() method is called
         ///     when this object is encoded.
-        ///     Identifier = CLASS: APPLICATION, FORM: CONSTRUCTED, TAG: 10
+        ///     Identifier = CLASS: APPLICATION, FORM: CONSTRUCTED, TAG: 10.
         /// </summary>
         public override Asn1Identifier GetIdentifier()
         {

@@ -73,7 +73,7 @@ namespace Novell.Directory.Ldap
             {
                 var newObj = MemberwiseClone();
 //				Array.Copy((System.Array)SupportClass.ToByteArray( this.vals), 0, (System.Array)SupportClass.ToByteArray( ((LdapExtendedOperation) newObj).vals), 0, this.vals.Length);
-                Array.Copy(_vals, 0, ((LdapExtendedOperation) newObj)._vals, 0, _vals.Length);
+                Array.Copy(_vals, 0, ((LdapExtendedOperation)newObj)._vals, 0, _vals.Length);
                 return newObj;
             }
             catch (Exception ce)
@@ -118,10 +118,10 @@ namespace Novell.Directory.Ldap
         }
 
         /// <summary>
-        ///     Resets the OID for the operation to a new value
+        ///     Resets the OID for the operation to a new value.
         /// </summary>
         /// <param name="newoid">
-        ///     The new OID for the operation
+        ///     The new OID for the operation.
         /// </param>
         protected void SetId(string newoid)
         {

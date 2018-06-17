@@ -34,7 +34,7 @@ using Novell.Directory.Ldap.Rfc2251;
 namespace Novell.Directory.Ldap
 {
     /// <summary>
-    ///     Represents an Ldap Abandon Request
+    ///     Represents an Ldap Abandon Request.
     /// </summary>
     /// <seealso cref="LdapConnection.SendRequest">
     /// </seealso>

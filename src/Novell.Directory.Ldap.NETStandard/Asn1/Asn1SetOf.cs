@@ -62,7 +62,6 @@ namespace Novell.Directory.Ldap.Asn1
         {
         }
 
-
         /// <summary>
         ///     Constructs an Asn1SetOf object with the specified
         ///     number of placeholders for Asn1Objects. However there
@@ -74,7 +73,6 @@ namespace Novell.Directory.Ldap.Asn1
         public Asn1SetOf(int size) : base(Id, size)
         {
         }
-
 
         /// <summary>
         ///     A copy constructor that creates an Asn1SetOf from an instance of Asn1Set.

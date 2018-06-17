@@ -47,7 +47,7 @@ namespace Novell.Directory.Ldap
         ///     Constructs an Ldap Unbind Request.
         /// </summary>
         /// <param name="cont">
-        ///     Any controls that apply to the unbind request
+        ///     Any controls that apply to the unbind request.
         /// </param>
         public LdapUnbindRequest(LdapControl[] cont) : base(UnbindRequest, new RfcUnbindRequest(), cont)
         {

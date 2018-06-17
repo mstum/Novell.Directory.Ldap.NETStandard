@@ -29,7 +29,6 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-
 namespace Novell.Directory.Ldap.Events
 {
     /// <summary>
@@ -48,7 +47,7 @@ namespace Novell.Directory.Ldap.Events
 
         public string[] GetUrls()
         {
-            return ((LdapSearchResultReference) LdapMessage).Referrals;
+            return ((LdapSearchResultReference)LdapMessage).Referrals;
         }
     }
 }

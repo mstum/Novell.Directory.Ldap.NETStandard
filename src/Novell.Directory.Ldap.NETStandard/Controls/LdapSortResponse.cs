@@ -37,7 +37,7 @@ namespace Novell.Directory.Ldap.Controls
 {
     /// <summary>
     ///     LdapSortResponse - will be added in newer version of Ldap
-    ///     Controls draft
+    ///     Controls draft.
     /// </summary>
     public class LdapSortResponse : LdapControl
     {
@@ -73,7 +73,7 @@ namespace Novell.Directory.Ldap.Controls
         ///     unwillingToPerform       (53), -- unable to sort
         ///     other                    (80)
         ///     },
-        ///     attributeType [0] AttributeDescription OPTIONAL }
+        ///     attributeType [0] AttributeDescription OPTIONAL }.
         /// </summary>
         /// <param name="oid">
         ///     The OID of the control, as a dotted string.
@@ -104,20 +104,19 @@ namespace Novell.Directory.Ldap.Controls
                 throw new IOException("Decoding error");
             }
 
-
-            var asn1Enum = ((Asn1Sequence) asnObj).get_Renamed(0);
+            var asn1Enum = ((Asn1Sequence)asnObj).get_Renamed(0);
             if (asn1Enum != null && asn1Enum is Asn1Enumerated)
             {
-                ResultCode = ((Asn1Enumerated) asn1Enum).IntValue();
+                ResultCode = ((Asn1Enumerated)asn1Enum).IntValue();
             }
 
             // Second element is the attributeType
-            if (((Asn1Sequence) asnObj).Size() > 1)
+            if (((Asn1Sequence)asnObj).Size() > 1)
             {
-                var asn1String = ((Asn1Sequence) asnObj).get_Renamed(1);
+                var asn1String = ((Asn1Sequence)asnObj).get_Renamed(1);
                 if (asn1String != null && asn1String is Asn1OctetString)
                 {
-                    FailedAttribute = ((Asn1OctetString) asn1String).StringValue();
+                    FailedAttribute = ((Asn1OctetString)asn1String).StringValue();
                 }
             }
         }
@@ -128,7 +127,7 @@ namespace Novell.Directory.Ldap.Controls
         /// </summary>
         public virtual string FailedAttribute { get; }
 
-        /// <summary> Returns the result code from the sort</summary>
+        /// <summary> Returns the result code from the sort.</summary>
         public virtual int ResultCode { get; }
     }
 }

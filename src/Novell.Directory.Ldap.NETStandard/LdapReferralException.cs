@@ -204,7 +204,7 @@ namespace Novell.Directory.Ldap
         }
 
         /// <summary>
-        ///     Sets a referral that could not be processed
+        ///     Sets a referral that could not be processed.
         /// </summary>
         /// <param name="url">
         ///     The referral URL that could not be processed.
@@ -227,7 +227,7 @@ namespace Novell.Directory.Ldap
         ///     server (for example, a referral URL other than ldap://something).
         /// </summary>
         /// <returns>
-        ///     The list of URLs that comprise this referral
+        ///     The list of URLs that comprise this referral.
         /// </returns>
         public string[] GetReferrals()
         {
@@ -235,7 +235,7 @@ namespace Novell.Directory.Ldap
         }
 
         /// <summary>
-        ///     Sets the list of referrals
+        ///     Sets the list of referrals.
         /// </summary>
         /// <param name="urls">
         ///     the list of referrals returned by the Ldap server in a
@@ -258,7 +258,7 @@ namespace Novell.Directory.Ldap
             var msg = GetExceptionString("LdapReferralException");
 
             // Add failed referral information
-            if ((object) FailedReferral != null)
+            if ((object)FailedReferral != null)
             {
                 tmsg = ResourcesHandler.GetMessage("FAILED_REFERRAL",
                     new object[] {"LdapReferralException", FailedReferral});

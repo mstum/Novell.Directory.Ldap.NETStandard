@@ -76,7 +76,6 @@ namespace Novell.Directory.Ldap.Asn1
             InitBlock();
         }
 
-
         /* Generic decode routines
         */
 
@@ -170,14 +169,13 @@ namespace Novell.Directory.Ldap.Asn1
                     return new Asn1GeneralString(this, in, length);
                     */
 
-
                     default:
                         throw new EndOfStreamException("Unknown tag"); // !!! need a better exception
                 }
             }
 
             // APPLICATION or CONTEXT-SPECIFIC tag
-            return new Asn1Tagged(this, inRenamed, length, (Asn1Identifier) _asn1Id.Clone());
+            return new Asn1Tagged(this, inRenamed, length, (Asn1Identifier)_asn1Id.Clone());
         }
 
         /* Decoders for ASN.1 simple type Contents
@@ -263,7 +261,7 @@ namespace Novell.Directory.Ldap.Asn1
                     throw new EndOfStreamException("LBER: CHARACTER STRING: decode error: EOF");
                 }
 
-                octets[i] = (sbyte) ret;
+                octets[i] = (sbyte)ret;
             }
 
             var encoder = Encoding.GetEncoding("utf-8");

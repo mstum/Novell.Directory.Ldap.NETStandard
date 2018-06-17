@@ -46,7 +46,7 @@ namespace Novell.Directory.Ldap.Events.Edir
         {
             var returnedValue = Value;
 
-            if (null == returnedValue)
+            if (returnedValue == null)
             {
                 throw new LdapException(LdapException.ResultCodeToString(ResultCode),
                     ResultCode,
@@ -55,22 +55,22 @@ namespace Novell.Directory.Ldap.Events.Edir
 
             var decoder = new LberDecoder();
 
-            var sequence = (Asn1Sequence) decoder.Decode(returnedValue);
+            var sequence = (Asn1Sequence)decoder.Decode(returnedValue);
 
-            var length = ((Asn1Integer) sequence.get_Renamed(0)).IntValue();
-            var sequenceSet = (Asn1Set) sequence.get_Renamed(1);
+            var length = ((Asn1Integer)sequence.get_Renamed(0)).IntValue();
+            var sequenceSet = (Asn1Set)sequence.get_Renamed(1);
             SpecifierList = new EdirEventSpecifier[length];
 
             for (var i = 0; i < length; i++)
             {
                 var eventspecifiersequence =
-                    (Asn1Sequence) sequenceSet.get_Renamed(i);
+                    (Asn1Sequence)sequenceSet.get_Renamed(i);
                 var classfication =
-                    ((Asn1Integer) eventspecifiersequence.get_Renamed(0)).IntValue();
+                    ((Asn1Integer)eventspecifiersequence.get_Renamed(0)).IntValue();
                 var enumtype =
-                    ((Asn1Enumerated) eventspecifiersequence.get_Renamed(1)).IntValue();
+                    ((Asn1Enumerated)eventspecifiersequence.get_Renamed(1)).IntValue();
                 SpecifierList[i] =
-                    new EdirEventSpecifier((EdirEventType) classfication, (EdirEventResultType) enumtype);
+                    new EdirEventSpecifier((EdirEventType)classfication, (EdirEventResultType)enumtype);
             }
         }
 

@@ -29,7 +29,6 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-
 using System;
 using System.IO;
 using Novell.Directory.Ldap.Asn1;
@@ -74,11 +73,11 @@ namespace Novell.Directory.Ldap.Events.Edir
                 for (var nIndex = 0; nIndex < specifiers.Length; nIndex++)
                 {
                     var specifierSequence = new Asn1Sequence();
-                    specifierSequence.Add(new Asn1Integer((int) specifiers[nIndex].EventType));
-                    specifierSequence.Add(new Asn1Enumerated((int) specifiers[nIndex].EventResultType));
-                    if (0 == nIndex)
+                    specifierSequence.Add(new Asn1Integer((int)specifiers[nIndex].EventType));
+                    specifierSequence.Add(new Asn1Enumerated((int)specifiers[nIndex].EventResultType));
+                    if (nIndex == 0)
                     {
-                        bFiltered = null != specifiers[nIndex].EventFilter;
+                        bFiltered = specifiers[nIndex].EventFilter != null;
                         if (bFiltered)
                         {
                             SetId(EventOids.NldapFilteredMonitorEventsRequest);
@@ -88,7 +87,7 @@ namespace Novell.Directory.Ldap.Events.Edir
                     if (bFiltered)
                     {
                         // A filter is expected
-                        if (null == specifiers[nIndex].EventFilter)
+                        if (specifiers[nIndex].EventFilter == null)
                         {
                             throw new ArgumentException("Filter cannot be null,for Filter events");
                         }
@@ -98,7 +97,7 @@ namespace Novell.Directory.Ldap.Events.Edir
                     else
                     {
                         // No filter is expected
-                        if (null != specifiers[nIndex].EventFilter)
+                        if (specifiers[nIndex].EventFilter != null)
                         {
                             throw new ArgumentException("Filter cannot be specified for non Filter events");
                         }

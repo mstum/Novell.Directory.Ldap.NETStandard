@@ -48,7 +48,6 @@ namespace Novell.Directory.Ldap
             _nameLock = new object();
         }
 
-
         internal MessageAgent()
         {
             InitBlock();
@@ -56,10 +55,10 @@ namespace Novell.Directory.Ldap
         }
 
         /// <summary>
-        ///     Get a list of message ids controlled by this agent
+        ///     Get a list of message ids controlled by this agent.
         /// </summary>
         /// <returns>
-        ///     an array of integers representing the message ids
+        ///     an array of integers representing the message ids.
         /// </returns>
         internal int[] MessageIDs
         {
@@ -71,7 +70,7 @@ namespace Novell.Directory.Ldap
 
                 for (var i = 0; i < size; i++)
                 {
-                    info = (Message) _messages[i];
+                    info = (Message)_messages[i];
                     ids[i] = info.MessageId;
                 }
 
@@ -80,10 +79,10 @@ namespace Novell.Directory.Ldap
         }
 
         /// <summary>
-        ///     Get the maessage agent number for debugging
+        ///     Get the maessage agent number for debugging.
         /// </summary>
         /// <returns>
-        ///     the agent number
+        ///     the agent number.
         /// </returns>
         internal string AgentName
         {
@@ -91,7 +90,7 @@ namespace Novell.Directory.Ldap
             get;
         }
 
-        /// <summary> Get a count of all messages queued</summary>
+        /// <summary> Get a count of all messages queued.</summary>
         internal int Count
         {
             get
@@ -100,7 +99,7 @@ namespace Novell.Directory.Ldap
                 var msgs = _messages.ToArray();
                 for (var i = 0; i < msgs.Length; i++)
                 {
-                    var m = (Message) msgs[i];
+                    var m = (Message)msgs[i];
                     count += m.Count;
                 }
 
@@ -114,7 +113,7 @@ namespace Novell.Directory.Ldap
         }
 
         /// <summary>
-        ///     empty and return all messages owned by this agent
+        ///     empty and return all messages owned by this agent.
         /// </summary>
         private object[] RemoveAll()
         {
@@ -122,10 +121,10 @@ namespace Novell.Directory.Ldap
         }
 
         /// <summary>
-        ///     merges two message agents
+        ///     merges two message agents.
         /// </summary>
         /// <param name="fromAgent">
-        ///     the agent to be merged into this one
+        ///     the agent to be merged into this one.
         /// </param>
         internal void Merge(MessageAgent fromAgent)
         {
@@ -133,7 +132,7 @@ namespace Novell.Directory.Ldap
             for (var i = 0; i < msgs.Length; i++)
             {
                 _messages.Add(msgs[i]);
-                ((Message) msgs[i]).Agent = this;
+                ((Message)msgs[i]).Agent = this;
             }
 
             lock (_messages)
@@ -149,9 +148,8 @@ namespace Novell.Directory.Ldap
             }
         }
 
-
         /// <summary>
-        ///     Wakes up any threads waiting for messages in the message agent
+        ///     Wakes up any threads waiting for messages in the message agent.
         /// </summary>
         internal void SleepersAwake(bool all)
         {
@@ -170,7 +168,7 @@ namespace Novell.Directory.Ldap
 
         /// <summary>
         ///     Returns true if any responses are queued for any of the agent's messages
-        ///     return false if no responses are queued, otherwise true
+        ///     return false if no responses are queued, otherwise true.
         /// </summary>
         internal bool IsResponseReceived()
         {
@@ -184,7 +182,7 @@ namespace Novell.Directory.Ldap
                     next = 0;
                 }
 
-                info = (Message) _messages[next];
+                info = (Message)_messages[next];
                 if (info.HasReplies())
                 {
                     return true;
@@ -196,7 +194,7 @@ namespace Novell.Directory.Ldap
 
         /// <summary>
         ///     Returns true if any responses are queued for the specified msgId
-        ///     return false if no responses are queued, otherwise true
+        ///     return false if no responses are queued, otherwise true.
         /// </summary>
         internal bool IsResponseReceived(int msgId)
         {
@@ -212,13 +210,13 @@ namespace Novell.Directory.Ldap
         }
 
         /// <summary>
-        ///     Abandon the request associated with MsgId
+        ///     Abandon the request associated with MsgId.
         /// </summary>
         /// <param name="msgId">
-        ///     the message id to abandon
+        ///     the message id to abandon.
         /// </param>
         /// <param name="cons">
-        ///     constraints associated with this request
+        ///     constraints associated with this request.
         /// </param>
         internal void Abandon(int msgId, LdapConstraints cons)
             //, boolean informUser)
@@ -237,7 +235,7 @@ namespace Novell.Directory.Ldap
             }
         }
 
-        /// <summary> Abandon all requests on this MessageAgent</summary>
+        /// <summary> Abandon all requests on this MessageAgent.</summary>
         internal void AbandonAll()
         {
             var size = _messages.Count;
@@ -245,7 +243,7 @@ namespace Novell.Directory.Ldap
 
             for (var i = 0; i < size; i++)
             {
-                info = (Message) _messages[i];
+                info = (Message)_messages[i];
                 // Message complete and no more replies, remove from id list
                 SupportClass.VectorRemoveElement(_messages, info);
                 info.Abandon(null, null);
@@ -253,10 +251,10 @@ namespace Novell.Directory.Ldap
         }
 
         /// <summary>
-        ///     Indicates whether a specific operation is complete
+        ///     Indicates whether a specific operation is complete.
         /// </summary>
         /// <returns>
-        ///     true if a specific operation is complete
+        ///     true if a specific operation is complete.
         /// </returns>
         internal bool IsComplete(int msgid)
         {
@@ -278,7 +276,7 @@ namespace Novell.Directory.Ldap
         }
 
         /// <summary>
-        ///     Returns the Message object for a given messageID
+        ///     Returns the Message object for a given messageID.
         /// </summary>
         /// <param name="msgid">
         ///     the message ID.
@@ -298,10 +296,10 @@ namespace Novell.Directory.Ldap
         ///     the connection that identifies the server.
         /// </param>
         /// <param name="msg">
-        ///     the LdapMessage to send
+        ///     the LdapMessage to send.
         /// </param>
         /// <param name="timeOut">
-        ///     the interval to wait for the message to complete or
+        ///     the interval to wait for the message to complete or.
         ///     <code>null</code> if infinite.
         /// </param>
         /// <param name="queue">
@@ -318,7 +316,7 @@ namespace Novell.Directory.Ldap
         }
 
         /// <summary>
-        ///     Returns a response queued, or waits if none queued
+        ///     Returns a response queued, or waits if none queued.
         /// </summary>
 
 //		internal System.Object getLdapMessage(System.Int32 msgId)
@@ -375,7 +373,7 @@ namespace Novell.Directory.Ldap
                             next = 0;
                         }
 
-                        info = (Message) _messages[next];
+                        info = (Message)_messages[next];
                         _indexLastRead = next++;
                         rfcMsg = info.Reply;
                         // Check this request is complete
@@ -409,7 +407,7 @@ namespace Novell.Directory.Ldap
             } /* end synchronized */
         }
 
-        /// <summary> Debug code to print messages in message vector</summary>
+        /// <summary> Debug code to print messages in message vector.</summary>
         private void DebugDisplayMessages()
         {
         }

@@ -40,7 +40,7 @@ namespace Novell.Directory.Ldap.Extensions
     ///     An object in this class is generated from an ExtendedResponse object
     ///     using the ExtendedResponseFactory class.
     ///     The getEffectivePrivilegesResponse extension uses the following OID:
-    ///     2.16.840.1.113719.1.27.100.34
+    ///     2.16.840.1.113719.1.27.100.34.
     /// </summary>
     public class GetEffectivePrivilegesResponse : LdapExtendedResponse
     {
@@ -52,7 +52,7 @@ namespace Novell.Directory.Ldap.Extensions
         ///     The constructor parses the responseValue which has the following
         ///     format:
         ///     responseValue ::=
-        ///     privileges  INTEGER
+        ///     privileges  INTEGER.
         /// </summary>
         /// <exception>
         ///     IOException The responseValue could not be decoded.
@@ -75,7 +75,7 @@ namespace Novell.Directory.Ldap.Extensions
                     throw new IOException("Decoding error");
                 }
 
-                var asn1Privileges = (Asn1Integer) decoder.Decode(returnedValue);
+                var asn1Privileges = (Asn1Integer)decoder.Decode(returnedValue);
                 if (asn1Privileges == null)
                 {
                     throw new IOException("Decoding error");

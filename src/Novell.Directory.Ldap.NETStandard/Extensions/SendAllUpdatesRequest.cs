@@ -44,7 +44,7 @@ namespace Novell.Directory.Ldap.Extensions
     ///     The requestValue has the following format:
     ///     requestValue ::=
     ///     partitionRoot   LdapDN
-    ///     origServerDN    LdapDN
+    ///     origServerDN    LdapDN.
     /// </summary>
     public class SendAllUpdatesRequest : LdapExtendedOperation
     {
@@ -68,7 +68,7 @@ namespace Novell.Directory.Ldap.Extensions
         {
             try
             {
-                if ((object) partitionRoot == null || (object) origServerDn == null)
+                if ((object)partitionRoot == null || (object)origServerDn == null)
                 {
                     throw new ArgumentException(ExceptionMessages.ParamError);
                 }

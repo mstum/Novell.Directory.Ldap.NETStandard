@@ -47,7 +47,7 @@ namespace Novell.Directory.Ldap.Extensions
     ///     2.16.840.1.113719.1.27.100.37
     ///     The requestValue has the following format:
     ///     requestValue ::=
-    ///     serverName  LdapDN
+    ///     serverName  LdapDN.
     /// </summary>
     public class GetReplicationFilterRequest : LdapExtendedOperation
     {
@@ -66,7 +66,7 @@ namespace Novell.Directory.Ldap.Extensions
         ///     replication filter.
         /// </summary>
         /// <param name="serverDn">
-        ///     The server whose replication filter needs to be read
+        ///     The server whose replication filter needs to be read.
         /// </param>
         /// <exception>
         ///     LdapException A general exception which includes an error
@@ -77,7 +77,7 @@ namespace Novell.Directory.Ldap.Extensions
         {
             try
             {
-                if ((object) serverDn == null)
+                if ((object)serverDn == null)
                 {
                     throw new ArgumentException(ExceptionMessages.ParamError);
                 }

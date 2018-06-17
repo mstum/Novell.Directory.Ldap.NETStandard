@@ -73,7 +73,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         ///     Optional attribute description.
         /// </param>
         /// <param name="dnAttributes">
-        ///     Asn1Boolean value. (default false)
+        ///     Asn1Boolean value. (default false).
         /// </param>
         public RfcMatchingRuleAssertion(RfcMatchingRuleId matchingRule, RfcAttributeDescription type,
             RfcAssertionValue matchValue, Asn1Boolean dnAttributes) : base(4)

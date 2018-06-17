@@ -41,7 +41,7 @@ namespace Novell.Directory.Ldap.Extensions
     ///     using the ExtendedResponseFactory class.
     ///     The PartitionEntryCountResponse extension uses the following
     ///     OID:
-    ///     2.16.840.1.113719.1.27.100.14
+    ///     2.16.840.1.113719.1.27.100.14.
     /// </summary>
     public class PartitionEntryCountResponse : LdapExtendedResponse
     {
@@ -53,7 +53,7 @@ namespace Novell.Directory.Ldap.Extensions
         ///     The constructor parses the responseValue which has the following
         ///     format:
         ///     responseValue ::=
-        ///     count  INTEGER
+        ///     count  INTEGER.
         /// </summary>
         /// <exception>
         ///     IOException  The response value could not be decoded.
@@ -76,7 +76,7 @@ namespace Novell.Directory.Ldap.Extensions
                     throw new IOException("Decoding error");
                 }
 
-                var asn1Count = (Asn1Integer) decoder.Decode(returnedValue);
+                var asn1Count = (Asn1Integer)decoder.Decode(returnedValue);
                 if (asn1Count == null)
                 {
                     throw new IOException("Decoding error");

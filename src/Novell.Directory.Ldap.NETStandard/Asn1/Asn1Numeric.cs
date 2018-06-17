@@ -63,7 +63,7 @@ namespace Novell.Directory.Ldap.Asn1
         /// <summary> Returns the content of this Asn1Numeric object as an int.</summary>
         public int IntValue()
         {
-            return (int) _content;
+            return (int)_content;
         }
 
         /// <summary> Returns the content of this Asn1Numeric object as a long.</summary>

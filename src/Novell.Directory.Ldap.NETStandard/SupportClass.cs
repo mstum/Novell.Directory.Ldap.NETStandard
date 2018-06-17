@@ -59,7 +59,6 @@ namespace Novell.Directory.Ldap
         void Run();
     }
 
-
     public class Integer32 : object
     {
         public Integer32(int ival)
@@ -76,17 +75,17 @@ namespace Novell.Directory.Ldap
     public class SupportClass
     {
         /// <summary>
-        ///     Receives a byte array and returns it transformed in an sbyte array
+        ///     Receives a byte array and returns it transformed in an sbyte array.
         /// </summary>
-        /// <param name="byteArray">Byte array to process</param>
-        /// <returns>The transformed array</returns>
+        /// <param name="byteArray">Byte array to process.</param>
+        /// <returns>The transformed array.</returns>
         [CLSCompliant(false)]
         public static sbyte[] ToSByteArray(byte[] byteArray)
         {
             var sbyteArray = new sbyte[byteArray.Length];
             for (var index = 0; index < byteArray.Length; index++)
             {
-                sbyteArray[index] = (sbyte) byteArray[index];
+                sbyteArray[index] = (sbyte)byteArray[index];
             }
 
             return sbyteArray;
@@ -95,33 +94,33 @@ namespace Novell.Directory.Ldap
         /*******************************/
 
         /// <summary>
-        ///     Converts an array of sbytes to an array of bytes
+        ///     Converts an array of sbytes to an array of bytes.
         /// </summary>
-        /// <param name="sbyteArray">The array of sbytes to be converted</param>
-        /// <returns>The new array of bytes</returns>
+        /// <param name="sbyteArray">The array of sbytes to be converted.</param>
+        /// <returns>The new array of bytes.</returns>
         [CLSCompliant(false)]
         public static byte[] ToByteArray(sbyte[] sbyteArray)
         {
             var byteArray = new byte[sbyteArray.Length];
             for (var index = 0; index < sbyteArray.Length; index++)
             {
-                byteArray[index] = (byte) sbyteArray[index];
+                byteArray[index] = (byte)sbyteArray[index];
             }
 
             return byteArray;
         }
 
         /// <summary>
-        ///     Converts a string to an array of bytes
+        ///     Converts a string to an array of bytes.
         /// </summary>
-        /// <param name="sourceString">The string to be converted</param>
-        /// <returns>The new array of bytes</returns>
+        /// <param name="sourceString">The string to be converted.</param>
+        /// <returns>The new array of bytes.</returns>
         public static byte[] ToByteArray(string sourceString)
         {
             var byteArray = new byte[sourceString.Length];
             for (var index = 0; index < sourceString.Length; index++)
             {
-                byteArray[index] = (byte) sourceString[index];
+                byteArray[index] = (byte)sourceString[index];
             }
 
             return byteArray;
@@ -137,12 +136,11 @@ namespace Novell.Directory.Ldap
             var byteArray = new byte[tempObjectArray.Length];
             for (var index = 0; index < tempObjectArray.Length; index++)
             {
-                byteArray[index] = (byte) tempObjectArray[index];
+                byteArray[index] = (byte)tempObjectArray[index];
             }
 
             return byteArray;
         }
-
 
         /*******************************/
 
@@ -192,7 +190,7 @@ namespace Novell.Directory.Ldap
 
             for (var i = start; i < start + bytesRead; i++)
             {
-                target[i] = (sbyte) receiver[i];
+                target[i] = (sbyte)receiver[i];
             }
 
             return bytesRead;
@@ -202,7 +200,7 @@ namespace Novell.Directory.Ldap
         ///     Reads a number of characters from the current source TextReader and writes the data to the target array at the
         ///     specified index.
         /// </summary>
-        /// <param name="sourceTextReader">The source TextReader to read from</param>
+        /// <param name="sourceTextReader">The source TextReader to read from.</param>
         /// <param name="target">Contains the array of characteres read from the source TextReader.</param>
         /// <param name="start">The starting index of the target array.</param>
         /// <param name="count">The maximum number of characters to read from the source TextReader.</param>
@@ -230,7 +228,7 @@ namespace Novell.Directory.Ldap
 
             for (var index = start; index < start + bytesRead; index++)
             {
-                target[index] = (sbyte) charArray[index];
+                target[index] = (sbyte)charArray[index];
             }
 
             return bytesRead;
@@ -239,20 +237,20 @@ namespace Novell.Directory.Ldap
         /*******************************/
 
         /// <summary>
-        ///     This method returns the literal value received
+        ///     This method returns the literal value received.
         /// </summary>
-        /// <param name="literal">The literal to return</param>
-        /// <returns>The received value</returns>
+        /// <param name="literal">The literal to return.</param>
+        /// <returns>The received value.</returns>
         public static long Identity(long literal)
         {
             return literal;
         }
 
         /// <summary>
-        ///     This method returns the literal value received
+        ///     This method returns the literal value received.
         /// </summary>
-        /// <param name="literal">The literal to return</param>
-        /// <returns>The received value</returns>
+        /// <param name="literal">The literal to return.</param>
+        /// <returns>The received value.</returns>
         [CLSCompliant(false)]
         public static ulong Identity(ulong literal)
         {
@@ -260,20 +258,20 @@ namespace Novell.Directory.Ldap
         }
 
         /// <summary>
-        ///     This method returns the literal value received
+        ///     This method returns the literal value received.
         /// </summary>
-        /// <param name="literal">The literal to return</param>
-        /// <returns>The received value</returns>
+        /// <param name="literal">The literal to return.</param>
+        /// <returns>The received value.</returns>
         public static float Identity(float literal)
         {
             return literal;
         }
 
         /// <summary>
-        ///     This method returns the literal value received
+        ///     This method returns the literal value received.
         /// </summary>
-        /// <param name="literal">The literal to return</param>
-        /// <returns>The received value</returns>
+        /// <param name="literal">The literal to return.</param>
+        /// <returns>The received value.</returns>
         public static double Identity(double literal)
         {
             return literal;
@@ -282,11 +280,11 @@ namespace Novell.Directory.Ldap
         /*******************************/
 
         /// <summary>
-        ///     Gets the DateTimeFormat instance and date instance to obtain the date with the format passed
+        ///     Gets the DateTimeFormat instance and date instance to obtain the date with the format passed.
         /// </summary>
-        /// <param name="format">The DateTimeFormat to obtain the time and date pattern</param>
-        /// <param name="date">The date instance used to get the date</param>
-        /// <returns>A string representing the date with the time and date patterns</returns>
+        /// <param name="format">The DateTimeFormat to obtain the time and date pattern.</param>
+        /// <param name="date">The date instance used to get the date.</param>
+        /// <returns>A string representing the date with the time and date patterns.</returns>
         public static string FormatDateTime(DateTimeFormatInfo format, DateTime date)
         {
             var timePattern = DateTimeFormatManager.Manager.GetTimeFormatPattern(format);
@@ -297,12 +295,12 @@ namespace Novell.Directory.Ldap
         /*******************************/
 
         /// <summary>
-        ///     Adds a new key-and-value pair into the hash table
+        ///     Adds a new key-and-value pair into the hash table.
         /// </summary>
-        /// <param name="collection">The collection to work with</param>
-        /// <param name="key">Key used to obtain the value</param>
-        /// <param name="newValue">Value asociated with the key</param>
-        /// <returns>The old element associated with the key</returns>
+        /// <param name="collection">The collection to work with.</param>
+        /// <param name="key">Key used to obtain the value.</param>
+        /// <param name="newValue">Value asociated with the key.</param>
+        /// <returns>The old element associated with the key.</returns>
         public static object PutElement(IDictionary collection, object key, object newValue)
         {
             var element = collection[key];
@@ -310,15 +308,14 @@ namespace Novell.Directory.Ldap
             return element;
         }
 
-
         /*******************************/
 
         /// <summary>
         ///     Removes the first occurrence of an specific object from an ArrayList instance.
         /// </summary>
-        /// <param name="arrayList">The ArrayList instance</param>
-        /// <param name="element">The element to remove</param>
-        /// <returns>True if item is found in the ArrayList; otherwise, false</returns>
+        /// <param name="arrayList">The ArrayList instance.</param>
+        /// <param name="element">The element to remove.</param>
+        /// <returns>True if item is found in the ArrayList; otherwise, false.</returns>
         public static bool VectorRemoveElement(ArrayList arrayList, object element)
         {
             var containsItem = arrayList.Contains(element);
@@ -326,15 +323,14 @@ namespace Novell.Directory.Ldap
             return containsItem;
         }
 
-
         /*******************************/
 
         /// <summary>
         ///     Removes the element with the specified key from a Hashtable instance.
         /// </summary>
-        /// <param name="hashtable">The Hashtable instance</param>
-        /// <param name="key">The key of the element to remove</param>
-        /// <returns>The element removed</returns>
+        /// <param name="hashtable">The Hashtable instance.</param>
+        /// <param name="key">The key of the element to remove.</param>
+        /// <returns>The element removed.</returns>
         public static object HashtableRemove(Hashtable hashtable, object key)
         {
             var element = hashtable[key];
@@ -347,10 +343,10 @@ namespace Novell.Directory.Ldap
         /// <summary>
         ///     Sets the size of the ArrayList. If the new size is greater than the current capacity, then new null items are added
         ///     to the end of the ArrayList. If the new size is lower than the current size, then all elements after the new size
-        ///     are discarded
+        ///     are discarded.
         /// </summary>
-        /// <param name="arrayList">The ArrayList to be changed</param>
-        /// <param name="newSize">The new ArrayList size</param>
+        /// <param name="arrayList">The ArrayList to be changed.</param>
+        /// <param name="newSize">The new ArrayList size.</param>
         public static void SetSize(ArrayList arrayList, int newSize)
         {
             if (newSize < 0)
@@ -376,9 +372,9 @@ namespace Novell.Directory.Ldap
         /// <summary>
         ///     Adds an element to the top end of a Stack instance.
         /// </summary>
-        /// <param name="stack">The Stack instance</param>
-        /// <param name="element">The element to add</param>
-        /// <returns>The element added</returns>
+        /// <param name="stack">The Stack instance.</param>
+        /// <param name="element">The element to add.</param>
+        /// <returns>The element added.</returns>
         public static object StackPush(Stack stack, object element)
         {
             stack.Push(element);
@@ -388,14 +384,14 @@ namespace Novell.Directory.Ldap
         /*******************************/
 
         /// <summary>
-        ///     Copies an array of chars obtained from a String into a specified array of chars
+        ///     Copies an array of chars obtained from a String into a specified array of chars.
         /// </summary>
-        /// <param name="sourceString">The String to get the chars from</param>
-        /// <param name="sourceStart">Position of the String to start getting the chars</param>
-        /// <param name="sourceEnd">Position of the String to end getting the chars</param>
-        /// <param name="destinationArray">Array to return the chars</param>
-        /// <param name="destinationStart">Position of the destination array of chars to start storing the chars</param>
-        /// <returns>An array of chars</returns>
+        /// <param name="sourceString">The String to get the chars from.</param>
+        /// <param name="sourceStart">Position of the String to start getting the chars.</param>
+        /// <param name="sourceEnd">Position of the String to end getting the chars.</param>
+        /// <param name="destinationArray">Array to return the chars.</param>
+        /// <param name="destinationStart">Position of the destination array of chars to start storing the chars.</param>
+        /// <returns>An array of chars.</returns>
         public static void GetCharsFromString(string sourceString, int sourceStart, int sourceEnd,
             ref char[] destinationArray, int destinationStart)
         {
@@ -427,14 +423,13 @@ namespace Novell.Directory.Ldap
             return new FileStream(fileName, FileMode.Create);
         }
 
-
         /*******************************/
 
         /// <summary>
-        ///     Converts an array of sbytes to an array of chars
+        ///     Converts an array of sbytes to an array of chars.
         /// </summary>
-        /// <param name="sByteArray">The array of sbytes to convert</param>
-        /// <returns>The new array of chars</returns>
+        /// <param name="sByteArray">The array of sbytes to convert.</param>
+        /// <returns>The new array of chars.</returns>
         [CLSCompliant(false)]
         public static char[] ToCharArray(sbyte[] sByteArray)
         {
@@ -444,17 +439,16 @@ namespace Novell.Directory.Ldap
         }
 
         /// <summary>
-        ///     Converts an array of bytes to an array of chars
+        ///     Converts an array of bytes to an array of chars.
         /// </summary>
-        /// <param name="byteArray">The array of bytes to convert</param>
-        /// <returns>The new array of chars</returns>
+        /// <param name="byteArray">The array of bytes to convert.</param>
+        /// <returns>The new array of chars.</returns>
         public static char[] ToCharArray(byte[] byteArray)
         {
             var charArray = new char[byteArray.Length];
             byteArray.CopyTo(charArray, 0);
             return charArray;
         }
-
 
         /*******************************/
 
@@ -495,14 +489,13 @@ namespace Novell.Directory.Ldap
             return instance;
         }
 
-
         /*******************************/
 
         /// <summary>
-        ///     Writes the exception stack trace to the received stream
+        ///     Writes the exception stack trace to the received stream.
         /// </summary>
-        /// <param name="throwable">Exception to obtain information from</param>
-        /// <param name="stream">Output sream used to write to</param>
+        /// <param name="throwable">Exception to obtain information from.</param>
+        /// <param name="stream">Output sream used to write to.</param>
         public static void WriteStackTrace(Exception throwable, TextWriter stream)
         {
             stream.Write(throwable.StackTrace);
@@ -551,7 +544,7 @@ namespace Novell.Directory.Ldap
                 return false;
             }
 
-            return EqualsSupport(source, (ICollection) target);
+            return EqualsSupport(source, (ICollection)target);
         }
 
         /// <summary>
@@ -570,7 +563,7 @@ namespace Novell.Directory.Ldap
                 return false;
             }
 
-            return EqualsSupport(source, (IDictionaryEnumerator) target);
+            return EqualsSupport(source, (IDictionaryEnumerator)target);
         }
 
         /// <summary>
@@ -621,7 +614,7 @@ namespace Novell.Directory.Ldap
         /*******************************/
 
         /// <summary>
-        ///     The class performs token processing from strings
+        ///     The class performs token processing from strings.
         /// </summary>
         public class Tokenizer
         {
@@ -637,9 +630,9 @@ namespace Novell.Directory.Ldap
             private string _source;
 
             /// <summary>
-            ///     Initializes a new class instance with a specified string to process
+            ///     Initializes a new class instance with a specified string to process.
             /// </summary>
-            /// <param name="source">String to tokenize</param>
+            /// <param name="source">String to tokenize.</param>
             public Tokenizer(string source)
             {
                 _elements = new ArrayList();
@@ -650,10 +643,10 @@ namespace Novell.Directory.Ldap
 
             /// <summary>
             ///     Initializes a new class instance with a specified string to process
-            ///     and the specified token delimiters to use
+            ///     and the specified token delimiters to use.
             /// </summary>
-            /// <param name="source">String to tokenize</param>
-            /// <param name="delimiters">String containing the delimiters</param>
+            /// <param name="source">String to tokenize.</param>
+            /// <param name="delimiters">String containing the delimiters.</param>
             public Tokenizer(string source, string delimiters)
             {
                 _elements = new ArrayList();
@@ -682,7 +675,7 @@ namespace Novell.Directory.Ldap
             }
 
             /// <summary>
-            ///     Current token count for the source string
+            ///     Current token count for the source string.
             /// </summary>
             public int Count => _elements.Count;
 
@@ -736,18 +729,18 @@ namespace Novell.Directory.Ldap
             }
 
             /// <summary>
-            ///     Determines if there are more tokens to return from the source string
+            ///     Determines if there are more tokens to return from the source string.
             /// </summary>
-            /// <returns>True or false, depending if there are more tokens</returns>
+            /// <returns>True or false, depending if there are more tokens.</returns>
             public bool HasMoreTokens()
             {
                 return _elements.Count > 0;
             }
 
             /// <summary>
-            ///     Returns the next token from the token list
+            ///     Returns the next token from the token list.
             /// </summary>
-            /// <returns>The string value of the token</returns>
+            /// <returns>The string value of the token.</returns>
             public string NextToken()
             {
                 string result;
@@ -760,7 +753,7 @@ namespace Novell.Directory.Ldap
                 {
 //						Tokenize();
                     RemoveEmptyStrings();
-                    result = (string) _elements[0];
+                    result = (string)_elements[0];
                     _elements.RemoveAt(0);
                     return result;
                 }
@@ -768,7 +761,7 @@ namespace Novell.Directory.Ldap
                 _elements = new ArrayList();
                 _elements.AddRange(_source.Split(_delimiters.ToCharArray()));
                 RemoveEmptyStrings();
-                result = (string) _elements[0];
+                result = (string)_elements[0];
                 _elements.RemoveAt(0);
                 _source = _source.Remove(_source.IndexOf(result), result.Length);
                 _source = _source.TrimStart(_delimiters.ToCharArray());
@@ -777,10 +770,10 @@ namespace Novell.Directory.Ldap
 
             /// <summary>
             ///     Returns the next token from the source string, using the provided
-            ///     token delimiters
+            ///     token delimiters.
             /// </summary>
-            /// <param name="delimiters">String containing the delimiters to use</param>
-            /// <returns>The string value of the token</returns>
+            /// <param name="delimiters">String containing the delimiters to use.</param>
+            /// <returns>The string value of the token.</returns>
             public string NextToken(string delimiters)
             {
                 _delimiters = delimiters;
@@ -788,13 +781,13 @@ namespace Novell.Directory.Ldap
             }
 
             /// <summary>
-            ///     Removes all empty strings from the token list
+            ///     Removes all empty strings from the token list.
             /// </summary>
             private void RemoveEmptyStrings()
             {
                 for (var index = 0; index < _elements.Count; index++)
                 {
-                    if ((string) _elements[index] == string.Empty)
+                    if ((string)_elements[index] == string.Empty)
                     {
                         _elements.RemoveAt(index);
                         index--;
@@ -806,27 +799,27 @@ namespace Novell.Directory.Ldap
         /*******************************/
 
         /// <summary>
-        ///     Provides support for DateFormat
+        ///     Provides support for DateFormat.
         /// </summary>
         public class DateTimeFormatManager
         {
             public static DateTimeFormatHashTable Manager = new DateTimeFormatHashTable();
 
             /// <summary>
-            ///     Hashtable class to provide functionality for dateformat properties
+            ///     Hashtable class to provide functionality for dateformat properties.
             /// </summary>
             public class DateTimeFormatHashTable : Hashtable
             {
                 /// <summary>
                 ///     Sets the format for datetime.
                 /// </summary>
-                /// <param name="format">DateTimeFormat instance to set the pattern</param>
-                /// <param name="newPattern">A string with the pattern format</param>
+                /// <param name="format">DateTimeFormat instance to set the pattern.</param>
+                /// <param name="newPattern">A string with the pattern format.</param>
                 public void SetDateFormatPattern(DateTimeFormatInfo format, string newPattern)
                 {
                     if (this[format] != null)
                     {
-                        ((DateTimeFormatProperties) this[format]).DateFormatPattern = newPattern;
+                        ((DateTimeFormatProperties)this[format]).DateFormatPattern = newPattern;
                     }
                     else
                     {
@@ -839,10 +832,10 @@ namespace Novell.Directory.Ldap
                 }
 
                 /// <summary>
-                ///     Gets the current format pattern of the DateTimeFormat instance
+                ///     Gets the current format pattern of the DateTimeFormat instance.
                 /// </summary>
-                /// <param name="format">The DateTimeFormat instance which the value will be obtained</param>
-                /// <returns>The string representing the current datetimeformat pattern</returns>
+                /// <param name="format">The DateTimeFormat instance which the value will be obtained.</param>
+                /// <returns>The string representing the current datetimeformat pattern.</returns>
                 public string GetDateFormatPattern(DateTimeFormatInfo format)
                 {
                     if (this[format] == null)
@@ -850,19 +843,19 @@ namespace Novell.Directory.Ldap
                         return "d-MMM-yy";
                     }
 
-                    return ((DateTimeFormatProperties) this[format]).DateFormatPattern;
+                    return ((DateTimeFormatProperties)this[format]).DateFormatPattern;
                 }
 
                 /// <summary>
-                ///     Sets the datetimeformat pattern to the giving format
+                ///     Sets the datetimeformat pattern to the giving format.
                 /// </summary>
-                /// <param name="format">The datetimeformat instance to set</param>
-                /// <param name="newPattern">The new datetimeformat pattern</param>
+                /// <param name="format">The datetimeformat instance to set.</param>
+                /// <param name="newPattern">The new datetimeformat pattern.</param>
                 public void SetTimeFormatPattern(DateTimeFormatInfo format, string newPattern)
                 {
                     if (this[format] != null)
                     {
-                        ((DateTimeFormatProperties) this[format]).TimeFormatPattern = newPattern;
+                        ((DateTimeFormatProperties)this[format]).TimeFormatPattern = newPattern;
                     }
                     else
                     {
@@ -875,10 +868,10 @@ namespace Novell.Directory.Ldap
                 }
 
                 /// <summary>
-                ///     Gets the current format pattern of the DateTimeFormat instance
+                ///     Gets the current format pattern of the DateTimeFormat instance.
                 /// </summary>
-                /// <param name="format">The DateTimeFormat instance which the value will be obtained</param>
-                /// <returns>The string representing the current datetimeformat pattern</returns>
+                /// <param name="format">The DateTimeFormat instance which the value will be obtained.</param>
+                /// <returns>The string representing the current datetimeformat pattern.</returns>
                 public string GetTimeFormatPattern(DateTimeFormatInfo format)
                 {
                     if (this[format] == null)
@@ -886,11 +879,11 @@ namespace Novell.Directory.Ldap
                         return "h:mm:ss tt";
                     }
 
-                    return ((DateTimeFormatProperties) this[format]).TimeFormatPattern;
+                    return ((DateTimeFormatProperties)this[format]).TimeFormatPattern;
                 }
 
                 /// <summary>
-                ///     Internal class to provides the DateFormat and TimeFormat pattern properties on .NET
+                ///     Internal class to provides the DateFormat and TimeFormat pattern properties on .NET.
                 /// </summary>
                 private class DateTimeFormatProperties
                 {
@@ -929,17 +922,17 @@ namespace Novell.Directory.Ldap
         /*******************************/
 
         /// <summary>
-        ///     Support class used to handle threads
+        ///     Support class used to handle threads.
         /// </summary>
         public class ThreadClass : IThreadRunnable
         {
             /// <summary>
-            ///     The instance of System.Threading.Thread
+            ///     The instance of System.Threading.Thread.
             /// </summary>
             private Thread _threadField;
 
             /// <summary>
-            ///     Initializes a new instance of the ThreadClass class
+            ///     Initializes a new instance of the ThreadClass class.
             /// </summary>
             public ThreadClass()
             {
@@ -949,7 +942,7 @@ namespace Novell.Directory.Ldap
             /// <summary>
             ///     Initializes a new instance of the Thread class.
             /// </summary>
-            /// <param name="name">The name of the thread</param>
+            /// <param name="name">The name of the thread.</param>
             public ThreadClass(string name)
             {
                 _threadField = new Thread(Run);
@@ -959,7 +952,7 @@ namespace Novell.Directory.Ldap
             /// <summary>
             ///     Initializes a new instance of the Thread class.
             /// </summary>
-            /// <param name="start">A ThreadStart delegate that references the methods to be invoked when this thread begins executing</param>
+            /// <param name="start">A ThreadStart delegate that references the methods to be invoked when this thread begins executing.</param>
             public ThreadClass(ThreadStart start)
             {
                 _threadField = new Thread(start);
@@ -968,8 +961,8 @@ namespace Novell.Directory.Ldap
             /// <summary>
             ///     Initializes a new instance of the Thread class.
             /// </summary>
-            /// <param name="start">A ThreadStart delegate that references the methods to be invoked when this thread begins executing</param>
-            /// <param name="name">The name of the thread</param>
+            /// <param name="start">A ThreadStart delegate that references the methods to be invoked when this thread begins executing.</param>
+            /// <param name="name">The name of the thread.</param>
             public ThreadClass(ThreadStart start, string name)
             {
                 _threadField = new Thread(start);
@@ -977,7 +970,7 @@ namespace Novell.Directory.Ldap
             }
 
             /// <summary>
-            ///     Gets the current thread instance
+            ///     Gets the current thread instance.
             /// </summary>
             public Thread Instance
             {
@@ -986,7 +979,7 @@ namespace Novell.Directory.Ldap
             }
 
             /// <summary>
-            ///     Gets or sets the name of the thread
+            ///     Gets or sets the name of the thread.
             /// </summary>
             public string Name
             {
@@ -1001,7 +994,7 @@ namespace Novell.Directory.Ldap
             }
 
             /// <summary>
-            ///     Gets a value indicating the execution status of the current thread
+            ///     Gets a value indicating the execution status of the current thread.
             /// </summary>
             public bool IsAlive => _threadField.IsAlive;
 
@@ -1017,14 +1010,14 @@ namespace Novell.Directory.Ldap
             public bool IsStopping { get; private set; }
 
             /// <summary>
-            ///     This method has no functionality unless the method is overridden
+            ///     This method has no functionality unless the method is overridden.
             /// </summary>
             public virtual void Run()
             {
             }
 
             /// <summary>
-            ///     Causes the operating system to change the state of the current thread instance to ThreadState.Running
+            ///     Causes the operating system to change the state of the current thread instance to ThreadState.Running.
             /// </summary>
             public void Start()
             {
@@ -1039,14 +1032,13 @@ namespace Novell.Directory.Ldap
             //	threadField.Interrupt();
             //}
 
-
             public void Stop()
             {
                 IsStopping = true;
             }
 
             /// <summary>
-            ///     Blocks the calling thread until a thread terminates
+            ///     Blocks the calling thread until a thread terminates.
             /// </summary>
             public void Join()
             {
@@ -1054,9 +1046,9 @@ namespace Novell.Directory.Ldap
             }
 
             /// <summary>
-            ///     Blocks the calling thread until a thread terminates or the specified time elapses
+            ///     Blocks the calling thread until a thread terminates or the specified time elapses.
             /// </summary>
-            /// <param name="miliSeconds">Time of wait in milliseconds</param>
+            /// <param name="miliSeconds">Time of wait in milliseconds.</param>
             public void Join(int miliSeconds)
             {
                 lock (this)
@@ -1066,10 +1058,10 @@ namespace Novell.Directory.Ldap
             }
 
             /// <summary>
-            ///     Blocks the calling thread until a thread terminates or the specified time elapses
+            ///     Blocks the calling thread until a thread terminates or the specified time elapses.
             /// </summary>
-            /// <param name="miliSeconds">Time of wait in milliseconds</param>
-            /// <param name="nanoSeconds">Time of wait in nanoseconds</param>
+            /// <param name="miliSeconds">Time of wait in milliseconds.</param>
+            /// <param name="nanoSeconds">Time of wait in nanoseconds.</param>
             public void Join(int miliSeconds, int nanoSeconds)
             {
                 lock (this)
@@ -1078,20 +1070,19 @@ namespace Novell.Directory.Ldap
                 }
             }
 
-
             /// <summary>
-            ///     Obtain a String that represents the current Object
+            ///     Obtain a String that represents the current Object.
             /// </summary>
-            /// <returns>A String that represents the current Object</returns>
+            /// <returns>A String that represents the current Object.</returns>
             public override string ToString()
             {
                 return "Thread[" + Name + "]";
             }
 
             /// <summary>
-            ///     Gets the currently running thread
+            ///     Gets the currently running thread.
             /// </summary>
-            /// <returns>The currently running thread</returns>
+            /// <returns>The currently running thread.</returns>
             public static ThreadClass Current()
             {
                 var currentThread = new ThreadClass
@@ -1101,7 +1092,6 @@ namespace Novell.Directory.Ldap
                 return currentThread;
             }
         }
-
 
         /*******************************/
 
@@ -1143,7 +1133,6 @@ namespace Novell.Directory.Ldap
                 return result;
             }
 
-
             /// <summary>
             ///     Adds all the elements contained in the specified support class collection.
             /// </summary>
@@ -1151,7 +1140,7 @@ namespace Novell.Directory.Ldap
             /// <returns>Returns true if all the elements were successfuly added. Otherwise returns false.</returns>
             public bool AddAll(CollectionSupport collection)
             {
-                return AddAll((ICollection) collection);
+                return AddAll((ICollection)collection);
             }
 
             /// <summary>
@@ -1191,7 +1180,7 @@ namespace Novell.Directory.Ldap
             /// <returns>Returns true if all the elements are contained in the collection. Otherwise returns false.</returns>
             public bool ContainsAll(CollectionSupport collection)
             {
-                return ContainsAll((ICollection) collection);
+                return ContainsAll((ICollection)collection);
             }
 
             /// <summary>
@@ -1247,7 +1236,7 @@ namespace Novell.Directory.Ldap
             /// <returns>Returns true if all the elements were successfuly removed. Otherwise returns false.</returns>
             public bool RemoveAll(CollectionSupport collection)
             {
-                return RemoveAll((ICollection) collection);
+                return RemoveAll((ICollection)collection);
             }
 
             /// <summary>
@@ -1284,13 +1273,13 @@ namespace Novell.Directory.Ldap
             /// <returns>Returns true if all the elements were successfully removed. Otherwise returns false.</returns>
             public bool RetainAll(CollectionSupport collection)
             {
-                return RetainAll((ICollection) collection);
+                return RetainAll((ICollection)collection);
             }
 
             /// <summary>
             ///     Obtains an array containing all the elements of the collection.
             /// </summary>
-            /// <returns>The array containing all the elements of the collection</returns>
+            /// <returns>The array containing all the elements of the collection.</returns>
             public object[] ToArray()
             {
                 var index = 0;
@@ -1426,7 +1415,7 @@ namespace Novell.Directory.Ldap
             /// <returns>Returns true if all the elements were successfuly added. Otherwise returns false.</returns>
             public virtual bool AddAll(int index, CollectionSupport collection)
             {
-                return AddAll(index, (IList) collection);
+                return AddAll(index, (IList)collection);
             }
 
             /// <summary>
@@ -1437,7 +1426,6 @@ namespace Novell.Directory.Ldap
             {
                 return MemberwiseClone();
             }
-
 
             /// <summary>
             ///     Returns an iterator of the collection.
@@ -1476,7 +1464,7 @@ namespace Novell.Directory.Ldap
             /// <returns>Returns true if all the elements were successfuly removed. Otherwise returns false.</returns>
             public virtual bool RemoveAll(CollectionSupport collection)
             {
-                return RemoveAll((ICollection) collection);
+                return RemoveAll((ICollection)collection);
             }
 
             /// <summary>
@@ -1563,7 +1551,7 @@ namespace Novell.Directory.Ldap
             /// <returns>Returns true if all the elements were successfully removed. Otherwise returns false.</returns>
             public virtual bool RetainAll(CollectionSupport collection)
             {
-                return RetainAll((ICollection) collection);
+                return RetainAll((ICollection)collection);
             }
 
             /// <summary>
@@ -1593,7 +1581,7 @@ namespace Novell.Directory.Ldap
             /// <returns>Returns true if all the elements are contained in the collection. Otherwise returns false.</returns>
             public virtual bool ContainsAll(CollectionSupport collection)
             {
-                return ContainsAll((ICollection) collection);
+                return ContainsAll((ICollection)collection);
             }
 
             /// <summary>
@@ -1790,7 +1778,6 @@ namespace Novell.Directory.Ldap
             }
         }
 
-
         /*******************************/
 
         /// <summary>
@@ -1806,9 +1793,9 @@ namespace Novell.Directory.Ldap
             }
 
             /// <summary>
-            ///     Creates a new set initialized with System.Collections.ICollection object
+            ///     Creates a new set initialized with System.Collections.ICollection object.
             /// </summary>
-            /// <param name="collection">System.Collections.ICollection object to initialize the set object</param>
+            /// <param name="collection">System.Collections.ICollection object to initialize the set object.</param>
             public SetSupport(ICollection collection) : base(collection)
             {
             }
@@ -1816,7 +1803,7 @@ namespace Novell.Directory.Ldap
             /// <summary>
             ///     Creates a new set initialized with a specific capacity.
             /// </summary>
-            /// <param name="capacity">value to set the capacity of the set object</param>
+            /// <param name="capacity">value to set the capacity of the set object.</param>
             public SetSupport(int capacity) : base(capacity)
             {
             }
@@ -1867,7 +1854,7 @@ namespace Novell.Directory.Ldap
             /// <returns>Returns true if all the elements were successfuly added. Otherwise returns false.</returns>
             public bool AddAll(CollectionSupport collection)
             {
-                return AddAll((ICollection) collection);
+                return AddAll((ICollection)collection);
             }
 
             /// <summary>
@@ -1897,7 +1884,7 @@ namespace Novell.Directory.Ldap
             /// <returns>Returns true if all the elements are contained in the collection. Otherwise returns false.</returns>
             public bool ContainsAll(CollectionSupport collection)
             {
-                return ContainsAll((ICollection) collection);
+                return ContainsAll((ICollection)collection);
             }
 
             /// <summary>
@@ -1955,7 +1942,7 @@ namespace Novell.Directory.Ldap
             /// <returns>Returns true if all the elements were successfuly removed. Otherwise returns false.</returns>
             public bool RemoveAll(CollectionSupport collection)
             {
-                return RemoveAll((ICollection) collection);
+                return RemoveAll((ICollection)collection);
             }
 
             /// <summary>
@@ -1967,7 +1954,7 @@ namespace Novell.Directory.Ldap
             {
                 var result = false;
                 var tempEnumerator = collection.GetEnumerator();
-                var tempSet = (SetSupport) collection;
+                var tempSet = (SetSupport)collection;
                 while (tempEnumerator.MoveNext())
                 {
                     if (!tempSet.Contains(tempEnumerator.Current))
@@ -1987,7 +1974,7 @@ namespace Novell.Directory.Ldap
             /// <returns>Returns true if all the elements were successfully removed. Otherwise returns false.</returns>
             public bool RetainAll(CollectionSupport collection)
             {
-                return RetainAll((ICollection) collection);
+                return RetainAll((ICollection)collection);
             }
 
             /// <summary>
@@ -2044,24 +2031,24 @@ namespace Novell.Directory.Ldap
             private int _position;
 
             /// <summary>
-            ///     The HashAlgorithm instance that provide the cryptographic hash algorithm
+            ///     The HashAlgorithm instance that provide the cryptographic hash algorithm.
             /// </summary>
             public HashAlgorithm Algorithm { get; set; }
 
             /// <summary>
-            ///     The digest data
+            ///     The digest data.
             /// </summary>
             public byte[] Data { get; set; }
 
             /// <summary>
-            ///     The name of the cryptographic hash algorithm used in the instance
+            ///     The name of the cryptographic hash algorithm used in the instance.
             /// </summary>
             public string AlgorithmName { get; }
 
             /// <summary>
             ///     Computes the hash value for the internal data digest.
             /// </summary>
-            /// <returns>The array of signed bytes with the resulting hash value</returns>
+            /// <returns>The array of signed bytes with the resulting hash value.</returns>
             [CLSCompliant(false)]
             public sbyte[] DigestData()
             {
@@ -2074,8 +2061,8 @@ namespace Novell.Directory.Ldap
             ///     Performs and update on the digest with the specified array and then completes the digest
             ///     computation.
             /// </summary>
-            /// <param name="newData">The array of bytes for final update to the digest</param>
-            /// <returns>An array of signed bytes with the resulting hash value</returns>
+            /// <param name="newData">The array of bytes for final update to the digest.</param>
+            /// <returns>An array of signed bytes with the resulting hash value.</returns>
             [CLSCompliant(false)]
             public sbyte[] DigestData(byte[] newData)
             {
@@ -2087,7 +2074,7 @@ namespace Novell.Directory.Ldap
             ///     Updates the digest data with the specified array of bytes by making an append
             ///     operation in the internal array of data.
             /// </summary>
-            /// <param name="newData">The array of bytes for the update operation</param>
+            /// <param name="newData">The array of bytes for the update operation.</param>
             public void Update(byte[] newData)
             {
                 if (_position == 0)
@@ -2109,7 +2096,7 @@ namespace Novell.Directory.Ldap
             /// <summary>
             ///     Updates the digest data with the input byte by calling the method Update with an array.
             /// </summary>
-            /// <param name="newData">The input byte for the update</param>
+            /// <param name="newData">The input byte for the update.</param>
             public void Update(byte newData)
             {
                 var newDataArray = new byte[1];
@@ -2121,9 +2108,9 @@ namespace Novell.Directory.Ldap
             ///     Updates the specified count of bytes with the input array of bytes starting at the
             ///     input offset.
             /// </summary>
-            /// <param name="newData">The array of bytes for the update operation</param>
-            /// <param name="offset">The initial position to start from in the array of bytes</param>
-            /// <param name="count">The number of bytes fot the update</param>
+            /// <param name="newData">The array of bytes for the update operation.</param>
+            /// <param name="offset">The initial position to start from in the array of bytes.</param>
+            /// <param name="count">The number of bytes fot the update.</param>
             public void Update(byte[] newData, int offset, int count)
             {
                 var newDataArray = new byte[count];
@@ -2141,21 +2128,20 @@ namespace Novell.Directory.Ldap
             }
 
             /// <summary>
-            ///     Returns a string representation of the Message Digest
+            ///     Returns a string representation of the Message Digest.
             /// </summary>
-            /// <returns>A string representation of the object</returns>
+            /// <returns>A string representation of the object.</returns>
             public override string ToString()
             {
                 return Algorithm.ToString();
             }
 
-
             /// <summary>
-            ///     Compares two arrays of signed bytes evaluating equivalence in digest data
+            ///     Compares two arrays of signed bytes evaluating equivalence in digest data.
             /// </summary>
-            /// <param name="firstDigest">An array of signed bytes for comparison</param>
-            /// <param name="secondDigest">An array of signed bytes for comparison</param>
-            /// <returns>True if the input digest arrays are equal</returns>
+            /// <param name="firstDigest">An array of signed bytes for comparison.</param>
+            /// <param name="secondDigest">An array of signed bytes for comparison.</param>
+            /// <returns>True if the input digest arrays are equal.</returns>
             [CLSCompliant(false)]
             public static bool EquivalentDigest(sbyte[] firstDigest, sbyte[] secondDigest)
             {

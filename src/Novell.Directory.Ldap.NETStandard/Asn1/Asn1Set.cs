@@ -63,7 +63,6 @@ namespace Novell.Directory.Ldap.Asn1
         {
         }
 
-
         /// <summary>
         ///     Constructs an Asn1Set object with the specified
         ///     number of placeholders for Asn1Objects. However there
@@ -83,10 +82,10 @@ namespace Novell.Directory.Ldap.Asn1
         /// <param name="dec">
         ///     The decoder object to use when decoding the
         ///     input stream.  Sometimes a developer might want to pass
-        ///     in his/her own decoder object
+        ///     in his/her own decoder object.
         /// </param>
         /// <param name="in">
-        ///     A byte stream that contains the encoded ASN.1
+        ///     A byte stream that contains the encoded ASN.1.
         /// </param>
         [CLSCompliant(false)]
         public Asn1Set(IAsn1Decoder dec, Stream inRenamed, int len) : base(Id)

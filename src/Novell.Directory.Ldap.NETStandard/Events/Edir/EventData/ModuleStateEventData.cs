@@ -53,11 +53,11 @@ namespace Novell.Directory.Ldap.Events.Edir.EventData
         {
             var length = new int[1];
 
-            StrConnectionDn = ((Asn1OctetString) Decoder.Decode(DecodedData, length)).StringValue();
-            NFlags = ((Asn1Integer) Decoder.Decode(DecodedData, length)).IntValue();
-            StrName = ((Asn1OctetString) Decoder.Decode(DecodedData, length)).StringValue();
-            StrDescription = ((Asn1OctetString) Decoder.Decode(DecodedData, length)).StringValue();
-            StrSource = ((Asn1OctetString) Decoder.Decode(DecodedData, length)).StringValue();
+            StrConnectionDn = ((Asn1OctetString)Decoder.Decode(DecodedData, length)).StringValue();
+            NFlags = ((Asn1Integer)Decoder.Decode(DecodedData, length)).IntValue();
+            StrName = ((Asn1OctetString)Decoder.Decode(DecodedData, length)).StringValue();
+            StrDescription = ((Asn1OctetString)Decoder.Decode(DecodedData, length)).StringValue();
+            StrSource = ((Asn1OctetString)Decoder.Decode(DecodedData, length)).StringValue();
 
             DataInitDone();
         }

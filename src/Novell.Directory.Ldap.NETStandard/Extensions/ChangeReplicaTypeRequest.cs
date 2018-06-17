@@ -49,7 +49,7 @@ namespace Novell.Directory.Ldap.Extensions
     ///     flags        INTEGER
     ///     replicaType  INTEGER
     ///     serverName   LdapDN
-    ///     dn           LdapDN
+    ///     dn           LdapDN.
     /// </summary>
     public class ChangeReplicaTypeRequest : LdapExtendedOperation
     {
@@ -94,7 +94,7 @@ namespace Novell.Directory.Ldap.Extensions
         {
             try
             {
-                if ((object) dn == null || (object) serverDn == null)
+                if ((object)dn == null || (object)serverDn == null)
                 {
                     throw new ArgumentException(ExceptionMessages.ParamError);
                 }

@@ -39,10 +39,10 @@ namespace Novell.Directory.Ldap
     public class LdapResponseQueue : LdapMessageQueue
     {
         /// <summary>
-        ///     Constructs a response queue using the specified message agent
+        ///     Constructs a response queue using the specified message agent.
         /// </summary>
         /// <param name="agent">
-        ///     The message agent to associate with this queue
+        ///     The message agent to associate with this queue.
         /// </param>
         internal LdapResponseQueue(MessageAgent agent) : base("LdapResponseQueue", agent)
         {
@@ -66,7 +66,7 @@ namespace Novell.Directory.Ldap
         /// </param>
         public void Merge(LdapMessageQueue queue2)
         {
-            var q = (LdapResponseQueue) queue2;
+            var q = (LdapResponseQueue)queue2;
             Agent.Merge(q.MessageAgent);
         }
     }

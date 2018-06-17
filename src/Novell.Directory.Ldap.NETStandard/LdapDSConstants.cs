@@ -33,7 +33,7 @@ namespace Novell.Directory.Ldap
 {
     /// <summary>
     ///     LDAPDSConstants.java contains bit values for [Entry Rights], [All attribute
-    ///     Rights], attribute rights, and entry flags in Novell eDirectory
+    ///     Rights], attribute rights, and entry flags in Novell eDirectory.
     /// </summary>
     public struct LdapDsConstants
     {

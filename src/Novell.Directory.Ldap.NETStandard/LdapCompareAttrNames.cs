@@ -91,7 +91,6 @@ namespace Novell.Directory.Ldap
             _sortAscending[0] = ascendingFlag;
         }
 
-
         /// <summary>
         ///     Constructs an object that sorts by one or more attributes, in the
         ///     order provided, in ascending order.
@@ -161,7 +160,7 @@ namespace Novell.Directory.Ldap
         ///     collation.  If non-null, a locale-specific collation is used.
         /// </summary>
         /// <returns>
-        ///     The locale if one has been specified
+        ///     The locale if one has been specified.
         /// </returns>
         /// <summary>
         ///     Sets the locale to be used for sorting.
@@ -199,8 +198,8 @@ namespace Novell.Directory.Ldap
         /// </returns>
         public virtual int Compare(object object1, object object2)
         {
-            var entry1 = (LdapEntry) object1;
-            var entry2 = (LdapEntry) object2;
+            var entry1 = (LdapEntry)object1;
+            var entry2 = (LdapEntry)object2;
             LdapAttribute one, two;
             string[] first; //multivalued attributes are ignored.
             string[] second; //we just use the first element
@@ -222,6 +221,7 @@ namespace Novell.Directory.Ldap
                     second = two.StringValueArray;
                     compare = _collator.Compare(first[0], second[0]);
                 }
+
                 //We could also use the other multivalued attributes to break ties.
                 //one of the entries was null
                 else
@@ -230,11 +230,13 @@ namespace Novell.Directory.Ldap
                     {
                         compare = -1;
                     }
+
                     //one is greater than two
                     else if (two != null)
                     {
                         compare = 1;
                     }
+
                     //one is lesser than two
                     else
                     {
@@ -269,7 +271,7 @@ namespace Novell.Directory.Ldap
         ///     order.
         /// </summary>
         /// <returns>
-        ///     true the comparators are equal
+        ///     true the comparators are equal.
         /// </returns>
         public override bool Equals(object comparator)
         {
@@ -278,7 +280,7 @@ namespace Novell.Directory.Ldap
                 return false;
             }
 
-            var comp = (LdapCompareAttrNames) comparator;
+            var comp = (LdapCompareAttrNames)comparator;
 
             // Test to see if the attribute to compare are the same length
             if (comp._sortByNames.Length != _sortByNames.Length || comp._sortAscending.Length != _sortAscending.Length)

@@ -43,7 +43,7 @@ namespace Novell.Directory.Ldap.Utilclass
     ///     possible RDNs are 'cn=admin', 'ou=marketing', and 'o=corporation'.
     ///     Multivalued attributes are encapsulated in this class.  For example the
     ///     following could be represented by an RDN: 'cn=john + l=US', or
-    ///     'cn=juan + l=ES'
+    ///     'cn=juan + l=ES'.
     /// </summary>
     /// <seealso cref="Dn">
     /// </seealso>
@@ -53,10 +53,10 @@ namespace Novell.Directory.Ldap.Utilclass
         private readonly ArrayList _values; //list of Value strings
 
         /// <summary>
-        ///     Creates an RDN object from the DN component specified in the string RDN
+        ///     Creates an RDN object from the DN component specified in the string RDN.
         /// </summary>
         /// <param name="rdn">
-        ///     the DN component
+        ///     the DN component.
         /// </param>
         public Rdn(string rdn)
         {
@@ -69,7 +69,7 @@ namespace Novell.Directory.Ldap.Utilclass
                 throw new ArgumentException("Invalid RDN: see API " + "documentation");
             }
 
-            var thisRdn = (Rdn) rdns[0];
+            var thisRdn = (Rdn)rdns[0];
             _types = thisRdn._types;
             _values = thisRdn._values;
             RawValue = thisRdn.RawValue;
@@ -83,10 +83,10 @@ namespace Novell.Directory.Ldap.Utilclass
         }
 
         /// <summary>
-        ///     Returns the actually Raw String before Normalization
+        ///     Returns the actually Raw String before Normalization.
         /// </summary>
         /// <returns>
-        ///     The raw string
+        ///     The raw string.
         /// </returns>
         internal string RawValue { get; private set; }
 
@@ -96,13 +96,13 @@ namespace Novell.Directory.Ldap.Utilclass
         ///     returned.  Use GetTypes.
         /// </summary>
         /// <returns>
-        ///     Type of attribute
+        ///     Type of attribute.
         /// </returns>
-        public string Type => (string) _types[0];
+        public string Type => (string)_types[0];
 
         /// <summary> Returns all the types for this RDN.</summary>
         /// <returns>
-        ///     list of types
+        ///     list of types.
         /// </returns>
         public string[] Types
         {
@@ -111,7 +111,7 @@ namespace Novell.Directory.Ldap.Utilclass
                 var toReturn = new string[_types.Count];
                 for (var i = 0; i < _types.Count; i++)
                 {
-                    toReturn[i] = (string) _types[i];
+                    toReturn[i] = (string)_types[i];
                 }
 
                 return toReturn;
@@ -123,13 +123,13 @@ namespace Novell.Directory.Ldap.Utilclass
         ///     the first Type is returned.  Use GetTypes.
         /// </summary>
         /// <returns>
-        ///     Type of attribute
+        ///     Type of attribute.
         /// </returns>
-        public string Value => (string) _values[0];
+        public string Value => (string)_values[0];
 
         /// <summary> Returns all the types for this RDN.</summary>
         /// <returns>
-        ///     list of types
+        ///     list of types.
         /// </returns>
         public string[] Values
         {
@@ -138,16 +138,16 @@ namespace Novell.Directory.Ldap.Utilclass
                 var toReturn = new string[_values.Count];
                 for (var i = 0; i < _values.Count; i++)
                 {
-                    toReturn[i] = (string) _values[i];
+                    toReturn[i] = (string)_values[i];
                 }
 
                 return toReturn;
             }
         }
 
-        /// <summary> Determines if this RDN is multivalued or not</summary>
+        /// <summary> Determines if this RDN is multivalued or not.</summary>
         /// <returns>
-        ///     true if this RDN is multivalued
+        ///     true if this RDN is multivalued.
         /// </returns>
         public bool Multivalued => _values.Count > 1 ? true : false;
 
@@ -175,8 +175,8 @@ namespace Novell.Directory.Ldap.Utilclass
                 j = 0;
                 //May need a more intellegent compare
                 while (j < _values.Count &&
-                       (!((string) _values[i]).ToUpper().Equals(((string) rdn._values[j]).ToUpper()) ||
-                        !EqualAttrType((string) _types[i], (string) rdn._types[j])))
+                       (!((string)_values[i]).ToUpper().Equals(((string)rdn._values[j]).ToUpper()) ||
+                        !EqualAttrType((string)_types[i], (string)rdn._types[j])))
                 {
                     j++;
                 }
@@ -215,13 +215,13 @@ namespace Novell.Directory.Ldap.Utilclass
         ///     the RDN.
         /// </summary>
         /// <param name="attrType">
-        ///     Attribute type, could be an OID or String
+        ///     Attribute type, could be an OID or String.
         /// </param>
         /// <param name="attrValue">
-        ///     Attribute Value, must be normalized and escaped
+        ///     Attribute Value, must be normalized and escaped.
         /// </param>
         /// <param name="rawValue">
-        ///     or text before normalization, can be Null
+        ///     or text before normalization, can be Null.
         /// </param>
         public void Add(string attrType, string attrValue, string rawValue)
         {
@@ -231,10 +231,10 @@ namespace Novell.Directory.Ldap.Utilclass
         }
 
         /// <summary>
-        ///     Creates a string that represents this RDN, according to RFC 2253
+        ///     Creates a string that represents this RDN, according to RFC 2253.
         /// </summary>
         /// <returns>
-        ///     An RDN string
+        ///     An RDN string.
         /// </returns>
         public override string ToString()
         {
@@ -249,7 +249,7 @@ namespace Novell.Directory.Ldap.Utilclass
         ///     true if attribute types will be omitted.
         /// </param>
         /// <returns>
-        ///     An RDN string
+        ///     An RDN string.
         /// </returns>
         [CLSCompliant(false)]
         public string ToString(bool noTypes)
@@ -290,7 +290,7 @@ namespace Novell.Directory.Ldap.Utilclass
         ///     type names will be ommitted if the parameter noTypes is true.
         /// </param>
         /// <returns>
-        ///     List of multivalued Attributes
+        ///     List of multivalued Attributes.
         /// </returns>
         public string[] ExplodeRdn(bool noTypes)
         {

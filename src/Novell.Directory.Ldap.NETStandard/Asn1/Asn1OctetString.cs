@@ -60,7 +60,7 @@ namespace Novell.Directory.Ldap.Asn1
         /// </summary>
         /// <param name="content">
         ///     A byte array representing the string that
-        ///     will be contained in the this Asn1OctetString object
+        ///     will be contained in the this Asn1OctetString object.
         /// </param>
         [CLSCompliant(false)]
         public Asn1OctetString(sbyte[] content) : base(Id)
@@ -68,14 +68,13 @@ namespace Novell.Directory.Ldap.Asn1
             _content = content;
         }
 
-
         /// <summary>
         ///     Call this constructor to construct an Asn1OctetString
         ///     object from a String object.
         /// </summary>
         /// <param name="content">
         ///     A string value that will be contained
-        ///     in the this Asn1OctetString object
+        ///     in the this Asn1OctetString object.
         /// </param>
         public Asn1OctetString(string content) : base(Id)
         {
@@ -101,7 +100,6 @@ namespace Novell.Directory.Ldap.Asn1
             }
         }
 
-
         /// <summary>
         ///     Constructs an Asn1OctetString object by decoding data from an
         ///     input stream.
@@ -109,17 +107,16 @@ namespace Novell.Directory.Ldap.Asn1
         /// <param name="dec">
         ///     The decoder object to use when decoding the
         ///     input stream.  Sometimes a developer might want to pass
-        ///     in his/her own decoder object
+        ///     in his/her own decoder object.
         /// </param>
         /// <param name="in">
-        ///     A byte stream that contains the encoded ASN.1
+        ///     A byte stream that contains the encoded ASN.1.
         /// </param>
         [CLSCompliant(false)]
         public Asn1OctetString(IAsn1Decoder dec, Stream inRenamed, int len) : base(Id)
         {
-            _content = len > 0 ? (sbyte[]) dec.DecodeOctetString(inRenamed, len) : new sbyte[0];
+            _content = len > 0 ? (sbyte[])dec.DecodeOctetString(inRenamed, len) : new sbyte[0];
         }
-
 
         /* Asn1Object implementation
         */
@@ -140,7 +137,6 @@ namespace Novell.Directory.Ldap.Asn1
             enc.Encode(this, outRenamed);
         }
 
-
         /*Asn1OctetString specific methods
         */
 
@@ -150,7 +146,6 @@ namespace Novell.Directory.Ldap.Asn1
         {
             return _content;
         }
-
 
         /// <summary> Returns the content of this Asn1OctetString as a String.</summary>
         public string StringValue()
@@ -171,7 +166,6 @@ namespace Novell.Directory.Ldap.Asn1
 
             return s;
         }
-
 
         /// <summary> Return a String representation of this Asn1Object.</summary>
         public override string ToString()

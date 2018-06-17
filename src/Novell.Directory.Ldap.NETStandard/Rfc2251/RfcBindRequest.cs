@@ -53,7 +53,6 @@ namespace Novell.Directory.Ldap.Rfc2251
         private static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.Application, true,
             LdapMessage.BindRequest);
 
-
         //*************************************************************************
         // Constructors for BindRequest
         //*************************************************************************
@@ -79,17 +78,17 @@ namespace Novell.Directory.Ldap.Rfc2251
         internal RfcBindRequest(Asn1Object[] origRequest, string baseRenamed) : base(origRequest, origRequest.Length)
         {
             // Replace the dn if specified, otherwise keep original base
-            if ((object) baseRenamed != null)
+            if ((object)baseRenamed != null)
             {
                 set_Renamed(1, new RfcLdapDn(baseRenamed));
             }
         }
 
         /// <summary> </summary>
-        /// <summary> Sets the protocol version</summary>
+        /// <summary> Sets the protocol version.</summary>
         public Asn1Integer Version
         {
-            get => (Asn1Integer) get_Renamed(0);
+            get => (Asn1Integer)get_Renamed(0);
 
             set => set_Renamed(0, value);
         }
@@ -98,7 +97,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         /// <summary> </summary>
         public RfcLdapDn Name
         {
-            get => (RfcLdapDn) get_Renamed(1);
+            get => (RfcLdapDn)get_Renamed(1);
 
             set => set_Renamed(1, value);
         }
@@ -107,7 +106,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         /// <summary> </summary>
         public RfcAuthenticationChoice AuthenticationChoice
         {
-            get => (RfcAuthenticationChoice) get_Renamed(2);
+            get => (RfcAuthenticationChoice)get_Renamed(2);
 
             set => set_Renamed(2, value);
         }
@@ -119,7 +118,7 @@ namespace Novell.Directory.Ldap.Rfc2251
 
         public string GetRequestDn()
         {
-            return ((RfcLdapDn) get_Renamed(1)).StringValue();
+            return ((RfcLdapDn)get_Renamed(1)).StringValue();
         }
 
         //*************************************************************************

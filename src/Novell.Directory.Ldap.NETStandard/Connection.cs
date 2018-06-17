@@ -111,7 +111,6 @@ namespace Novell.Directory.Ldap
 
         private Stream _inStream;
 
-
         // Place to save message information classes
         private MessageVector _messages;
         private TcpClient _nonTlsBackup;
@@ -152,7 +151,7 @@ namespace Novell.Directory.Ldap
         }
 
         /// <summary>
-        ///     Create a new Connection object
+        ///     Create a new Connection object.
         /// </summary>
         /// <param name="factory">
         ///     specifies the factory to use to produce SSL sockets.
@@ -165,28 +164,27 @@ namespace Novell.Directory.Ldap
         }
 
         /// <summary>
-        ///     Indicates whether clones exist for LdapConnection
+        ///     Indicates whether clones exist for LdapConnection.
         /// </summary>
         /// <returns>
         ///     true if clones exist, false otherwise.
         /// </returns>
         internal bool Cloned => _cloneCount > 0;
 
-
         internal bool Ssl { get; set; }
 
-        /// <summary> gets the host used for this connection</summary>
+        /// <summary> gets the host used for this connection.</summary>
         internal string Host { get; private set; }
 
-        /// <summary> gets the port used for this connection</summary>
+        /// <summary> gets the port used for this connection.</summary>
         internal int Port { get; private set; }
 
         internal int ConnectionTimeout { get; set; }
 
-        /// <summary> gets the writeSemaphore id used for active bind operation</summary>
+        /// <summary> gets the writeSemaphore id used for active bind operation.</summary>
         internal int BindSemId { get; private set; }
 
-        /// <summary> checks if the writeSemaphore id used for active bind operation is clear</summary>
+        /// <summary> checks if the writeSemaphore id used for active bind operation is clear.</summary>
         internal bool BindSemIdClear
         {
             get
@@ -202,7 +200,7 @@ namespace Novell.Directory.Ldap
 
         /// <summary>
         ///     Return whether the application is bound to this connection.
-        ///     Note: an anonymous bind returns false - not bound
+        ///     Note: an anonymous bind returns false - not bound.
         /// </summary>
         internal bool Bound
         {
@@ -218,7 +216,7 @@ namespace Novell.Directory.Ldap
             }
         }
 
-        /// <summary> Return whether a connection has been made</summary>
+        /// <summary> Return whether a connection has been made.</summary>
         internal bool Connected => _inStream != null;
 
         /// <summary>
@@ -242,7 +240,7 @@ namespace Novell.Directory.Ldap
         ///     follow referrals.
         /// </summary>
         /// <returns>
-        ///     the active referral url
+        ///     the active referral url.
         /// </returns>
         /// <summary>
         ///     Sets the current referral active on this connection if created to
@@ -251,16 +249,16 @@ namespace Novell.Directory.Ldap
         internal ReferralInfo ActiveReferral { get; set; }
 
         /// <summary>
-        ///     Returns the name of this Connection, used for debug only
+        ///     Returns the name of this Connection, used for debug only.
         /// </summary>
         /// <returns>
-        ///     the name of this connection
+        ///     the name of this connection.
         /// </returns>
         internal string ConnectionName { get; } = string.Empty;
 
         /// <summary>
         ///     Indicates if the conenction is using TLS protection
-        ///     Return true if using TLS protection
+        ///     Return true if using TLS protection.
         /// </summary>
         internal bool Tls => _nonTlsBackup != null;
 
@@ -308,7 +306,7 @@ namespace Novell.Directory.Ldap
         ///     The new object is NOT be connected to the host.
         /// </summary>
         /// <returns>
-        ///     a shallow copy of this object
+        ///     a shallow copy of this object.
         /// </returns>
         internal object Copy()
         {
@@ -326,10 +324,10 @@ namespace Novell.Directory.Ldap
         ///     We bind using the message ID because a different thread may unlock
         ///     the semaphore than the one that set it.  It is cleared when the
         ///     response to the bind is processed, or when the bind operation times out.
-        ///     Returns when the semaphore is acquired
+        ///     Returns when the semaphore is acquired.
         /// </summary>
         /// <returns>
-        ///     the ephemeral message id that identifies semaphore's owner
+        ///     the ephemeral message id that identifies semaphore's owner.
         /// </returns>
         internal int AcquireWriteSemaphore()
         {
@@ -349,7 +347,7 @@ namespace Novell.Directory.Ldap
         ///     value of zero means assign a unique semaphore value.
         /// </param>
         /// <returns>
-        ///     the semaphore value used to acquire the lock
+        ///     the semaphore value used to acquire the lock.
         /// </returns>
         internal int AcquireWriteSemaphore(int msgId)
         {
@@ -393,7 +391,7 @@ namespace Novell.Directory.Ldap
         ///     thread match.
         /// </summary>
         /// <param name="msgId">
-        ///     a value that identifies the owner of this semaphore
+        ///     a value that identifies the owner of this semaphore.
         /// </param>
         internal void FreeWriteSemaphore(int msgId)
         {
@@ -488,13 +486,12 @@ namespace Novell.Directory.Ldap
             Connect(host, port, 0);
         }
 
-
         /****************************************************************************/
 
         public bool RemoteCertificateValidationCallback(object sender, X509Certificate certificate, X509Chain chain,
             SslPolicyErrors sslPolicyErrors)
         {
-            if (null != OnCertificateValidation)
+            if (OnCertificateValidation != null)
             {
                 return OnCertificateValidation(sender, certificate, chain, sslPolicyErrors);
             }
@@ -527,7 +524,6 @@ namespace Novell.Directory.Ldap
             return retFlag;
         }
 
-
         /***********************************************************************/
 
         /// <summary>
@@ -541,7 +537,7 @@ namespace Novell.Directory.Ldap
         ///     The port on the host to connect to.
         /// </param>
         /// <param name="semaphoreId">
-        ///     The write semaphore ID to use for the connect
+        ///     The write semaphore ID to use for the connect.
         /// </param>
         private void Connect(string host, int port, int semaphoreId)
         {
@@ -584,8 +580,7 @@ namespace Novell.Directory.Ldap
                             var sslstream = new SslStream(
                                 nstream,
                                 false,
-                                RemoteCertificateValidationCallback
-                            );
+                                RemoteCertificateValidationCallback);
                             sslstream.AuthenticateAsClientAsync(host).WaitAndUnwrap(ConnectionTimeout);
                             _inStream = sslstream;
                             _outStream = sslstream;
@@ -632,7 +627,7 @@ namespace Novell.Directory.Ldap
             }
         }
 
-        /// <summary>  Increments the count of cloned connections</summary>
+        /// <summary>  Increments the count of cloned connections.</summary>
         internal void IncrCloneCount()
         {
             lock (this)
@@ -642,15 +637,15 @@ namespace Novell.Directory.Ldap
         }
 
         /// <summary>
-        ///     Destroys a clone of <code>LdapConnection</code>.
-        ///     This method first determines if only one <code>LdapConnection</code>
+        ///     Destroys a clone of. <code>LdapConnection</code>.
+        ///     This method first determines if only one. <code>LdapConnection</code>
         ///     object is associated with this connection, i.e. if no clone exists.
-        ///     If no clone exists, the socket is closed, and the current
+        ///     If no clone exists, the socket is closed, and the current.
         ///     <code>Connection</code> object is returned.
-        ///     If multiple <code>LdapConnection</code> objects are associated
+        ///     If multiple. <code>LdapConnection</code> objects are associated
         ///     with this connection, i.e. clones exist, a {@link #copy} of the
         ///     this object is made, but is not connected to any host. This
-        ///     disassociates that clone from the original connection.  The new
+        ///     disassociates that clone from the original connection.  The new.
         ///     <code>Connection</code> object is returned.
         ///     Only one destroyClone instance is allowed to run at any one time.
         ///     If the connection is closed, any threads waiting for operations
@@ -659,10 +654,10 @@ namespace Novell.Directory.Ldap
         /// </summary>
         /// <param name="apiCall">
         ///     <code>true</code> indicates the application is closing the
-        ///     connection or or creating a new one by calling either the
-        ///     <code>connect</code> or <code>disconnect</code> methods
-        ///     of <code>LdapConnection</code>.  <code>false</code>
-        ///     indicates that <code>LdapConnection</code> is being finalized.
+        ///     connection or or creating a new one by calling either the.
+        ///     <code>connect</code> or. <code>disconnect</code> methods
+        ///     of. <code>LdapConnection</code>.  <code>false</code>
+        ///     indicates that. <code>LdapConnection</code> is being finalized.
         /// </param>
         /// <returns>
         ///     a Connection object or null if finalizing.
@@ -676,7 +671,7 @@ namespace Novell.Directory.Ldap
                 if (_cloneCount > 0)
                 {
                     _cloneCount--;
-                    conn = (Connection) Copy();
+                    conn = (Connection)Copy();
                 }
                 else
                 {
@@ -702,20 +697,19 @@ namespace Novell.Directory.Ldap
             }
         }
 
-
         /// <summary>
-        ///     sets the default socket factory
+        ///     sets the default socket factory.
         /// </summary>
         /// <param name="factory">
-        ///     the default factory to set
+        ///     the default factory to set.
         /// </param>
         /// <summary>
-        ///     gets the socket factory used for this connection
+        ///     gets the socket factory used for this connection.
         /// </summary>
         /// <returns>
-        ///     the default factory for this connection
+        ///     the default factory for this connection.
         /// </returns>
-        /// <summary> clears the writeSemaphore id used for active bind operation</summary>
+        /// <summary> clears the writeSemaphore id used for active bind operation.</summary>
         internal void ClearBindSemId()
         {
             BindSemId = 0;
@@ -731,7 +725,7 @@ namespace Novell.Directory.Ldap
         {
             _messages.Add(info);
             // For bind requests, if not connected, attempt to reconnect
-            if (info.BindRequest && Connected == false && (object) Host != null)
+            if (info.BindRequest && Connected == false && (object)Host != null)
             {
                 Connect(Host, Port, info.MessageId);
             }
@@ -747,7 +741,6 @@ namespace Novell.Directory.Ldap
                     LdapException.ConnectError, null);
             }
         }
-
 
         /// <summary>
         ///     Writes an LdapMessage to the Ldap server over a socket.
@@ -829,7 +822,7 @@ namespace Novell.Directory.Ldap
             }
         }
 
-        /// <summary> Returns the message agent for this msg ID</summary>
+        /// <summary> Returns the message agent for this msg ID.</summary>
         internal MessageAgent GetMessageAgent(int msgId)
         {
             var info = _messages.FindMessageById(msgId);
@@ -837,10 +830,10 @@ namespace Novell.Directory.Ldap
         }
 
         /// <summary>
-        ///     Removes a Message class from the Connection's list
+        ///     Removes a Message class from the Connection's list.
         /// </summary>
         /// <param name="info">
-        ///     the Message class to remove from the list
+        ///     the Message class to remove from the list.
         /// </param>
         internal void RemoveMessage(Message info)
         {
@@ -926,7 +919,6 @@ namespace Novell.Directory.Ldap
             }
         }
 
-
         /// <summary>
         ///     This tests to see if there are any outstanding messages.  If no messages
         ///     are in the queue it returns true.  Each message will be tested to
@@ -934,7 +926,7 @@ namespace Novell.Directory.Ldap
         ///     <I>The writeSemaphore must be set for this method to be reliable!</I>
         /// </summary>
         /// <returns>
-        ///     true if no outstanding messages
+        ///     true if no outstanding messages.
         /// </returns>
         internal bool AreMessagesComplete()
         {
@@ -955,7 +947,7 @@ namespace Novell.Directory.Ldap
 
             for (var i = 0; i < length; i++)
             {
-                if (((Message) leftMessages[i]).Complete == false)
+                if (((Message)leftMessages[i]).Complete == false)
                 {
                     return false;
                 }
@@ -1011,8 +1003,7 @@ namespace Novell.Directory.Ldap
                 var sslstream = new SslStream(
                     _socket.GetStream(),
                     true,
-                    RemoteCertificateValidationCallback
-                );
+                    RemoteCertificateValidationCallback);
                 sslstream.AuthenticateAsClientAsync(Host).WaitAndUnwrap(ConnectionTimeout);
                 _inStream = sslstream;
                 _outStream = sslstream;
@@ -1046,7 +1037,6 @@ namespace Novell.Directory.Ldap
         * used any more, even though autoclose was false: you get an IOException.
         * IBM's JSSE hangs when you close the JSSE socket.
         */
-
 
         internal void StopTls()
         {
@@ -1083,7 +1073,7 @@ namespace Novell.Directory.Ldap
             _unsolicitedListeners.Add(listener);
         }
 
-        /// <summary>Remove the specific object from current list of listeners</summary>
+        /// <summary>Remove the specific object from current list of listeners.</summary>
         internal void RemoveUnsolicitedNotificationListener(ILdapUnsolicitedNotificationListener listener)
         {
             SupportClass.VectorRemoveElement(_unsolicitedListeners, listener);
@@ -1095,7 +1085,7 @@ namespace Novell.Directory.Ldap
             // set a flag in the Connection class so that we can throw an
             // appropriate LdapException to the application
             LdapMessage extendedLdapMessage = new LdapExtendedResponse(message);
-            var notificationOid = ((LdapExtendedResponse) extendedLdapMessage).Id;
+            var notificationOid = ((LdapExtendedResponse)extendedLdapMessage).Id;
             if (notificationOid.Equals(LdapConnection.ServerShutdownOid))
             {
                 _unsolSvrShutDnNotification = true;
@@ -1107,8 +1097,7 @@ namespace Novell.Directory.Ldap
             for (var i = 0; i < numOfListeners; i++)
             {
                 // Get next listener
-                var listener = (ILdapUnsolicitedNotificationListener) _unsolicitedListeners[i];
-
+                var listener = (ILdapUnsolicitedNotificationListener)_unsolicitedListeners[i];
 
                 // Create a new ExtendedResponse each time as we do not want each listener
                 // to have its own copy of the message
@@ -1323,13 +1312,12 @@ namespace Novell.Directory.Ldap
         ///     Since we do not know what the application unsolicited listener
         ///     might be doing and how long it will take to process the uncoslicited
         ///     notification.  We use this class to spawn off the unsolicited
-        ///     notification as a separate thread
+        ///     notification as a separate thread.
         /// </summary>
         private class UnsolicitedListenerThread : SupportClass.ThreadClass
         {
             private readonly ILdapUnsolicitedNotificationListener _listenerObj;
             private readonly LdapExtendedResponse _unsolicitedMsg;
-
 
             internal UnsolicitedListenerThread(Connection enclosingInstance, ILdapUnsolicitedNotificationListener l,
                 LdapExtendedResponse m)

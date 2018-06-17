@@ -203,13 +203,11 @@ namespace Novell.Directory.Ldap.Extensions
         /// <summary> A constant for the triggerPartitionPurgeResponse OID.</summary>
         public const string TriggerPartPurgeRes = "2.16.840.1.113719.1.27.100.56";
 
-
         /// <summary>
         ///     A constant that specifies that all servers in a replica ring must be
         ///     running for a partition operation to proceed.
         /// </summary>
         public const int LdapEnsureServersUp = 1;
-
 
         /// <summary>
         ///     Identifies this replica as the master replica of the partition.
@@ -292,7 +290,6 @@ namespace Novell.Directory.Ldap.Extensions
         /// </summary>
         public const int LdapRsTransitionOn = 6;
 
-
         /// <summary>
         ///     Indicates that the dying replica needs to synchronize with another replica
         ///     before being converted either to an external reference, if a root replica,
@@ -358,7 +355,6 @@ namespace Novell.Directory.Ldap.Extensions
         ///     and that the rest of the work can be completed.
         /// </summary>
         public const int LdapRsJs2 = 66; // Replica joining 2
-
 
         // Values for flags used in the replica info class structure
 

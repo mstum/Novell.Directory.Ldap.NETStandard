@@ -66,8 +66,7 @@ namespace Novell.Directory.Ldap.Controls
         private static readonly int Byoffset = 0;
         private static readonly int Greaterthanorequal = 1;
 
-
-        /// <summary> The Request OID for a VLV Request</summary>
+        /// <summary> The Request OID for a VLV Request.</summary>
         private static readonly string RequestOid = "2.16.840.1.113730.3.4.9";
 
         /*
@@ -75,7 +74,6 @@ namespace Novell.Directory.Ldap.Controls
         */
         private static readonly string ResponseOid = "2.16.840.1.113730.3.4.10";
         private int _mAfterCount;
-
 
         /* Private instance variables go here.
         * These variables are used to store copies of various fields
@@ -144,7 +142,6 @@ namespace Novell.Directory.Ldap.Controls
         {
         }
 
-
         /// <summary>
         ///     Constructs a virtual list control using the specified filter
         ///     expression along with an optional server context.
@@ -198,7 +195,7 @@ namespace Novell.Directory.Ldap.Controls
 
         /// <summary>
         ///     Use this constructor to fetch a subset when the size of the
-        ///     virtual list is known,
+        ///     virtual list is known,.
         /// </summary>
         /// <param name="beforeCount">
         ///     The number of entries before startIndex (the
@@ -222,10 +219,9 @@ namespace Novell.Directory.Ldap.Controls
         {
         }
 
-
         /// <summary>
         ///     Use this constructor to fetch a subset when the size of the
-        ///     virtual list is known,
+        ///     virtual list is known,.
         /// </summary>
         /// <param name="beforeCount">
         ///     The number of entries before startIndex (the
@@ -384,7 +380,7 @@ namespace Novell.Directory.Ldap.Controls
 
             /* Add the optional context string if one is available.
             */
-            if ((object) _mContext != null)
+            if ((object)_mContext != null)
             {
                 _mVlvRequest.Add(new Asn1OctetString(_mContext));
             }
@@ -392,7 +388,7 @@ namespace Novell.Directory.Ldap.Controls
 
         /// <summary>
         ///     Private method used to construct the ber encoded control
-        ///     Used only when using the Indexed mode of VLV Control
+        ///     Used only when using the Indexed mode of VLV Control.
         /// </summary>
         private void BuildIndexedVlvRequest()
         {
@@ -419,12 +415,11 @@ namespace Novell.Directory.Ldap.Controls
 
             /* Add the optional context string if one is available.
             */
-            if ((object) _mContext != null)
+            if ((object)_mContext != null)
             {
                 _mVlvRequest.Add(new Asn1OctetString(_mContext));
             }
         }
-
 
         /// <summary>
         ///     Sets the center or starting list index to return, and the number of

@@ -87,7 +87,6 @@ namespace Novell.Directory.Ldap
             Value = FormatString();
         }
 
-
         /// <summary>
         ///     Constructs a matching rule use definition from the raw string value
         ///     returned on a schema query for matchingRuleUse.
@@ -136,7 +135,7 @@ namespace Novell.Directory.Ldap
             var valueBuffer = new StringBuilder("( ");
             string token;
 
-            if ((object) (token = Id) != null)
+            if ((object)(token = Id) != null)
             {
                 valueBuffer.Append(token);
             }
@@ -162,7 +161,7 @@ namespace Novell.Directory.Ldap
                 }
             }
 
-            if ((object) (token = Description) != null)
+            if ((object)(token = Description) != null)
             {
                 valueBuffer.Append(" DESC ");
                 valueBuffer.Append("'" + token + "'");

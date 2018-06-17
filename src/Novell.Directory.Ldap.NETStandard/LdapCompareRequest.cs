@@ -77,13 +77,13 @@ namespace Novell.Directory.Ldap
         ///     Returns the LdapAttribute associated with this request.
         /// </summary>
         /// <returns>
-        ///     the LdapAttribute
+        ///     the LdapAttribute.
         /// </returns>
         public string AttributeDescription
         {
             get
             {
-                var req = (RfcCompareRequest) Asn1Object.GetRequest();
+                var req = (RfcCompareRequest)Asn1Object.GetRequest();
                 return req.AttributeValueAssertion.AttributeDescription;
             }
         }
@@ -92,23 +92,23 @@ namespace Novell.Directory.Ldap
         ///     Returns the LdapAttribute associated with this request.
         /// </summary>
         /// <returns>
-        ///     the LdapAttribute
+        ///     the LdapAttribute.
         /// </returns>
         [CLSCompliant(false)]
         public sbyte[] AssertionValue
         {
             get
             {
-                var req = (RfcCompareRequest) Asn1Object.GetRequest();
+                var req = (RfcCompareRequest)Asn1Object.GetRequest();
                 return req.AttributeValueAssertion.AssertionValue;
             }
         }
 
         /// <summary>
-        ///     Returns of the dn of the entry to compare in the directory
+        ///     Returns of the dn of the entry to compare in the directory.
         /// </summary>
         /// <returns>
-        ///     the dn of the entry to compare
+        ///     the dn of the entry to compare.
         /// </returns>
         public string Dn => Asn1Object.RequestDn;
     }

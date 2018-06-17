@@ -50,7 +50,7 @@ namespace Novell.Directory.Ldap.Extensions
     ///     2.16.840.1.113719.1.27.100.13
     ///     The requestValue has the following format:
     ///     requestValue ::=
-    ///     dn      LdapDN
+    ///     dn      LdapDN.
     /// </summary>
     public class PartitionEntryCountRequest : LdapExtendedOperation
     {
@@ -79,7 +79,7 @@ namespace Novell.Directory.Ldap.Extensions
         {
             try
             {
-                if ((object) dn == null)
+                if ((object)dn == null)
                 {
                     throw new ArgumentException(ExceptionMessages.ParamError);
                 }

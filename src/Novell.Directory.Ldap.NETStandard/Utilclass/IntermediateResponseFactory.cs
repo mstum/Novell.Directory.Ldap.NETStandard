@@ -60,7 +60,6 @@ namespace Novell.Directory.Ldap.Utilclass
              * @exception LDAPException A general exception which includes an error message
              *                          and an LDAP error code.
              */
-
         public static LdapIntermediateResponse ConvertToIntermediateResponse(RfcLdapMessage inResponse)
             //          throws LDAPException
         {
@@ -78,7 +77,7 @@ namespace Novell.Directory.Ldap.Utilclass
                     return tempResponse;
                 }
 
-                Type[] argsClass = {typeof(RfcLdapMessage)};
+                Type[] argsClass = {typeof(RfcLdapMessage) };
                 object[] args = {inResponse};
                 Exception ex;
                 try
@@ -89,7 +88,7 @@ namespace Novell.Directory.Ldap.Utilclass
                     {
                         object resp = null;
                         resp = extConstructor.Invoke(args);
-                        return (LdapIntermediateResponse) resp;
+                        return (LdapIntermediateResponse)resp;
                     }
                     catch (UnauthorizedAccessException e)
                     {

@@ -49,7 +49,7 @@ namespace Novell.Directory.Ldap.Utilclass
                     return tempResponse;
                 }
 
-                Type[] argsClass = {typeof(RfcLdapMessage)};
+                Type[] argsClass = {typeof(RfcLdapMessage) };
                 object[] args = {inResponse};
                 Exception ex;
                 try
@@ -59,7 +59,7 @@ namespace Novell.Directory.Ldap.Utilclass
                     {
                         object resp = null;
                         resp = extConstructor.Invoke(args);
-                        return (LdapExtendedResponse) resp;
+                        return (LdapExtendedResponse)resp;
                     }
                     catch (UnauthorizedAccessException e)
                     {
