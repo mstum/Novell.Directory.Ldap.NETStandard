@@ -177,6 +177,7 @@ namespace Novell.Directory.Ldap.NETStandard.StressTests
         public class ExceptionInfo
         {
             public Exception Ex { get; set; }
+
             public long ThreadId { get; set; }
         }
     }
