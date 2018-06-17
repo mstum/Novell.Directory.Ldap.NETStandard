@@ -156,13 +156,13 @@ namespace Novell.Directory.Ldap.Events.Edir
                         break;
 
                     default:
-                        //unhandled data.
+                        // unhandled data.
                         throw new IOException();
                 }
             }
             else
             {
-                //NO DATA
+                // NO DATA
                 EventResponseDataObject = null;
             }
         }

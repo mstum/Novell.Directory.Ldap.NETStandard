@@ -91,7 +91,8 @@ namespace Novell.Directory.Ldap.Controls
         ///     If true, sorting is done in descending order. If false,
         ///     sorting is done in ascending order.
         /// </param>
-        public LdapSortKey(string key, bool reverse) : this(key, reverse, null)
+        public LdapSortKey(string key, bool reverse)
+            : this(key, reverse, null)
         {
         }
 

@@ -114,7 +114,8 @@ namespace Novell.Directory.Ldap
         ///     The raw string value returned from a schema query
         ///     for content rules.
         /// </param>
-        public LdapDitContentRuleSchema(string raw) : base(LdapSchema.SchemaTypeNames[LdapSchema.Ditcontent])
+        public LdapDitContentRuleSchema(string raw)
+            : base(LdapSchema.SchemaTypeNames[LdapSchema.Ditcontent])
         {
             Obsolete = false;
             try

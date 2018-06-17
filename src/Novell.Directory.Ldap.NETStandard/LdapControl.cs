@@ -146,7 +146,7 @@ namespace Novell.Directory.Ldap
             sbyte[] twin = null;
             if (vals != null)
             {
-                //is this necessary?
+                // is this necessary?
                 // Yes even though the contructor above allocates a
                 // new Asn1OctetString, vals in that constuctor
                 // is only copied by reference

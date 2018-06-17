@@ -663,27 +663,27 @@ namespace Novell.Directory.Ldap.Utilclass
 
             if ((b & 0xE0) == 0xC0)
             {
-                return 1; //one additional byte (2 bytes total)
+                return 1; // one additional byte (2 bytes total)
             }
 
             if ((b & 0xF0) == 0xE0)
             {
-                return 2; //two additional bytes (3 bytes total)
+                return 2; // two additional bytes (3 bytes total)
             }
 
             if ((b & 0xF8) == 0xF0)
             {
-                return 3; //three additional bytes (4 bytes total)
+                return 3; // three additional bytes (4 bytes total)
             }
 
             if ((b & 0xFC) == 0xF8)
             {
-                return 4; //four additional bytes (5 bytes total)
+                return 4; // four additional bytes (5 bytes total)
             }
 
             if ((b & 0xFF) == 0xFC)
             {
-                return 5; //five additional bytes (6 bytes total)
+                return 5; // five additional bytes (6 bytes total)
             }
 
             return -1;
@@ -725,7 +725,7 @@ namespace Novell.Directory.Ldap.Utilclass
                 var count = GetByteCount(array[index]);
                 if (count == 0)
                 {
-                    //anything that qualifies as count=0 is valid UTF-8
+                    // anything that qualifies as count=0 is valid UTF-8
                     index++;
                     continue;
                 }

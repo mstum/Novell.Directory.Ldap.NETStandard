@@ -43,17 +43,19 @@ namespace Novell.Directory.Ldap.Rfc2251
     /// </summary>
     public class RfcSaslCredentials : Asn1Sequence
     {
-        //*************************************************************************
+        // *************************************************************************
         // Constructors for SaslCredentials
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary> </summary>
-        public RfcSaslCredentials(RfcLdapString mechanism) : this(mechanism, null)
+        public RfcSaslCredentials(RfcLdapString mechanism)
+            : this(mechanism, null)
         {
         }
 
         /// <summary> </summary>
-        public RfcSaslCredentials(RfcLdapString mechanism, Asn1OctetString credentials) : base(2)
+        public RfcSaslCredentials(RfcLdapString mechanism, Asn1OctetString credentials)
+            : base(2)
         {
             Add(mechanism);
             if (credentials != null)

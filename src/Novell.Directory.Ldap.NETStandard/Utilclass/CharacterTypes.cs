@@ -36,7 +36,7 @@ namespace Novell.Directory.Ldap.Utilclass
     /// <summary>
     ///     Specifies the types of Characters.
     /// </summary>
-//	[Flags]
+// [Flags]
     [CLSCompliant(false)]
     public enum CharacterTypes : sbyte
     {

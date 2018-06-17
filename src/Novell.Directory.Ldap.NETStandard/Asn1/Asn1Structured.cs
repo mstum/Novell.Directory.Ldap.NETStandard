@@ -52,7 +52,8 @@ namespace Novell.Directory.Ldap.Asn1
         * @param the Asn1Identifier containing the tag for this structured type
         */
 
-        protected internal Asn1Structured(Asn1Identifier id) : this(id, 10)
+        protected internal Asn1Structured(Asn1Identifier id)
+            : this(id, 10)
         {
         }
 
@@ -64,7 +65,8 @@ namespace Novell.Directory.Ldap.Asn1
         * @param size the size to allocate
         */
 
-        protected internal Asn1Structured(Asn1Identifier id, int size) : base(id)
+        protected internal Asn1Structured(Asn1Identifier id, int size)
+            : base(id)
         {
             _content = new Asn1Object[size];
         }
@@ -79,7 +81,8 @@ namespace Novell.Directory.Ldap.Asn1
         * @param size the number of items of content in the array
         */
 
-        protected internal Asn1Structured(Asn1Identifier id, Asn1Object[] newContent, int size) : base(id)
+        protected internal Asn1Structured(Asn1Identifier id, Asn1Object[] newContent, int size)
+            : base(id)
         {
             _content = newContent;
             _contentIndex = size;

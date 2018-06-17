@@ -971,7 +971,8 @@ namespace Novell.Directory.Ldap
         ///     of the LdapException.
         /// </param>
         public LdapException(string messageOrKey, object[] arguments, int resultCode, string serverMsg,
-            Exception rootException) : this(messageOrKey, arguments, resultCode, serverMsg, null, rootException)
+            Exception rootException)
+            : this(messageOrKey, arguments, resultCode, serverMsg, null, rootException)
         {
         }
 

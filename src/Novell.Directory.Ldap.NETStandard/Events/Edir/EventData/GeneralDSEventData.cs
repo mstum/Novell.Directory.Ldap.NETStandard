@@ -69,7 +69,7 @@ namespace Novell.Directory.Ldap.Events.Edir.EventData
             if (temptaggedvalue.GetIdentifier().Tag
                 == (int)GeneralEventField.EvtTagGenIntegers)
             {
-                //Integer List.
+                // Integer List.
                 var inteseq = GetTaggedSequence(temptaggedvalue, GeneralEventField.EvtTagGenIntegers);
                 var intobject = inteseq.ToArray();
                 IntegerValues = new int[intobject.Length];
@@ -79,7 +79,7 @@ namespace Novell.Directory.Ldap.Events.Edir.EventData
                     IntegerValues[i] = ((Asn1Integer)intobject[i]).IntValue();
                 }
 
-                //second decoding for Strings.
+                // second decoding for Strings.
                 temptaggedvalue = (Asn1Tagged)Decoder.Decode(DecodedData, length);
             }
             else
@@ -91,7 +91,7 @@ namespace Novell.Directory.Ldap.Events.Edir.EventData
                 == (int)GeneralEventField.EvtTagGenStrings
                 && temptaggedvalue.GetIdentifier().Constructed)
             {
-                //String values.
+                // String values.
                 var inteseq =
                     GetTaggedSequence(temptaggedvalue, GeneralEventField.EvtTagGenStrings);
                 var stringobject = inteseq.ToArray();

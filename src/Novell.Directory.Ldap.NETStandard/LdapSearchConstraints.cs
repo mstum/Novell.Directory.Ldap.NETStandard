@@ -227,7 +227,8 @@ namespace Novell.Directory.Ldap
         /// </seealso>
         public LdapSearchConstraints(int msLimit, int serverTimeLimit, int dereference, int maxResults,
             bool doReferrals,
-            int batchSize, ILdapReferralHandler handler, int hopLimit) : base(msLimit, doReferrals, handler, hopLimit)
+            int batchSize, ILdapReferralHandler handler, int hopLimit)
+            : base(msLimit, doReferrals, handler, hopLimit)
         {
             InitBlock();
             ServerTimeLimit = serverTimeLimit;

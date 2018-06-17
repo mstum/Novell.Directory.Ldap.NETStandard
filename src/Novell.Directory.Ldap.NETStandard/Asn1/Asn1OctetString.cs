@@ -63,7 +63,8 @@ namespace Novell.Directory.Ldap.Asn1
         ///     will be contained in the this Asn1OctetString object.
         /// </param>
         [CLSCompliant(false)]
-        public Asn1OctetString(sbyte[] content) : base(Id)
+        public Asn1OctetString(sbyte[] content)
+            : base(Id)
         {
             _content = content;
         }
@@ -76,7 +77,8 @@ namespace Novell.Directory.Ldap.Asn1
         ///     A string value that will be contained
         ///     in the this Asn1OctetString object.
         /// </param>
-        public Asn1OctetString(string content) : base(Id)
+        public Asn1OctetString(string content)
+            : base(Id)
         {
             try
             {
@@ -92,7 +94,7 @@ namespace Novell.Directory.Ldap.Asn1
                 var sbytes = SupportClass.ToSByteArray(ibytes);
 
                 _content = sbytes;
-//				this.content = content.getBytes("UTF8");
+// this.content = content.getBytes("UTF8");
             }
             catch (IOException uee)
             {
@@ -113,7 +115,8 @@ namespace Novell.Directory.Ldap.Asn1
         ///     A byte stream that contains the encoded ASN.1.
         /// </param>
         [CLSCompliant(false)]
-        public Asn1OctetString(IAsn1Decoder dec, Stream inRenamed, int len) : base(Id)
+        public Asn1OctetString(IAsn1Decoder dec, Stream inRenamed, int len)
+            : base(Id)
         {
             _content = len > 0 ? (sbyte[])dec.DecodeOctetString(inRenamed, len) : new sbyte[0];
         }
@@ -156,8 +159,8 @@ namespace Novell.Directory.Ldap.Asn1
                 var encoder = Encoding.GetEncoding("utf-8");
                 var dchar = encoder.GetChars(SupportClass.ToByteArray(_content));
                 s = new string(dchar);
-//				sbyte *sb=content;
-//				s = new  String(sb,0,content.Length, new System.Text.UTF8Encoding());
+// sbyte *sb=content;
+// s = new  String(sb,0,content.Length, new System.Text.UTF8Encoding());
             }
             catch (IOException uee)
             {

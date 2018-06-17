@@ -113,12 +113,12 @@ namespace Novell.Directory.Ldap.Events
                 _mSearchConstraints = constraints;
             }
 
-            //Create the persistent search control
+            // Create the persistent search control
             var psCtrl =
                 new LdapPersistSearchControl((int)eventchangetype, // any change
-                    changeonly, //only get changes
-                    true, //return entry change controls
-                    true); //control is critcal
+                    changeonly, // only get changes
+                    true, // return entry change controls
+                    true); // control is critcal
 
             // add the persistent search control to the search constraints
             _mSearchConstraints.SetControls(psCtrl);

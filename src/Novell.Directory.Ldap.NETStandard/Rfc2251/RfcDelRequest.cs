@@ -42,9 +42,9 @@ namespace Novell.Directory.Ldap.Rfc2251
     /// </summary>
     public class RfcDelRequest : RfcLdapDn, IRfcRequest
     {
-        //*************************************************************************
+        // *************************************************************************
         // Constructor for DelRequest
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary>
         ///     Constructs an Ldapv3 delete request protocol operation.
@@ -52,7 +52,8 @@ namespace Novell.Directory.Ldap.Rfc2251
         /// <param name="dn">
         ///     The Distinguished Name of the entry to delete.
         /// </param>
-        public RfcDelRequest(string dn) : base(dn)
+        public RfcDelRequest(string dn)
+            : base(dn)
         {
         }
 
@@ -63,7 +64,8 @@ namespace Novell.Directory.Ldap.Rfc2251
         ///     The Distinguished Name of the entry to delete.
         /// </param>
         [CLSCompliant(false)]
-        public RfcDelRequest(sbyte[] dn) : base(dn)
+        public RfcDelRequest(sbyte[] dn)
+            : base(dn)
         {
         }
 

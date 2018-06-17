@@ -80,7 +80,8 @@ namespace Novell.Directory.Ldap
         /// </param>
         public LdapMatchingRuleSchema(string[] names, string oid, string description, string[] attributes,
             bool obsolete,
-            string syntaxString) : base(LdapSchema.SchemaTypeNames[LdapSchema.Matching])
+            string syntaxString)
+            : base(LdapSchema.SchemaTypeNames[LdapSchema.Matching])
         {
             this.names = new string[names.Length];
             names.CopyTo(this.names, 0);

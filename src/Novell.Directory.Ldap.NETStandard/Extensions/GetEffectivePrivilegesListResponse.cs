@@ -45,10 +45,11 @@ namespace Novell.Directory.Ldap.Extensions
         ///     2.16.840.1.113719.1.27.100.104.
         /// </summary>
 
-        //Identity returned by the server
+        // Identity returned by the server
         private readonly int[] _privileges = {0};
 
-        public GetEffectivePrivilegesListResponse(RfcLdapMessage rfcMessage) : base(rfcMessage)
+        public GetEffectivePrivilegesListResponse(RfcLdapMessage rfcMessage)
+            : base(rfcMessage)
         {
             /// <summary> Constructs an object from the responseValue which contains the effective
             /// privileges.
@@ -72,7 +73,7 @@ namespace Novell.Directory.Ldap.Extensions
                     throw new IOException("No returned value");
                 }
 
-                //Create a decoder object
+                // Create a decoder object
                 var decoder = new LberDecoder();
 
                 var asn1Seq1 = (Asn1Sequence)decoder.Decode(returnedValue);

@@ -62,7 +62,8 @@ namespace Novell.Directory.Ldap.Extensions
         ///     LdapException A general exception which includes an error message
         ///     and an Ldap error code.
         /// </exception>
-        public SchemaSyncRequest(string serverName, int delay) : base(ReplicationConstants.SchemaSyncReq, null)
+        public SchemaSyncRequest(string serverName, int delay)
+            : base(ReplicationConstants.SchemaSyncReq, null)
         {
             try
             {

@@ -41,13 +41,15 @@ namespace Novell.Directory.Ldap.Rfc2251
     public class RfcAttributeValue : Asn1OctetString
     {
         /// <summary> </summary>
-        public RfcAttributeValue(string valueRenamed) : base(valueRenamed)
+        public RfcAttributeValue(string valueRenamed)
+            : base(valueRenamed)
         {
         }
 
         /// <summary> </summary>
         [CLSCompliant(false)]
-        public RfcAttributeValue(sbyte[] valueRenamed) : base(valueRenamed)
+        public RfcAttributeValue(sbyte[] valueRenamed)
+            : base(valueRenamed)
         {
         }
     }

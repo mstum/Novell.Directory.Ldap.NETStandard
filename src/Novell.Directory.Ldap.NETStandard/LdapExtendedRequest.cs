@@ -77,7 +77,7 @@ namespace Novell.Directory.Ldap
             {
                 var xreq = (RfcExtendedRequest)Asn1Object.get_Renamed(1);
 
-                //Zeroth element is the OID, element one is the value
+                // Zeroth element is the OID, element one is the value
                 var tag = (Asn1Tagged)xreq.get_Renamed(0);
                 var oid = (RfcLdapOid)tag.TaggedValue;
                 var requestId = oid.StringValue();

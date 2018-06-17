@@ -40,7 +40,8 @@ namespace Novell.Directory.Ldap.Rfc2251
     public class RfcMatchingRuleId : RfcLdapString
     {
         /// <summary> Constructs a MatchingRuleId from a String.</summary>
-        public RfcMatchingRuleId(string s) : base(s)
+        public RfcMatchingRuleId(string s)
+            : base(s)
         {
         }
     }

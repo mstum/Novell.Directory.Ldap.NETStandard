@@ -121,12 +121,12 @@ namespace Novell.Directory.Ldap.Utilclass
                 var strB = new StringBuilder();
                 strB.AppendFormat(pattern, arguments);
                 pattern = strB.ToString();
-                //				MessageFormat mf = new MessageFormat(pattern);
-                //				pattern=System.String.Format(locale,pattern,arguments);
-                //				mf.setLocale(locale);
-                //this needs to be reset with the new local - i18n defect in java
-                //				mf.applyPattern(pattern);
-                //				pattern = mf.format(arguments);
+                // MessageFormat mf = new MessageFormat(pattern);
+                // pattern=System.String.Format(locale,pattern,arguments);
+                // mf.setLocale(locale);
+                // this needs to be reset with the new local - i18n defect in java
+                // mf.applyPattern(pattern);
+                // pattern = mf.format(arguments);
             }
 
             return pattern;
@@ -175,5 +175,5 @@ namespace Novell.Directory.Ldap.Utilclass
 
             return result;
         }
-    } //end class ResourcesHandler
+    } // end class ResourcesHandler
 }

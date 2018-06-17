@@ -53,7 +53,8 @@ namespace Novell.Directory.Ldap.Rfc2251
         /// <param name="av">
         ///     The assertion value.
         /// </param>
-        public RfcAttributeValueAssertion(RfcAttributeDescription ad, RfcAssertionValue av) : base(2)
+        public RfcAttributeValueAssertion(RfcAttributeDescription ad, RfcAssertionValue av)
+            : base(2)
         {
             Add(ad);
             Add(av);

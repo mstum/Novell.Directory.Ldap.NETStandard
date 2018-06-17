@@ -215,7 +215,7 @@ namespace Novell.Directory.Ldap
                 asn1Ctrls = new RfcControls();
                 for (var i = 0; i < controls.Length; i++)
                 {
-//					asn1Ctrls.add(null);
+// asn1Ctrls.add(null);
                     asn1Ctrls.Add(controls[i].Asn1Object);
                 }
             }
@@ -561,7 +561,7 @@ namespace Novell.Directory.Ldap
         /// </summary>
         private LdapControl ControlFactory(string oid, bool critical, sbyte[] valueRenamed)
         {
-//			throw new NotImplementedException();
+// throw new NotImplementedException();
             var regControls = LdapControl.RegisteredControls;
             try
             {
@@ -589,7 +589,7 @@ namespace Novell.Directory.Ldap
                     {
                         /* Call the control constructor for a registered Class*/
                         object ctl = null;
-//						ctl = ctlConstructor.newInstance(args);
+// ctl = ctlConstructor.newInstance(args);
                         ctl = ctlConstructor.Invoke(args);
                         return (LdapControl)ctl;
                     }

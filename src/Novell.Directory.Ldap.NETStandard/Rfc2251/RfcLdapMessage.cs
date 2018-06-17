@@ -82,7 +82,8 @@ namespace Novell.Directory.Ldap.Rfc2251
         ///     the array list to copy.
         /// </param>
         internal RfcLdapMessage(Asn1Object[] origContent, IRfcRequest origRequest, string dn, string filter,
-            bool reference) : base(origContent, origContent.Length)
+            bool reference)
+            : base(origContent, origContent.Length)
         {
             set_Renamed(0, new RfcMessageId()); // MessageID has static counter
 
@@ -93,12 +94,14 @@ namespace Novell.Directory.Ldap.Rfc2251
         }
 
         /// <summary> Create an RfcLdapMessage using the specified Ldap Request.</summary>
-        public RfcLdapMessage(IRfcRequest op) : this(op, null)
+        public RfcLdapMessage(IRfcRequest op)
+            : this(op, null)
         {
         }
 
         /// <summary> Create an RfcLdapMessage request from input parameters.</summary>
-        public RfcLdapMessage(IRfcRequest op, RfcControls controls) : base(3)
+        public RfcLdapMessage(IRfcRequest op, RfcControls controls)
+            : base(3)
         {
             _op = (Asn1Object)op;
             _controls = controls;
@@ -112,12 +115,14 @@ namespace Novell.Directory.Ldap.Rfc2251
         }
 
         /// <summary> Create an RfcLdapMessage using the specified Ldap Response.</summary>
-        public RfcLdapMessage(Asn1Sequence op) : this(op, null)
+        public RfcLdapMessage(Asn1Sequence op)
+            : this(op, null)
         {
         }
 
         /// <summary> Create an RfcLdapMessage response from input parameters.</summary>
-        public RfcLdapMessage(Asn1Sequence op, RfcControls controls) : base(3)
+        public RfcLdapMessage(Asn1Sequence op, RfcControls controls)
+            : base(3)
         {
             _op = op;
             _controls = controls;
@@ -132,7 +137,8 @@ namespace Novell.Directory.Ldap.Rfc2251
 
         /// <summary> Will decode an RfcLdapMessage directly from an InputStream.</summary>
         [CLSCompliant(false)]
-        public RfcLdapMessage(IAsn1Decoder dec, Stream inRenamed, int len) : base(dec, inRenamed, len)
+        public RfcLdapMessage(IAsn1Decoder dec, Stream inRenamed, int len)
+            : base(dec, inRenamed, len)
         {
             // Decode implicitly tagged protocol operation from an Asn1Tagged type
             // to its appropriate application type.
@@ -196,7 +202,7 @@ namespace Novell.Directory.Ldap.Rfc2251
             if (Size() > 2)
             {
                 var controls = (Asn1Tagged)get_Renamed(2);
-                //   Asn1Identifier controlsId = protocolOp.getIdentifier();
+                // Asn1Identifier controlsId = protocolOp.getIdentifier();
                 // we could check to make sure we have controls here....
 
                 content = ((Asn1OctetString)controls.TaggedValue).ByteValue();
@@ -250,9 +256,9 @@ namespace Novell.Directory.Ldap.Rfc2251
         /// </param>
         public LdapMessage RequestingMessage { get; set; }
 
-        //*************************************************************************
+        // *************************************************************************
         // Accessors
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary>
         ///     Returns the request associated with this RfcLdapMessage.

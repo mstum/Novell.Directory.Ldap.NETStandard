@@ -45,9 +45,9 @@ namespace Novell.Directory.Ldap.Rfc2251
     /// </summary>
     public class RfcMatchingRuleAssertion : Asn1Sequence
     {
-        //*************************************************************************
+        // *************************************************************************
         // Constructors for MatchingRuleAssertion
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary>
         ///     Creates a MatchingRuleAssertion with the only required parameter.
@@ -55,7 +55,8 @@ namespace Novell.Directory.Ldap.Rfc2251
         /// <param name="matchValue">
         ///     The assertion value.
         /// </param>
-        public RfcMatchingRuleAssertion(RfcAssertionValue matchValue) : this(null, null, matchValue, null)
+        public RfcMatchingRuleAssertion(RfcAssertionValue matchValue)
+            : this(null, null, matchValue, null)
         {
         }
 
@@ -76,7 +77,8 @@ namespace Novell.Directory.Ldap.Rfc2251
         ///     Asn1Boolean value. (default false).
         /// </param>
         public RfcMatchingRuleAssertion(RfcMatchingRuleId matchingRule, RfcAttributeDescription type,
-            RfcAssertionValue matchValue, Asn1Boolean dnAttributes) : base(4)
+            RfcAssertionValue matchValue, Asn1Boolean dnAttributes)
+            : base(4)
         {
             if (matchingRule != null)
             {

@@ -56,9 +56,9 @@ namespace Novell.Directory.Ldap.Rfc2251
     /// </summary>
     public class RfcSearchRequest : Asn1Sequence, IRfcRequest
     {
-        //*************************************************************************
+        // *************************************************************************
         // Constructors for SearchRequest
-        //*************************************************************************
+        // *************************************************************************
 
         /*
         *
@@ -66,7 +66,8 @@ namespace Novell.Directory.Ldap.Rfc2251
 
         public RfcSearchRequest(RfcLdapDn baseObject, Asn1Enumerated scope, Asn1Enumerated derefAliases,
             Asn1Integer sizeLimit, Asn1Integer timeLimit, Asn1Boolean typesOnly, RfcFilter filter,
-            RfcAttributeDescriptionList attributes) : base(8)
+            RfcAttributeDescriptionList attributes)
+            : base(8)
         {
             Add(baseObject);
             Add(scope);
@@ -117,9 +118,9 @@ namespace Novell.Directory.Ldap.Rfc2251
             return ((RfcLdapDn)get_Renamed(0)).StringValue();
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // Accessors
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary>
         ///     Override getIdentifier to return an application-wide id.

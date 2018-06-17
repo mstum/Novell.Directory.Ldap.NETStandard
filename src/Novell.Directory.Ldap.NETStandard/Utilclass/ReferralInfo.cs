@@ -37,7 +37,7 @@ namespace Novell.Directory.Ldap.Utilclass
     /// </summary>
     public class ReferralInfo
     {
-//		private DirectoryEntry conn;
+// private DirectoryEntry conn;
 
         /// <summary>
         ///     Construct the ReferralInfo class.

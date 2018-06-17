@@ -49,7 +49,7 @@ namespace Novell.Directory.Ldap
     /// </seealso>
     /// <seealso cref="LdapEntry">
     /// </seealso>
-    public class LdapAttributeSet : SupportClass.AbstractSetSupport //, SupportClass.SetSupport
+    public class LdapAttributeSet : SupportClass.AbstractSetSupport // , SupportClass.SetSupport
     {
         /// <summary>
         ///     This is the underlying data structure for this set.
@@ -315,7 +315,7 @@ namespace Novell.Directory.Ldap
         /// </returns>
         public override bool Add(object attr)
         {
-            //We must enforce that attr is an LdapAttribute
+            // We must enforce that attr is an LdapAttribute
             var attribute = (LdapAttribute)attr;
             var name = attribute.Name.ToUpper();
             if (_map.ContainsKey(name))
@@ -345,7 +345,7 @@ namespace Novell.Directory.Ldap
         /// </returns>
         public override bool Remove(object objectRenamed)
         {
-            string attributeName; //the name is the key to object in the HashMap
+            string attributeName; // the name is the key to object in the HashMap
             if (objectRenamed is string)
             {
                 attributeName = (string)objectRenamed;

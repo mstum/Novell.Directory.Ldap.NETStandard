@@ -63,7 +63,8 @@ namespace Novell.Directory.Ldap.Extensions
         /// <exception>
         ///     IOException The responseValue could not be decoded.
         /// </exception>
-        public GetReplicationFilterResponse(RfcLdapMessage rfcMessage) : base(rfcMessage)
+        public GetReplicationFilterResponse(RfcLdapMessage rfcMessage)
+            : base(rfcMessage)
         {
             if (ResultCode != LdapException.Success)
             {

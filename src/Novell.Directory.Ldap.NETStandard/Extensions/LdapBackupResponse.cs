@@ -49,7 +49,7 @@ namespace Novell.Directory.Ldap.Extensions
 {
     public class LdapBackupResponse : LdapExtendedResponse
     {
-        private readonly int _bufferLength; //Represents the length of backup data
+        private readonly int _bufferLength; // Represents the length of backup data
 
         /*
          * The String representing the number of chunks and each elements in chunk
@@ -66,7 +66,7 @@ namespace Novell.Directory.Ldap.Extensions
          * Actual data of returned eDirectoty Object in byte[]
         */
         private readonly byte[] _returnedBuffer;
-        private readonly string _stateInfo; //Represent the state Information of data
+        private readonly string _stateInfo; // Represent the state Information of data
 
         /**
         * Constructs an object from the responseValue which contains the backup data.
@@ -86,14 +86,15 @@ namespace Novell.Directory.Ldap.Extensions
         *
         * @exception IOException The responseValue could not be decoded.
         */
-        public LdapBackupResponse(RfcLdapMessage rfcMessage) : base(rfcMessage)
+        public LdapBackupResponse(RfcLdapMessage rfcMessage)
+            : base(rfcMessage)
         {
             var modificationTime = 0; // Modifaction timestamp of the Object
             var revision = 0; // Revision number of the Object
             var chunksSize = 0;
-            int[] chunks = null; //Holds size of each chunks returned from server
+            int[] chunks = null; // Holds size of each chunks returned from server
 
-            //Verify if returned ID is not proper
+            // Verify if returned ID is not proper
             if (Id == null || !Id.Equals(BackupRestoreConstants.NldapLdapBackupResponse))
             {
                 throw new IOException("LDAP Extended Operation not supported");
@@ -150,7 +151,7 @@ namespace Novell.Directory.Ldap.Extensions
 
                 revision = asn1Revision.IntValue();
 
-                //Format stateInfo to contain both modificationTime and revision
+                // Format stateInfo to contain both modificationTime and revision
                 _stateInfo = modificationTime + "+" + revision;
 
                 // Parse returnedBuffer
@@ -179,14 +180,14 @@ namespace Novell.Directory.Ldap.Extensions
                     throw new IOException("Decoding error");
                 }
 
-                //Get number of chunks returned from server
+                // Get number of chunks returned from server
                 chunksSize = ((Asn1Integer)asn1ChunksSeq.get_Renamed(0)).IntValue();
 
-                //Construct chunks array
+                // Construct chunks array
                 chunks = new int[chunksSize];
 
                 var asn1ChunksSet = (Asn1Set)asn1ChunksSeq.get_Renamed(1);
-                //Iterate through asn1_chunksSet and put each size into chunks array
+                // Iterate through asn1_chunksSet and put each size into chunks array
 
                 for (var index = 0; index < chunksSize; index++)
                 {
@@ -194,8 +195,8 @@ namespace Novell.Directory.Ldap.Extensions
                     chunks[index] = ((Asn1Integer)asn1EachSeq.get_Renamed(0)).IntValue();
                 }
 
-                //Construct a temporary StringBuffer and append chunksSize, each size
-                //element in chunks array and actual data of eDirectoty Object
+                // Construct a temporary StringBuffer and append chunksSize, each size
+                // element in chunks array and actual data of eDirectoty Object
                 var tempBuffer = new StringBuilder();
                 tempBuffer.Append(chunksSize);
                 tempBuffer.Append(";");
@@ -209,12 +210,12 @@ namespace Novell.Directory.Ldap.Extensions
 
                 tempBuffer.Append(chunks[i]);
 
-                //Assign tempBuffer to parsedString to be returned to Application
+                // Assign tempBuffer to parsedString to be returned to Application
                 _chunkSizesString = tempBuffer.ToString();
             }
             else
             {
-                //Intialize all these if getResultCode() != LdapException.SUCCESS
+                // Intialize all these if getResultCode() != LdapException.SUCCESS
                 _bufferLength = 0;
                 _stateInfo = null;
                 _chunkSizesString = null;

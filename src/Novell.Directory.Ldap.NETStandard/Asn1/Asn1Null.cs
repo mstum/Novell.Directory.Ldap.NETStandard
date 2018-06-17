@@ -55,7 +55,8 @@ namespace Novell.Directory.Ldap.Asn1
         ///     Call this constructor to construct a new Asn1Null
         ///     object.
         /// </summary>
-        public Asn1Null() : base(Id)
+        public Asn1Null()
+            : base(Id)
         {
         }
 

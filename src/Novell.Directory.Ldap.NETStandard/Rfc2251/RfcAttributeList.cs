@@ -43,10 +43,11 @@ namespace Novell.Directory.Ldap.Rfc2251
     /// </summary>
     public class RfcAttributeList : Asn1SequenceOf
     {
-        //*************************************************************************
+        // *************************************************************************
         // Constructor for AttributeList
-        //*************************************************************************
-        public RfcAttributeList(int size) : base(size)
+        // *************************************************************************
+        public RfcAttributeList(int size)
+            : base(size)
         {
         }
     }

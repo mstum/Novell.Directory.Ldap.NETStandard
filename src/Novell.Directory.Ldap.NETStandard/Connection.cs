@@ -68,7 +68,7 @@ namespace Novell.Directory.Ldap
     /*package*/
     internal class Connection
     {
-        //  Ldap message IDs are all positive numbers so we can use negative
+        // Ldap message IDs are all positive numbers so we can use negative
         //  numbers as flags.  This are flags assigned to stopReaderMessageID
         //  to tell the reader what state we are in.
         private const int ContinueReading = -99;
@@ -91,9 +91,9 @@ namespace Novell.Directory.Ldap
         private bool _clientActive = true;
 
         // The LdapSocketFactory to be used as the default to create new connections
-        //		private static LdapSocketFactory socketFactory = null;
+        // private static LdapSocketFactory socketFactory = null;
         // The LdapSocketFactory used for this connection
-        //		private LdapSocketFactory mySocketFactory;
+        // private LdapSocketFactory mySocketFactory;
         // Number of clones in addition to original LdapConnection using this
         // connection.
         private int _cloneCount;
@@ -128,7 +128,7 @@ namespace Novell.Directory.Ldap
         private Socket _sock;
         private TcpClient _socket;
 
-        //  Stops the reader thread when a Message with the passed-in ID is read.
+        // Stops the reader thread when a Message with the passed-in ID is read.
         //  This parameter is set by stopReaderOnReply and stopTLS
         private int _stopReaderMessageId;
 
@@ -157,7 +157,7 @@ namespace Novell.Directory.Ldap
         ///     specifies the factory to use to produce SSL sockets.
         /// </param>
 
-        //		internal Connection(LdapSocketFactory factory)
+        // internal Connection(LdapSocketFactory factory)
         internal Connection()
         {
             InitBlock();
@@ -559,7 +559,7 @@ namespace Novell.Directory.Ldap
                 // Make socket connection to specified host and port
                 if (port == 0)
                 {
-                    port = 389; //LdapConnection.DEFAULT_PORT;
+                    port = 389; // LdapConnection.DEFAULT_PORT;
                 }
 
                 try
@@ -1045,8 +1045,8 @@ namespace Novell.Directory.Ldap
                 _stopReaderMessageId = StopReading;
                 _outStream?.Dispose();
                 _inStream?.Dispose();
-                //				this.sock.Shutdown(SocketShutdown.Both);
-                //				this.sock.Close();
+                // this.sock.Shutdown(SocketShutdown.Both);
+                // this.sock.Close();
                 WaitForReader(null);
                 _socket = _nonTlsBackup;
                 _inStream = _socket.GetStream();
@@ -1289,7 +1289,7 @@ namespace Novell.Directory.Ldap
 					*/
                     if (!_enclosingInstance._clientActive || notify != null)
                     {
-                        //#3 & 4
+                        // #3 & 4
                         _enclosingInstance.Destroy(reason, 0, notify);
                     }
                     else

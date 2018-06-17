@@ -101,9 +101,9 @@ namespace Novell.Directory.Ldap.Controls
 
             ChangeType = ((Asn1Enumerated)asn1Obj).IntValue();
 
-            //check for optional elements
+            // check for optional elements
             if (sequence.Size() > 1 && ChangeType == 8)
-                //8 means modifyDN
+                // 8 means modifyDN
             {
                 // get the previous DN - it is encoded as an octet string
                 asn1Obj = sequence.get_Renamed(1);
@@ -119,7 +119,7 @@ namespace Novell.Directory.Ldap.Controls
                 PreviousDn = string.Empty;
             }
 
-            //check for change number
+            // check for change number
             if (sequence.Size() == 3)
             {
                 asn1Obj = sequence.get_Renamed(2);
@@ -178,5 +178,5 @@ namespace Novell.Directory.Ldap.Controls
         ///     change type is LdapersistSearchControl.MODDN.
         /// </returns>
         public string PreviousDn { get; }
-    } //end class LdapEntryChangeControl
+    } // end class LdapEntryChangeControl
 }

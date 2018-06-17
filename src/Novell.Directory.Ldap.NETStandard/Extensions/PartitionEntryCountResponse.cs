@@ -45,7 +45,7 @@ namespace Novell.Directory.Ldap.Extensions
     /// </summary>
     public class PartitionEntryCountResponse : LdapExtendedResponse
     {
-        //The count of the objects returned by the server is saved here
+        // The count of the objects returned by the server is saved here
 
         /// <summary>
         ///     Constructs an object from the responseValue which contains the
@@ -58,7 +58,8 @@ namespace Novell.Directory.Ldap.Extensions
         /// <exception>
         ///     IOException  The response value could not be decoded.
         /// </exception>
-        public PartitionEntryCountResponse(RfcLdapMessage rfcMessage) : base(rfcMessage)
+        public PartitionEntryCountResponse(RfcLdapMessage rfcMessage)
+            : base(rfcMessage)
         {
             if (ResultCode == LdapException.Success)
             {

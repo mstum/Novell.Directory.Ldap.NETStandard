@@ -82,7 +82,7 @@ namespace Novell.Directory.Ldap.Utilclass
             st2.WordCharacters('{', '}');
             st2.WordCharacters('_', '_');
             st2.WordCharacters(';', ';');
-            //First parse out the OID
+            // First parse out the OID
             string currName;
             if (st2.NextToken() != (int)TokenTypes.Eof)
             {
@@ -142,7 +142,7 @@ namespace Novell.Directory.Ldap.Utilclass
                             {
                                 _result = st2.NextToken();
                                 if (_result == (int)TokenTypes.Word || _result == '\'')
-                                    //Test for non-standard schema
+                                    // Test for non-standard schema
                                 {
                                     Syntax = st2.StringValue;
                                 }

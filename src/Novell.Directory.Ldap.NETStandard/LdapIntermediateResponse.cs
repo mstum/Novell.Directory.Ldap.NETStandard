@@ -54,7 +54,8 @@ namespace Novell.Directory.Ldap
          * @param message  The RfcLdapMessage to convert to an
          *                 LdapIntermediateResponse object.
          */
-        public LdapIntermediateResponse(RfcLdapMessage message) : base(message)
+        public LdapIntermediateResponse(RfcLdapMessage message)
+            : base(message)
         {
         }
 

@@ -43,13 +43,14 @@ namespace Novell.Directory.Ldap.Rfc2251
     /// </summary>
     public class RfcSearchResultDone : RfcLdapResult
     {
-        //*************************************************************************
+        // *************************************************************************
         // Constructors for SearchResultDone
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary> Decode a search result done from the input stream.</summary>
         [CLSCompliant(false)]
-        public RfcSearchResultDone(IAsn1Decoder dec, Stream inRenamed, int len) : base(dec, inRenamed, len)
+        public RfcSearchResultDone(IAsn1Decoder dec, Stream inRenamed, int len)
+            : base(dec, inRenamed, len)
         {
         }
 
@@ -69,13 +70,14 @@ namespace Novell.Directory.Ldap.Rfc2251
         ///     the referral(s) returned by the server.
         /// </param>
         public RfcSearchResultDone(Asn1Enumerated resultCode, RfcLdapDn matchedDn, RfcLdapString errorMessage,
-            RfcReferral referral) : base(resultCode, matchedDn, errorMessage, referral)
+            RfcReferral referral)
+            : base(resultCode, matchedDn, errorMessage, referral)
         {
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // Accessors
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary> Override getIdentifier to return an application-wide id.</summary>
         public override Asn1Identifier GetIdentifier()

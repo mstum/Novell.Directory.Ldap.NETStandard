@@ -67,7 +67,8 @@ namespace Novell.Directory.Ldap.Extensions
         ///     LdapException A general exception which includes an error
         ///     message and an Ldap error code.
         /// </exception>
-        public MergePartitionsRequest(string dn, int flags) : base(ReplicationConstants.MergeNamingContextReq, null)
+        public MergePartitionsRequest(string dn, int flags)
+            : base(ReplicationConstants.MergeNamingContextReq, null)
         {
             try
             {

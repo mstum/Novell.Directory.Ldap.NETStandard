@@ -393,7 +393,7 @@ namespace Novell.Directory.Ldap
             Request = null;
             // agent = null;  // leave this reference
             _queue = null;
-            //replies = null; //leave this since we use it as a semaphore
+            // replies = null; //leave this since we use it as a semaphore
             _bindprops = null;
         }
 

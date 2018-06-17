@@ -45,9 +45,9 @@ namespace Novell.Directory.Ldap.Rfc2251
     /// </summary>
     public class RfcBindResponse : Asn1Sequence, IRfcResponse
     {
-        //*************************************************************************
+        // *************************************************************************
         // Constructors for BindResponse
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary>
         ///     The only time a client will create a BindResponse is when it is
@@ -56,7 +56,8 @@ namespace Novell.Directory.Ldap.Rfc2251
         ///     need to be decoded since it is already an OCTET STRING.
         /// </summary>
         [CLSCompliant(false)]
-        public RfcBindResponse(IAsn1Decoder dec, Stream inRenamed, int len) : base(dec, inRenamed, len)
+        public RfcBindResponse(IAsn1Decoder dec, Stream inRenamed, int len)
+            : base(dec, inRenamed, len)
         {
             // Decode optional referral from Asn1OctetString to Referral.
             if (Size() > 3)
@@ -99,9 +100,9 @@ namespace Novell.Directory.Ldap.Rfc2251
             }
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // Accessors
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary> </summary>
         public Asn1Enumerated GetResultCode()

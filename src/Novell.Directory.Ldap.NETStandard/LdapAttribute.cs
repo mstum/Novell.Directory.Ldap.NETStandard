@@ -122,7 +122,8 @@ namespace Novell.Directory.Ldap
         ///     @throws IllegalArgumentException if attrName or attrBytes is null.
         /// </param>
         [CLSCompliant(false)]
-        public LdapAttribute(string attrName, sbyte[] attrBytes) : this(attrName)
+        public LdapAttribute(string attrName, sbyte[] attrBytes)
+            : this(attrName)
         {
             if (attrBytes == null)
             {
@@ -145,7 +146,8 @@ namespace Novell.Directory.Ldap
         ///     Value of the attribute as a string.
         ///     @throws IllegalArgumentException if attrName or attrString is null.
         /// </param>
-        public LdapAttribute(string attrName, string attrString) : this(attrName)
+        public LdapAttribute(string attrName, string attrString)
+            : this(attrName)
         {
             if ((object)attrString == null)
             {
@@ -177,7 +179,8 @@ namespace Novell.Directory.Ldap
         ///     @throws IllegalArgumentException if attrName, attrStrings, or a member
         ///     of attrStrings is null.
         /// </param>
-        public LdapAttribute(string attrName, string[] attrStrings) : this(attrName)
+        public LdapAttribute(string attrName, string[] attrStrings)
+            : this(attrName)
         {
             if (attrStrings == null)
             {
@@ -197,7 +200,7 @@ namespace Novell.Directory.Ldap
                     var ibytes = encoder.GetBytes(attrStrings[i]);
                     var sbytes = SupportClass.ToSByteArray(ibytes);
                     Add(sbytes);
-//					this.add(attrStrings[i].getBytes("UTF-8"));
+// this.add(attrStrings[i].getBytes("UTF-8"));
                 }
                 catch (IOException e)
                 {
@@ -278,9 +281,9 @@ namespace Novell.Directory.Ldap
                     {
                         var encoder = Encoding.GetEncoding("utf-8");
                         var dchar = encoder.GetChars(SupportClass.ToByteArray((sbyte[])_values[j]));
-//						char[] dchar = encoder.GetChars((byte[])values[j]);
+// char[] dchar = encoder.GetChars((byte[])values[j]);
                         sva[j] = new string(dchar);
-//						sva[j] = new String((sbyte[]) values[j], "UTF-8");
+// sva[j] = new String((sbyte[]) values[j], "UTF-8");
                     }
                     catch (IOException uee)
                     {
@@ -319,7 +322,7 @@ namespace Novell.Directory.Ldap
                     {
                         var encoder = Encoding.GetEncoding("utf-8");
                         var dchar = encoder.GetChars(SupportClass.ToByteArray((sbyte[])_values[0]));
-//						char[] dchar = encoder.GetChars((byte[]) this.values[0]);
+// char[] dchar = encoder.GetChars((byte[]) this.values[0]);
                         rval = new string(dchar);
                     }
                     catch (IOException use)
@@ -480,7 +483,7 @@ namespace Novell.Directory.Ldap
                 var ibytes = encoder.GetBytes(attrString);
                 var sbytes = SupportClass.ToSByteArray(ibytes);
                 Add(sbytes);
-//				this.add(attrString.getBytes("UTF-8"));
+// this.add(attrString.getBytes("UTF-8"));
             }
             catch (IOException ue)
             {
@@ -839,7 +842,7 @@ namespace Novell.Directory.Ldap
                 var ibytes = encoder.GetBytes(attrString);
                 var sbytes = SupportClass.ToSByteArray(ibytes);
                 RemoveValue(sbytes);
-//				this.removeValue(attrString.getBytes("UTF-8"));
+// this.removeValue(attrString.getBytes("UTF-8"));
             }
             catch (IOException uee)
             {
@@ -1034,11 +1037,11 @@ namespace Novell.Directory.Ldap
                         }
 
                         var encoder = Encoding.GetEncoding("utf-8");
-//						char[] dchar = encoder.GetChars((byte[]) values[i]);
+// char[] dchar = encoder.GetChars((byte[]) values[i]);
                         var dchar = encoder.GetChars(SupportClass.ToByteArray((sbyte[])_values[i]));
                         var sval = new string(dchar);
 
-//						System.String sval = new String((sbyte[]) values[i], "UTF-8");
+// System.String sval = new String((sbyte[]) values[i], "UTF-8");
                         if (sval.Length == 0)
                         {
                             // didn't decode well, must be binary

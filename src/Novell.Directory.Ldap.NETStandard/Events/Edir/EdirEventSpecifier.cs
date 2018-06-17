@@ -36,8 +36,8 @@ namespace Novell.Directory.Ldap.Events.Edir
     /// </summary>
     public class EdirEventSpecifier
     {
-        public EdirEventSpecifier(EdirEventType eventType, EdirEventResultType eventResultType) :
-            this(eventType, eventResultType, null)
+        public EdirEventSpecifier(EdirEventType eventType, EdirEventResultType eventResultType)
+            : this(eventType, eventResultType, null)
         {
         }
 

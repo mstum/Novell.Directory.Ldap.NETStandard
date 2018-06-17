@@ -62,7 +62,8 @@ namespace Novell.Directory.Ldap
         /// <param name="description">
         ///     An optional description of the syntax.
         /// </param>
-        public LdapSyntaxSchema(string oid, string description) : base(LdapSchema.SchemaTypeNames[LdapSchema.Syntax])
+        public LdapSyntaxSchema(string oid, string description)
+            : base(LdapSchema.SchemaTypeNames[LdapSchema.Syntax])
         {
             Oid = oid;
             Description = description;
@@ -77,7 +78,8 @@ namespace Novell.Directory.Ldap
         ///     The raw string value returned from a schema
         ///     query for ldapSyntaxes.
         /// </param>
-        public LdapSyntaxSchema(string raw) : base(LdapSchema.SchemaTypeNames[LdapSchema.Syntax])
+        public LdapSyntaxSchema(string raw)
+            : base(LdapSchema.SchemaTypeNames[LdapSchema.Syntax])
         {
             try
             {

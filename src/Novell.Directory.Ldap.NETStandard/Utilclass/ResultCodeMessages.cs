@@ -37,7 +37,7 @@ namespace Novell.Directory.Ldap.Utilclass
     ///     This class contains strings corresponding to Ldap Result Codes.
     ///     The resources are accessed by the String representation of the result code.
     /// </summary>
-    public class ResultCodeMessages //:System.Resources.ResourceManager
+    public class ResultCodeMessages // :System.Resources.ResourceManager
     {
         private static readonly Dictionary<string, string> ErrorCodes = new Dictionary<string, string>
         {
@@ -108,5 +108,5 @@ namespace Novell.Directory.Ldap.Utilclass
         {
             return ErrorCodes[code];
         }
-    } //End ResultCodeMessages
+    } // End ResultCodeMessages
 }

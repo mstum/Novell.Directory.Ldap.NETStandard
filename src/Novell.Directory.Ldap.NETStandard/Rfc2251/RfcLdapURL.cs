@@ -39,12 +39,13 @@ namespace Novell.Directory.Ldap.Rfc2251
     /// </summary>
     public class RfcLdapUrl : RfcLdapString
     {
-        //*************************************************************************
+        // *************************************************************************
         // Constructor for RfcLdapURL
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary> </summary>
-        public RfcLdapUrl(string s) : base(s)
+        public RfcLdapUrl(string s)
+            : base(s)
         {
         }
     }

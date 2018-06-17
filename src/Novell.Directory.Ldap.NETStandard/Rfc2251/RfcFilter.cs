@@ -66,9 +66,9 @@ namespace Novell.Directory.Ldap.Rfc2251
     /// </summary>
     public class RfcFilter : Asn1Choice
     {
-        //*************************************************************************
+        // *************************************************************************
         // Public variables for Filter
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary> Identifier for AND component.</summary>
         public const int And = LdapSearchRequest.And;
@@ -112,32 +112,34 @@ namespace Novell.Directory.Ldap.Rfc2251
         private Stack _filterStack;
         private bool _finalFound;
 
-        //*************************************************************************
+        // *************************************************************************
         // Private variables for Filter
-        //*************************************************************************
+        // *************************************************************************
 
         private FilterTokenizer _ft;
 
-        //*************************************************************************
+        // *************************************************************************
         // Constructor for Filter
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary> Constructs a Filter object by parsing an RFC 2254 Search Filter String.</summary>
-        public RfcFilter(string filter) : base(null)
+        public RfcFilter(string filter)
+            : base(null)
         {
             ChoiceValue = Parse(filter);
         }
 
         /// <summary> Constructs a Filter object that will be built up piece by piece.   </summary>
-        public RfcFilter() : base(null)
+        public RfcFilter()
+            : base(null)
         {
             _filterStack = new Stack();
-            //The choice value must be set later: setChoiceValue(rootFilterTag)
+            // The choice value must be set later: setChoiceValue(rootFilterTag)
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // Helper methods for RFC 2254 Search Filter parsing.
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary> Parses an RFC 2251 filter string into an ASN.1 Ldap Filter object.</summary>
         private Asn1Tagged Parse(string filterExpr)
@@ -282,7 +284,7 @@ namespace Novell.Directory.Ldap.Rfc2251
                                 // substrings parse:
                                 //    [initial], *any*, [final] into an Asn1SequenceOf
                                 var sub = new SupportClass.Tokenizer(valueRenamed, "*", true);
-//								SupportClass.Tokenizer sub = new SupportClass.Tokenizer(value_Renamed, "*");//, true);
+// SupportClass.Tokenizer sub = new SupportClass.Tokenizer(value_Renamed, "*");//, true);
                                 var seq = new Asn1SequenceOf(5);
                                 var tokCnt = sub.Count;
                                 var cnt = 0;
@@ -352,8 +354,8 @@ namespace Novell.Directory.Ldap.Rfc2251
                         case ExtensibleMatch:
                             string type = null, matchingRule = null;
                             var dnAttributes = false;
-//							SupportClass.Tokenizer st = new StringTokenizer(ft.Attr, ":", true);
-                            var st = new SupportClass.Tokenizer(_ft.Attr, ":"); //, true);
+// SupportClass.Tokenizer st = new StringTokenizer(ft.Attr, ":", true);
+                            var st = new SupportClass.Tokenizer(_ft.Attr, ":"); // , true);
 
                             var first = true;
                             while (st.HasMoreTokens())
@@ -504,7 +506,7 @@ namespace Novell.Directory.Ldap.Rfc2251
                                 var ibytes = encoder.GetBytes(new string(ca));
                                 utf8Bytes = SupportClass.ToSByteArray(ibytes);
 
-//								utf8Bytes = new System.String(ca).getBytes("UTF-8");
+// utf8Bytes = new System.String(ca).getBytes("UTF-8");
                                 // copy utf8 encoded character into octets
                                 Array.Copy(utf8Bytes, 0, octets, iOctets, utf8Bytes.Length);
                                 iOctets = iOctets + utf8Bytes.Length;
@@ -521,7 +523,7 @@ namespace Novell.Directory.Ldap.Rfc2251
                             var ibytes = encoder.GetBytes(new string(ca));
                             utf8Bytes = SupportClass.ToSByteArray(ibytes);
 
-//							utf8Bytes = new System.String(ca).getBytes("UTF-8");
+// utf8Bytes = new System.String(ca).getBytes("UTF-8");
                             for (var i = 0; i < utf8Bytes.Length; i++)
                             {
                                 var u = utf8Bytes[i];
@@ -553,7 +555,7 @@ namespace Novell.Directory.Ldap.Rfc2251
             }
 
             var toReturn = new sbyte[iOctets];
-//			Array.Copy((System.Array)SupportClass.ToByteArray(octets), 0, (System.Array)SupportClass.ToByteArray(toReturn), 0, iOctets);
+// Array.Copy((System.Array)SupportClass.ToByteArray(octets), 0, (System.Array)SupportClass.ToByteArray(toReturn), 0, iOctets);
             Array.Copy(octets, 0, toReturn, 0, iOctets);
 
             octets = null;
@@ -585,7 +587,7 @@ namespace Novell.Directory.Ldap.Rfc2251
 
             if (ChoiceValue == null)
             {
-                //ChoiceValue is the root Asn1 node
+                // ChoiceValue is the root Asn1 node
                 ChoiceValue = current;
             }
             else
@@ -596,17 +598,17 @@ namespace Novell.Directory.Ldap.Rfc2251
                 {
                     topOfStack.TaggedValue = current;
                     _filterStack.Push(current);
-//					filterStack.Add(current);
+// filterStack.Add(current);
                 }
                 else if (valueRenamed is Asn1SetOf)
                 {
                     ((Asn1SetOf)valueRenamed).Add(current);
-                    //don't add this to the stack:
+                    // don't add this to the stack:
                 }
                 else if (valueRenamed is Asn1Set)
                 {
                     ((Asn1Set)valueRenamed).Add(current);
-                    //don't add this to the stack:
+                    // don't add this to the stack:
                 }
                 else if (valueRenamed.GetIdentifier().Tag == LdapSearchRequest.Not)
                 {
@@ -618,7 +620,7 @@ namespace Novell.Directory.Ldap.Rfc2251
             var type = current.GetIdentifier().Tag;
             if (type == And || type == Or || type == Not)
             {
-//				filterStack.Add(current);
+// filterStack.Add(current);
                 _filterStack.Push(current);
             }
         }
@@ -742,7 +744,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         {
             if (_filterStack != null && !(_filterStack.Count == 0) && _filterStack.Peek() is Asn1SequenceOf)
             {
-                //If a sequenceof is on the stack then substring is left on the stack
+                // If a sequenceof is on the stack then substring is left on the stack
                 throw new LdapLocalException("Cannot insert an attribute assertion in a substring",
                     LdapException.FilterError);
             }
@@ -847,7 +849,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         {
             if (rfcType == Not)
             {
-                //if this is a Not than Not should be the second thing on the stack
+                // if this is a Not than Not should be the second thing on the stack
                 _filterStack.Pop();
             }
 
@@ -1033,7 +1035,7 @@ namespace Novell.Directory.Ldap.Rfc2251
                     var dchar = encoder.GetChars(SupportClass.ToByteArray(valueRenamed));
                     toReturn = new string(dchar);
 
-//					toReturn = new String(value_Renamed, "UTF-8");
+// toReturn = new String(value_Renamed, "UTF-8");
                 }
                 catch (IOException e)
                 {
@@ -1045,17 +1047,17 @@ namespace Novell.Directory.Ldap.Rfc2251
                 var binary = new StringBuilder();
                 for (var i = 0; i < valueRenamed.Length; i++)
                 {
-                    //TODO repair binary output
-                    //Every octet needs to be escaped
+                    // TODO repair binary output
+                    // Every octet needs to be escaped
                     if (valueRenamed[i] >= 0)
                     {
-                        //one character hex string
+                        // one character hex string
                         binary.Append("\\0");
                         binary.Append(Convert.ToString(valueRenamed[i], 16));
                     }
                     else
                     {
-                        //negative (eight character) hex string
+                        // negative (eight character) hex string
                         binary.Append("\\" + Convert.ToString(valueRenamed[i], 16).Substring(6));
                     }
                 }
@@ -1118,7 +1120,7 @@ namespace Novell.Directory.Ldap.Rfc2251
 
                         if (asn1 is RfcLdapString)
                         {
-                            //one value to iterate
+                            // one value to iterate
                             _hasMore = false;
                             toReturn = ((RfcLdapString)asn1).StringValue();
                         }
@@ -1127,21 +1129,21 @@ namespace Novell.Directory.Ldap.Rfc2251
                             var sub = (RfcSubstringFilter)asn1;
                             if (Index == -1)
                             {
-                                //return attribute name
+                                // return attribute name
                                 Index = 0;
                                 var attr = (RfcAttributeDescription)sub.get_Renamed(0);
                                 toReturn = attr.StringValue();
                             }
                             else if (Index % 2 == 0)
                             {
-                                //return substring identifier
+                                // return substring identifier
                                 var substrs = (Asn1SequenceOf)sub.get_Renamed(1);
                                 toReturn = ((Asn1Tagged)substrs.get_Renamed(Index / 2)).GetIdentifier().Tag;
                                 Index++;
                             }
                             else
                             {
-                                //return substring value
+                                // return substring value
                                 var substrs = (Asn1SequenceOf)sub.get_Renamed(1);
                                 var tag = (Asn1Tagged)substrs.get_Renamed(Index / 2);
                                 var valueRenamed = (RfcLdapString)tag.TaggedValue;
@@ -1173,7 +1175,7 @@ namespace Novell.Directory.Ldap.Rfc2251
                         }
                         else if (asn1 is RfcMatchingRuleAssertion)
                         {
-                            //Extensible match
+                            // Extensible match
                             var exMatch = (RfcMatchingRuleAssertion)asn1;
                             if (Index == -1)
                             {
@@ -1190,7 +1192,7 @@ namespace Novell.Directory.Ldap.Rfc2251
                         }
                         else if (asn1 is Asn1SetOf)
                         {
-                            //AND and OR nested components
+                            // AND and OR nested components
                             var setRenamed = (Asn1SetOf)asn1;
                             if (Index == -1)
                             {
@@ -1206,7 +1208,7 @@ namespace Novell.Directory.Ldap.Rfc2251
                         }
                         else if (asn1 is Asn1Tagged)
                         {
-                            //NOT nested component.
+                            // NOT nested component.
                             toReturn = new FilterIterator(EnclosingInstance, (Asn1Tagged)asn1);
                             _hasMore = false;
                         }
@@ -1235,17 +1237,17 @@ namespace Novell.Directory.Ldap.Rfc2251
         /// <summary> This inner class will tokenize the components of an RFC 2254 search filter.</summary>
         private class FilterTokenizer
         {
-            //*************************************************************************
+            // *************************************************************************
             // Private variables
-            //*************************************************************************
+            // *************************************************************************
 
             private readonly string _filter; // The filter string to parse
             private readonly int _filterLength; // Length of the filter string to parse
             private int _offset; // Offset pointer into the filter string
 
-            //*************************************************************************
+            // *************************************************************************
             // Constructor
-            //*************************************************************************
+            // *************************************************************************
 
             /// <summary> Constructs a FilterTokenizer for a filter.</summary>
             public FilterTokenizer(RfcFilter enclosingInstance, string filter)
@@ -1272,7 +1274,7 @@ namespace Novell.Directory.Ldap.Rfc2251
 
                     if (_offset >= _filterLength)
                     {
-                        //"Unexpected end of filter",
+                        // "Unexpected end of filter",
                         throw new LdapLocalException(ExceptionMessages.UnexpectedEnd, LdapException.FilterError);
                     }
 
@@ -1367,7 +1369,7 @@ namespace Novell.Directory.Ldap.Rfc2251
                 {
                     if (_offset >= _filterLength)
                     {
-                        //"Unexpected end of filter",
+                        // "Unexpected end of filter",
                         throw new LdapLocalException(ExceptionMessages.UnexpectedEnd, LdapException.FilterError);
                     }
 
@@ -1399,7 +1401,7 @@ namespace Novell.Directory.Ldap.Rfc2251
                     }
                     else
                     {
-                        //"Invalid comparison operator",
+                        // "Invalid comparison operator",
                         throw new LdapLocalException(ExceptionMessages.InvalidFilterComparison,
                             LdapException.FilterError);
                     }
@@ -1415,7 +1417,7 @@ namespace Novell.Directory.Ldap.Rfc2251
                 {
                     if (_offset >= _filterLength)
                     {
-                        //"Unexpected end of filter",
+                        // "Unexpected end of filter",
                         throw new LdapLocalException(ExceptionMessages.UnexpectedEnd, LdapException.FilterError);
                     }
 
@@ -1442,9 +1444,9 @@ namespace Novell.Directory.Ldap.Rfc2251
                 EnclosingInstance = enclosingInstance;
             }
 
-            //*************************************************************************
+            // *************************************************************************
             // Tokenizer methods
-            //*************************************************************************
+            // *************************************************************************
 
             /// <summary>
             ///     Reads the current char and throws an Exception if it is not a left
@@ -1454,13 +1456,13 @@ namespace Novell.Directory.Ldap.Rfc2251
             {
                 if (_offset >= _filterLength)
                 {
-                    //"Unexpected end of filter",
+                    // "Unexpected end of filter",
                     throw new LdapLocalException(ExceptionMessages.UnexpectedEnd, LdapException.FilterError);
                 }
 
                 if (_filter[_offset++] != '(')
                 {
-                    //"Missing left paren",
+                    // "Missing left paren",
                     throw new LdapLocalException(ExceptionMessages.ExpectingLeftParen,
                         new object[] {_filter[_offset -= 1]}, LdapException.FilterError);
                 }
@@ -1474,13 +1476,13 @@ namespace Novell.Directory.Ldap.Rfc2251
             {
                 if (_offset >= _filterLength)
                 {
-                    //"Unexpected end of filter",
+                    // "Unexpected end of filter",
                     throw new LdapLocalException(ExceptionMessages.UnexpectedEnd, LdapException.FilterError);
                 }
 
                 if (_filter[_offset++] != ')')
                 {
-                    //"Missing right paren",
+                    // "Missing right paren",
                     throw new LdapLocalException(ExceptionMessages.ExpectingRightParen,
                         new object[] {_filter[_offset - 1]}, LdapException.FilterError);
                 }
@@ -1495,7 +1497,7 @@ namespace Novell.Directory.Ldap.Rfc2251
             {
                 if (_offset >= _filterLength)
                 {
-                    //"Unexpected end of filter",
+                    // "Unexpected end of filter",
                     throw new LdapLocalException(ExceptionMessages.UnexpectedEnd, LdapException.FilterError);
                 }
 

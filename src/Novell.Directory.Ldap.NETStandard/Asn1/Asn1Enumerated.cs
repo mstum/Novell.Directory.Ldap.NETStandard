@@ -59,7 +59,8 @@ namespace Novell.Directory.Ldap.Asn1
         ///     The integer value to be contained in the
         ///     this Asn1Enumerated object.
         /// </param>
-        public Asn1Enumerated(int content) : base(Id, content)
+        public Asn1Enumerated(int content)
+            : base(Id, content)
         {
         }
 
@@ -71,7 +72,8 @@ namespace Novell.Directory.Ldap.Asn1
         ///     The long value to be contained in the
         ///     this Asn1Enumerated object.
         /// </param>
-        public Asn1Enumerated(long content) : base(Id, content)
+        public Asn1Enumerated(long content)
+            : base(Id, content)
         {
         }
 

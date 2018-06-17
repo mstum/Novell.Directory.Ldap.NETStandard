@@ -248,7 +248,7 @@ namespace Novell.Directory.Ldap.Extensions
         /// </summary>
         public const int LdapRtSparseRead = 5;
 
-        //Replica States
+        // Replica States
 
         /// <summary>
         ///     Indicates that the replica is fully functioning and capable of responding

@@ -567,7 +567,7 @@ namespace Novell.Directory.Ldap
             }
             finally
             {
-                //Free this semaphore no matter what exceptions get thrown
+                // Free this semaphore no matter what exceptions get thrown
                 Connection.FreeWriteSemaphore(tlsId);
             }
         }
@@ -608,7 +608,7 @@ namespace Novell.Directory.Ldap
                         LdapException.OperationsError);
                 }
 
-                //stopTLS stops and starts the reader thread for us.
+                // stopTLS stops and starts the reader thread for us.
                 Connection.StopTls();
             }
             finally
@@ -622,9 +622,9 @@ namespace Novell.Directory.Ldap
             Connect(Host, Port);
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // add methods
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary>
         ///     Synchronously adds an entry to the directory.
@@ -673,9 +673,9 @@ namespace Novell.Directory.Ldap
             ChkResultCode(queue, cons, addResponse);
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // bind methods
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary>
         ///     Synchronously authenticates to the Ldap server (that the object is
@@ -917,9 +917,9 @@ namespace Novell.Directory.Ldap
             }
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // connect methods
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary>
         ///     Connects to the specified host and port.
@@ -958,10 +958,10 @@ namespace Novell.Directory.Ldap
                 {
                     var specifiedPort = port;
                     var address = hostList.NextToken();
-                    var colonIndex = address.IndexOf(':'); //after the colon is the port
+                    var colonIndex = address.IndexOf(':'); // after the colon is the port
                     if (colonIndex != -1 && colonIndex + 1 != address.Length)
                     {
-                        //parse Port out of address
+                        // parse Port out of address
                         try
                         {
                             specifiedPort = int.Parse(address.Substring(colonIndex + 1));
@@ -989,9 +989,9 @@ namespace Novell.Directory.Ldap
             }
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // delete methods
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary>
         ///     Synchronously deletes the entry with the specified distinguished name
@@ -1043,9 +1043,9 @@ namespace Novell.Directory.Ldap
             ChkResultCode(queue, cons, deleteResponse);
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // disconnect method
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary>
         ///     Synchronously disconnects from the Ldap server.
@@ -1064,9 +1064,9 @@ namespace Novell.Directory.Ldap
             DisconnectImpl();
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // extendedOperation methods
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary>
         ///     Provides a synchronous means to access extended, non-mandatory
@@ -1134,13 +1134,13 @@ namespace Novell.Directory.Ldap
             return response;
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // getResponseControls method
-        //*************************************************************************
+        // *************************************************************************
 
-        //*************************************************************************
+        // *************************************************************************
         // modify methods
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary>
         ///     Synchronously makes a single change to an existing entry in the
@@ -1263,9 +1263,9 @@ namespace Novell.Directory.Ldap
             ChkResultCode(queue, cons, modifyResponse);
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // read methods
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary>
         ///     Synchronously reads the entry for the specified distiguished name (DN)
@@ -1367,9 +1367,9 @@ namespace Novell.Directory.Ldap
             return ret;
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // rename methods
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary>
         ///     Synchronously renames an existing entry in the directory.
@@ -1493,9 +1493,9 @@ namespace Novell.Directory.Ldap
             ChkResultCode(queue, cons, renameResponse);
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // search methods
-        //*************************************************************************
+        // *************************************************************************
 
         /// <inheritdoc />
         public ILdapSearchResults Search(string @base, int scope, string filter, string[] attrs, bool typesOnly)
@@ -1569,7 +1569,7 @@ namespace Novell.Directory.Ldap
 
             newClone.Connection = Connection; // same underlying connection
 
-            //now just duplicate the defSearchCons and responseCtls
+            // now just duplicate the defSearchCons and responseCtls
             if (_defSearchCons != null)
             {
                 newClone._defSearchCons = (LdapSearchConstraints)_defSearchCons.Clone();
@@ -1695,13 +1695,13 @@ namespace Novell.Directory.Ldap
             }
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // Below are all of the Ldap protocol operation methods
-        //*************************************************************************
+        // *************************************************************************
 
-        //*************************************************************************
+        // *************************************************************************
         // abandon methods
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary>
         ///     Notifies the server not to send additional results associated with
@@ -2039,9 +2039,9 @@ namespace Novell.Directory.Ldap
             return SendRequestToServer(msg, cons.TimeLimit, queue, bindProps);
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // compare methods
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary>
         ///     Synchronously checks to see if an entry contains an attribute
@@ -3041,9 +3041,9 @@ namespace Novell.Directory.Ldap
             return myqueue;
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // helper methods
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary>
         ///     Locates the appropriate message agent and sends
@@ -3158,7 +3158,7 @@ namespace Novell.Directory.Ldap
             // Check if application gets connection and does bind
             else
             {
-                //  rh instanceof LdapBind
+                // rh instanceof LdapBind
                 try
                 {
                     rconn = ((ILdapBindHandler)rh).Bind(referrals, this);
@@ -3514,9 +3514,9 @@ namespace Novell.Directory.Ldap
             }
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // Schema Related methods
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary>
         ///     Retrieves the schema associated with a particular schema DN in the

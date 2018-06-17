@@ -46,17 +46,19 @@ namespace Novell.Directory.Ldap.Rfc2251
     /// </summary>
     public class RfcControl : Asn1Sequence
     {
-        //*************************************************************************
+        // *************************************************************************
         // Constructors for Control
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary> </summary>
-        public RfcControl(RfcLdapOid controlType) : this(controlType, new Asn1Boolean(false), null)
+        public RfcControl(RfcLdapOid controlType)
+            : this(controlType, new Asn1Boolean(false), null)
         {
         }
 
         /// <summary> </summary>
-        public RfcControl(RfcLdapOid controlType, Asn1Boolean criticality) : this(controlType, criticality, null)
+        public RfcControl(RfcLdapOid controlType, Asn1Boolean criticality)
+            : this(controlType, criticality, null)
         {
         }
 
@@ -65,7 +67,8 @@ namespace Novell.Directory.Ldap.Rfc2251
         ///     (4): If a value of a type is its default value, it MUST be
         ///     absent.
         /// </summary>
-        public RfcControl(RfcLdapOid controlType, Asn1Boolean criticality, Asn1OctetString controlValue) : base(3)
+        public RfcControl(RfcLdapOid controlType, Asn1Boolean criticality, Asn1OctetString controlValue)
+            : base(3)
         {
             Add(controlType);
             if (criticality.BooleanValue())
@@ -81,12 +84,14 @@ namespace Novell.Directory.Ldap.Rfc2251
 
         /// <summary> Constructs a Control object by decoding it from an InputStream.</summary>
         [CLSCompliant(false)]
-        public RfcControl(IAsn1Decoder dec, Stream inRenamed, int len) : base(dec, inRenamed, len)
+        public RfcControl(IAsn1Decoder dec, Stream inRenamed, int len)
+            : base(dec, inRenamed, len)
         {
         }
 
         /// <summary> Constructs a Control object by decoding from an Asn1Sequence.</summary>
-        public RfcControl(Asn1Sequence seqObj) : base(3)
+        public RfcControl(Asn1Sequence seqObj)
+            : base(3)
         {
             var len = seqObj.Size();
             for (var i = 0; i < len; i++)
@@ -186,8 +191,8 @@ namespace Novell.Directory.Ldap.Rfc2251
             }
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // Accessors
-        //*************************************************************************
+        // *************************************************************************
     }
 }

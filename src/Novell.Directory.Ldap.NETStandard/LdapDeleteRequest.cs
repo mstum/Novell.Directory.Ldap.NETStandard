@@ -53,7 +53,8 @@ namespace Novell.Directory.Ldap
         ///     Any controls that apply to the abandon request
         ///     or null if none.
         /// </param>
-        public LdapDeleteRequest(string dn, LdapControl[] cont) : base(DelRequest, new RfcDelRequest(dn), cont)
+        public LdapDeleteRequest(string dn, LdapControl[] cont)
+            : base(DelRequest, new RfcDelRequest(dn), cont)
         {
         }
 

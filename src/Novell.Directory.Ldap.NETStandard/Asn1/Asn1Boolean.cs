@@ -61,7 +61,8 @@ namespace Novell.Directory.Ldap.Asn1
         ///     The boolean value to be contained in the
         ///     this Asn1Boolean object.
         /// </param>
-        public Asn1Boolean(bool content) : base(Id)
+        public Asn1Boolean(bool content)
+            : base(Id)
         {
             _content = content;
         }
@@ -79,7 +80,8 @@ namespace Novell.Directory.Ldap.Asn1
         ///     A byte stream that contains the encoded ASN.1.
         /// </param>
         [CLSCompliant(false)]
-        public Asn1Boolean(IAsn1Decoder dec, Stream inRenamed, int len) : base(Id)
+        public Asn1Boolean(IAsn1Decoder dec, Stream inRenamed, int len)
+            : base(Id)
         {
             _content = (bool)dec.DecodeBoolean(inRenamed, len);
         }

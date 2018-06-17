@@ -43,13 +43,14 @@ namespace Novell.Directory.Ldap.Rfc2251
     /// </summary>
     public class RfcModifyDnResponse : RfcLdapResult
     {
-        //*************************************************************************
+        // *************************************************************************
         // Constructor for ModifyDNResponse
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary> Create a ModifyDNResponse by decoding it from an InputStream.</summary>
         [CLSCompliant(false)]
-        public RfcModifyDnResponse(IAsn1Decoder dec, Stream inRenamed, int len) : base(dec, inRenamed, len)
+        public RfcModifyDnResponse(IAsn1Decoder dec, Stream inRenamed, int len)
+            : base(dec, inRenamed, len)
         {
         }
 
@@ -69,13 +70,14 @@ namespace Novell.Directory.Ldap.Rfc2251
         ///     the referral(s) returned by the server.
         /// </param>
         public RfcModifyDnResponse(Asn1Enumerated resultCode, RfcLdapDn matchedDn, RfcLdapString errorMessage,
-            RfcReferral referral) : base(resultCode, matchedDn, errorMessage, referral)
+            RfcReferral referral)
+            : base(resultCode, matchedDn, errorMessage, referral)
         {
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // Accessors
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary> Override getIdentifier to return an application-wide id.</summary>
         public override Asn1Identifier GetIdentifier()

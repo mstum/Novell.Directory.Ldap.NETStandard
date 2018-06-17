@@ -44,7 +44,8 @@ namespace Novell.Directory.Ldap.Rfc2251
     {
         /// <summary> </summary>
         [CLSCompliant(false)]
-        public RfcAssertionValue(sbyte[] valueRenamed) : base(valueRenamed)
+        public RfcAssertionValue(sbyte[] valueRenamed)
+            : base(valueRenamed)
         {
         }
     }

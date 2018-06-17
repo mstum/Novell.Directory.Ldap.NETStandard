@@ -68,7 +68,8 @@ namespace Novell.Directory.Ldap.Extensions
         ///     LdapException A general exception which includes an error
         ///     message and an Ldap error code.
         /// </exception>
-        public ListReplicasRequest(string serverName) : base(ReplicationConstants.ListReplicasReq, null)
+        public ListReplicasRequest(string serverName)
+            : base(ReplicationConstants.ListReplicasReq, null)
         {
             try
             {

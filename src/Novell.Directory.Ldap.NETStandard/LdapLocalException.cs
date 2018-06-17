@@ -56,7 +56,8 @@ namespace Novell.Directory.Ldap
         /// <param name="resultCode">
         ///     The result code returned.
         /// </param>
-        public LdapLocalException(string messageOrKey, int resultCode) : base(messageOrKey, resultCode, null)
+        public LdapLocalException(string messageOrKey, int resultCode)
+            : base(messageOrKey, resultCode, null)
         {
         }
 

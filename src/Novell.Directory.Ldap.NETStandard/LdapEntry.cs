@@ -51,7 +51,8 @@ namespace Novell.Directory.Ldap
         protected internal LdapAttributeSet Attrs;
 
         /// <summary> Constructs an empty entry.</summary>
-        public LdapEntry() : this(null, null)
+        public LdapEntry()
+            : this(null, null)
         {
         }
 
@@ -64,7 +65,8 @@ namespace Novell.Directory.Ldap
         ///     value is not validated. An invalid distinguished
         ///     name will cause operations using this entry to fail.
         /// </param>
-        public LdapEntry(string dn) : this(dn, null)
+        public LdapEntry(string dn)
+            : this(dn, null)
         {
         }
 

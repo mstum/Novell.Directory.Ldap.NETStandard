@@ -48,12 +48,12 @@ namespace Novell.Directory.Ldap.Events.Edir
              * server in response to a MonitorEventRequest
              */
             LdapExtendedResponse.Register(EventOids.NldapMonitorEventsResponse, typeof(MonitorEventResponse));
-            //Also try to register EdirEventIntermediateResponse
+            // Also try to register EdirEventIntermediateResponse
             LdapIntermediateResponse.Register(EventOids.NldapEventNotification, typeof(EdirEventIntermediateResponse));
         } // end of static constructor
 
-        public MonitorEventRequest(EdirEventSpecifier[] specifiers) :
-            base(EventOids.NldapMonitorEventsRequest, null)
+        public MonitorEventRequest(EdirEventSpecifier[] specifiers)
+            : base(EventOids.NldapMonitorEventsRequest, null)
         {
             if (specifiers == null)
             {

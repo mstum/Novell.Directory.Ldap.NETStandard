@@ -60,9 +60,9 @@ namespace Novell.Directory.Ldap
      */
     public class LdapSearchRequest : LdapMessage
     {
-        //*************************************************************************
+        // *************************************************************************
         // Public variables for Filter
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary> Search Filter Identifier for an AND component.</summary>
         public const int And = 0;

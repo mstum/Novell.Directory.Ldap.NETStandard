@@ -56,7 +56,8 @@ namespace Novell.Directory.Ldap
         ///     The RfcLdapMessage to convert to an
         ///     LdapExtendedResponse object.
         /// </param>
-        public LdapExtendedResponse(RfcLdapMessage message) : base(message)
+        public LdapExtendedResponse(RfcLdapMessage message)
+            : base(message)
         {
         }
 

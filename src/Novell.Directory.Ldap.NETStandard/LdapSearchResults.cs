@@ -51,7 +51,7 @@ namespace Novell.Directory.Ldap
         private int _referenceCount; // # Search Result Reference in vector
 
         private int _referenceIndex; // Current position in vector
-        //private ArrayList referralConn = null; // Referral Connections
+        // private ArrayList referralConn = null; // Referral Connections
 
         /// <summary>
         ///     Constructs a queue object for search results.
@@ -139,7 +139,7 @@ namespace Novell.Directory.Ldap
 
                                 if (_cons.ReferralFollowing)
                                 {
-//									referralConn = conn.chaseReferral(queue, cons, msg, refs, 0, true, referralConn);
+// referralConn = conn.chaseReferral(queue, cons, msg, refs, 0, true, referralConn);
                                 }
                                 else
                                 {
@@ -162,7 +162,7 @@ namespace Novell.Directory.Ldap
                                 if (resultCode == LdapException.Referral && _cons.ReferralFollowing)
                                 {
                                     // Following referrals
-//									referralConn = conn.chaseReferral(queue, cons, resp, resp.Referrals, 0, false, referralConn);
+// referralConn = conn.chaseReferral(queue, cons, resp, resp.Referrals, 0, false, referralConn);
                                 }
                                 else if (resultCode != LdapException.Success)
                                 {
@@ -177,7 +177,7 @@ namespace Novell.Directory.Ldap
                                 if (msgIDs.Length == 0)
                                 {
                                     // Release referral exceptions
-//									conn.releaseReferralConnections(referralConn);
+// conn.releaseReferralConnections(referralConn);
                                     return true; // search completed
                                 }
                             }

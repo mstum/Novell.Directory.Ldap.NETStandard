@@ -58,7 +58,8 @@ namespace Novell.Directory.Ldap.Asn1
         ///     AN1Identifier and the Asn1Object.
         ///     The explicit flag defaults to true as per the spec.
         /// </summary>
-        public Asn1Tagged(Asn1Identifier identifier, Asn1Object objectRenamed) : this(identifier, objectRenamed, true)
+        public Asn1Tagged(Asn1Identifier identifier, Asn1Object objectRenamed)
+            : this(identifier, objectRenamed, true)
         {
         }
 
@@ -89,7 +90,8 @@ namespace Novell.Directory.Ldap.Asn1
         ///     A byte stream that contains the encoded ASN.1.
         /// </param>
         [CLSCompliant(false)]
-        public Asn1Tagged(IAsn1Decoder dec, Stream inRenamed, int len, Asn1Identifier identifier) : base(identifier)
+        public Asn1Tagged(IAsn1Decoder dec, Stream inRenamed, int len, Asn1Identifier identifier)
+            : base(identifier)
         {
             // If we are decoding an implicit tag, there is no way to know at this
             // low level what the base type really is. We can place the content

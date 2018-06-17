@@ -79,7 +79,8 @@ namespace Novell.Directory.Ldap
         /// </param>
         public LdapDitStructureRuleSchema(string[] names, int ruleId, string description, bool obsolete,
             string nameForm,
-            string[] superiorIDs) : base(LdapSchema.SchemaTypeNames[LdapSchema.Ditstructure])
+            string[] superiorIDs)
+            : base(LdapSchema.SchemaTypeNames[LdapSchema.Ditstructure])
         {
             this.names = new string[names.Length];
             names.CopyTo(this.names, 0);
@@ -99,7 +100,8 @@ namespace Novell.Directory.Ldap
         ///     The raw string value returned from a schema
         ///     query for dITStructureRules.
         /// </param>
-        public LdapDitStructureRuleSchema(string raw) : base(LdapSchema.SchemaTypeNames[LdapSchema.Ditstructure])
+        public LdapDitStructureRuleSchema(string raw)
+            : base(LdapSchema.SchemaTypeNames[LdapSchema.Ditstructure])
         {
             Obsolete = false;
             try

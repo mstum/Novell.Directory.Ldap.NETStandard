@@ -62,12 +62,14 @@ namespace Novell.Directory.Ldap.Rfc2251
         ///     MessageID zero is never used in this implementation.  Always
         ///     start the messages with one.
         /// </summary>
-        protected internal RfcMessageId() : base(MessageId)
+        protected internal RfcMessageId()
+            : base(MessageId)
         {
         }
 
         /// <summary> Creates a MessageID with a specified int value.</summary>
-        protected internal RfcMessageId(int i) : base(i)
+        protected internal RfcMessageId(int i)
+            : base(i)
         {
         }
 

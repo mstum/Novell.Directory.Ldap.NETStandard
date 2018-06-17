@@ -48,12 +48,13 @@ namespace Novell.Directory.Ldap.Rfc2251
     /// </summary>
     public class RfcModifyRequest : Asn1Sequence, IRfcRequest
     {
-        //*************************************************************************
+        // *************************************************************************
         // Constructor for ModifyRequest
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary> </summary>
-        public RfcModifyRequest(RfcLdapDn objectRenamed, Asn1SequenceOf modification) : base(2)
+        public RfcModifyRequest(RfcLdapDn objectRenamed, Asn1SequenceOf modification)
+            : base(2)
         {
             Add(objectRenamed);
             Add(modification);
@@ -63,7 +64,8 @@ namespace Novell.Directory.Ldap.Rfc2251
         ///     Constructs a new Modify Request copying from the ArrayList of
         ///     an existing request.
         /// </summary>
-        internal RfcModifyRequest(Asn1Object[] origRequest, string baseRenamed) : base(origRequest, origRequest.Length)
+        internal RfcModifyRequest(Asn1Object[] origRequest, string baseRenamed)
+            : base(origRequest, origRequest.Length)
         {
             // Replace the base if specified, otherwise keep original base
             if ((object)baseRenamed != null)
@@ -96,9 +98,9 @@ namespace Novell.Directory.Ldap.Rfc2251
             return ((RfcLdapDn)get_Renamed(0)).StringValue();
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // Accessors
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary> Override getIdentifier to return an application-wide id.</summary>
         public override Asn1Identifier GetIdentifier()

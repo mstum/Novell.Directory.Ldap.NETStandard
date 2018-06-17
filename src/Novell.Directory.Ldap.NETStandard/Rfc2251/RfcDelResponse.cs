@@ -43,16 +43,17 @@ namespace Novell.Directory.Ldap.Rfc2251
     /// </summary>
     public class RfcDelResponse : RfcLdapResult
     {
-        //*************************************************************************
+        // *************************************************************************
         // Constructors for DelResponse
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary>
         ///     The only time a client will create a DelResponse is when it is
         ///     decoding it from an InputStream.
         /// </summary>
         [CLSCompliant(false)]
-        public RfcDelResponse(IAsn1Decoder dec, Stream inRenamed, int len) : base(dec, inRenamed, len)
+        public RfcDelResponse(IAsn1Decoder dec, Stream inRenamed, int len)
+            : base(dec, inRenamed, len)
         {
         }
 
@@ -72,13 +73,14 @@ namespace Novell.Directory.Ldap.Rfc2251
         ///     the referral(s) returned by the server.
         /// </param>
         public RfcDelResponse(Asn1Enumerated resultCode, RfcLdapDn matchedDn, RfcLdapString errorMessage,
-            RfcReferral referral) : base(resultCode, matchedDn, errorMessage, referral)
+            RfcReferral referral)
+            : base(resultCode, matchedDn, errorMessage, referral)
         {
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // Accessors
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary> Override getIdentifier to return an application-wide id.</summary>
         public override Asn1Identifier GetIdentifier()

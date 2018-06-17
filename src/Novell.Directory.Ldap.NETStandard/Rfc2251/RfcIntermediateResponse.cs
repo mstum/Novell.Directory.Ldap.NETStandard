@@ -60,9 +60,9 @@ namespace Novell.Directory.Ldap.Rfc2251
 
         private int _mReferralIndex;
 
-        //*************************************************************************
+        // *************************************************************************
         // Constructors for ExtendedResponse
-        //*************************************************************************
+        // *************************************************************************
 
         /**
          * The only time a client will create a IntermediateResponse is when it is
@@ -96,10 +96,11 @@ namespace Novell.Directory.Ldap.Rfc2251
          * to an ASN1OctetString containing the value bytes.
          */
         [CLSCompliant(false)]
-        public RfcIntermediateResponse(IAsn1Decoder dec, Stream inRenamed, int len) : base(dec, inRenamed, len)
-        //		throws IOException
+        public RfcIntermediateResponse(IAsn1Decoder dec, Stream inRenamed, int len)
+            : base(dec, inRenamed, len)
+        // throws IOException
         {
-            //		super(dec, in, len);
+            // super(dec, in, len);
 
             var i = 0;
             _mResponseNameIndex = _mResponseValueIndex = 0;
@@ -108,13 +109,13 @@ namespace Novell.Directory.Ldap.Rfc2251
             // have decoded these elements as ASN1Tagged objects with the value
             // stored as an ASN1OctectString object.
 
-            if (Size() >= 3) //the incorrectly encoded case, LDAPResult contains
+            if (Size() >= 3) // the incorrectly encoded case, LDAPResult contains
             {
-                i = 3; //at least 3 components
+                i = 3; // at least 3 components
             }
             else
             {
-                i = 0; //correctly encoded case, can have zero components
+                i = 0; // correctly encoded case, can have zero components
             }
 
             for (; i < Size(); i++)

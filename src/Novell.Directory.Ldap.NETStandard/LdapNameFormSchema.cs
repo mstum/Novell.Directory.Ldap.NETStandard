@@ -82,7 +82,8 @@ namespace Novell.Directory.Ldap
         ///     either name or numeric oid.
         /// </param>
         public LdapNameFormSchema(string[] names, string oid, string description, bool obsolete, string objectClass,
-            string[] required, string[] optional) : base(LdapSchema.SchemaTypeNames[LdapSchema.NameForm])
+            string[] required, string[] optional)
+            : base(LdapSchema.SchemaTypeNames[LdapSchema.NameForm])
         {
             this.names = new string[names.Length];
             names.CopyTo(this.names, 0);
@@ -108,7 +109,8 @@ namespace Novell.Directory.Ldap
         *                   query for nameForms.
         */
 
-        public LdapNameFormSchema(string raw) : base(LdapSchema.SchemaTypeNames[LdapSchema.NameForm])
+        public LdapNameFormSchema(string raw)
+            : base(LdapSchema.SchemaTypeNames[LdapSchema.NameForm])
         {
             Obsolete = false;
             try

@@ -38,7 +38,8 @@ namespace Novell.Directory.Ldap.Rfc2251
     public class RfcRelativeLdapDn : RfcLdapString
     {
         /// <summary> </summary>
-        public RfcRelativeLdapDn(string s) : base(s)
+        public RfcRelativeLdapDn(string s)
+            : base(s)
         {
         }
     }

@@ -620,13 +620,13 @@ namespace Novell.Directory.Ldap
         {
             private readonly bool _returnDelims;
 
-            //The tokenizer uses the default delimiter set: the space character, the tab character, the newline character, and the carriage-return character
+            // The tokenizer uses the default delimiter set: the space character, the tab character, the newline character, and the carriage-return character
             private string _delimiters = " \t\n\r";
 
-            //Element list identified
+            // Element list identified
             private ArrayList _elements;
 
-            //Source string to use
+            // Source string to use
             private string _source;
 
             /// <summary>
@@ -751,7 +751,7 @@ namespace Novell.Directory.Ldap
 
                 if (_returnDelims)
                 {
-//						Tokenize();
+// Tokenize();
                     RemoveEmptyStrings();
                     result = (string)_elements[0];
                     _elements.RemoveAt(0);
@@ -1027,10 +1027,10 @@ namespace Novell.Directory.Ldap
             ///// <summary>
             ///// Interrupts a thread that is in the WaitSleepJoin thread state
             ///// </summary>
-            //public virtual void Interrupt()
-            //{
-            //	threadField.Interrupt();
-            //}
+            // public virtual void Interrupt()
+            // {
+            // threadField.Interrupt();
+            // }
 
             public void Stop()
             {
@@ -1341,7 +1341,8 @@ namespace Novell.Directory.Ldap
             ///     Creates a new instance of the class ListCollectionSupport.
             /// </summary>
             /// <param name="collection">The collection to insert into the new object.</param>
-            public ListCollectionSupport(ICollection collection) : base(collection)
+            public ListCollectionSupport(ICollection collection)
+                : base(collection)
             {
             }
 
@@ -1349,7 +1350,8 @@ namespace Novell.Directory.Ldap
             ///     Creates a new instance of the class ListCollectionSupport with the specified capacity.
             /// </summary>
             /// <param name="capacity">The capacity of the new array.</param>
-            public ListCollectionSupport(int capacity) : base(capacity)
+            public ListCollectionSupport(int capacity)
+                : base(capacity)
             {
             }
 
@@ -1796,7 +1798,8 @@ namespace Novell.Directory.Ldap
             ///     Creates a new set initialized with System.Collections.ICollection object.
             /// </summary>
             /// <param name="collection">System.Collections.ICollection object to initialize the set object.</param>
-            public SetSupport(ICollection collection) : base(collection)
+            public SetSupport(ICollection collection)
+                : base(collection)
             {
             }
 
@@ -1804,7 +1807,8 @@ namespace Novell.Directory.Ldap
             ///     Creates a new set initialized with a specific capacity.
             /// </summary>
             /// <param name="capacity">value to set the capacity of the set object.</param>
-            public SetSupport(int capacity) : base(capacity)
+            public SetSupport(int capacity)
+                : base(capacity)
             {
             }
 

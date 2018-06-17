@@ -49,8 +49,8 @@ namespace Novell.Directory.Ldap.Utilclass
     /// </seealso>
     public class Rdn : object
     {
-        private readonly ArrayList _types; //list of Type strings
-        private readonly ArrayList _values; //list of Value strings
+        private readonly ArrayList _types; // list of Type strings
+        private readonly ArrayList _values; // list of Value strings
 
         /// <summary>
         ///     Creates an RDN object from the DN component specified in the string RDN.
@@ -63,7 +63,7 @@ namespace Novell.Directory.Ldap.Utilclass
             RawValue = rdn;
             var dn = new Dn(rdn);
             var rdns = dn.RdNs;
-            //there should only be one rdn
+            // there should only be one rdn
             if (rdns.Count != 1)
             {
                 throw new ArgumentException("Invalid RDN: see API " + "documentation");
@@ -171,9 +171,9 @@ namespace Novell.Directory.Ldap.Utilclass
             int j, i;
             for (i = 0; i < _values.Count; i++)
             {
-                //verify that the current value and type exists in the other list
+                // verify that the current value and type exists in the other list
                 j = 0;
-                //May need a more intellegent compare
+                // May need a more intellegent compare
                 while (j < _values.Count &&
                        (!((string)_values[i]).ToUpper().Equals(((string)rdn._values[j]).ToUpper()) ||
                         !EqualAttrType((string)_types[i], (string)rdn._types[j])))
@@ -182,7 +182,7 @@ namespace Novell.Directory.Ldap.Utilclass
                 }
 
                 if (j >= rdn._values.Count)
-                    //couldn't find first value
+                    // couldn't find first value
                 {
                     return false;
                 }
@@ -202,7 +202,7 @@ namespace Novell.Directory.Ldap.Utilclass
         private bool EqualAttrType(string attr1, string attr2)
         {
             if (char.IsDigit(attr1[0]) ^ char.IsDigit(attr2[0]))
-                //isDigit tests if it is an OID
+                // isDigit tests if it is an OID
             {
                 throw new ArgumentException("OID numbers are not " + "currently compared to attribute names");
             }
@@ -321,5 +321,5 @@ namespace Novell.Directory.Ldap.Utilclass
 
             return toReturn;
         }
-    } //end class RDN
+    } // end class RDN
 }

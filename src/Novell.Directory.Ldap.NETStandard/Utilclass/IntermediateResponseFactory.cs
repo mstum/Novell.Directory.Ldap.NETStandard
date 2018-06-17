@@ -61,7 +61,7 @@ namespace Novell.Directory.Ldap.Utilclass
              *                          and an LDAP error code.
              */
         public static LdapIntermediateResponse ConvertToIntermediateResponse(RfcLdapMessage inResponse)
-            //          throws LDAPException
+            // throws LDAPException
         {
             var tempResponse = new LdapIntermediateResponse(inResponse);
             // Get the oid stored in the Extended response

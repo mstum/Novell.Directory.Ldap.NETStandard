@@ -57,7 +57,8 @@ namespace Novell.Directory.Ldap.Extensions
         /// <exception>
         ///     IOException The responseValue could not be decoded.
         /// </exception>
-        public GetEffectivePrivilegesResponse(RfcLdapMessage rfcMessage) : base(rfcMessage)
+        public GetEffectivePrivilegesResponse(RfcLdapMessage rfcMessage)
+            : base(rfcMessage)
         {
             if (ResultCode == LdapException.Success)
             {

@@ -53,12 +53,13 @@ namespace Novell.Directory.Ldap.Rfc2251
         private static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.Application, true,
             LdapMessage.BindRequest);
 
-        //*************************************************************************
+        // *************************************************************************
         // Constructors for BindRequest
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary> </summary>
-        public RfcBindRequest(Asn1Integer version, RfcLdapDn name, RfcAuthenticationChoice auth) : base(3)
+        public RfcBindRequest(Asn1Integer version, RfcLdapDn name, RfcAuthenticationChoice auth)
+            : base(3)
         {
             Add(version);
             Add(name);
@@ -75,7 +76,8 @@ namespace Novell.Directory.Ldap.Rfc2251
         ///     Constructs a new Bind Request copying the original data from
         ///     an existing request.
         /// </summary>
-        internal RfcBindRequest(Asn1Object[] origRequest, string baseRenamed) : base(origRequest, origRequest.Length)
+        internal RfcBindRequest(Asn1Object[] origRequest, string baseRenamed)
+            : base(origRequest, origRequest.Length)
         {
             // Replace the dn if specified, otherwise keep original base
             if ((object)baseRenamed != null)
@@ -121,13 +123,13 @@ namespace Novell.Directory.Ldap.Rfc2251
             return ((RfcLdapDn)get_Renamed(1)).StringValue();
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // Mutators
-        //*************************************************************************
+        // *************************************************************************
 
-        //*************************************************************************
+        // *************************************************************************
         // Accessors
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary>
         ///     Override getIdentifier to return an application-wide id.

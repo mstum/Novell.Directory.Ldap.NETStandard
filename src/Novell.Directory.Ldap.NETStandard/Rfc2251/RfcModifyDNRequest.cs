@@ -45,9 +45,9 @@ namespace Novell.Directory.Ldap.Rfc2251
     /// </summary>
     public class RfcModifyDnRequest : Asn1Sequence, IRfcRequest
     {
-        //*************************************************************************
+        // *************************************************************************
         // Constructors for ModifyDNRequest
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary> </summary>
         public RfcModifyDnRequest(RfcLdapDn entry, RfcRelativeLdapDn newrdn, Asn1Boolean deleteoldrdn)
@@ -57,7 +57,8 @@ namespace Novell.Directory.Ldap.Rfc2251
 
         /// <summary> </summary>
         public RfcModifyDnRequest(RfcLdapDn entry, RfcRelativeLdapDn newrdn, Asn1Boolean deleteoldrdn,
-            RfcLdapDn newSuperior) : base(4)
+            RfcLdapDn newSuperior)
+            : base(4)
         {
             Add(entry);
             Add(newrdn);
@@ -93,9 +94,9 @@ namespace Novell.Directory.Ldap.Rfc2251
             return ((RfcLdapDn)get_Renamed(0)).StringValue();
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // Accessors
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary>
         ///     Override getIdentifier to return an application-wide id.

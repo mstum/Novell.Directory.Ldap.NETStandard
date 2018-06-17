@@ -49,9 +49,9 @@ namespace Novell.Directory.Ldap
     /// </summary>
     public class LdapCompareAttrNames : IComparer
     {
-        private readonly bool[] _sortAscending; //true if sorting ascending
+        private readonly bool[] _sortAscending; // true if sorting ascending
 
-        private readonly string[] _sortByNames; //names to to sort by.
+        private readonly string[] _sortByNames; // names to to sort by.
         private CompareInfo _collator;
         private CultureInfo _location;
 
@@ -141,7 +141,7 @@ namespace Novell.Directory.Ldap
             if (attrNames.Length != ascendingFlags.Length)
             {
                 throw new LdapException(ExceptionMessages.UnequalLengths, LdapException.InappropriateMatching, null);
-                //"Length of attribute Name array does not equal length of Flags array"
+                // "Length of attribute Name array does not equal length of Flags array"
             }
 
             _sortByNames = new string[attrNames.Length];
@@ -201,18 +201,18 @@ namespace Novell.Directory.Ldap
             var entry1 = (LdapEntry)object1;
             var entry2 = (LdapEntry)object2;
             LdapAttribute one, two;
-            string[] first; //multivalued attributes are ignored.
-            string[] second; //we just use the first element
+            string[] first; // multivalued attributes are ignored.
+            string[] second; // we just use the first element
             int compare, i = 0;
             if (_collator == null)
             {
-                //using default locale
+                // using default locale
                 _collator = CultureInfo.CurrentCulture.CompareInfo;
             }
 
             do
             {
-                //while first and second are equal
+                // while first and second are equal
                 one = entry1.GetAttribute(_sortByNames[i]);
                 two = entry2.GetAttribute(_sortByNames[i]);
                 if (one != null && two != null)
@@ -222,8 +222,8 @@ namespace Novell.Directory.Ldap
                     compare = _collator.Compare(first[0], second[0]);
                 }
 
-                //We could also use the other multivalued attributes to break ties.
-                //one of the entries was null
+                // We could also use the other multivalued attributes to break ties.
+                // one of the entries was null
                 else
                 {
                     if (one != null)
@@ -231,16 +231,16 @@ namespace Novell.Directory.Ldap
                         compare = -1;
                     }
 
-                    //one is greater than two
+                    // one is greater than two
                     else if (two != null)
                     {
                         compare = 1;
                     }
 
-                    //one is lesser than two
+                    // one is lesser than two
                     else
                     {
-                        compare = 0; //tie - break it with the next attribute name
+                        compare = 0; // tie - break it with the next attribute name
                     }
                 }
 
@@ -259,7 +259,7 @@ namespace Novell.Directory.Ldap
 
         private void InitBlock()
         {
-//			location = Locale.getDefault();
+// location = Locale.getDefault();
             _location = CultureInfo.CurrentCulture;
             _collator = CultureInfo.CurrentCulture.CompareInfo;
         }

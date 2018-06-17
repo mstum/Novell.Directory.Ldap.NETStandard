@@ -131,7 +131,8 @@ namespace Novell.Directory.Ldap
         /// </param>
         public LdapAttributeSchema(string[] names, string oid, string description, string syntaxString, bool single,
             string superior, bool obsolete, string equality, string ordering, string substring, bool collective,
-            bool isUserModifiable, int usage) : base(LdapSchema.SchemaTypeNames[LdapSchema.Attribute])
+            bool isUserModifiable, int usage)
+            : base(LdapSchema.SchemaTypeNames[LdapSchema.Attribute])
         {
             InitBlock();
             this.names = names;
@@ -158,7 +159,8 @@ namespace Novell.Directory.Ldap
         ///     The raw string value returned on a directory
         ///     query for "attributetypes".
         /// </param>
-        public LdapAttributeSchema(string raw) : base(LdapSchema.SchemaTypeNames[LdapSchema.Attribute])
+        public LdapAttributeSchema(string raw)
+            : base(LdapSchema.SchemaTypeNames[LdapSchema.Attribute])
         {
             InitBlock();
             try

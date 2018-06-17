@@ -74,7 +74,8 @@ namespace Novell.Directory.Ldap.Extensions
         ///     LdapException A general exception which includes an error message
         ///     and an Ldap error code.
         /// </exception>
-        public TriggerBackgroundProcessRequest(int processId) : base(null, null)
+        public TriggerBackgroundProcessRequest(int processId)
+            : base(null, null)
         {
             switch (processId)
             {

@@ -43,22 +43,23 @@ namespace Novell.Directory.Ldap.Rfc2251
     /// </summary>
     public class RfcSearchResultReference : Asn1SequenceOf
     {
-        //*************************************************************************
+        // *************************************************************************
         // Constructors for SearchResultReference
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary>
         ///     The only time a client will create a SearchResultReference is when it is
         ///     decoding it from an InputStream.
         /// </summary>
         [CLSCompliant(false)]
-        public RfcSearchResultReference(IAsn1Decoder dec, Stream inRenamed, int len) : base(dec, inRenamed, len)
+        public RfcSearchResultReference(IAsn1Decoder dec, Stream inRenamed, int len)
+            : base(dec, inRenamed, len)
         {
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // Accessors
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary> Override getIdentifier to return an application-wide id.</summary>
         public override Asn1Identifier GetIdentifier()

@@ -41,13 +41,15 @@ namespace Novell.Directory.Ldap.Rfc2251
     public class RfcLdapOid : Asn1OctetString
     {
         /// <summary> </summary>
-        public RfcLdapOid(string s) : base(s)
+        public RfcLdapOid(string s)
+            : base(s)
         {
         }
 
         /// <summary> </summary>
         [CLSCompliant(false)]
-        public RfcLdapOid(sbyte[] s) : base(s)
+        public RfcLdapOid(sbyte[] s)
+            : base(s)
         {
         }
     }

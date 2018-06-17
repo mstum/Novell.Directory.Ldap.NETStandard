@@ -97,9 +97,9 @@ namespace Novell.Directory.Ldap.Rfc2251
         /// <summary> Context-specific TAG for optional Referral.</summary>
         public const int Referral = 3;
 
-        //*************************************************************************
+        // *************************************************************************
         // Constructors for RfcLdapResult
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary>
         ///     Constructs an RfcLdapResult from parameters.
@@ -134,7 +134,8 @@ namespace Novell.Directory.Ldap.Rfc2251
         ///     the referral(s) returned by the server.
         /// </param>
         public RfcLdapResult(Asn1Enumerated resultCode, RfcLdapDn matchedDn, RfcLdapString errorMessage,
-            RfcReferral referral) : base(4)
+            RfcReferral referral)
+            : base(4)
         {
             Add(resultCode);
             Add(matchedDn);
@@ -147,7 +148,8 @@ namespace Novell.Directory.Ldap.Rfc2251
 
         /// <summary> Constructs an RfcLdapResult from the inputstream.</summary>
         [CLSCompliant(false)]
-        public RfcLdapResult(IAsn1Decoder dec, Stream inRenamed, int len) : base(dec, inRenamed, len)
+        public RfcLdapResult(IAsn1Decoder dec, Stream inRenamed, int len)
+            : base(dec, inRenamed, len)
         {
             // Decode optional referral from Asn1OctetString to Referral.
             if (Size() > 3)
@@ -163,9 +165,9 @@ namespace Novell.Directory.Ldap.Rfc2251
             }
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // Accessors
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary>
         ///     Returns the result code from the server.

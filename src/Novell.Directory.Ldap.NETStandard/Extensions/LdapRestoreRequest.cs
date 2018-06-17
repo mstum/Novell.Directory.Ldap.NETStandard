@@ -92,19 +92,19 @@ namespace Novell.Directory.Ldap.Extensions
         *                          message and an LDAP error code.
         */
         public LdapRestoreRequest(string objectDn, byte[] passwd,
-            int bufferLength, string chunkSizesString, byte[] returnedBuffer) :
-            base(BackupRestoreConstants.NldapLdapRestoreRequest, null)
+            int bufferLength, string chunkSizesString, byte[] returnedBuffer)
+            : base(BackupRestoreConstants.NldapLdapRestoreRequest, null)
         {
             try
             {
-                //Verify the validity of arguments
+                // Verify the validity of arguments
                 if (objectDn == null || bufferLength == 0 ||
                     chunkSizesString == null || returnedBuffer == null)
                 {
                     throw new ArgumentException("PARAM_ERROR");
                 }
 
-                //If encrypted password has null reference make it null String
+                // If encrypted password has null reference make it null String
                 if (passwd == null)
                 {
                     passwd = Encoding.UTF8.GetBytes(string.Empty);
@@ -128,7 +128,7 @@ namespace Novell.Directory.Ldap.Extensions
                         LdapException.EncodingError, e);
                 }
 
-                //Return exception if chunkSize == 0
+                // Return exception if chunkSize == 0
                 if (chunkSize == 0)
                 {
                     throw new ArgumentException("PARAM_ERROR");
@@ -137,7 +137,7 @@ namespace Novell.Directory.Ldap.Extensions
                 chunkSizesString = chunkSizesString.Substring(index + 1);
 
                 int chunkIndex;
-                //Construct chunks array
+                // Construct chunks array
                 var chunks = new int[chunkSize];
                 /*
                 * Iterate through each member in buffer and
@@ -160,13 +160,13 @@ namespace Novell.Directory.Ldap.Extensions
                 var encodedData = new MemoryStream();
                 var encoder = new LberEncoder();
 
-                //Form objectDN, passwd, bufferLength, data byte[] as ASN1 Objects
+                // Form objectDN, passwd, bufferLength, data byte[] as ASN1 Objects
                 var asn1ObjectDn = new Asn1OctetString(objectDn);
                 var asn1Passwd = new Asn1OctetString(SupportClass.ToSByteArray(passwd));
                 var asn1BufferLength = new Asn1Integer(bufferLength);
                 var asn1Buffer = new Asn1OctetString(SupportClass.ToSByteArray(returnedBuffer));
 
-                //Form the chunks sequence to be passed to Server
+                // Form the chunks sequence to be passed to Server
                 var asn1ChunksSeq = new Asn1Sequence();
                 asn1ChunksSeq.Add(new Asn1Integer(chunkSize));
                 var asn1ChunksSet = new Asn1Set();
@@ -180,7 +180,7 @@ namespace Novell.Directory.Ldap.Extensions
 
                 asn1ChunksSeq.Add(asn1ChunksSet);
 
-                //Encode data to send to server
+                // Encode data to send to server
                 asn1ObjectDn.Encode(encoder, encodedData);
                 asn1Passwd.Encode(encoder, encodedData);
                 asn1BufferLength.Encode(encoder, encodedData);

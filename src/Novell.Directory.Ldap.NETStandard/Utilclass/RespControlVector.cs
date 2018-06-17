@@ -41,7 +41,8 @@ namespace Novell.Directory.Ldap.Utilclass
     /// </summary>
     public class RespControlVector : ArrayList
     {
-        public RespControlVector(int cap, int incr) : base(cap)
+        public RespControlVector(int cap, int incr)
+            : base(cap)
         {
         }
 

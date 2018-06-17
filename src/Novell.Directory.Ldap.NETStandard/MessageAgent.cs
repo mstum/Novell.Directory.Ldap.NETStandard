@@ -219,7 +219,7 @@ namespace Novell.Directory.Ldap
         ///     constraints associated with this request.
         /// </param>
         internal void Abandon(int msgId, LdapConstraints cons)
-            //, boolean informUser)
+            // , boolean informUser)
         {
             Message info = null;
             try
@@ -319,7 +319,7 @@ namespace Novell.Directory.Ldap
         ///     Returns a response queued, or waits if none queued.
         /// </summary>
 
-//		internal System.Object getLdapMessage(System.Int32 msgId)
+// internal System.Object getLdapMessage(System.Int32 msgId)
         internal object GetLdapMessage(int msgId)
         {
             return GetLdapMessage(new Integer32(msgId));
@@ -340,7 +340,7 @@ namespace Novell.Directory.Ldap
                 try
                 {
                     // Get message for this ID
-//					Message info = messages.findMessageById(msgId);
+// Message info = messages.findMessageById(msgId);
                     var info = _messages.FindMessageById(msgId.IntValue);
                     rfcMsg = info.WaitForReply(); // blocks for a response
                     if (!info.AcceptsReplies() && !info.HasReplies())

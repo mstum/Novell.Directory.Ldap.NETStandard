@@ -54,7 +54,8 @@ namespace Novell.Directory.Ldap.Asn1
         ///     encode.  Since all Asn1 objects are derived from Asn1Object
         ///     any basic type can be passed in.
         /// </param>
-        public Asn1Choice(Asn1Object content) : base(null)
+        public Asn1Choice(Asn1Object content)
+            : base(null)
         {
             ChoiceValue = content;
         }
@@ -63,7 +64,8 @@ namespace Novell.Directory.Ldap.Asn1
         ///     No arg Constructor. This is used by Filter, who subsequently sets the
         ///     content after parsing the RFC 2254 Search Filter String.
         /// </summary>
-        protected internal Asn1Choice() : base(null)
+        protected internal Asn1Choice()
+            : base(null)
         {
             ChoiceValue = null;
         }

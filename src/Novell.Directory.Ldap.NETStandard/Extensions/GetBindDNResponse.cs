@@ -56,7 +56,8 @@ namespace Novell.Directory.Ldap.Extensions
         /// <exception>
         ///     IOException The return value could not be decoded.
         /// </exception>
-        public GetBindDnResponse(RfcLdapMessage rfcMessage) : base(rfcMessage)
+        public GetBindDnResponse(RfcLdapMessage rfcMessage)
+            : base(rfcMessage)
         {
             if (ResultCode == LdapException.Success)
             {

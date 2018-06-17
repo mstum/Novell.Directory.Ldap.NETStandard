@@ -66,8 +66,8 @@ namespace Novell.Directory.Ldap.Asn1
     [CLSCompliant(true)]
     public class LberDecoder : IAsn1Decoder
     {
-        //used to speed up decode, so it doesn't need to recreate an identifier every time
-        //instead just reset is called CANNOT be static for multiple connections
+        // used to speed up decode, so it doesn't need to recreate an identifier every time
+        // instead just reset is called CANNOT be static for multiple connections
         private Asn1Identifier _asn1Id;
         private Asn1Length _asn1Len;
 
@@ -268,7 +268,7 @@ namespace Novell.Directory.Ldap.Asn1
             var dchar = encoder.GetChars(SupportClass.ToByteArray(octets));
             var rval = new string(dchar);
 
-            return rval; //new String( "UTF8");
+            return rval; // new String( "UTF8");
         }
 
         private void InitBlock()

@@ -44,12 +44,13 @@ namespace Novell.Directory.Ldap.Rfc2251
     /// </summary>
     public class RfcCompareRequest : Asn1Sequence, IRfcRequest
     {
-        //*************************************************************************
+        // *************************************************************************
         // Constructor for CompareRequest
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary> </summary>
-        public RfcCompareRequest(RfcLdapDn entry, RfcAttributeValueAssertion ava) : base(2)
+        public RfcCompareRequest(RfcLdapDn entry, RfcAttributeValueAssertion ava)
+            : base(2)
         {
             Add(entry);
             Add(ava);
@@ -85,9 +86,9 @@ namespace Novell.Directory.Ldap.Rfc2251
             return ((RfcLdapDn)get_Renamed(0)).StringValue();
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // Accessors
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary> Override getIdentifier to return an application-wide id.</summary>
         public override Asn1Identifier GetIdentifier()

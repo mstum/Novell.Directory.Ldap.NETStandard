@@ -93,7 +93,8 @@ namespace Novell.Directory.Ldap.Controls
         ///     The control-specific data.
         /// </param>
         [CLSCompliant(false)]
-        public LdapVirtualListResponse(string oid, bool critical, sbyte[] values) : base(oid, critical, values)
+        public LdapVirtualListResponse(string oid, bool critical, sbyte[] values)
+            : base(oid, critical, values)
         {
             /* Create a decoder object */
             var decoder = new LberDecoder();

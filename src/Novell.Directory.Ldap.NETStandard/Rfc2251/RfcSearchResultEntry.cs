@@ -45,16 +45,17 @@ namespace Novell.Directory.Ldap.Rfc2251
     /// </summary>
     public class RfcSearchResultEntry : Asn1Sequence
     {
-        //*************************************************************************
+        // *************************************************************************
         // Constructors for SearchResultEntry
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary>
         ///     The only time a client will create a SearchResultEntry is when it is
         ///     decoding it from an InputStream.
         /// </summary>
         [CLSCompliant(false)]
-        public RfcSearchResultEntry(IAsn1Decoder dec, Stream inRenamed, int len) : base(dec, inRenamed, len)
+        public RfcSearchResultEntry(IAsn1Decoder dec, Stream inRenamed, int len)
+            : base(dec, inRenamed, len)
         {
             // Decode objectName
             //      set(0, new RfcLdapDN(((Asn1OctetString)get(0)).stringValue()));
@@ -70,9 +71,9 @@ namespace Novell.Directory.Ldap.Rfc2251
         /// <summary> </summary>
         public Asn1Sequence Attributes => (Asn1Sequence)get_Renamed(1);
 
-        //*************************************************************************
+        // *************************************************************************
         // Accessors
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary> Override getIdentifier to return an application-wide id.</summary>
         public override Asn1Identifier GetIdentifier()

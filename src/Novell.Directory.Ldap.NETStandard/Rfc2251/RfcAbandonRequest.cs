@@ -42,12 +42,13 @@ namespace Novell.Directory.Ldap.Rfc2251
     /// </summary>
     internal class RfcAbandonRequest : RfcMessageId, IRfcRequest
     {
-        //*************************************************************************
+        // *************************************************************************
         // Constructor for AbandonRequest
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary> Constructs an RfcAbandonRequest.</summary>
-        public RfcAbandonRequest(int msgId) : base(msgId)
+        public RfcAbandonRequest(int msgId)
+            : base(msgId)
         {
         }
 
@@ -62,9 +63,9 @@ namespace Novell.Directory.Ldap.Rfc2251
             return null;
         }
 
-        //*************************************************************************
+        // *************************************************************************
         // Accessors
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary>
         ///     Override getIdentifier to return an application-wide id.

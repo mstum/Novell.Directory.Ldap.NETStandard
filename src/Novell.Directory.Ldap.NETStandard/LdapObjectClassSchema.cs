@@ -135,7 +135,8 @@ namespace Novell.Directory.Ldap
         ///     The raw string value returned from a directory
         ///     query for "objectClasses".
         /// </param>
-        public LdapObjectClassSchema(string raw) : base(LdapSchema.SchemaTypeNames[LdapSchema.ObjectClass])
+        public LdapObjectClassSchema(string raw)
+            : base(LdapSchema.SchemaTypeNames[LdapSchema.ObjectClass])
         {
             try
             {

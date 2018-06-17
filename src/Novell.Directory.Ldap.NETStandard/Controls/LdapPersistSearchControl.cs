@@ -115,7 +115,8 @@ namespace Novell.Directory.Ldap.Controls
         ///     isCritical equal to true, changesOnly equal to true, and
         ///     returnControls equal to true.
         /// </summary>
-        public LdapPersistSearchControl() : this(Any, true, true, true)
+        public LdapPersistSearchControl()
+            : this(Any, true, true, true)
         {
         }
 

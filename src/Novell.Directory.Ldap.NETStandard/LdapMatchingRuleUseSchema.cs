@@ -75,7 +75,8 @@ namespace Novell.Directory.Ldap
         ///     names or numeric oids of the attributes.
         /// </param>
         public LdapMatchingRuleUseSchema(string[] names, string oid, string description, bool obsolete,
-            string[] attributes) : base(LdapSchema.SchemaTypeNames[LdapSchema.MatchingUse])
+            string[] attributes)
+            : base(LdapSchema.SchemaTypeNames[LdapSchema.MatchingUse])
         {
             this.names = new string[names.Length];
             names.CopyTo(this.names, 0);
@@ -95,7 +96,8 @@ namespace Novell.Directory.Ldap
         ///     The raw string value returned on a schema
         ///     query for matchingRuleUse.
         /// </param>
-        public LdapMatchingRuleUseSchema(string raw) : base(LdapSchema.SchemaTypeNames[LdapSchema.MatchingUse])
+        public LdapMatchingRuleUseSchema(string raw)
+            : base(LdapSchema.SchemaTypeNames[LdapSchema.MatchingUse])
         {
             try
             {

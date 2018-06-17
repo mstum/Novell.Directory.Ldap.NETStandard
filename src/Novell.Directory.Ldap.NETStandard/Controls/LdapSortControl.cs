@@ -86,7 +86,8 @@ namespace Novell.Directory.Ldap.Controls
         ///     if the search operation is to fail if the
         ///     server does not support this control.
         /// </param>
-        public LdapSortControl(LdapSortKey key, bool critical) : this(new[] {key}, critical)
+        public LdapSortControl(LdapSortKey key, bool critical)
+            : this(new[] {key}, critical)
         {
         }
 
@@ -101,7 +102,8 @@ namespace Novell.Directory.Ldap.Controls
         ///     if the search operation is to fail if the
         ///     server does not support this control.
         /// </param>
-        public LdapSortControl(LdapSortKey[] keys, bool critical) : base(RequestOid, critical, null)
+        public LdapSortControl(LdapSortKey[] keys, bool critical)
+            : base(RequestOid, critical, null)
         {
             var sortKeyList = new Asn1SequenceOf();
 

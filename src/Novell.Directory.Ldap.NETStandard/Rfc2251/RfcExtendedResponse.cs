@@ -56,16 +56,17 @@ namespace Novell.Directory.Ldap.Rfc2251
         private readonly int _responseIndex;
         private readonly int _responseNameIndex;
 
-        //*************************************************************************
+        // *************************************************************************
         // Constructors for ExtendedResponse
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary>
         ///     The only time a client will create a ExtendedResponse is when it is
         ///     decoding it from an InputStream.
         /// </summary>
         [CLSCompliant(false)]
-        public RfcExtendedResponse(IAsn1Decoder dec, Stream inRenamed, int len) : base(dec, inRenamed, len)
+        public RfcExtendedResponse(IAsn1Decoder dec, Stream inRenamed, int len)
+            : base(dec, inRenamed, len)
         {
             // decode optional tagged elements
             if (Size() > 3)
@@ -104,9 +105,9 @@ namespace Novell.Directory.Ldap.Rfc2251
         [CLSCompliant(false)]
         public Asn1OctetString Response => _responseIndex != 0 ? (Asn1OctetString)get_Renamed(_responseIndex) : null;
 
-        //*************************************************************************
+        // *************************************************************************
         // Accessors
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary> </summary>
         public Asn1Enumerated GetResultCode()

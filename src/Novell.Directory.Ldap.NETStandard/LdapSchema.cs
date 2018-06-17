@@ -145,10 +145,11 @@ namespace Novell.Directory.Ldap
         /// <param name="ent">
         ///     An LdapEntry containing schema information.
         /// </param>
-        public LdapSchema(LdapEntry ent) : base(ent.Dn, ent.GetAttributeSet())
+        public LdapSchema(LdapEntry ent)
+            : base(ent.Dn, ent.GetAttributeSet())
         {
             InitBlock();
-            //reset all definitions
+            // reset all definitions
             for (var i = 0; i < SchemaTypeNames.Length; i++)
             {
                 _idTable[i] = new Hashtable();
@@ -175,7 +176,7 @@ namespace Novell.Directory.Ldap
                         catch (Exception e)
                         {
                             Logger.Log.LogWarning("Exception swallowed", e);
-                            continue; //Error parsing: do not add this definition
+                            continue; // Error parsing: do not add this definition
                         }
 
                         AddElement(ObjectClass, classSchema);
@@ -194,7 +195,7 @@ namespace Novell.Directory.Ldap
                         catch (Exception e)
                         {
                             Logger.Log.LogWarning("Exception swallowed", e);
-                            continue; //Error parsing: do not add this definition
+                            continue; // Error parsing: do not add this definition
                         }
 
                         AddElement(Attribute, attrSchema);
@@ -261,7 +262,7 @@ namespace Novell.Directory.Ldap
                     }
                 }
 
-                //All non schema attributes are ignored.
+                // All non schema attributes are ignored.
             }
         }
 
@@ -458,11 +459,11 @@ namespace Novell.Directory.Ldap
             var c = key[0];
             if (c >= '0' && c <= '9')
             {
-                //oid lookup
+                // oid lookup
                 return (LdapSchemaElement)_idTable[schemaType][key];
             }
 
-            //name lookup
+            // name lookup
             return (LdapSchemaElement)_nameTable[schemaType][key.ToUpper()];
         }
 

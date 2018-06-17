@@ -57,7 +57,8 @@ namespace Novell.Directory.Ldap
         /// <param name="message">
         ///     The additional error information.
         /// </param>
-        public LdapReferralException(string message) : base(message, Referral, null)
+        public LdapReferralException(string message)
+            : base(message, Referral, null)
         {
         }
 
@@ -73,7 +74,8 @@ namespace Novell.Directory.Ldap
         /// <param name="message">
         ///     The additional error information.
         /// </param>
-        public LdapReferralException(string message, object[] arguments) : base(message, arguments, Referral, null)
+        public LdapReferralException(string message, object[] arguments)
+            : base(message, arguments, Referral, null)
         {
         }
 
@@ -199,7 +201,8 @@ namespace Novell.Directory.Ldap
         ///     from the server.
         /// </param>
         public LdapReferralException(string message, object[] arguments, int resultCode, string serverMessage,
-            Exception rootException) : base(message, arguments, resultCode, serverMessage, rootException)
+            Exception rootException)
+            : base(message, arguments, resultCode, serverMessage, rootException)
         {
         }
 

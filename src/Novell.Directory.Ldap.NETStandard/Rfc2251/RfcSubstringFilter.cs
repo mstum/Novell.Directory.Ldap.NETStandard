@@ -47,12 +47,13 @@ namespace Novell.Directory.Ldap.Rfc2251
     /// </summary>
     public class RfcSubstringFilter : Asn1Sequence
     {
-        //*************************************************************************
+        // *************************************************************************
         // Constructors for SubstringFilter
-        //*************************************************************************
+        // *************************************************************************
 
         /// <summary> </summary>
-        public RfcSubstringFilter(RfcAttributeDescription type, Asn1SequenceOf substrings) : base(2)
+        public RfcSubstringFilter(RfcAttributeDescription type, Asn1SequenceOf substrings)
+            : base(2)
         {
             Add(type);
             Add(substrings);

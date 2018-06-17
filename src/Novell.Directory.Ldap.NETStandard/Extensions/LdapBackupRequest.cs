@@ -94,8 +94,8 @@ namespace Novell.Directory.Ldap.Extensions
         * @exception LdapException A general exception which includes an error
         *                          message and an LDAP error code.
         */
-        public LdapBackupRequest(string objectDn, byte[] passwd, string stateInfo) :
-            base(BackupRestoreConstants.NldapLdapBackupRequest, null)
+        public LdapBackupRequest(string objectDn, byte[] passwd, string stateInfo)
+            : base(BackupRestoreConstants.NldapLdapBackupRequest, null)
         {
             int mts; // Modifaction time stamp of the Object
             int revision; // Revision number of the Object
@@ -108,7 +108,7 @@ namespace Novell.Directory.Ldap.Extensions
                     throw new ArgumentException("PARAM_ERROR");
                 }
 
-                //If encrypted password has null reference make it null String
+                // If encrypted password has null reference make it null String
                 if (passwd == null)
                 {
                     passwd = Encoding.UTF8.GetBytes(string.Empty);

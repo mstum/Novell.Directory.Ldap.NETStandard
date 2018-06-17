@@ -50,7 +50,7 @@
 
 // Author:
 
-//   Sunil Kumar (Sunilk@novell.com)
+// Sunil Kumar (Sunilk@novell.com)
 
 //
 
@@ -478,7 +478,7 @@ namespace Novell.Directory.Ldap
         public static string Encode(string toEncode)
 
         {
-            var buffer = new StringBuilder(toEncode.Length); //empty but initial capicity of 'length'
+            var buffer = new StringBuilder(toEncode.Length); // empty but initial capicity of 'length'
 
             string temp;
 
@@ -504,7 +504,7 @@ namespace Novell.Directory.Ldap
                         buffer.Append("%0" + temp);
                     }
 
-                    //if(temp.length()==2) this can only be two or one digit long.
+                    // if(temp.length()==2) this can only be two or one digit long.
 
                     else
 
@@ -617,7 +617,7 @@ namespace Novell.Directory.Ldap
             if (AttributeArray != null)
 
             {
-                //should we check also for attrs != "*"
+                // should we check also for attrs != "*"
 
                 for (var i = 0; i < AttributeArray.Length; i++)
 

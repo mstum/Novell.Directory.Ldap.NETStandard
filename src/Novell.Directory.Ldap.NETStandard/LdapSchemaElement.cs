@@ -83,7 +83,8 @@ namespace Novell.Directory.Ldap
         ///     "nameForms", "dITContentRules", "dITStructureRules",
         ///     "matchingRules", or "matchingRuleUse".
         /// </param>
-        protected internal LdapSchemaElement(string attrName) : base(attrName)
+        protected internal LdapSchemaElement(string attrName)
+            : base(attrName)
         {
             InitBlock();
         }

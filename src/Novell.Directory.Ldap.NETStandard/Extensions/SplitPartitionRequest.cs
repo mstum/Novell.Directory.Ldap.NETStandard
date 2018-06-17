@@ -67,7 +67,8 @@ namespace Novell.Directory.Ldap.Extensions
         ///     LdapException A general exception which includes an error message
         ///     and an Ldap error code.
         /// </exception>
-        public SplitPartitionRequest(string dn, int flags) : base(ReplicationConstants.CreateNamingContextReq, null)
+        public SplitPartitionRequest(string dn, int flags)
+            : base(ReplicationConstants.CreateNamingContextReq, null)
         {
             try
             {

@@ -81,7 +81,8 @@ namespace Novell.Directory.Ldap
         ///     The RfcLdapMessage from a server.
         /// </param>
         /*package*/
-        internal LdapResponse(RfcLdapMessage message) : base(message)
+        internal LdapResponse(RfcLdapMessage message)
+            : base(message)
         {
         }
 
@@ -96,7 +97,8 @@ namespace Novell.Directory.Ldap
         /// </param>
         /// <seealso cref="LdapMessage">
         /// </seealso>
-        public LdapResponse(int type) : this(type, LdapException.Success, null, null, null, null)
+        public LdapResponse(int type)
+            : this(type, LdapException.Success, null, null, null, null)
         {
         }
 
