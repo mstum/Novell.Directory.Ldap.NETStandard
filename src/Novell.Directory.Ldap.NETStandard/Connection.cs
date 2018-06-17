@@ -1332,7 +1332,7 @@ namespace Novell.Directory.Ldap
                 _unsolicitedMsg = m;
             }
 
-            public Connection EnclosingInstance { get; private set; }
+            private Connection EnclosingInstance { get; set; }
 
             private void InitBlock(Connection enclosingInstance)
             {
