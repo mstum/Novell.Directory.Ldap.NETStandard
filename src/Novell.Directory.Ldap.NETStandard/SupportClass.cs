@@ -183,6 +183,7 @@ namespace Novell.Directory.Ldap
                 startIndex += n;
                 bytesToRead -= n;
             }
+
             // Returns -1 if EOF
             if (bytesRead == 0)
             {
@@ -287,8 +288,10 @@ namespace Novell.Directory.Ldap
         {
             //Element list identified
             private ArrayList _elements;
+
             //Source string to use
             private string _source;
+
             //The tokenizer uses the default delimiter set: the space character, the tab character, the newline character, and the carriage-return character
             private string _delimiters = " \t\n\r";
 
@@ -351,6 +354,7 @@ namespace Novell.Directory.Ldap
                 {
                     return;
                 }
+
                 while (tempstr.IndexOfAny(_delimiters.ToCharArray()) >= 0)
                 {
                     if (tempstr.IndexOfAny(_delimiters.ToCharArray()) == 0)
@@ -380,6 +384,7 @@ namespace Novell.Directory.Ldap
                         }
                     }
                 }
+
                 if (tempstr.Length > 0)
                 {
                     _elements.Add(tempstr);
@@ -420,6 +425,7 @@ namespace Novell.Directory.Ldap
                     _elements.RemoveAt(0);
                     return result;
                 }
+
                 _elements = new ArrayList();
                 _elements.AddRange(_source.Split(_delimiters.ToCharArray()));
                 RemoveEmptyStrings();
@@ -835,6 +841,7 @@ namespace Novell.Directory.Ldap
                         }
                     }
                 }
+
                 return result;
             }
 
@@ -911,6 +918,7 @@ namespace Novell.Directory.Ldap
                     List.Remove(element);
                     result = true;
                 }
+
                 return result;
             }
 
@@ -930,6 +938,7 @@ namespace Novell.Directory.Ldap
                         result = Remove(tempEnumerator.Current);
                     }
                 }
+
                 return result;
             }
 
@@ -1087,6 +1096,7 @@ namespace Novell.Directory.Ldap
                         result = true;
                     }
                 }
+
                 return result;
             }
 
@@ -1157,6 +1167,7 @@ namespace Novell.Directory.Ldap
                         Remove(tempEnumerator.Current);
                     }
                 }
+
                 return result;
             }
 
@@ -1195,6 +1206,7 @@ namespace Novell.Directory.Ldap
                     Remove(element);
                     result = true;
                 }
+
                 return result;
             }
 
@@ -1348,6 +1360,7 @@ namespace Novell.Directory.Ldap
                         i++;
                     }
                 }
+
                 return tempEnumerator;
             }
 
@@ -1545,6 +1558,7 @@ namespace Novell.Directory.Ldap
                         }
                     }
                 }
+
                 return result;
             }
 
@@ -1632,6 +1646,7 @@ namespace Novell.Directory.Ldap
 
                     Remove(tempEnumerator.Current);
                 }
+
                 return result;
             }
 
@@ -2014,7 +2029,7 @@ namespace Novell.Directory.Ldap
         public static object CreateNewInstance(Type classType)
         {
             object instance = null;
-            Type[] constructor = {};
+            Type[] constructor = { };
             ConstructorInfo[] constructors = null;
 
             constructors = classType.GetConstructors();
@@ -2030,14 +2045,16 @@ namespace Novell.Directory.Ldap
 
                 if (parameters.Length == 0)
                 {
-                    instance = classType.GetConstructor(constructor).Invoke(new object[] {});
+                    instance = classType.GetConstructor(constructor).Invoke(new object[] { });
                     break;
                 }
+
                 if (i == constructors.Length - 1)
                 {
                     throw new MethodAccessException();
                 }
             }
+
             return instance;
         }
 
@@ -2160,6 +2177,7 @@ namespace Novell.Directory.Ldap
                 collectionStack.Reverse();
                 return collectionStack.GetEnumerator();
             }
+
             return collection.GetEnumerator();
         }
     }
