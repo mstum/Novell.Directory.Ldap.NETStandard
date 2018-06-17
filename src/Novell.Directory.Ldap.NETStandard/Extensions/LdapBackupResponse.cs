@@ -167,10 +167,10 @@ namespace Novell.Directory.Ldap.Extensions
                  * Parse chunks array
                  * Chunks returned from server is encoded as shown below::
                  * SEQUENCE{
-                 * 			chunksSize	INTEGER
-                 * 			SET of [
-                 * 				SEQUENCE of {eacChunksize        INTEGER}]
-                 * 	       }
+                 *          chunksSize  INTEGER
+                 *          SET of [
+                 *              SEQUENCE of {eacChunksize        INTEGER}]
+                 *         }
                  */
 
                 var asn1ChunksSeq = (Asn1Sequence)decoder

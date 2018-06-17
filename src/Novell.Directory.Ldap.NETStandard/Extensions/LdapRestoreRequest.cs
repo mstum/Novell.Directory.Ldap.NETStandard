@@ -57,7 +57,7 @@ using Novell.Directory.Ldap.Asn1;
 *
 * <p>requestValue ::=<br>
 * objectDN ::= LDAPDN<br>
-* passwd	  ::= OCTET STRING<br>
+* passwd      ::= OCTET STRING<br>
 * bufferLength ::= INTEGER<br>
 * retunedBuffer::= OCTET STRING<br>
 * dataChunkSizes ::=<br>
@@ -78,7 +78,7 @@ namespace Novell.Directory.Ldap.Extensions
         *
         * @param objectDN The object DN to restore
         * <br>
-        * @param passwd 		The encrypted password required for the object to
+        * @param passwd         The encrypted password required for the object to
         * be backed up.
         * <br>
         * @param bufferLength The length of backed up data

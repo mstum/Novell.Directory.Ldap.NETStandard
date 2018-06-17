@@ -155,16 +155,16 @@ namespace Novell.Directory.Ldap
                     return _exception.LdapErrorMessage;
                 }
 
-/*				RfcResponse resp=(RfcResponse)( message.Response);
-				if(resp == null)
-					Console.WriteLine(" Response is null");
-				else
-					Console.WriteLine(" Response is non null");
-				string str=resp.getErrorMessage().stringValue();
-				if( str==null)
-					 Console.WriteLine("str is null..");
-				Console.WriteLine(" Response is non null" + str);
-				return str;
+/*              RfcResponse resp=(RfcResponse)( message.Response);
+                if(resp == null)
+                    Console.WriteLine(" Response is null");
+                else
+                    Console.WriteLine(" Response is non null");
+                string str=resp.getErrorMessage().stringValue();
+                if( str==null)
+                     Console.WriteLine("str is null..");
+                Console.WriteLine(" Response is non null" + str);
+                return str;
 */
                 return ((IRfcResponse)Message.Response).GetErrorMessage().StringValue();
             }

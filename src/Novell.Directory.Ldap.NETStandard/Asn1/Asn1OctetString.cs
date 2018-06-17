@@ -83,11 +83,11 @@ namespace Novell.Directory.Ldap.Asn1
             try
             {
 /*                System.Text.UTF8Encoding utf8 = new System.Text.UTF8Encoding();
-				byte[] bytes = utf8.GetBytes (content);
-				sbyte[] sbytes = new sbyte[bytes.Length+1]; //signed bytes
-				sbytes[0] = 0; //set sign byte to zero.
-				for(int i=1; i<sbytes.Length; i++)
-					sbytes[i] = (sbyte) bytes[i-1]; //cast byte-->sbyte
+                byte[] bytes = utf8.GetBytes (content);
+                sbyte[] sbytes = new sbyte[bytes.Length+1]; //signed bytes
+                sbytes[0] = 0; //set sign byte to zero.
+                for(int i=1; i<sbytes.Length; i++)
+                    sbytes[i] = (sbyte) bytes[i-1]; //cast byte-->sbyte
 */
                 var encoder = Encoding.GetEncoding("utf-8");
                 var ibytes = encoder.GetBytes(content);

@@ -226,13 +226,6 @@ namespace Novell.Directory.Ldap
         /// <returns>
         ///     The BindProperties object for this connection.
         /// </returns>
-        /// <summary>
-        ///     Sets the authentication credentials in the object
-        ///     and set flag indicating successful bind.
-        /// </summary>
-        /// <param name="bindProps">
-        ///     The BindProperties object to set.
-        /// </param>
         internal BindProperties BindProperties { get; set; }
 
         /// <summary>
@@ -1269,24 +1262,24 @@ namespace Novell.Directory.Ldap
                 finally
                 {
                     /*
-					* There can be four states that the reader can be in at this point:
-					*  1) We are starting TLS and will be restarting the reader
-					*     after we have negotiated TLS.
-					*      - Indicated by whether stopReaderMessageID does not
-					*        equal CONTINUE_READING.
-					*      - Don't call Shutdown.
-					*  2) We are stoping TLS and will be restarting after TLS is
-					*     stopped.
-					*      - Indicated by an IOException AND stopReaderMessageID equals
-					*        STOP_READING - in which case notify will be null.
-					*      - Don't call Shutdown
-					*  3) We receive a Server Shutdown notification.
-					*      - Indicated by messageID equal to 0.
-					*      - call Shutdown.
-					*  4) Another error occured
-					*      - Indicated by an IOException AND notify is not NULL
-					*      - call Shutdown.
-					*/
+                    * There can be four states that the reader can be in at this point:
+                    *  1) We are starting TLS and will be restarting the reader
+                    *     after we have negotiated TLS.
+                    *      - Indicated by whether stopReaderMessageID does not
+                    *        equal CONTINUE_READING.
+                    *      - Don't call Shutdown.
+                    *  2) We are stoping TLS and will be restarting after TLS is
+                    *     stopped.
+                    *      - Indicated by an IOException AND stopReaderMessageID equals
+                    *        STOP_READING - in which case notify will be null.
+                    *      - Don't call Shutdown
+                    *  3) We receive a Server Shutdown notification.
+                    *      - Indicated by messageID equal to 0.
+                    *      - call Shutdown.
+                    *  4) Another error occured
+                    *      - Indicated by an IOException AND notify is not NULL
+                    *      - call Shutdown.
+                    */
                     if (!_enclosingInstance._clientActive || notify != null)
                     {
                         // #3 & 4

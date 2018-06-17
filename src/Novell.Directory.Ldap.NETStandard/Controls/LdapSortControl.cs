@@ -82,7 +82,7 @@ namespace Novell.Directory.Ldap.Controls
         ///     A sort key object, which specifies attribute,
         ///     order, and optional matching rule.
         /// </param>
-        /// <param name="critical	True">
+        /// <param name="critical   True">
         ///     if the search operation is to fail if the
         ///     server does not support this control.
         /// </param>
@@ -94,11 +94,11 @@ namespace Novell.Directory.Ldap.Controls
         /// <summary>
         ///     Constructs a sort control with multiple sort keys.
         /// </summary>
-        /// <param name="keys		An">
+        /// <param name="keys       An">
         ///     array of sort key objects, to be processed in
         ///     order.
         /// </param>
-        /// <param name="critical	True">
+        /// <param name="critical   True">
         ///     if the search operation is to fail if the
         ///     server does not support this control.
         /// </param>

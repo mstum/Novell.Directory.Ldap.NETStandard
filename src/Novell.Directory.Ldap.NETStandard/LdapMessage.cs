@@ -244,24 +244,24 @@ namespace Novell.Directory.Ldap
         {
             get
             {
-/*				LdapControl[] controls = null;
-				RfcControls asn1Ctrls = message.Controls;
+/*              LdapControl[] controls = null;
+                RfcControls asn1Ctrls = message.Controls;
 
-				if (asn1Ctrls != null)
-				{
-					controls = new LdapControl[asn1Ctrls.size()];
-					for (int i = 0; i < asn1Ctrls.size(); i++)
-					{
-						RfcControl rfcCtl = (RfcControl) asn1Ctrls.get_Renamed(i);
-						System.String oid = rfcCtl.ControlType.stringValue();
-						sbyte[] value_Renamed = rfcCtl.ControlValue.byteValue();
-						bool critical = rfcCtl.Criticality.booleanValue();
+                if (asn1Ctrls != null)
+                {
+                    controls = new LdapControl[asn1Ctrls.size()];
+                    for (int i = 0; i < asn1Ctrls.size(); i++)
+                    {
+                        RfcControl rfcCtl = (RfcControl) asn1Ctrls.get_Renamed(i);
+                        System.String oid = rfcCtl.ControlType.stringValue();
+                        sbyte[] value_Renamed = rfcCtl.ControlValue.byteValue();
+                        bool critical = rfcCtl.Criticality.booleanValue();
 
-						controls[i] = controlFactory(oid, critical, value_Renamed);
-					}
-				}
+                        controls[i] = controlFactory(oid, critical, value_Renamed);
+                    }
+                }
 
-				return controls;
+                return controls;
 */
                 LdapControl[] controls = null;
                 var asn1Ctrls = Message.Controls;

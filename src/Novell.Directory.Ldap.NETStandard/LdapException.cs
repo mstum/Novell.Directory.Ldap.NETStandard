@@ -820,7 +820,7 @@ namespace Novell.Directory.Ldap
 
         // The Matched DN
 
-        /*	public override System.String Message
+        /*  public override System.String Message
                 {
                     get
                     {

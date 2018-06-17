@@ -56,10 +56,10 @@ using Novell.Directory.Ldap.Asn1;
 * <p>The requestValue has the following format:<br>
 *
 * requestValue ::=<br>
-* &nbsp;&nbsp;&nbsp;&nbsp; objectDN&nbsp;&nbsp;&nbsp; 			LDAPDN<br>
+* &nbsp;&nbsp;&nbsp;&nbsp; objectDN&nbsp;&nbsp;&nbsp;           LDAPDN<br>
 * &nbsp;&nbsp;&nbsp;&nbsp; mts(modification timestamp)         INTEGER<br>
-* &nbsp;&nbsp;&nbsp;&nbsp; revision&nbsp;&nbsp;&nbsp;			INTEGER<br>
-* &nbsp;&nbsp;&nbsp;&nbsp; passwd&nbsp;&nbsp;&nbsp;			OCTET STRING</p>
+* &nbsp;&nbsp;&nbsp;&nbsp; revision&nbsp;&nbsp;&nbsp;           INTEGER<br>
+* &nbsp;&nbsp;&nbsp;&nbsp; passwd&nbsp;&nbsp;&nbsp;         OCTET STRING</p>
 */
 namespace Novell.Directory.Ldap.Extensions
 {
@@ -78,9 +78,9 @@ namespace Novell.Directory.Ldap.Extensions
         *
         * Constructs an extended operations object for getting data about any Object.
         *
-        * @param objectDN 		The DN of the object to be backed up
+        * @param objectDN       The DN of the object to be backed up
         * <br>
-        * @param passwd 		The encrypted password required for the object to
+        * @param passwd         The encrypted password required for the object to
         * be backed up.
         * <br>
         * @param stateInfo     The state information of the object to backup.
