@@ -371,36 +371,6 @@ namespace Novell.Directory.Ldap
         }
 
         /// <summary>
-        ///     Adds all. <code>LdapAttribute</code> objects in the specified collection to
-        ///     this collection.
-        /// </summary>
-        /// <param name="c">
-        ///     Collection of. <code>LdapAttribute</code> objects.
-        ///     @throws ClassCastException occurs when an element in the
-        ///     collection is not of type. <code>LdapAttribute</code>.
-        /// </param>
-        /// <returns>
-        ///     true if this set changed as a result of the call.
-        /// </returns>
-        public override bool AddAll(ICollection c)
-        {
-            var setChanged = false;
-            var i = c.GetEnumerator();
-
-            while (i.MoveNext())
-            {
-                // we must enforce that everything in c is an LdapAttribute
-                // add will return true if the attribute was added
-                if (Add(i.Current))
-                {
-                    setChanged = true;
-                }
-            }
-
-            return setChanged;
-        }
-
-        /// <summary>
         ///     Returns a string representation of this LdapAttributeSet.
         /// </summary>
         /// <returns>
