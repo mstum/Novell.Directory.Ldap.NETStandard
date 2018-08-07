@@ -142,7 +142,7 @@ namespace Novell.Directory.Ldap.Asn1
             Tag = r & 0x1F; // if tag < 30 then its a single octet identifier.
             if (Tag == 0x1F)
 
-                // if true, its a multiple octet identifier.
+            // if true, its a multiple octet identifier.
             {
                 Tag = DecodeTagNumber(inRenamed);
             }
@@ -236,7 +236,7 @@ namespace Novell.Directory.Ldap.Asn1
             Tag = r & 0x1F; // if tag < 30 then its a single octet identifier.
             if (Tag == 0x1F)
 
-                // if true, its a multiple octet identifier.
+            // if true, its a multiple octet identifier.
             {
                 Tag = DecodeTagNumber(inRenamed);
             }
@@ -286,5 +286,15 @@ namespace Novell.Directory.Ldap.Asn1
                 throw new Exception("Internal error, cannot create clone", ce);
             }
         }
+
+        public static bool AreTagsSame(Asn1Identifier one, Asn1Identifier other)
+        {
+            return other != null &&
+                   one.Asn1Class == other.Asn1Class &&
+                   one.Constructed == other.Constructed &&
+                   one.Tag == other.Tag;
+        }
+
+        public bool IsSameTagAs(Asn1Identifier other) => AreTagsSame(this, other);
     }
 }
