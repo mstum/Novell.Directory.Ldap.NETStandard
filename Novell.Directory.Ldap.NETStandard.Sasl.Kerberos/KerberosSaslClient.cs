@@ -8,13 +8,12 @@ namespace Novell.Directory.Ldap.Sasl
     {
         public string MechanismName => SaslConstants.Mechanism.GssApi;
 
-        public bool HasInitialResponse => throw new NotImplementedException();
+        public bool HasInitialResponse => false;
 
-        public bool IsComplete => throw new NotImplementedException();
+        public bool IsComplete { get; private set; }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
         }
 
         public byte[] EvaluateChallenge(byte[] challenge)

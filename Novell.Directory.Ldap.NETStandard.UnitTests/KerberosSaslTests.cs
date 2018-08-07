@@ -29,5 +29,16 @@ namespace Novell.Directory.Ldap.NETStandard.UnitTests
             Assert.NotNull(client);
             Assert.IsType<KerberosSaslClient>(client);
         }
+
+        [Fact]
+        public void RealLiveDebug()
+        {
+            var conn = new LdapConnection();
+            conn.AddKerberosSupport();
+            conn.Connect("192.168.0.199", 389);
+
+            var kerbReq = new SaslKerberosRequest();
+            conn.Bind(kerbReq);
+        }
     }
 }
