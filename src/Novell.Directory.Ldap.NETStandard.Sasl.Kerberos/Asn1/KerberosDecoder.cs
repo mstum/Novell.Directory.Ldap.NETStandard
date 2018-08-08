@@ -8,6 +8,9 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
 {
     public class KerberosDecoder
     {
-
+        public KerberosAsn1Object Decode(Asn1Object input)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

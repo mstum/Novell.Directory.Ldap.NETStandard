@@ -145,30 +145,9 @@ namespace Novell.Directory.Ldap.Asn1
 
                     case Asn1Null.Tag:
                         return new Asn1Null(); // has no content to decode.
-                    /* Asn1 TYPE NOT YET SUPPORTED
-                    case Asn1BitString.TAG:
-                    return new Asn1BitString(this, in, length);
-                    case Asn1ObjectIdentifier.TAG:
-                    return new Asn1ObjectIdentifier(this, in, length);
-                    case Asn1Real.TAG:
-                    return new Asn1Real(this, in, length);
-                    case Asn1NumericString.TAG:
-                    return new Asn1NumericString(this, in, length);
-                    case Asn1PrintableString.TAG:
-                    return new Asn1PrintableString(this, in, length);
-                    case Asn1TeletexString.TAG:
-                    return new Asn1TeletexString(this, in, length);
-                    case Asn1VideotexString.TAG:
-                    return new Asn1VideotexString(this, in, length);
-                    case Asn1IA5String.TAG:
-                    return new Asn1IA5String(this, in, length);
-                    case Asn1GraphicString.TAG:
-                    return new Asn1GraphicString(this, in, length);
-                    case Asn1VisibleString.TAG:
-                    return new Asn1VisibleString(this, in, length);
-                    case Asn1GeneralString.TAG:
-                    return new Asn1GeneralString(this, in, length);
-                    */
+
+                    case Asn1VisibleString.Tag:
+                        return new Asn1VisibleString(this, inRenamed, length);
 
                     default:
                         throw new EndOfStreamException("Unknown tag"); // !!! need a better exception
@@ -179,8 +158,7 @@ namespace Novell.Directory.Ldap.Asn1
             return new Asn1Tagged(this, inRenamed, length, (Asn1Identifier)_asn1Id.Clone());
         }
 
-        /* Decoders for ASN.1 simple type Contents
-        */
+        /* Decoders for ASN.1 simple type Contents */
 
         /// <summary> Decode a boolean directly from a stream.</summary>
         public bool DecodeBoolean(Stream inRenamed, int len)
