@@ -105,7 +105,7 @@ namespace Novell.Directory.Ldap.Controls
             }
 
             /* We should get back an ASN.1 Sequence object */
-            var asnObj = decoder.Decode(values);
+            var asnObj = decoder.Decode(values, null);
             if (asnObj == null || !(asnObj is Asn1Sequence))
             {
                 throw new IOException("Decoding error");

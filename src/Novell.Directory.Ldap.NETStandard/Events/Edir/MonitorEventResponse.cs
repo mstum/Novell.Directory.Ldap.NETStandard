@@ -57,7 +57,7 @@ namespace Novell.Directory.Ldap.Events.Edir
 
             var decoder = new LberDecoder();
 
-            var sequence = (Asn1Sequence)decoder.Decode(returnedValue);
+            var sequence = (Asn1Sequence)decoder.Decode(returnedValue, null);
 
             var length = ((Asn1Integer)sequence.get_Renamed(0)).IntValue();
             var sequenceSet = (Asn1Set)sequence.get_Renamed(1);

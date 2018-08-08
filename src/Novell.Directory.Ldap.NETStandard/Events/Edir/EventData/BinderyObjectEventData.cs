@@ -45,11 +45,11 @@ namespace Novell.Directory.Ldap.Events.Edir.EventData
         {
             var length = new int[1];
 
-            EntryDn = ((Asn1OctetString)Decoder.Decode(DecodedData, length)).StringValue();
-            ValueType = ((Asn1Integer)Decoder.Decode(DecodedData, length)).IntValue();
-            EmuObjFlags = ((Asn1Integer)Decoder.Decode(DecodedData, length)).IntValue();
-            Security = ((Asn1Integer)Decoder.Decode(DecodedData, length)).IntValue();
-            Name = ((Asn1OctetString)Decoder.Decode(DecodedData, length)).StringValue();
+            EntryDn = ((Asn1OctetString)Decoder.Decode(DecodedData, length, null)).StringValue();
+            ValueType = ((Asn1Integer)Decoder.Decode(DecodedData, length, null)).IntValue();
+            EmuObjFlags = ((Asn1Integer)Decoder.Decode(DecodedData, length, null)).IntValue();
+            Security = ((Asn1Integer)Decoder.Decode(DecodedData, length, null)).IntValue();
+            Name = ((Asn1OctetString)Decoder.Decode(DecodedData, length, null)).StringValue();
 
             DataInitDone();
         }

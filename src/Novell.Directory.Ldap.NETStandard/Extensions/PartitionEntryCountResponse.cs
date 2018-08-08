@@ -78,7 +78,7 @@ namespace Novell.Directory.Ldap.Extensions
                     throw new IOException("Decoding error");
                 }
 
-                var asn1Count = (Asn1Integer)decoder.Decode(returnedValue);
+                var asn1Count = (Asn1Integer)decoder.Decode(returnedValue, null);
                 if (asn1Count == null)
                 {
                     throw new IOException("Decoding error");

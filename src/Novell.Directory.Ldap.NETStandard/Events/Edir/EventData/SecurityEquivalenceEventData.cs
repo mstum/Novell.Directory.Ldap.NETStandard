@@ -46,11 +46,11 @@ namespace Novell.Directory.Ldap.Events.Edir.EventData
         {
             var length = new int[1];
 
-            EntryDn = ((Asn1OctetString)Decoder.Decode(DecodedData, length)).StringValue();
-            RetryCount = ((Asn1Integer)Decoder.Decode(DecodedData, length)).IntValue();
-            ValueDn = ((Asn1OctetString)Decoder.Decode(DecodedData, length)).StringValue();
+            EntryDn = ((Asn1OctetString)Decoder.Decode(DecodedData, length, null)).StringValue();
+            RetryCount = ((Asn1Integer)Decoder.Decode(DecodedData, length, null)).IntValue();
+            ValueDn = ((Asn1OctetString)Decoder.Decode(DecodedData, length, null)).StringValue();
 
-            var referalseq = (Asn1Sequence)Decoder.Decode(DecodedData, length);
+            var referalseq = (Asn1Sequence)Decoder.Decode(DecodedData, length, null);
 
             ReferralCount = ((Asn1Integer)referalseq.get_Renamed(0)).IntValue();
             ReferralList = new ArrayList();

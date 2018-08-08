@@ -88,7 +88,7 @@ namespace Novell.Directory.Ldap.Extensions
                 var decoder = new LberDecoder();
 
                 // We should get back a sequence
-                var returnedSequence = (Asn1Sequence)decoder.Decode(returnedValue);
+                var returnedSequence = (Asn1Sequence)decoder.Decode(returnedValue, null);
 
                 if (returnedSequence == null)
                 {

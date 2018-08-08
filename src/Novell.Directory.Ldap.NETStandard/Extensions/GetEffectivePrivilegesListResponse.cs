@@ -77,7 +77,7 @@ namespace Novell.Directory.Ldap.Extensions
                 // Create a decoder object
                 var decoder = new LberDecoder();
 
-                var asn1Seq1 = (Asn1Sequence)decoder.Decode(returnedValue);
+                var asn1Seq1 = (Asn1Sequence)decoder.Decode(returnedValue, null);
                 if (asn1Seq1 == null)
                 {
                     throw new IOException("Decoding error");

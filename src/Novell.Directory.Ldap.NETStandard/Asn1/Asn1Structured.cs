@@ -106,7 +106,7 @@ namespace Novell.Directory.Ldap.Asn1
 
             while (len > 0)
             {
-                Add(dec.Decode(inRenamed, componentLen));
+                Add(dec.Decode(inRenamed, componentLen, null));
                 len -= componentLen[0];
             }
         }

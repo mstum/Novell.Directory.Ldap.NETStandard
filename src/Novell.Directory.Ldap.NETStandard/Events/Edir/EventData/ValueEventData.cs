@@ -64,25 +64,25 @@ namespace Novell.Directory.Ldap.Events.Edir.EventData
             var length = new int[1];
 
             StrPerpetratorDn =
-                ((Asn1OctetString)Decoder.Decode(DecodedData, length)).StringValue();
+                ((Asn1OctetString)Decoder.Decode(DecodedData, length, null)).StringValue();
             StrEntry =
-                ((Asn1OctetString)Decoder.Decode(DecodedData, length)).StringValue();
+                ((Asn1OctetString)Decoder.Decode(DecodedData, length, null)).StringValue();
             StrAttribute =
-                ((Asn1OctetString)Decoder.Decode(DecodedData, length)).StringValue();
+                ((Asn1OctetString)Decoder.Decode(DecodedData, length, null)).StringValue();
             StrSyntax =
-                ((Asn1OctetString)Decoder.Decode(DecodedData, length)).StringValue();
+                ((Asn1OctetString)Decoder.Decode(DecodedData, length, null)).StringValue();
 
             StrClassId =
-                ((Asn1OctetString)Decoder.Decode(DecodedData, length)).StringValue();
+                ((Asn1OctetString)Decoder.Decode(DecodedData, length, null)).StringValue();
 
             TimeStampObj =
-                new DseTimeStamp((Asn1Sequence)Decoder.Decode(DecodedData, length));
+                new DseTimeStamp((Asn1Sequence)Decoder.Decode(DecodedData, length, null));
 
-            var octData = (Asn1OctetString)Decoder.Decode(DecodedData, length);
+            var octData = (Asn1OctetString)Decoder.Decode(DecodedData, length, null);
             StrData = octData.StringValue();
             BinData = octData.ByteValue();
 
-            NVerb = ((Asn1Integer)Decoder.Decode(DecodedData, length)).IntValue();
+            NVerb = ((Asn1Integer)Decoder.Decode(DecodedData, length, null)).IntValue();
 
             DataInitDone();
         }
