@@ -58,7 +58,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         /// </summary>
         [CLSCompliant(false)]
         public RfcBindResponse(IAsn1Decoder dec, Stream inRenamed, int len)
-            : base(dec, null, inRenamed, len)
+            : base(dec, inRenamed, len)
         {
             // Decode optional referral from Asn1OctetString to Referral.
             if (Size() > 3)

@@ -179,7 +179,7 @@ namespace Novell.Directory.Ldap.Events.Edir.EventData
             var dec = new LberDecoder();
             var length = dbytes.Length;
 
-            return new Asn1Sequence(dec, null, data, length);
+            return new Asn1Sequence(dec, data, length);
         }
 
         /// <summary>

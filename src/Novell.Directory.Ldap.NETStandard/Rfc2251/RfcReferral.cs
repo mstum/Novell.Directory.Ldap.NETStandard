@@ -54,7 +54,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         /// </summary>
         [CLSCompliant(false)]
         public RfcReferral(IAsn1Decoder dec, Stream inRenamed, int len)
-            : base(dec, null, inRenamed, len)
+            : base(dec, inRenamed, len)
         {
             // convert from Asn1OctetString to RfcLdapURL here (then look at
             // LdapResponse.getReferrals())

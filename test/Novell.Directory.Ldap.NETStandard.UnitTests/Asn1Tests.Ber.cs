@@ -31,7 +31,7 @@ namespace Novell.Directory.Ldap.NETStandard.UnitTests
             public void Asn1Null_DecodesProperly()
             {
                 var deser = new LberDecoder();
-                var result = deser.Decode(new byte[] { 0x05, 0x00 }, null);
+                var result = deser.Decode(new byte[] { 0x05, 0x00 });
                 Assert.NotNull(result);
                 Assert.True(result.GetIdentifier().IsSameTagAs(Asn1Null.Id));
                 Assert.IsType<Asn1Null>(result);

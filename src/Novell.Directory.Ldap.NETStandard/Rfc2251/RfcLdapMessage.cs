@@ -139,7 +139,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         /// <summary> Will decode an RfcLdapMessage directly from an InputStream.</summary>
         [CLSCompliant(false)]
         public RfcLdapMessage(IAsn1Decoder dec, Stream inRenamed, int len)
-            : base(dec, null, inRenamed, len)
+            : base(dec, inRenamed, len)
         {
             // Decode implicitly tagged protocol operation from an Asn1Tagged type
             // to its appropriate application type.

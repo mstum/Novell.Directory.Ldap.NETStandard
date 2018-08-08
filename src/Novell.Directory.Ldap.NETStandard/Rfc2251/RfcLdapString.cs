@@ -55,7 +55,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         /// <summary> </summary>
         [CLSCompliant(false)]
         public RfcLdapString(IAsn1Decoder dec, Stream inRenamed, int len)
-            : base(dec, null, inRenamed, len)
+            : base(dec, inRenamed, len)
         {
         }
     }

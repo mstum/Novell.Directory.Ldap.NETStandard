@@ -98,7 +98,7 @@ namespace Novell.Directory.Ldap.Rfc2251
          */
         [CLSCompliant(false)]
         public RfcIntermediateResponse(IAsn1Decoder dec, Stream inRenamed, int len)
-            : base(dec, null, inRenamed, len)
+            : base(dec, inRenamed, len)
 
         // throws IOException
         {
