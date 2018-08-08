@@ -183,7 +183,7 @@ namespace Novell.Directory.Ldap.Asn1
         */
 
         /// <summary> Decode a boolean directly from a stream.</summary>
-        public object DecodeBoolean(Stream inRenamed, int len)
+        public bool DecodeBoolean(Stream inRenamed, int len)
         {
             var lber = new byte[len];
 
@@ -201,7 +201,7 @@ namespace Novell.Directory.Ldap.Asn1
         ///     Decode a Numeric type directly from a stream. Decodes INTEGER
         ///     and ENUMERATED types.
         /// </summary>
-        public object DecodeNumeric(Stream inRenamed, int len)
+        public long DecodeNumeric(Stream inRenamed, int len)
         {
             long l = 0;
             var r = inRenamed.ReadByte();
@@ -234,7 +234,7 @@ namespace Novell.Directory.Ldap.Asn1
         }
 
         /// <summary> Decode an OctetString directly from a stream.</summary>
-        public object DecodeOctetString(Stream inRenamed, int len)
+        public byte[] DecodeOctetString(Stream inRenamed, int len)
         {
             var octets = new byte[len];
             var totalLen = 0;
@@ -250,7 +250,7 @@ namespace Novell.Directory.Ldap.Asn1
         }
 
         /// <summary> Decode a CharacterString directly from a stream.</summary>
-        public object DecodeCharacterString(Stream inRenamed, int len)
+        public string DecodeCharacterString(Stream inRenamed, int len)
         {
             var octets = new byte[len];
 
