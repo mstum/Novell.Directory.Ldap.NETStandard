@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Novell.Directory.Ldap.NETStandard.Sasl.Kerberos\Novell.Directory.Ldap.NETStandard.Sasl.Kerberos.csproj" />
-    <ProjectReference Include="..\src\Novell.Directory.Ldap.NETStandard\Novell.Directory.Ldap.NETStandard.csproj" />
+    <ProjectReference Include="..\..\src\Novell.Directory.Ldap.NETStandard.Sasl.Kerberos\Novell.Directory.Ldap.NETStandard.Sasl.Kerberos.csproj" />
+    <ProjectReference Include="..\..\src\Novell.Directory.Ldap.NETStandard\Novell.Directory.Ldap.NETStandard.csproj" />
   </ItemGroup>
 
 </Project>
