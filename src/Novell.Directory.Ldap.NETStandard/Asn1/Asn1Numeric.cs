@@ -56,13 +56,6 @@ namespace Novell.Directory.Ldap.Asn1
             _content = valueRenamed;
         }
 
-/*      internal Asn1Numeric(Asn1Identifier id, System.Int64 value_Renamed):base(id)
-        {
-            content = value_Renamed;
-            return ;
-        }
-*/
-
         /// <summary> Returns the content of this Asn1Numeric object as an int.</summary>
         public int IntValue()
         {
