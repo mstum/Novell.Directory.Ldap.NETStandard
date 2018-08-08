@@ -82,14 +82,14 @@ namespace Novell.Directory.Ldap.Asn1
 
         /// <summary> Decode an LBER encoded value into an Asn1Type from a byte array.</summary>
         [CLSCompliant(false)]
-        public Asn1Object Decode(byte[] valueRenamed, DecodingContext context)
+        public Asn1Object Decode(byte[] valueRenamed)
         {
             Asn1Object asn1 = null;
 
             var inRenamed = new MemoryStream(valueRenamed);
             try
             {
-                asn1 = Decode(inRenamed, context);
+                asn1 = Decode(inRenamed);
             }
             catch (IOException ioe)
             {
@@ -100,10 +100,10 @@ namespace Novell.Directory.Ldap.Asn1
         }
 
         /// <summary> Decode an LBER encoded value into an Asn1Type from an InputStream.</summary>
-        public Asn1Object Decode(Stream inRenamed, DecodingContext context)
+        public Asn1Object Decode(Stream inRenamed)
         {
             var len = new int[1];
-            return Decode(inRenamed, len, context);
+            return Decode(inRenamed, len);
         }
 
         /// <summary>
@@ -113,8 +113,7 @@ namespace Novell.Directory.Ldap.Asn1
         ///     in the parameter len. This information is helpful when decoding
         ///     structured types.
         /// </summary>
-        /// <param name="context">DecodingContext is not used by this, so just pass null.</param>
-        public Asn1Object Decode(Stream inRenamed, int[] len, DecodingContext context)
+        public Asn1Object Decode(Stream inRenamed, int[] len)
         {
             _asn1Id.Reset(inRenamed);
             _asn1Len.Reset(inRenamed);
@@ -183,7 +182,7 @@ namespace Novell.Directory.Ldap.Asn1
         /* Decoders for ASN.1 simple type Contents
         */
 
-            /// <summary> Decode a boolean directly from a stream.</summary>
+        /// <summary> Decode a boolean directly from a stream.</summary>
         public bool DecodeBoolean(Stream inRenamed, int len)
         {
             var lber = new byte[len];

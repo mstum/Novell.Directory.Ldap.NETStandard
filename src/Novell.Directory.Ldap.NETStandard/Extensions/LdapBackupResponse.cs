@@ -124,7 +124,7 @@ namespace Novell.Directory.Ldap.Extensions
 
                 // Parse bufferLength
                 var asn1BufferLength = (Asn1Integer)decoder
-                    .Decode(currentPtr, null);
+                    .Decode(currentPtr);
                 if (asn1BufferLength == null)
                 {
                     throw new IOException("Decoding error");
@@ -134,7 +134,7 @@ namespace Novell.Directory.Ldap.Extensions
 
                 // Parse modificationTime
                 var asn1ModificationTime = (Asn1Integer)decoder
-                    .Decode(currentPtr, null);
+                    .Decode(currentPtr);
                 if (asn1ModificationTime == null)
                 {
                     throw new IOException("Decoding error");
@@ -144,7 +144,7 @@ namespace Novell.Directory.Ldap.Extensions
 
                 // Parse revision
                 var asn1Revision = (Asn1Integer)decoder
-                    .Decode(currentPtr, null);
+                    .Decode(currentPtr);
                 if (asn1Revision == null)
                 {
                     throw new IOException("Decoding error");
@@ -156,7 +156,7 @@ namespace Novell.Directory.Ldap.Extensions
                 _stateInfo = modificationTime + "+" + revision;
 
                 // Parse returnedBuffer
-                var asn1ReturnedBuffer = (Asn1OctetString)decoder.Decode(currentPtr, null);
+                var asn1ReturnedBuffer = (Asn1OctetString)decoder.Decode(currentPtr);
                 if (asn1ReturnedBuffer == null)
                 {
                     throw new IOException("Decoding error");
@@ -175,7 +175,7 @@ namespace Novell.Directory.Ldap.Extensions
                  */
 
                 var asn1ChunksSeq = (Asn1Sequence)decoder
-                    .Decode(currentPtr, null);
+                    .Decode(currentPtr);
                 if (asn1ChunksSeq == null)
                 {
                     throw new IOException("Decoding error");

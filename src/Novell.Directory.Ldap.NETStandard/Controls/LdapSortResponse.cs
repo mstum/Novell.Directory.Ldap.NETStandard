@@ -99,7 +99,7 @@ namespace Novell.Directory.Ldap.Controls
             }
 
             // We should get back an enumerated type
-            var asnObj = decoder.Decode(values, null);
+            var asnObj = decoder.Decode(values);
 
             if (asnObj == null || !(asnObj is Asn1Sequence))
             {

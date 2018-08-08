@@ -72,7 +72,7 @@ namespace Novell.Directory.Ldap.Events.Edir
         private void ProcessMessage(byte[] returnedValue)
         {
             var decoder = new LberDecoder();
-            var sequence = (Asn1Sequence)decoder.Decode(returnedValue, null);
+            var sequence = (Asn1Sequence)decoder.Decode(returnedValue);
 
             EventType = (EdirEventType)((Asn1Integer)sequence.get_Renamed(0)).IntValue();
             EventResultType = (EdirEventResultType)((Asn1Integer)sequence.get_Renamed(1)).IntValue();

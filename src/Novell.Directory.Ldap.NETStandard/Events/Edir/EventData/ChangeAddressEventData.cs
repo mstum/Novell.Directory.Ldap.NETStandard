@@ -45,13 +45,12 @@ namespace Novell.Directory.Ldap.Events.Edir.EventData
         {
             var length = new int[1];
 
-            var dc = new DecodingContext();
-            Flags = ((Asn1Integer)Decoder.Decode(DecodedData, length, null)).IntValue();
-            Proto = ((Asn1Integer)Decoder.Decode(DecodedData, length, null)).IntValue();
-            AddressFamily = ((Asn1Integer)Decoder.Decode(DecodedData, length, null)).IntValue();
-            Address = ((Asn1OctetString)Decoder.Decode(DecodedData, length, null)).StringValue();
-            PstkName = ((Asn1OctetString)Decoder.Decode(DecodedData, length, null)).StringValue();
-            SourceModule = ((Asn1OctetString)Decoder.Decode(DecodedData, length, null)).StringValue();
+            Flags = ((Asn1Integer)Decoder.Decode(DecodedData, length)).IntValue();
+            Proto = ((Asn1Integer)Decoder.Decode(DecodedData, length)).IntValue();
+            AddressFamily = ((Asn1Integer)Decoder.Decode(DecodedData, length)).IntValue();
+            Address = ((Asn1OctetString)Decoder.Decode(DecodedData, length)).StringValue();
+            PstkName = ((Asn1OctetString)Decoder.Decode(DecodedData, length)).StringValue();
+            SourceModule = ((Asn1OctetString)Decoder.Decode(DecodedData, length)).StringValue();
 
             DataInitDone();
         }

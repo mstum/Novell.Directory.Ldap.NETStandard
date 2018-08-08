@@ -47,25 +47,25 @@ namespace Novell.Directory.Ldap.Events.Edir.EventData
             var length = new int[1];
 
             DsTime = GetTaggedIntValue(
-                (Asn1Tagged)Decoder.Decode(DecodedData, length, null),
+                (Asn1Tagged)Decoder.Decode(DecodedData, length),
                 GeneralEventField.EvtTagGenDstime);
             MilliSeconds = GetTaggedIntValue(
-                (Asn1Tagged)Decoder.Decode(DecodedData, length, null),
+                (Asn1Tagged)Decoder.Decode(DecodedData, length),
                 GeneralEventField.EvtTagGenMillisec);
 
             Verb = GetTaggedIntValue(
-                (Asn1Tagged)Decoder.Decode(DecodedData, length, null),
+                (Asn1Tagged)Decoder.Decode(DecodedData, length),
                 GeneralEventField.EvtTagGenVerb);
             CurrentProcess = GetTaggedIntValue(
-                (Asn1Tagged)Decoder.Decode(DecodedData, length, null),
+                (Asn1Tagged)Decoder.Decode(DecodedData, length),
                 GeneralEventField.EvtTagGenCurrproc);
 
             PerpetratorDn = GetTaggedStringValue(
-                (Asn1Tagged)Decoder.Decode(DecodedData, length, null),
+                (Asn1Tagged)Decoder.Decode(DecodedData, length),
                 GeneralEventField.EvtTagGenPerp);
 
             var temptaggedvalue =
-                (Asn1Tagged)Decoder.Decode(DecodedData, length, null);
+                (Asn1Tagged)Decoder.Decode(DecodedData, length);
 
             if (temptaggedvalue.GetIdentifier().Tag
                 == (int)GeneralEventField.EvtTagGenIntegers)
@@ -81,7 +81,7 @@ namespace Novell.Directory.Ldap.Events.Edir.EventData
                 }
 
                 // second decoding for Strings.
-                temptaggedvalue = (Asn1Tagged)Decoder.Decode(DecodedData, length, null);
+                temptaggedvalue = (Asn1Tagged)Decoder.Decode(DecodedData, length);
             }
             else
             {

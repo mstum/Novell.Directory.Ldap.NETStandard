@@ -75,45 +75,24 @@ namespace Novell.Directory.Ldap.Asn1
         /// <summary>
         ///     IsUniversal tag class.
         ///     UNIVERSAL = 0.
-        ///     
-        /// Universal Tags are ONLY meant to be used by
-        /// the ITU as part of the Standard (X.680).
         /// </summary>
         public const int Universal = 0;
 
         /// <summary>
         ///     IsApplication-wide tag class.
         ///     APPLICATION = 1.
-        ///     
-        /// A frequently encountered style for the use of tags is to assign an
-        /// application class tag precisely once in the entire specification,
-        /// using it to identify a type that finds wide, scattered, use within
-        /// the specification.
         /// </summary>
         public const int Application = 1;
 
         /// <summary>
         ///     IsContext-specific tag class.
         ///     CONTEXT = 2.
-        ///     
-        /// Context-specific tagging is frequently applied in an algorithmic manner
-        /// to all components of a SET, SEQUENCE, or CHOICE.
         /// </summary>
         public const int Context = 2;
 
         /// <summary>
         ///     IsPrivate-use tag class.
         ///     PRIVATE = 3.
-        ///     
-        /// Private class tagging should normally not be used in internationally standardized specifications (although this
-        /// cannot be prohibited). Applications produced by an enterprise will normally use application and context-specific tag
-        /// classes. There may be occasional cases, however, where an enterprise-specific specification seeks to extend an
-        /// internationally standardized specification, and in this case use of private class tags may give some benefits in partially
-        /// protecting the enterprise-specific specification from changes to the internationally standardized specification.
-        /// 
-        /// EXAMPLE:
-        /// AcmeBadgeNumber ::= [PRIVATE 2] INTEGER
-        /// badgeNumber AcmeBadgeNumber ::= 2345
         /// </summary>
         private const int Private = 3;
 
@@ -151,7 +130,22 @@ namespace Novell.Directory.Ldap.Asn1
         /// </param>
         public Asn1Identifier(Stream inRenamed)
         {
-            Reset(inRenamed);
+            var r = inRenamed.ReadByte();
+            EncodedLength++;
+            if (r < 0)
+            {
+                throw new EndOfStreamException("BERDecoder: decode: EOF in Identifier");
+            }
+
+            Asn1Class = r >> 6;
+            Constructed = (r & 0x20) != 0;
+            Tag = r & 0x1F; // if tag < 30 then its a single octet identifier.
+            if (Tag == 0x1F)
+
+            // if true, its a multiple octet identifier.
+            {
+                Tag = DecodeTagNumber(inRenamed);
+            }
         }
 
         public Asn1Identifier()

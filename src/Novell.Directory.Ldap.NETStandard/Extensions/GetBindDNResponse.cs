@@ -77,7 +77,7 @@ namespace Novell.Directory.Ldap.Extensions
                 }
 
                 // The only parameter returned should be an octet string
-                var asn1Identity = (Asn1OctetString)decoder.Decode(returnedValue, null);
+                var asn1Identity = (Asn1OctetString)decoder.Decode(returnedValue);
                 if (asn1Identity == null)
                 {
                     throw new IOException("Decoding error");

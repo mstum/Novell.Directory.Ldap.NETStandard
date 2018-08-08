@@ -68,7 +68,31 @@ namespace Novell.Directory.Ldap.Asn1
         /// </param>
         public Asn1Length(Stream inRenamed)
         {
-            Reset(inRenamed);
+            var r = inRenamed.ReadByte();
+            EncodedLength++;
+            if (r == 0x80)
+            {
+                Length = -1;
+            }
+            else if (r < 0x80)
+            {
+                Length = r;
+            }
+            else
+            {
+                Length = 0;
+                for (r = r & 0x7F; r > 0; r--)
+                {
+                    var part = inRenamed.ReadByte();
+                    EncodedLength++;
+                    if (part < 0)
+                    {
+                        throw new EndOfStreamException("BERDecoder: decode: EOF in Asn1Length");
+                    }
+
+                    Length = (Length << 8) + part;
+                }
+            }
         }
 
         /// <summary> Returns the length of this Asn1Length.</summary>

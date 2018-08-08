@@ -99,7 +99,7 @@ namespace Novell.Directory.Ldap.Extensions
                 var currentPtr = new MemoryStream(returnedValue);
 
                 // Parse partitionID
-                var asn1PartitionId = (Asn1Integer)decoder.Decode(currentPtr, null);
+                var asn1PartitionId = (Asn1Integer)decoder.Decode(currentPtr);
                 if (asn1PartitionId == null)
                 {
                     throw new IOException("Decoding error");
@@ -108,7 +108,7 @@ namespace Novell.Directory.Ldap.Extensions
                 _partitionId = asn1PartitionId.IntValue();
 
                 // Parse replicaState
-                var asn1ReplicaState = (Asn1Integer)decoder.Decode(currentPtr, null);
+                var asn1ReplicaState = (Asn1Integer)decoder.Decode(currentPtr);
                 if (asn1ReplicaState == null)
                 {
                     throw new IOException("Decoding error");
@@ -117,7 +117,7 @@ namespace Novell.Directory.Ldap.Extensions
                 _replicaState = asn1ReplicaState.IntValue();
 
                 // Parse modificationTime
-                var asn1ModificationTime = (Asn1Integer)decoder.Decode(currentPtr, null);
+                var asn1ModificationTime = (Asn1Integer)decoder.Decode(currentPtr);
                 if (asn1ModificationTime == null)
                 {
                     throw new IOException("Decoding error");
@@ -126,7 +126,7 @@ namespace Novell.Directory.Ldap.Extensions
                 _modificationTime = asn1ModificationTime.IntValue();
 
                 // Parse purgeTime
-                var asn1PurgeTime = (Asn1Integer)decoder.Decode(currentPtr, null);
+                var asn1PurgeTime = (Asn1Integer)decoder.Decode(currentPtr);
                 if (asn1PurgeTime == null)
                 {
                     throw new IOException("Decoding error");
@@ -135,7 +135,7 @@ namespace Novell.Directory.Ldap.Extensions
                 _purgeTime = asn1PurgeTime.IntValue();
 
                 // Parse localPartitionID
-                var asn1LocalPartitionId = (Asn1Integer)decoder.Decode(currentPtr, null);
+                var asn1LocalPartitionId = (Asn1Integer)decoder.Decode(currentPtr);
                 if (asn1LocalPartitionId == null)
                 {
                     throw new IOException("Decoding error");
@@ -144,7 +144,7 @@ namespace Novell.Directory.Ldap.Extensions
                 _localPartitionId = asn1LocalPartitionId.IntValue();
 
                 // Parse partitionDN
-                var asn1PartitionDn = (Asn1OctetString)decoder.Decode(currentPtr, null);
+                var asn1PartitionDn = (Asn1OctetString)decoder.Decode(currentPtr);
                 if (asn1PartitionDn == null)
                 {
                     throw new IOException("Decoding error");
@@ -157,7 +157,7 @@ namespace Novell.Directory.Ldap.Extensions
                 }
 
                 // Parse replicaType
-                var asn1ReplicaType = (Asn1Integer)decoder.Decode(currentPtr, null);
+                var asn1ReplicaType = (Asn1Integer)decoder.Decode(currentPtr);
                 if (asn1ReplicaType == null)
                 {
                     throw new IOException("Decoding error");
@@ -166,7 +166,7 @@ namespace Novell.Directory.Ldap.Extensions
                 _replicaType = asn1ReplicaType.IntValue();
 
                 // Parse flags
-                var asn1Flags = (Asn1Integer)decoder.Decode(currentPtr, null);
+                var asn1Flags = (Asn1Integer)decoder.Decode(currentPtr);
                 if (asn1Flags == null)
                 {
                     throw new IOException("Decoding error");

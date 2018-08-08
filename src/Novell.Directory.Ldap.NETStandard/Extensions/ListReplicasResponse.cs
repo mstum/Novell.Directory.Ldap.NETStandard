@@ -83,7 +83,7 @@ namespace Novell.Directory.Ldap.Extensions
                 }
 
                 // We should get back a sequence
-                var returnedSequence = (Asn1Sequence)decoder.Decode(returnedValue, null);
+                var returnedSequence = (Asn1Sequence)decoder.Decode(returnedValue);
                 if (returnedSequence == null)
                 {
                     throw new IOException("Decoding error");

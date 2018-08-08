@@ -57,7 +57,7 @@ namespace Novell.Directory.Ldap.Asn1
         /// <param name="value">
         ///     A byte array that points to the encoded Asn1 data.
         /// </param>
-        Asn1Object Decode(byte[] valueRenamed, DecodingContext context);
+        Asn1Object Decode(byte[] valueRenamed);
 
         /// <summary>
         ///     Decode an encoded value into an Asn1Object from an InputStream.
@@ -65,7 +65,7 @@ namespace Novell.Directory.Ldap.Asn1
         /// <param name="in">
         ///     An input stream containig the encoded ASN.1 data.
         /// </param>
-        Asn1Object Decode(Stream inRenamed, DecodingContext context);
+        Asn1Object Decode(Stream inRenamed);
 
         /// <summary>
         ///     Decode an encoded value into an Asn1Object from an InputStream.
@@ -79,7 +79,7 @@ namespace Novell.Directory.Ldap.Asn1
         /// <param name="in">
         ///     An input stream containig the encoded ASN.1 data.
         /// </param>
-        Asn1Object Decode(Stream inRenamed, int[] length, DecodingContext context);
+        Asn1Object Decode(Stream inRenamed, int[] length);
 
         /* Decoders for ASN.1 simple types
         */
@@ -94,7 +94,7 @@ namespace Novell.Directory.Ldap.Asn1
         /// <param name="len">
         ///     Length in bytes.
         /// </param>
-        bool DecodeBoolean(Stream inRenamed, int len);
+        bool DecodeBoolean(Stream inRenamed, int len); // TODO: Change this to return a bool. Or remove it altogether.
 
         /// <summary>
         ///     Decode a Numeric value directly from a stream.  Call this method when you
@@ -107,7 +107,7 @@ namespace Novell.Directory.Ldap.Asn1
         /// <param name="len">
         ///     Length in bytes.
         /// </param>
-        long DecodeNumeric(Stream inRenamed, int len);
+        long DecodeNumeric(Stream inRenamed, int len); // TODO: Change this to return an Int64. Or remove it altogether.
 
         /* Asn1 TYPE NOT YET SUPPORTED
                     * Decode a REAL directly from a stream.
@@ -130,7 +130,7 @@ namespace Novell.Directory.Ldap.Asn1
         /// <param name="len">
         ///     Length in bytes.
         /// </param>
-        byte[] DecodeOctetString(Stream inRenamed, int len);
+        byte[] DecodeOctetString(Stream inRenamed, int len);  // TODO: Change this to return an IReadOnlyList<byte>?
 
         /* Asn1 TYPE NOT YET SUPPORTED
                     * Decode an OBJECT_IDENTIFIER directly from a stream.

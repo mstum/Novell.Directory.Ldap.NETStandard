@@ -1,7 +1,6 @@
 ﻿using Novell.Directory.Ldap.Asn1;
 using System;
 using System.IO;
-using System.Text;
 
 namespace Novell.Directory.Ldap.Sasl.Asn1
 {
@@ -16,171 +15,39 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
     /// </remarks>
     public class DerDeserializer : IAsn1Decoder
     {
-        public Asn1Object Decode(byte[] valueRenamed, DecodingContext context)
+        public Asn1Object Decode(byte[] valueRenamed)
         {
-            Asn1Object asn1 = null;
-
-            var inRenamed = new MemoryStream(valueRenamed);
-            try
-            {
-                asn1 = Decode(inRenamed, context);
-            }
-            catch (IOException ioe)
-            {
-                Logger.Log.LogWarning("Exception swallowed", ioe);
-            }
-
-            return asn1;
+            throw new NotImplementedException();
         }
 
-        public Asn1Object Decode(Stream inRenamed, DecodingContext context)
+        public Asn1Object Decode(Stream inRenamed)
         {
-            var len = new int[1];
-            return Decode(inRenamed, len, context);
+            throw new NotImplementedException();
         }
 
-        public Asn1Object Decode(Stream inRenamed, int[] length, DecodingContext context)
+        public Asn1Object Decode(Stream inRenamed, int[] length)
         {
-            context = context ?? new DecodingContext();
-            var id = new Asn1Identifier(inRenamed);
-            var asn1Len = new Asn1Length(inRenamed);
-            context.AddToContext(id);
-
-            length[0] = id.EncodedLength + asn1Len.EncodedLength + asn1Len.Length;
-            Asn1Object result;
-
-            if (id.IsUniversal)
-            {
-                switch (id.Tag)
-                {
-                    case Asn1Sequence.Tag:
-                        result = new Asn1Sequence(this, inRenamed, asn1Len.Length);
-                        break;
-
-                    case Asn1Set.Tag:
-                        result = new Asn1Set(this, inRenamed, asn1Len.Length);
-                        break;
-
-                    case Asn1Boolean.Tag:
-                        result = new Asn1Boolean(this, inRenamed, asn1Len.Length);
-                        break;
-
-                    case Asn1Integer.Tag:
-                        result = new Asn1Integer(this, inRenamed, asn1Len.Length);
-                        break;
-
-                    case Asn1OctetString.Tag:
-                        result = new Asn1OctetString(this, inRenamed, asn1Len.Length);
-                        break;
-
-                    case Asn1Enumerated.Tag:
-                        result = new Asn1Enumerated(this, inRenamed, asn1Len.Length);
-                        break;
-
-                    case Asn1Null.Tag:
-                        result = new Asn1Null(); // has no content to decode.
-                        break;
-
-                    default:
-                        throw new InvalidOperationException("Unhandled Tag when decoding: [UNIVERSAL " + id.Tag + "]");
-                }
-            }
-            else
-            {
-                // APPLICATION or CONTEXT-SPECIFIC tag
-                result = DecodeApplicationTag(inRenamed, asn1Len, id);
-            }
-
-            context.PopFromContext();
-            return result;
-        }
-
-        // TODO: Is there a better way to extend this rather than having to subclass the decoder?
-        protected virtual Asn1Object DecodeApplicationTag(Stream inRenamed, Asn1Length length, Asn1Identifier asn1Id)
-        {
-            return new Asn1Tagged(this, inRenamed, length.Length, asn1Id);
+            throw new NotImplementedException();
         }
 
         public bool DecodeBoolean(Stream inRenamed, int len)
         {
-            var lber = new byte[len];
-
-            var i = SupportClass.ReadInput(inRenamed, ref lber, 0, lber.Length);
-
-            if (i != len)
-            {
-                throw new EndOfStreamException("LBER: BOOLEAN: decode error: EOF");
-            }
-
-            return lber[0] == 0x00 ? false : true;
+            throw new NotImplementedException();
         }
 
         public string DecodeCharacterString(Stream inRenamed, int len)
         {
-            var octets = new byte[len];
-
-            for (var i = 0; i < len; i++)
-            {
-                var ret = inRenamed.ReadByte(); // blocks
-                if (ret == -1)
-                {
-                    throw new EndOfStreamException("LBER: CHARACTER STRING: decode error: EOF");
-                }
-
-                octets[i] = (byte)ret;
-            }
-
-            var dchar = Encoding.UTF8.GetChars(octets);
-            var rval = new string(dchar);
-
-            return rval;
+            throw new NotImplementedException();
         }
 
         public long DecodeNumeric(Stream inRenamed, int len)
         {
-            long l = 0;
-            var r = inRenamed.ReadByte();
-
-            if (r < 0)
-            {
-                throw new EndOfStreamException("LBER: NUMERIC: decode error: EOF");
-            }
-
-            if ((r & 0x80) != 0)
-            {
-                // check for negative number
-                l = -1;
-            }
-
-            l = (l << 8) | r;
-
-            for (var i = 1; i < len; i++)
-            {
-                r = inRenamed.ReadByte();
-                if (r < 0)
-                {
-                    throw new EndOfStreamException("LBER: NUMERIC: decode error: EOF");
-                }
-
-                l = (l << 8) | r;
-            }
-
-            return l;
+            throw new NotImplementedException();
         }
 
         public byte[] DecodeOctetString(Stream inRenamed, int len)
         {
-            var octets = new byte[len];
-            var totalLen = 0;
-
-            while (totalLen < len)
-            {
-                // Make sure we have read all the data
-                var inLen = SupportClass.ReadInput(inRenamed, ref octets, totalLen, len - totalLen);
-                totalLen += inLen;
-            }
-
-            return octets;
+            throw new NotImplementedException();
         }
     }
 }

@@ -58,18 +58,18 @@ namespace Novell.Directory.Ldap.Events.Edir.EventData
         {
             var length = new int[1];
             _strPerpetratorDn =
-                ((Asn1OctetString)Decoder.Decode(DecodedData, length, null)).StringValue();
+                ((Asn1OctetString)Decoder.Decode(DecodedData, length)).StringValue();
             _strEntry =
-                ((Asn1OctetString)Decoder.Decode(DecodedData, length, null)).StringValue();
+                ((Asn1OctetString)Decoder.Decode(DecodedData, length)).StringValue();
             _strClassId =
-                ((Asn1OctetString)Decoder.Decode(DecodedData, length, null)).StringValue();
+                ((Asn1OctetString)Decoder.Decode(DecodedData, length)).StringValue();
 
             _timeStampObj =
-                new DseTimeStamp((Asn1Sequence)Decoder.Decode(DecodedData, length, null));
-            _nVerb = ((Asn1Integer)Decoder.Decode(DecodedData, length, null)).IntValue();
-            _nFlags = ((Asn1Integer)Decoder.Decode(DecodedData, length, null)).IntValue();
+                new DseTimeStamp((Asn1Sequence)Decoder.Decode(DecodedData, length));
+            _nVerb = ((Asn1Integer)Decoder.Decode(DecodedData, length)).IntValue();
+            _nFlags = ((Asn1Integer)Decoder.Decode(DecodedData, length)).IntValue();
             _strNewDn =
-                ((Asn1OctetString)Decoder.Decode(DecodedData, length, null)).StringValue();
+                ((Asn1OctetString)Decoder.Decode(DecodedData, length)).StringValue();
 
             DataInitDone();
         }

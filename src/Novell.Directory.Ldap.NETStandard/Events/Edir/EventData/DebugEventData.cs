@@ -46,23 +46,23 @@ namespace Novell.Directory.Ldap.Events.Edir.EventData
         {
             var length = new int[1];
 
-            DsTime = ((Asn1Integer)Decoder.Decode(DecodedData, length, null)).IntValue();
+            DsTime = ((Asn1Integer)Decoder.Decode(DecodedData, length)).IntValue();
             MilliSeconds =
-                ((Asn1Integer)Decoder.Decode(DecodedData, length, null)).IntValue();
+                ((Asn1Integer)Decoder.Decode(DecodedData, length)).IntValue();
 
             PerpetratorDn =
-                ((Asn1OctetString)Decoder.Decode(DecodedData, length, null)).StringValue();
+                ((Asn1OctetString)Decoder.Decode(DecodedData, length)).StringValue();
             FormatString =
-                ((Asn1OctetString)Decoder.Decode(DecodedData, length, null)).StringValue();
-            Verb = ((Asn1Integer)Decoder.Decode(DecodedData, length, null)).IntValue();
+                ((Asn1OctetString)Decoder.Decode(DecodedData, length)).StringValue();
+            Verb = ((Asn1Integer)Decoder.Decode(DecodedData, length)).IntValue();
             ParameterCount =
-                ((Asn1Integer)Decoder.Decode(DecodedData, length, null)).IntValue();
+                ((Asn1Integer)Decoder.Decode(DecodedData, length)).IntValue();
 
             Parameters = new ArrayList();
 
             if (ParameterCount > 0)
             {
-                var seq = (Asn1Sequence)Decoder.Decode(DecodedData, length, null);
+                var seq = (Asn1Sequence)Decoder.Decode(DecodedData, length);
                 for (var i = 0; i < ParameterCount; i++)
                 {
                     Parameters.Add(
