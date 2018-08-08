@@ -5,14 +5,15 @@ using System.IO;
 namespace Novell.Directory.Ldap.Sasl.Asn1
 {
     /// <summary>
-    /// Note: This is supposed to eventually replace <see cref="LberDecoder"/>.
-    /// It is meant to offer extensibility (<see cref="KerberosDecoder"/>) that
-    /// the LberDecoder doesn't yet, and be more of a "general purpose" ASN.1 deserializer.
-    /// 
-    /// However, right now it's only used for the Kerberos stuff, hence it lives here until
-    /// it's ready to go down into the Core project.
+    /// A Deserializer for ASN.1 objects encoded under
+    /// Distinguished Encoding Rules (DER)
     /// </summary>
-    public class BerDecoder : IAsn1Decoder
+    /// <remarks>
+    /// While Novell uses "Encoder/Decoder", standard .NET
+    /// terminology would call these Serializer/Deserializer
+    /// because that's what they are.
+    /// </remarks>
+    public class DerDeserializer : IAsn1Decoder
     {
         public Asn1Object Decode(byte[] valueRenamed)
         {
