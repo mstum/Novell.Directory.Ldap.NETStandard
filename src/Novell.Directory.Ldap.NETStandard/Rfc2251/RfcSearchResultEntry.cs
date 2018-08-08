@@ -56,7 +56,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         /// </summary>
         [CLSCompliant(false)]
         public RfcSearchResultEntry(IAsn1Decoder dec, Stream inRenamed, int len)
-            : base(dec, inRenamed, len)
+            : base(dec, null, inRenamed, len)
         {
             // Decode objectName
             //      set(0, new RfcLdapDN(((Asn1OctetString)get(0)).stringValue()));

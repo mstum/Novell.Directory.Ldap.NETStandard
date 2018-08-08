@@ -91,14 +91,14 @@ namespace Novell.Directory.Ldap.Asn1
         ///     A byte stream that contains the encoded ASN.1.
         /// </param>
         [CLSCompliant(false)]
-        public Asn1Tagged(IAsn1Decoder dec, Stream inRenamed, int len, Asn1Identifier identifier)
+        public Asn1Tagged(IAsn1Decoder dec, DecodingContext context, Stream inRenamed, int len, Asn1Identifier identifier)
             : base(identifier)
         {
             // If we are decoding an implicit tag, there is no way to know at this
             // low level what the base type really is. We can place the content
             // into an Asn1OctetString type and pass it back to the application who
             // will be able to create the appropriate ASN.1 type for this tag.
-            _content = new Asn1OctetString(dec, inRenamed, len);
+            _content = new Asn1OctetString(dec, context, inRenamed, len);
         }
 
         /// <summary> Sets the Asn1Object tagged value.</summary>

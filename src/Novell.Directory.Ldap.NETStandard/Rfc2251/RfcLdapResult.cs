@@ -150,7 +150,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         /// <summary> Constructs an RfcLdapResult from the inputstream.</summary>
         [CLSCompliant(false)]
         public RfcLdapResult(IAsn1Decoder dec, Stream inRenamed, int len)
-            : base(dec, inRenamed, len)
+            : base(dec, null, inRenamed, len)
         {
             // Decode optional referral from Asn1OctetString to Referral.
             if (Size() > 3)

@@ -127,22 +127,22 @@ namespace Novell.Directory.Ldap.Asn1
                 switch (_asn1Id.Tag)
                 {
                     case Asn1Sequence.Tag:
-                        return new Asn1Sequence(this, inRenamed, length);
+                        return new Asn1Sequence(this, null, inRenamed, length);
 
                     case Asn1Set.Tag:
-                        return new Asn1Set(this, inRenamed, length);
+                        return new Asn1Set(this, null, inRenamed, length);
 
                     case Asn1Boolean.Tag:
-                        return new Asn1Boolean(this, inRenamed, length);
+                        return new Asn1Boolean(this, null, inRenamed, length);
 
                     case Asn1Integer.Tag:
-                        return new Asn1Integer(this, inRenamed, length);
+                        return new Asn1Integer(this, null, inRenamed, length);
 
                     case Asn1OctetString.Tag:
-                        return new Asn1OctetString(this, inRenamed, length);
+                        return new Asn1OctetString(this, null, inRenamed, length);
 
                     case Asn1Enumerated.Tag:
-                        return new Asn1Enumerated(this, inRenamed, length);
+                        return new Asn1Enumerated(this, null, inRenamed, length);
 
                     case Asn1Null.Tag:
                         return new Asn1Null(); // has no content to decode.
@@ -177,7 +177,7 @@ namespace Novell.Directory.Ldap.Asn1
             }
 
             // APPLICATION or CONTEXT-SPECIFIC tag
-            return new Asn1Tagged(this, inRenamed, length, (Asn1Identifier)_asn1Id.Clone());
+            return new Asn1Tagged(this, null, inRenamed, length, (Asn1Identifier)_asn1Id.Clone());
         }
 
         /* Decoders for ASN.1 simple type Contents

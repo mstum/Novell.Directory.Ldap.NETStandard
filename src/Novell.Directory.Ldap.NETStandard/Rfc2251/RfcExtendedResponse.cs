@@ -67,7 +67,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         /// </summary>
         [CLSCompliant(false)]
         public RfcExtendedResponse(IAsn1Decoder dec, Stream inRenamed, int len)
-            : base(dec, inRenamed, len)
+            : base(dec, null, inRenamed, len)
         {
             // decode optional tagged elements
             if (Size() > 3)

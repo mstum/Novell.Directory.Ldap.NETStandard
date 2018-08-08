@@ -54,27 +54,27 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                 switch (id.Tag)
                 {
                     case Asn1Sequence.Tag:
-                        result = new Asn1Sequence(this, inRenamed, asn1Len.Length);
+                        result = new Asn1Sequence(this, context, inRenamed, asn1Len.Length);
                         break;
 
                     case Asn1Set.Tag:
-                        result = new Asn1Set(this, inRenamed, asn1Len.Length);
+                        result = new Asn1Set(this, context, inRenamed, asn1Len.Length);
                         break;
 
                     case Asn1Boolean.Tag:
-                        result = new Asn1Boolean(this, inRenamed, asn1Len.Length);
+                        result = new Asn1Boolean(this, context, inRenamed, asn1Len.Length);
                         break;
 
                     case Asn1Integer.Tag:
-                        result = new Asn1Integer(this, inRenamed, asn1Len.Length);
+                        result = new Asn1Integer(this, context, inRenamed, asn1Len.Length);
                         break;
 
                     case Asn1OctetString.Tag:
-                        result = new Asn1OctetString(this, inRenamed, asn1Len.Length);
+                        result = new Asn1OctetString(this, context, inRenamed, asn1Len.Length);
                         break;
 
                     case Asn1Enumerated.Tag:
-                        result = new Asn1Enumerated(this, inRenamed, asn1Len.Length);
+                        result = new Asn1Enumerated(this, context, inRenamed, asn1Len.Length);
                         break;
 
                     case Asn1Null.Tag:
@@ -88,7 +88,7 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
             else
             {
                 // APPLICATION or CONTEXT-SPECIFIC tag
-                result = DecodeApplicationTag(inRenamed, asn1Len, id);
+                result = DecodeApplicationTag(inRenamed, asn1Len, id, context);
             }
 
             context.PopFromContext();
@@ -96,9 +96,9 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
         }
 
         // TODO: Is there a better way to extend this rather than having to subclass the decoder?
-        protected virtual Asn1Object DecodeApplicationTag(Stream inRenamed, Asn1Length length, Asn1Identifier asn1Id)
+        protected virtual Asn1Object DecodeApplicationTag(Stream inRenamed, Asn1Length length, Asn1Identifier asn1Id, DecodingContext context)
         {
-            return new Asn1Tagged(this, inRenamed, length.Length, asn1Id);
+            return new Asn1Tagged(this, context, inRenamed, length.Length, asn1Id);
         }
 
         public bool DecodeBoolean(Stream inRenamed, int len)

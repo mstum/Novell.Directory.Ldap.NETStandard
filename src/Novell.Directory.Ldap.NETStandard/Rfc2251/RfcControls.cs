@@ -64,7 +64,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         /// <summary> Constructs a Controls object by decoding it from an InputStream.</summary>
         [CLSCompliant(false)]
         public RfcControls(IAsn1Decoder dec, Stream inRenamed, int len)
-            : base(dec, inRenamed, len)
+            : base(dec, null, inRenamed, len)
         {
             // Convert each SEQUENCE element to a Control
             for (var i = 0; i < Size(); i++)

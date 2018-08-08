@@ -120,7 +120,7 @@ namespace Novell.Directory.Ldap.Events.Edir.EventData
             var decodedData = new MemoryStream(dataBytes);
             var decoder = new LberDecoder();
 
-            return new Asn1Sequence(decoder, decodedData, dataBytes.Length);
+            return new Asn1Sequence(decoder, null, decodedData, dataBytes.Length);
         }
 
         /// <summary>
