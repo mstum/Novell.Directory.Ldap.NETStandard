@@ -86,14 +86,16 @@ namespace Novell.Directory.Ldap.Asn1
         {
             Asn1Object asn1 = null;
 
-            var inRenamed = new MemoryStream(valueRenamed);
-            try
+            using (var inRenamed = new MemoryStream(valueRenamed))
             {
-                asn1 = Decode(inRenamed);
-            }
-            catch (IOException ioe)
-            {
-                Logger.Log.LogWarning("Exception swallowed", ioe);
+                try
+                {
+                    asn1 = Decode(inRenamed);
+                }
+                catch (IOException ioe)
+                {
+                    Logger.Log.LogWarning("Exception swallowed", ioe);
+                }
             }
 
             return asn1;
@@ -148,6 +150,9 @@ namespace Novell.Directory.Ldap.Asn1
 
                     case Asn1VisibleString.Tag:
                         return new Asn1VisibleString(this, inRenamed, length);
+
+                    case Asn1GeneralizedTime.Tag:
+                        return new Asn1GeneralizedTime(this, inRenamed, length);
 
                     default:
                         throw new EndOfStreamException("Unknown tag"); // !!! need a better exception

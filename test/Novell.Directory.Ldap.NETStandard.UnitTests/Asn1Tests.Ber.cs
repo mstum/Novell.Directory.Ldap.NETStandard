@@ -36,6 +36,34 @@ namespace Novell.Directory.Ldap.NETStandard.UnitTests
                 Assert.True(result.GetIdentifier().IsSameTagAs(Asn1Null.Id));
                 Assert.IsType<Asn1Null>(result);
             }
+
+            [Fact]
+            public void Asn1VisibleString_DecodesProperly()
+            {
+                // Tag + Length + Hello
+                var input = new byte[] { 0x1A, 0x05, 0x48, 0x65, 0x6C, 0x6C, 0x6F };
+
+                var deser = new LberDecoder();
+                var result = deser.Decode(input);
+
+                Assert.NotNull(result);
+                Assert.True(result.GetIdentifier().IsSameTagAs(Asn1VisibleString.Id));
+                Assert.IsType<Asn1VisibleString>(result);
+            }
+
+            [Fact]
+            public void Asn1GeneralizedTime_DecodesProperly()
+            {
+                // Tag + Length + 20180809143328
+                var input = new byte[] { 0x18, 0x0E, 0x32, 0x30, 0x31, 0x38, 0x30, 0x38, 0x30, 0x39, 0x31, 0x34, 0x33, 0x33, 0x32, 0x38 };
+
+                var deser = new LberDecoder();
+                var result = deser.Decode(input);
+
+                Assert.NotNull(result);
+                Assert.True(result.GetIdentifier().IsSameTagAs(Asn1GeneralizedTime.Id));
+                Assert.IsType<Asn1GeneralizedTime>(result);
+            }
         }
     }
 }
