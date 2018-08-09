@@ -275,11 +275,11 @@ namespace Novell.Directory.Ldap.Asn1
         ///     Creates a duplicate, not a true clone, of this object and returns
         ///     a reference to the duplicate.
         /// </summary>
-        public object Clone()
+        public Asn1Identifier Clone()
         {
             try
             {
-                return MemberwiseClone();
+                return MemberwiseClone() as Asn1Identifier;
             }
             catch (Exception ce)
             {
@@ -296,5 +296,17 @@ namespace Novell.Directory.Ldap.Asn1
         }
 
         public bool IsSameTagAs(Asn1Identifier other) => AreTagsSame(this, other);
+
+        public override string ToString()
+        {
+            var bit6Str = Constructed ? "Constructed" : "Primitive";
+            var classStr = IsUniversal ? "UNIVERSAL"
+                : IsApplication ? "APPLICATION"
+                : IsContext ? "CONTEXT-SPECIFIC"
+                : IsPrivate ? "PRIVATE"
+                : "UNKNOWN-TAG-CLASS";
+
+            return $"[{classStr} {Tag} (0x{Tag.ToString("X2")}), ({bit6Str})]";
+        }
     }
 }
