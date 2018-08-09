@@ -8,9 +8,15 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
 {
     public class KerberosDecoder
     {
-        public KerberosAsn1Object Decode(Asn1Object input)
+        public KerberosAsn1Object Decode(Asn1Tagged input, IAsn1Decoder decoder)
         {
-            throw new NotImplementedException();
+            var id = input.GetIdentifier();
+            if (id.IsSameTagAs(AsReq.Id))
+            {
+                return new AsReq(input, decoder);
+            }
+
+            return null;
         }
     }
 }

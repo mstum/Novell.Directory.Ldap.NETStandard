@@ -8,10 +8,5 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
         protected KerberosAsn1Object(Asn1Identifier id) : base(id)
         {
         }
-
-        public override void Encode(IAsn1Encoder enc, Stream outRenamed)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

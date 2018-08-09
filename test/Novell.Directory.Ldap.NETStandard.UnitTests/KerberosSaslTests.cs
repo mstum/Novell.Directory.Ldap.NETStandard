@@ -35,10 +35,10 @@ namespace Novell.Directory.Ldap.NETStandard.UnitTests
         {
             var conn = new LdapConnection();
             conn.AddKerberosSupport();
-            conn.Connect("192.168.0.199", 389);
+            //conn.Connect("192.168.0.199", 389);
 
-            var kerbReq = new SaslKerberosRequest();
-            conn.Bind(kerbReq);
+            //var kerbReq = new SaslKerberosRequest();
+            //conn.Bind(kerbReq);
         }
     }
 }

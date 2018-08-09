@@ -1,6 +1,7 @@
 ﻿using Novell.Directory.Ldap.Asn1;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace Novell.Directory.Ldap.Sasl.Asn1
@@ -36,5 +37,22 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
 
         public int ProtocolVersionNumber { get; }
         public MessageType MessageType { get; }
+        public KerberosTime CTime { get; set; }
+        // cusec           [3] Microseconds OPTIONAL,
+        public KerberosTime STime { get; set; }
+        // susec           [5] Microseconds,
+        public int ErrorCode { get; set; }
+        // crealm          [7] Realm OPTIONAL,
+        // cname           [8] PrincipalName OPTIONAL,
+        // realm           [9] Realm -- service realm --,
+        // sname           [10] PrincipalName -- service name --,
+        // e-text          [11] KerberosString OPTIONAL,
+        public string EText { get; set; }
+        public byte[] EData { get; set; }
+
+        public override void Encode(IAsn1Encoder enc, Stream outRenamed)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
