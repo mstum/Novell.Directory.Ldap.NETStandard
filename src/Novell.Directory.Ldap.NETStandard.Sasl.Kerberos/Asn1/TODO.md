@@ -2,6 +2,7 @@
 
 ## Basic Types
 
+```
 [x] Boolean [UNIVERSAL 1]  
 [x] Integer [UNIVERSAL 2] - Integers are unlimited range in the spec, but Int64 in this implemenation. I doubt we need a BigInteger version.  
 [ ] Bitstring [UNIVERSAL 3]  
@@ -37,7 +38,8 @@
 [ ] DURATION [UNIVERSAL 34]  
 [ ] OID internationalized resource identifier [UNIVERSAL 35]  
 [ ] Relative OID internationalized resource identifier [UNIVERSAL 36]  
-  
+```
+
 [UNIVERSAL 15] is Reserved for future editions of this Recommendation | International Standard.  
 [UNIVERSAL 37] and following is Reserved for future editions of this Recommendation | International Standard  
 [UNIVERSAL 0] is Reserved for use by the encoding rules  
@@ -75,14 +77,17 @@ with value notation
         lastName    `AUSTING',
         ssn         `222334444',
         cash        5000
-       }## Kerberos[ ] Int32 ::= INTEGER (-2147483648..2147483647)  [ ] UInt32 ::= INTEGER (0..4294967295)  [ ] Microseconds ::= INTEGER (0..999999)  [ ] KerberosString ::= GeneralString (IA5String)  [ ] Realm ::= KerberosString  [ ] PrincipalName ::= SEQUENCE  [x] KerberosTime ::= GeneralizedTime -- with no fractional seconds  [ ] HostAddress ::= SEQUENCE  [ ] HostAddresses ::= SEQUENCE OF HostAddress  [ ] AuthorizationData ::= SEQUENCE OF SEQUENCE  [ ] PA-DATA ::= SEQUENCE  [ ] KerberosFlags ::= BIT STRING (SIZE (32..MAX))  [ ] EncryptedData ::= SEQUENCE  [ ] EncryptionKey ::= SEQUENCE  [ ] Checksum ::= SEQUENCE  [ ] Ticket ::= [APPLICATION 1] SEQUENCE  [ ] EncTicketPart ::= [APPLICATION 3] SEQUENCE  [ ] TransitedEncoding ::= SEQUENCE  [ ] TicketFlags ::= KerberosFlags  [ ] AS-REQ ::= [APPLICATION 10] KDC-REQ  [ ] TGS-REQ ::= [APPLICATION 12] KDC-REQ  [ ] KDC-REQ ::= SEQUENCE  [ ] KDC-REQ-BODY ::= SEQUENCE  [ ] KDCOptions ::= KerberosFlags  [ ] AS-REP ::= [APPLICATION 11] KDC-REP  [ ] TGS-REP ::= [APPLICATION 13] KDC-REP  [ ] KDC-REP ::= SEQUENCE  [ ] EncASRepPart ::= [APPLICATION 25] EncKDCRepPart  [ ] EncTGSRepPart ::= [APPLICATION 26] EncKDCRepPart  [ ] EncKDCRepPart ::= SEQUENCE  [ ] LastReq ::= SEQUENCE OF SEQUENCE  [ ] AP-REQ ::= [APPLICATION 14] SEQUENCE  [ ] APOptions ::= KerberosFlags  [ ] Authenticator ::= [APPLICATION 2] SEQUENCE  [ ] AP-REP ::= [APPLICATION 15] SEQUENCE  [ ] EncAPRepPart ::= [APPLICATION 27] SEQUENCE  [ ] KRB-SAFE ::= [APPLICATION 20] SEQUENCE  [ ] KRB-SAFE-BODY ::= SEQUENCE  [ ] KRB-PRIV ::= [APPLICATION 21] SEQUENCE  [ ] EncKrbPrivPart ::= [APPLICATION 28] SEQUENCE  [ ] KRB-CRED ::= [APPLICATION 22] SEQUENCE  [ ] EncKrbCredPart ::= [APPLICATION 29] SEQUENCE  [ ] KrbCredInfo ::= SEQUENCE  [ ] KRB-ERROR ::= [APPLICATION 30] SEQUENCE  [ ] METHOD-DATA ::= SEQUENCE OF PA-DATA  [ ] TYPED-DATA ::= SEQUENCE SIZE (1..MAX) OF SEQUENCE  [ ] PA-ENC-TIMESTAMP ::= EncryptedData -- PA-ENC-TS-ENC  [ ] PA-ENC-TS-ENC := SEQUENCE  [ ] ETYPE-INFO-ENTRY ::= SEQUENCE  [ ] ETYPE-INFO ::= SEQUENCE OF ETYPE-INFO-ENTRY  [ ] ETYPE-INFO2-ENTRY ::= SEQUENCE  [ ] ETYPE-INFO2 ::= SEQUENCE SIZE (1..MAX) OF ETYPE-INFO2-ENTRY  [ ] AD-IF-RELEVANT ::= AuthorizationData  [ ] AD-KDCIssued ::= SEQUENCE  [ ] AD-AND-OR ::= SEQUENCE  [ ] AD-MANDATORY-FOR-KDC ::= AuthorizationData  
+       }## Kerberos```[ ] Int32 ::= INTEGER (-2147483648..2147483647)  [ ] UInt32 ::= INTEGER (0..4294967295)  [ ] Microseconds ::= INTEGER (0..999999)  [ ] KerberosString ::= GeneralString (IA5String)  [ ] Realm ::= KerberosString  [ ] PrincipalName ::= SEQUENCE  [x] KerberosTime ::= GeneralizedTime -- with no fractional seconds  [ ] HostAddress ::= SEQUENCE  [ ] HostAddresses ::= SEQUENCE OF HostAddress  [ ] AuthorizationData ::= SEQUENCE OF SEQUENCE  [ ] PA-DATA ::= SEQUENCE  [ ] KerberosFlags ::= BIT STRING (SIZE (32..MAX))  [ ] EncryptedData ::= SEQUENCE  [ ] EncryptionKey ::= SEQUENCE  [ ] Checksum ::= SEQUENCE  [ ] Ticket ::= [APPLICATION 1] SEQUENCE  [ ] EncTicketPart ::= [APPLICATION 3] SEQUENCE  [ ] TransitedEncoding ::= SEQUENCE  [ ] TicketFlags ::= KerberosFlags  [ ] AS-REQ ::= [APPLICATION 10] KDC-REQ  [ ] TGS-REQ ::= [APPLICATION 12] KDC-REQ  [ ] KDC-REQ ::= SEQUENCE  [ ] KDC-REQ-BODY ::= SEQUENCE  [ ] KDCOptions ::= KerberosFlags  [ ] AS-REP ::= [APPLICATION 11] KDC-REP  [ ] TGS-REP ::= [APPLICATION 13] KDC-REP  [ ] KDC-REP ::= SEQUENCE  [ ] EncASRepPart ::= [APPLICATION 25] EncKDCRepPart  [ ] EncTGSRepPart ::= [APPLICATION 26] EncKDCRepPart  [ ] EncKDCRepPart ::= SEQUENCE  [ ] LastReq ::= SEQUENCE OF SEQUENCE  [ ] AP-REQ ::= [APPLICATION 14] SEQUENCE  [ ] APOptions ::= KerberosFlags  [ ] Authenticator ::= [APPLICATION 2] SEQUENCE  [ ] AP-REP ::= [APPLICATION 15] SEQUENCE  [ ] EncAPRepPart ::= [APPLICATION 27] SEQUENCE  [ ] KRB-SAFE ::= [APPLICATION 20] SEQUENCE  [ ] KRB-SAFE-BODY ::= SEQUENCE  [ ] KRB-PRIV ::= [APPLICATION 21] SEQUENCE  [ ] EncKrbPrivPart ::= [APPLICATION 28] SEQUENCE  [ ] KRB-CRED ::= [APPLICATION 22] SEQUENCE  [ ] EncKrbCredPart ::= [APPLICATION 29] SEQUENCE  [ ] KrbCredInfo ::= SEQUENCE  [ ] KRB-ERROR ::= [APPLICATION 30] SEQUENCE  [ ] METHOD-DATA ::= SEQUENCE OF PA-DATA  [ ] TYPED-DATA ::= SEQUENCE SIZE (1..MAX) OF SEQUENCE  [ ] PA-ENC-TIMESTAMP ::= EncryptedData -- PA-ENC-TS-ENC  [ ] PA-ENC-TS-ENC := SEQUENCE  [ ] ETYPE-INFO-ENTRY ::= SEQUENCE  [ ] ETYPE-INFO ::= SEQUENCE OF ETYPE-INFO-ENTRY  [ ] ETYPE-INFO2-ENTRY ::= SEQUENCE  [ ] ETYPE-INFO2 ::= SEQUENCE SIZE (1..MAX) OF ETYPE-INFO2-ENTRY  [ ] AD-IF-RELEVANT ::= AuthorizationData  [ ] AD-KDCIssued ::= SEQUENCE  [ ] AD-AND-OR ::= SEQUENCE  [ ] AD-MANDATORY-FOR-KDC ::= AuthorizationData  ```
 ## Encodings/Decodings
 
 Mandatory:  
+```
 [ ] Basic Encoding Rules (BER) (LBERDe/Encoder exists, but doesn't follow extensibility rules)  
 [ ] Distinguished Encoding Rules (DER)  
+```
   
 Optional:  
+```
 [ ] Canonical Encoding Rules (CER)  
 [ ] Packed Encoding Rules (PER)  
 	[ ] PER  
@@ -98,3 +103,4 @@ Optional:
 	[ ] COER (Canonical)  
 [ ] JSON Encoding Rules (JER) - X.697 - https://www.itu.int/rec/T-REC-X.697/en  
 [ ] Generic String Encoding Rules (GSER) - RFC 3641  
+```
