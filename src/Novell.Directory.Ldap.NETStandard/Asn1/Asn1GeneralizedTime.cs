@@ -11,7 +11,7 @@ namespace Novell.Directory.Ldap.Asn1
         public new const int Tag = 24;
         public new static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.Universal, true, Tag);
 
-        public DateTime GeneralizedTime { get; private set; }
+        public DateTime GeneralizedTime { get; protected set; }
 
         public Asn1GeneralizedTime() : base(Id)
         {
@@ -33,7 +33,7 @@ namespace Novell.Directory.Ldap.Asn1
             Decode(inRenamed, len);
         }
 
-        protected new void Decode(Stream inRenamed, int len)
+        protected override void Decode(Stream inRenamed, int len)
         {
             base.Decode(inRenamed, len);
             if (Content.IsEmpty())

@@ -40,7 +40,7 @@ namespace Novell.Directory.Ldap.Asn1
             Decode(inRenamed, len);
         }
 
-        protected void Decode(Stream inRenamed, int len)
+        protected virtual void Decode(Stream inRenamed, int len)
         {
             var chars = new byte[len];
             for (var i = 0; i < len; i++)
