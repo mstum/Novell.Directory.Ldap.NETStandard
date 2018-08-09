@@ -23,15 +23,17 @@
 [ ] PrintableString [UNIVERSAL 19] (Upper and lower case letters, digits, space, apostrophe, left/right parenthesis, plus sign, comma, hyphen, full stop, solidus, colon, equal sign, question mark)  
 [ ] TeletexString (T61String) [UNIVERSAL 20] (The Teletex character set in CCITT's T61, space, and delete)  
 [ ] VideotexString [UNIVERSAL 21] (The Videotex character set in CCITT's T.100 and T.101, space, and delete)  
-[ ] IA5String [UNIVERSAL 22] (International Alphabet 5 (International ASCII))  
+[ ] IA5String [UNIVERSAL 22] (International Alphabet 5 (International ASCII) - VisibleString + DELETE + C0 Set of ISO 646)  
 [ ] UTCTime [UNIVERSAL 23]  
 [x] GeneralizedTime [UNIVERSAL 24]  
 [ ] GraphicString [UNIVERSAL 25] (All registered G sets, and space)  
 [x] VisibleString (ISO646String) [UNIVERSAL 26] (Printing character sets of international ASCII, and space)  
 [ ] GraphicString [UNIVERSAL 27] (All registered C and G sets, space and delete)  
-[ ] [UNIVERSAL 28]  
-[ ] [UNIVERSAL 29]  
-[ ] [UNIVERSAL 30] Character string types  
+[ ] UniversalString [UNIVERSAL 28] (ISO/IEC 10646)
+[ ] CharacterString [UNIVERSAL 29]
+    [ ] RestrictedCharacterString (X.680 #41)
+	[ ] UnrestrictedCharacterStringType (X.680 #44)
+[ ] BMPString [UNIVERSAL 30] (BMPString is a subtype of UniversalString that has its own unique tag and contains only the characters in the Basic Multilingual Plane (those corresponding to the first 64K-2 cells, less cells whose encoding is used to address characters outside the Basic Multilingual Plane) of ISO/IEC 10646)
 [ ] DATE [UNIVERSAL 31]  
 [ ] TIME-OF-DAY [UNIVERSAL 32]  
 [ ] DATE-TIME [UNIVERSAL 33]  
