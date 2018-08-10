@@ -113,34 +113,33 @@ namespace Novell.Directory.Ldap.NETStandard.UnitTests
             [Fact]
             public void Asn1BitString_8Bits_ToFlagsEnum_ConvertsProperly()
             {
-                // 132dec = MinusOne & Four
-                var input = new byte[] { 0x03, 0x01, 0b10000100 };
+                var input = new byte[] { 0x03, 0x01, 0b01000101 };
                 var deser = new LberDecoder();
 
                 var bitString = deser.Decode(input) as Asn1BitString;
                 var sbf = bitString.ToFlagsEnum<SByteFlagsEnum>();
-                Assert.True(sbf.HasFlag(SByteFlagsEnum.OneTwentyEight), "OneTwentyEight");
-                Assert.False(sbf.HasFlag(SByteFlagsEnum.SixtyFour), "SixtyFour");
-                Assert.False(sbf.HasFlag(SByteFlagsEnum.ThirtyTwo), "ThirtyTwo");
-                Assert.False(sbf.HasFlag(SByteFlagsEnum.Sixteen), "Sixteen");
-                Assert.False(sbf.HasFlag(SByteFlagsEnum.Eight), "Eight");
-                Assert.True(sbf.HasFlag(SByteFlagsEnum.Four), "Four");
-                Assert.False(sbf.HasFlag(SByteFlagsEnum.Two), "Two");
                 Assert.False(sbf.HasFlag(SByteFlagsEnum.One), "One");
+                Assert.True(sbf.HasFlag(SByteFlagsEnum.Two), "Two");
+                Assert.False(sbf.HasFlag(SByteFlagsEnum.Four), "Four");
+                Assert.False(sbf.HasFlag(SByteFlagsEnum.Eight), "Eight");
+                Assert.False(sbf.HasFlag(SByteFlagsEnum.Sixteen), "Sixteen");
+                Assert.True(sbf.HasFlag(SByteFlagsEnum.ThirtyTwo), "ThirtyTwo");
+                Assert.False(sbf.HasFlag(SByteFlagsEnum.SixtyFour), "SixtyFour");
+                Assert.True(sbf.HasFlag(SByteFlagsEnum.OneTwentyEight), "OneTwentyEight");
             }
 
             [Fact]
             public void Asn1BitString_64Bits_ToFlagsEnum_ConvertsProperly()
             {
                 var input = new byte[] { 0x03, 0x08,
-                    0b10000001, // Value 64 - 57
-                    0b10101010, // Value 56 - 49
-                    0b01010101, // Value 48 - 41
-                    0b00000000, // Value 40 - 33
-                    0b00000000, // Value 32 - 25
-                    0b00000000, // Value 24 - 17
-                    0b00000000, // Value 16 -  9
-                    0b00000001  // Value  8 -  1
+                    0b10000001, // Value 1 - 8
+                    0b10101010, // Value 9 - 16
+                    0b01010101, // Value 17 - 24
+                    0b00000000, // Value 25 - 32
+                    0b00000000, // Value 33 - 40
+                    0b00000000, // Value 41 - 48
+                    0b00000000, // Value 49 - 56
+                    0b00000001  // Value 57 - 64
                 };
                 var deser = new LberDecoder();
 
@@ -155,23 +154,23 @@ namespace Novell.Directory.Ldap.NETStandard.UnitTests
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value5), "Flag Value5");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value6), "Flag Value6");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value7), "Flag Value7");
-                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value8), "Flag Value8");
-                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value9), "Flag Value9");
+                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value8), "Flag Value8");
+                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value9), "Flag Value9");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value10), "Flag Value10");
-                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value11), "Flag Value11");
+                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value11), "Flag Value11");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value12), "Flag Value12");
-                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value13), "Flag Value13");
+                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value13), "Flag Value13");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value14), "Flag Value14");
-                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value15), "Flag Value15");
+                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value15), "Flag Value15");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value16), "Flag Value16");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value17), "Flag Value17");
-                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value18), "Flag Value18");
+                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value18), "Flag Value18");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value19), "Flag Value19");
-                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value20), "Flag Value20");
+                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value20), "Flag Value20");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value21), "Flag Value21");
-                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value22), "Flag Value22");
+                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value22), "Flag Value22");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value23), "Flag Value23");
-                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value24), "Flag Value24");
+                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value24), "Flag Value24");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value25), "Flag Value25");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value26), "Flag Value26");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value27), "Flag Value27");
@@ -188,23 +187,23 @@ namespace Novell.Directory.Ldap.NETStandard.UnitTests
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value38), "Flag Value38");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value39), "Flag Value39");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value40), "Flag Value40");
-                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value41), "Flag Value41");
+                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value41), "Flag Value41");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value42), "Flag Value42");
-                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value43), "Flag Value43");
+                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value43), "Flag Value43");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value44), "Flag Value44");
-                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value45), "Flag Value45");
+                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value45), "Flag Value45");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value46), "Flag Value46");
-                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value47), "Flag Value47");
+                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value47), "Flag Value47");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value48), "Flag Value48");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value49), "Flag Value49");
-                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value50), "Flag Value50");
+                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value50), "Flag Value50");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value51), "Flag Value51");
-                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value52), "Flag Value52");
+                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value52), "Flag Value52");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value53), "Flag Value53");
-                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value54), "Flag Value54");
+                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value54), "Flag Value54");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value55), "Flag Value55");
-                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value56), "Flag Value56");
-                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value57), "Flag Value57");
+                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value56), "Flag Value56");
+                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value57), "Flag Value57");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value58), "Flag Value58");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value59), "Flag Value59");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value60), "Flag Value60");
@@ -218,11 +217,11 @@ namespace Novell.Directory.Ldap.NETStandard.UnitTests
             public void Asn1BitString_5Bytes_ToFlagsEnum_ConvertsProperly()
             {
                 var input = new byte[] { 0x03, 0x05,
-                    0b10000001, // Value 40 - 33
-                    0b10101010, // Value 32 - 25
-                    0b01010101, // Value 24 - 17
-                    0b00000000, // Value 16 - 9
-                    0b00000010  // Value  8 - 1
+                    0b10000001, // Value 1 - 8
+                    0b10101010, // Value 9 - 16
+                    0b01010101, // Value 17 - 24
+                    0b00000000, // Value 25 - 32
+                    0b00000010  // Value 33 - 40
                 };
                 var deser = new LberDecoder();
 
@@ -230,46 +229,46 @@ namespace Novell.Directory.Ldap.NETStandard.UnitTests
 
                 var sbf = bitString.ToFlagsEnum<ULongFlagsEnum>();
 
-                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value1), "Flag Value1");
-                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value2), "Flag Value2");
+                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value1), "Flag Value1");
+                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value2), "Flag Value2");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value3), "Flag Value3");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value4), "Flag Value4");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value5), "Flag Value5");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value6), "Flag Value6");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value7), "Flag Value7");
-                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value8), "Flag Value8");
-                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value9), "Flag Value9");
+                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value8), "Flag Value8");
+                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value9), "Flag Value9");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value10), "Flag Value10");
-                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value11), "Flag Value11");
+                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value11), "Flag Value11");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value12), "Flag Value12");
-                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value13), "Flag Value13");
+                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value13), "Flag Value13");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value14), "Flag Value14");
-                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value15), "Flag Value15");
+                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value15), "Flag Value15");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value16), "Flag Value16");
-                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value17), "Flag Value17");
-                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value18), "Flag Value18");
-                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value19), "Flag Value19");
-                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value20), "Flag Value20");
-                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value21), "Flag Value21");
-                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value22), "Flag Value22");
-                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value23), "Flag Value23");
-                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value24), "Flag Value24");
+                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value17), "Flag Value17");
+                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value18), "Flag Value18");
+                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value19), "Flag Value19");
+                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value20), "Flag Value20");
+                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value21), "Flag Value21");
+                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value22), "Flag Value22");
+                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value23), "Flag Value23");
+                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value24), "Flag Value24");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value25), "Flag Value25");
-                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value26), "Flag Value26");
+                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value26), "Flag Value26");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value27), "Flag Value27");
-                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value28), "Flag Value28");
+                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value28), "Flag Value28");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value29), "Flag Value29");
-                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value30), "Flag Value30");
+                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value30), "Flag Value30");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value31), "Flag Value31");
-                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value32), "Flag Value32");
-                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value33), "Flag Value33");
+                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value32), "Flag Value32");
+                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value33), "Flag Value33");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value34), "Flag Value34");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value35), "Flag Value35");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value36), "Flag Value36");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value37), "Flag Value37");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value38), "Flag Value38");
-                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value39), "Flag Value39");
-                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value40), "Flag Value40");
+                Assert.True(sbf.HasFlag(ULongFlagsEnum.Value39), "Flag Value39");
+                Assert.False(sbf.HasFlag(ULongFlagsEnum.Value40), "Flag Value40");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value41), "Flag Value41");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value42), "Flag Value42");
                 Assert.False(sbf.HasFlag(ULongFlagsEnum.Value43), "Flag Value43");

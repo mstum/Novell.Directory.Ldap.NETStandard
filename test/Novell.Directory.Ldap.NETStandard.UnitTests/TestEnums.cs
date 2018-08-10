@@ -85,29 +85,27 @@ namespace Novell.Directory.Ldap.NETStandard.UnitTests
 
     public enum SByteEnum : sbyte
     {
-        Zero = 0,
-        One = 1,
-        Two = 2,
-        Four = 4,
-        Eight = 8,
-        Sixteen = 16,
-        ThirtyTwo = 32,
-        SixtoFour = 64,
-        OneTwentyEight = unchecked((sbyte)128)
+        One = 1 << 0,
+        Two = 1 << 1,
+        Four = 1 << 2,
+        Eight = 1 << 3,
+        Sixteen = 1 << 4,
+        ThirtyTwo = 1 << 5,
+        SixtyFour = 1 << 6,
+        OneTwentyEight = unchecked((sbyte)(1 << 7))
     }
 
     [Flags]
     public enum SByteFlagsEnum : sbyte
     {
-        Zero = 0,
-        One = 1,
-        Two = 2,
-        Four = 4,
-        Eight = 8,
-        Sixteen = 16,
-        ThirtyTwo = 32,
-        SixtyFour = 64,
-        OneTwentyEight = unchecked((sbyte)128)
+        One = 1 << 0,
+        Two = 1 << 1,
+        Four = 1 << 2,
+        Eight = 1 << 3,
+        Sixteen = 1 << 4,
+        ThirtyTwo = 1 << 5,
+        SixtyFour = 1 << 6,
+        OneTwentyEight = unchecked((sbyte)(1 << 7))
     }
 
     public enum ULongEnum : ulong

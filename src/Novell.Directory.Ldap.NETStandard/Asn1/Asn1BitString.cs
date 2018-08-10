@@ -58,8 +58,9 @@ namespace Novell.Directory.Ldap.Asn1
 
             var ba = new BitArray(len * 8, false);
             var tmp = new byte[1];
+            // TODO: Something is wrong here.
 
-            for (int i = len; i > 0; i--)
+            for (int i = 0; i < len; i++)
             {
                 var retVal = inRenamed.Read(tmp, 0, 1);
                 if (retVal < 1)
@@ -72,14 +73,14 @@ namespace Novell.Directory.Ldap.Asn1
                 if (flagByte != 0) // the BitArray defaults to false, so don't loop if we're not setting anything anyway
                 {
                     var multi = i * 8;
-                    ba[multi - 1] = IsBitSet(flagByte, 7);
-                    ba[multi - 2] = IsBitSet(flagByte, 6);
-                    ba[multi - 3] = IsBitSet(flagByte, 5);
-                    ba[multi - 4] = IsBitSet(flagByte, 4);
-                    ba[multi - 5] = IsBitSet(flagByte, 3);
-                    ba[multi - 6] = IsBitSet(flagByte, 2);
-                    ba[multi - 7] = IsBitSet(flagByte, 1);
-                    ba[multi - 8] = IsBitSet(flagByte, 0);
+                    ba[multi + 0] = IsBitSet(flagByte, 7);
+                    ba[multi + 1] = IsBitSet(flagByte, 6);
+                    ba[multi + 2] = IsBitSet(flagByte, 5);
+                    ba[multi + 3] = IsBitSet(flagByte, 4);
+                    ba[multi + 4] = IsBitSet(flagByte, 3);
+                    ba[multi + 5] = IsBitSet(flagByte, 2);
+                    ba[multi + 6] = IsBitSet(flagByte, 1);
+                    ba[multi + 7] = IsBitSet(flagByte, 0);
                 }
             }
 
@@ -100,6 +101,31 @@ namespace Novell.Directory.Ldap.Asn1
 
         public int NumBits => _bits.Length;
 
+        /// <summary>
+        /// Converts the BitString to an enum with the [Flags] attribute.
+        /// 
+        /// Note: We are NOT interpreting the bits as a number with some endianness.
+        /// We are sticking to the ASN.1 BIT STRING specification that says that
+        /// 01000100 means that flag(1) and flag(5) are set - do NOT convert into 0x44/68dec.
+        /// 
+        /// An enum would be defined like this:
+        /// 
+        /// [Flags]
+        /// public enum MyFlagsEnum
+        /// {
+        ///     Flag0 = 1 &lt;&lt; 0, // 1 dec
+        ///     Flag1 = 1 &lt;&lt; 1, // 2 dec
+        ///     Flag2 = 1 &lt;&lt; 2, // 4 dec
+        ///     Flag3 = 1 &lt;&lt; 3, // 8 dec
+        ///     Flag4 = 1 &lt;&lt; 4, // 16 dec
+        ///     Flag5 = 1 &lt;&lt; 5, // 32 dec
+        ///     Flag6 = 1 &lt;&lt; 6, // 64 dec
+        ///     Flag7 = 1 &lt;&lt; 7  // 128 dec
+        /// }
+        /// 
+        /// Calling ToFlagsEnum for example MyFlagsEnum above will
+        /// return an enum with Flag1 | Flag5.
+        /// </summary>
         public T ToFlagsEnum<T>() where T : struct
         {
             var type = typeof(T);
@@ -305,6 +331,17 @@ namespace Novell.Directory.Ldap.Asn1
                 }
             }
             return result;
+        }
+
+        public override string ToString()
+        {
+            var chars = new char[NumBits];
+            for (int i = 0; i < NumBits; i++)
+            {
+                chars[i] = IsSet(i) ? '1' : '0';
+            }
+
+            return base.ToString() + "BIT STRING: " + new string(chars);
         }
     }
 }
