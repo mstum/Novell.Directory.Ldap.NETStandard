@@ -1,8 +1,5 @@
 ﻿using Novell.Directory.Ldap.Asn1;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
 
 namespace Novell.Directory.Ldap.Sasl.Asn1
 {
@@ -20,47 +17,40 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
     {
         public int ProtocolVersionNumber { get; set; }
         public MessageType MessageType { get; set; }
-        // padata          [3] SEQUENCE OF PA-DATA OPTIONAL
+        public IList<PaData> PaData { get; set; }
         public KdcReqBody Body { get; set; }
 
-        protected KdcReq(Asn1Identifier id) : base(id) { }
+        protected KdcReq(Asn1Identifier id) : base(id) {
+            PaData = new List<PaData>();
+        }
 
         protected KdcReq(Asn1Identifier id, Asn1Tagged input, IAsn1Decoder decoder) : base(id)
         {
-            var val = input.TaggedValue as Asn1OctetString;
-            var sequence = decoder.Decode(val.ByteValue()) as Asn1Sequence;
-
-            var size = sequence.Size();
-            for (int i = 0; i < size; i++)
+            PaData = new List<PaData>();
+            foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
             {
-                var item = sequence.get_Renamed(i) as Asn1Tagged;
                 var itemId = item.GetIdentifier();
-
-                if (itemId.IsContext)
+                var ostring = (Asn1OctetString)item.TaggedValue;
+                switch (itemId.Tag)
                 {
-                    var ostring = (Asn1OctetString)item.TaggedValue;
-                    switch (itemId.Tag)
-                    {
-                        case 1:
-                            using (var ms = new MemoryStream(ostring.ByteValue()))
-                            {
-                                var pvno = decoder.Decode(ms) as Asn1Integer;
-                                ProtocolVersionNumber = pvno.IntValue();
-                            }
-                            break;
-                        case 2:
-                            using (var ms = new MemoryStream(ostring.ByteValue()))
-                            {
-                                var msgType = decoder.Decode(ms) as Asn1Integer;
-                                MessageType = (MessageType)msgType.IntValue();
-                            }
-                            break;
-                        case 3:
-                            throw new NotImplementedException("TODO: padata [3] SEQUENCE OF PA-DATA OPTIONAL");
-                        case 4:
-                            Body = new KdcReqBody(item, decoder);
-                            break;
-                    }
+                    case 1:
+                        var pvno = ostring.DecodeAs<Asn1Integer>(decoder);
+                        ProtocolVersionNumber = pvno.IntValue();
+                        break;
+                    case 2:
+                        var msgType = ostring.DecodeAs<Asn1Integer>(decoder);
+                        MessageType = (MessageType)msgType.IntValue();
+                        break;
+                    case 3:
+                        var paseq = ostring.DecodeAs<Asn1Sequence>(decoder);
+                        foreach (var data in IterateThroughSequence(paseq))
+                        {
+                            PaData.Add(new PaData(data, decoder));
+                        }
+                        break;
+                    case 4:
+                        Body = new KdcReqBody(item, decoder);
+                        break;
                 }
             }
         }

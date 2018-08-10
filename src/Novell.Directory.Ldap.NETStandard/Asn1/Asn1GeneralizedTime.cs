@@ -303,9 +303,6 @@ namespace Novell.Directory.Ldap.Asn1
             throw new NotImplementedException();
         }
 
-        public override string ToString()
-        {
-            return base.ToString() + "GENERALIZED TIME: " + StringValue();
-        }
+        protected override string ToStringName => "GENERALIZED TIME: ";
     }
 }

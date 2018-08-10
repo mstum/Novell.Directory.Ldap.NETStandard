@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Novell.Directory.Ldap.Asn1;
+using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace Novell.Directory.Ldap
@@ -22,5 +24,8 @@ namespace Novell.Directory.Ldap
         /// Shortcut for Encoding.UTF8.GetBytes
         /// </summary>
         internal static byte[] ToUtf8Bytes(this string input) => Encoding.UTF8.GetBytes(input);
+
+        internal static Stream CreateReadStream(this byte[] bytes) 
+            => new MemoryStream(bytes, writable: false);
     }
 }

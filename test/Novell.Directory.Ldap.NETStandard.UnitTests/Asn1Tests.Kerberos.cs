@@ -141,7 +141,22 @@ namespace Novell.Directory.Ldap.NETStandard.UnitTests
                 Assert.NotNull(result);
                 Assert.True(result.GetIdentifier().IsSameTagAs(AsReq.Id));
                 Assert.IsType<AsReq>(result);
-                Assert.Null("TODO: Validate all the properties");                
+
+                Assert.Equal(5, result.ProtocolVersionNumber);
+                Assert.Equal(MessageType.KRB_AS_REQ, result.MessageType);
+                Assert.NotNull(result.PaData);
+                Assert.Equal(0, result.PaData.Count);
+                Assert.NotNull(result.Body);
+
+                var body = result.Body;
+
+                Assert.Equal("INT.DEVDOMAINS.ORG", body.Realm);
+                Assert.Null(body.From);
+                Assert.Equal(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc), body.Till);
+                Assert.Equal(985958300u, body.Nonce);
+                Assert.Null(body.RTime);
+
+                Assert.Null("TODO: Validate all the properties");
             }
         }
     }
