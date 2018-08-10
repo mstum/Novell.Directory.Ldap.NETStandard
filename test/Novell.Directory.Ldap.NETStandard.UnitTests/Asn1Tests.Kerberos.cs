@@ -150,19 +150,21 @@ namespace Novell.Directory.Ldap.NETStandard.UnitTests
 
                 var body = result.Body;
 
-
-                Assert.Equal("INT.DEVDOMAINS.ORG", body.Realm);
+                // kdc-options             [0] KDCOptions,
                 Assert.Single(body.CName.Name);
                 Assert.Equal("Administrator", body.CName.Name[0]);
+                Assert.Equal("INT.DEVDOMAINS.ORG", body.Realm);
                 Assert.Equal(2, body.SName.Name.Length);
                 Assert.Equal("krbtgt", body.SName.Name[0]);
                 Assert.Equal("INT.DEVDOMAINS.ORG", body.SName.Name[1]);
-
-
                 Assert.Null(body.From);
                 Assert.Equal(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc), body.Till);
-                Assert.Equal(985958300u, body.Nonce);
                 Assert.Null(body.RTime);
+                Assert.Equal(985958300u, body.Nonce);
+                // etype                   [8] SEQUENCE OF Int32 -- EncryptionType
+                // addresses               [9] HostAddresses OPTIONAL,
+                // enc-authorization-data  [10] EncryptedData OPTIONAL
+                // additional-tickets      [11] SEQUENCE OF Ticket OPTIONAL -- NOTE: not empty
 
                 Assert.Null("TODO: Validate all the properties");
             }
