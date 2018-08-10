@@ -31,7 +31,7 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
     public class KdcReqBody : KerberosAsn1Object
     {
         // kdc-options             [0] KDCOptions,
-        // cname                   [1] PrincipalName OPTIONAL -- Used only in AS-REQ --,
+        public PrincipalName CName { get; set; }
 
         /// <summary>
         /// -- Server's realm
@@ -39,11 +39,12 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
         /// </summary>
         public string Realm { get; set; }
 
-        // sname                   [3] PrincipalName OPTIONAL,
+        public PrincipalName SName { get; set; }
         public DateTime? From { get; set; }
         public DateTime Till { get; set; }
         public DateTime? RTime { get; set; }
         public uint Nonce { get; set; }
+
         // etype                   [8] SEQUENCE OF Int32 -- EncryptionType -- in preference order --,
         // addresses               [9] HostAddresses OPTIONAL,
         // enc-authorization-data  [10] EncryptedData OPTIONAL-- AuthorizationData --,
@@ -63,14 +64,17 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                 switch (itemId.Tag)
                 {
                     case 0:
+                        // kdc-options             [0] KDCOptions,
                         break;
                     case 1:
+                        CName = new PrincipalName(item, decoder);
                         break;
                     case 2:
                         var rs = ostring.DecodeAs<Asn1GeneralString>(decoder);
                         Realm = rs.StringValue();
                         break;
                     case 3:
+                        SName = new PrincipalName(item, decoder);
                         break;
                     case 4:
                         var from = ostring.DecodeAs<Asn1GeneralizedTime>(decoder);
@@ -96,12 +100,16 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                         Nonce = (uint)nonce.LongValue();
                         break;
                     case 8:
+                        // etype                   [8] SEQUENCE OF Int32 -- EncryptionType -- in preference order --,
                         break;
                     case 9:
+                        // addresses               [9] HostAddresses OPTIONAL,
                         break;
                     case 10:
+                        // enc-authorization-data  [10] EncryptedData OPTIONAL-- AuthorizationData --,
                         break;
                     case 11:
+                        // additional-tickets      [11] SEQUENCE OF Ticket OPTIONAL -- NOTE: not empty
                         break;
                 }
             }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -46,7 +45,8 @@ namespace Novell.Directory.Ldap.Asn1
                     throw new Asn1DecodingException("Encountered EOF before the string was fully decoded.");
                 }
 
-                // TODO: Validate if character is in range
+                // TODO: Validate if character is in range:
+                // (All registered C and G sets, space and delete)
 
                 chars[i] = (byte)retVal;
             }
