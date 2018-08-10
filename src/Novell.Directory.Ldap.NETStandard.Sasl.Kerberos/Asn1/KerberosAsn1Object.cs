@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Novell.Directory.Ldap.Asn1;
 
 namespace Novell.Directory.Ldap.Sasl.Asn1
@@ -34,6 +35,19 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                 var item = sequence.get_Renamed(i);
                 yield return item as Asn1Tagged;
             }
+        }
+
+        protected T[] IterateAndTransform<T>(Asn1Sequence sequence, Func<int, Asn1Object, T> processWithIndex)
+        {
+            var size = sequence.Size();
+            var result = new T[size];
+            for (int i = 0; i < size; i++)
+            {
+                var item = sequence.get_Renamed(i);
+                var r = processWithIndex(i, item);
+                result[i] = r;
+            }
+            return result;
         }
     }
 }

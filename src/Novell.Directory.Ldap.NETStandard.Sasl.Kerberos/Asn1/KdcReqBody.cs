@@ -30,7 +30,9 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
     /// </summary>
     public class KdcReqBody : KerberosAsn1Object
     {
-        // kdc-options             [0] KDCOptions,
+        // Padding?
+        public KdcOptions KdcOptions { get; set; }
+
         public PrincipalName CName { get; set; }
 
         /// <summary>
@@ -45,7 +47,11 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
         public DateTime? RTime { get; set; }
         public uint Nonce { get; set; }
 
-        // etype                   [8] SEQUENCE OF Int32 -- EncryptionType -- in preference order --,
+        /// <summary>
+        /// In Preference Order
+        /// </summary>
+        public EncryptionType[] EncryptionType { get; set; }
+
         // addresses               [9] HostAddresses OPTIONAL,
         // enc-authorization-data  [10] EncryptedData OPTIONAL-- AuthorizationData --,
         // additional-tickets      [11] SEQUENCE OF Ticket OPTIONAL -- NOTE: not empty
@@ -64,7 +70,9 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                 switch (itemId.Tag)
                 {
                     case 0:
-                        // kdc-options             [0] KDCOptions,
+                        // Padding? 0x03 0x05 0x00 0x00 0x00 0x00 0x00
+                        var kdcOpt = ostring.DecodeAs<Asn1BitString>(decoder);
+                        KdcOptions = kdcOpt.ToFlagsEnum<KdcOptions>();
                         break;
                     case 1:
                         CName = new PrincipalName(item, decoder);
@@ -100,7 +108,13 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                         Nonce = (uint)nonce.LongValue();
                         break;
                     case 8:
-                        // etype                   [8] SEQUENCE OF Int32 -- EncryptionType -- in preference order --,
+                        var val = item.TaggedValue as Asn1OctetString;
+                        var sequence = decoder.Decode(val.ByteValue()) as Asn1Sequence;
+
+                        EncryptionType = IterateAndTransform(sequence, (ix, asn1) => {
+                            var i = asn1 as Asn1Integer;
+                            return (EncryptionType)i.IntValue();
+                        });
                         break;
                     case 9:
                         // addresses               [9] HostAddresses OPTIONAL,

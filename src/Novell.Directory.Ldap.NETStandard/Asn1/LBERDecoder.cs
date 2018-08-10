@@ -157,6 +157,9 @@ namespace Novell.Directory.Ldap.Asn1
                     case Asn1GeneralString.Tag:
                         return new Asn1GeneralString(this, inRenamed, length);
 
+                    case Asn1BitString.Tag:
+                        return new Asn1BitString(this, inRenamed, length);
+
                     default:
                         throw new EndOfStreamException("Unknown tag"); // !!! need a better exception
                 }

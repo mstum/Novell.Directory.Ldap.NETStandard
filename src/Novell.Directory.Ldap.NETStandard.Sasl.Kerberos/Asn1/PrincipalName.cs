@@ -10,7 +10,7 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
     /// }
     public class PrincipalName : KerberosAsn1Object
     {
-        public int Type { get; set; }
+        public NameType Type { get; set; }
         public string[] Name { get; set; }
 
         public PrincipalName() : base(Asn1Sequence.Id)
@@ -28,19 +28,15 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                 {
                     case 0:
                         var type = ostring.DecodeAs<Asn1Integer>(decoder);
-                        Type = type.IntValue();
+                        Type = (NameType)type.IntValue();
                         break;
                     case 1:
                         var names = ostring.DecodeAs<Asn1Sequence>(decoder);
-                        var size = names.Size();
-                        var nr = new string[size];
-
-                        for (int i = 0; i < size; i++)
+                        Name = IterateAndTransform(names, (ix, asn1) =>
                         {
-                            var nameItem = names.get_Renamed(i) as Asn1GeneralString;
-                            nr[i] = nameItem.StringValue();
-                        }
-                        Name = nr;
+                            var ns = asn1 as Asn1GeneralString;
+                            return ns.StringValue();
+                        });
                         break;
                 }
             }
