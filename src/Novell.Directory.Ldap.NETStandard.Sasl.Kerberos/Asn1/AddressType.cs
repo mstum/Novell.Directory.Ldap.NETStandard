@@ -1,0 +1,15 @@
+﻿namespace Novell.Directory.Ldap.Sasl.Asn1
+{
+    public enum AddressType
+    {
+        IPv4 = 2,
+        Diretional = 3,
+        ChaosNet = 5,
+        XNS = 6,
+        ISO = 7,
+        DECNETPhaseIV = 12,
+        AppleTalkDDP = 16,
+        NetBios = 20,
+        IPv6 = 24
+    }
+}

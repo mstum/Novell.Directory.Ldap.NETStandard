@@ -52,25 +52,29 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
         /// </summary>
         public EncryptionType[] EncryptionType { get; set; }
 
-        // addresses               [9] HostAddresses OPTIONAL,
+        public HostAddress[] Addresses { get; set; }
+
         // enc-authorization-data  [10] EncryptedData OPTIONAL-- AuthorizationData --,
-        // additional-tickets      [11] SEQUENCE OF Ticket OPTIONAL -- NOTE: not empty
+        public Ticket[] AdditionalTickets { get; set; }
 
 
         // KDC-REQ-BODY has no Id of it's own, since it's always part of some object
-        public KdcReqBody() : base(Asn1Sequence.Id) { }
+        public KdcReqBody() : base(Asn1Sequence.Id) {
+            EncryptionType = Array.Empty<EncryptionType>();
+            Addresses = Array.Empty<HostAddress>();
+            AdditionalTickets = Array.Empty<Ticket>();
+        }
 
-        public KdcReqBody(Asn1Tagged input, IAsn1Decoder decoder) : base(Asn1Sequence.Id)
+        public KdcReqBody(Asn1Tagged input, IAsn1Decoder decoder) : this()
         {
             foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
             {
                 var itemId = item.GetIdentifier();
-
                 var ostring = (Asn1OctetString)item.TaggedValue;
                 switch (itemId.Tag)
                 {
                     case 0:
-                        // Padding? 0x03 0x05 0x00 0x00 0x00 0x00 0x00
+                        // TODO: Padding? 0x03 0x05 0x00 0x00 0x00 0x00 0x00
                         var kdcOpt = ostring.DecodeAs<Asn1BitString>(decoder);
                         KdcOptions = kdcOpt.ToFlagsEnum<KdcOptions>();
                         break;
@@ -111,19 +115,38 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                         var val = item.TaggedValue as Asn1OctetString;
                         var sequence = decoder.Decode(val.ByteValue()) as Asn1Sequence;
 
-                        EncryptionType = IterateAndTransform(sequence, (ix, asn1) => {
+                        EncryptionType = IterateAndTransform(sequence, (ix, asn1) =>
+                        {
                             var i = asn1 as Asn1Integer;
                             return (EncryptionType)i.IntValue();
                         });
                         break;
                     case 9:
                         // addresses               [9] HostAddresses OPTIONAL,
+                        var addrSeq = item.TaggedValue as Asn1OctetString;
+                        var addrSequence = decoder.Decode(addrSeq.ByteValue()) as Asn1Sequence;
+
+                        // TODO: Is this correct?
+                        Addresses = IterateAndTransform<HostAddress>(addrSequence, (ix, asn1) =>
+                        {
+                            var at = asn1 as Asn1Tagged;
+                            return new HostAddress(at, decoder);
+                        });
                         break;
                     case 10:
                         // enc-authorization-data  [10] EncryptedData OPTIONAL-- AuthorizationData --,
                         break;
                     case 11:
                         // additional-tickets      [11] SEQUENCE OF Ticket OPTIONAL -- NOTE: not empty
+                        var addTick = item.TaggedValue as Asn1OctetString;
+                        var addTickSeq = decoder.Decode(addTick.ByteValue()) as Asn1Sequence;
+
+                        // TODO: Is this correct?
+                        AdditionalTickets = IterateAndTransform(addTickSeq, (ix, asn1) =>
+                        {
+                            var at = asn1 as Asn1Tagged;
+                            return new Ticket(at, decoder);
+                        });
                         break;
                 }
             }

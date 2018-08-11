@@ -1,6 +1,8 @@
 ﻿using Novell.Directory.Ldap.Asn1;
 using Novell.Directory.Ldap.Sasl.Asn1;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Xunit;
@@ -161,10 +163,13 @@ namespace Novell.Directory.Ldap.NETStandard.UnitTests
                 Assert.Equal(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc), body.Till);
                 Assert.Null(body.RTime);
                 Assert.Equal(985958300u, body.Nonce);
-                // etype                   [8] SEQUENCE OF Int32 -- EncryptionType
-                // addresses               [9] HostAddresses OPTIONAL,
-                // enc-authorization-data  [10] EncryptedData OPTIONAL
-                // additional-tickets      [11] SEQUENCE OF Ticket OPTIONAL -- NOTE: not empty
+                Assert.NotNull(body.EncryptionType);
+                Assert.Equal(4, body.EncryptionType.Length);
+                Assert.Equal((IEnumerable<EncryptionType>)new EncryptionType[] {
+                    EncryptionType.AES256_CTS_HMAC_SHA1_96, EncryptionType.AES128_CTS_HMAC_SHA1_96,
+                    EncryptionType.DES3_CBC_SHA1_KD, EncryptionType.RC4_HMAC_NT }, body.EncryptionType);
+                Assert.Null(body.Addresses);
+                Assert.NotNull(body.AdditionalTickets);
 
                 Assert.Null("TODO: Validate all the properties");
             }
