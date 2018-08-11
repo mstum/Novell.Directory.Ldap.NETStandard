@@ -20,7 +20,11 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
         public int TicketVersionNumber { get; set; }
         public string Realm { get; set; }
         public PrincipalName SName { get; set; }
-        // enc-part        [3] EncryptedData -- EncTicketPart
+
+        /// <summary>
+        /// EncTicketPart
+        /// </summary>
+        public EncryptedData EncPart { get; set; }
 
         public Ticket()
             : base(Id)
@@ -48,7 +52,8 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                         SName = new PrincipalName(item, decoder);
                         break;
                     case 3:
-                        // enc-part        [3] EncryptedData -- EncTicketPart
+                        // TODO: Test this
+                        EncPart = new EncryptedData(item, decoder);
                         break;
                 }
             }

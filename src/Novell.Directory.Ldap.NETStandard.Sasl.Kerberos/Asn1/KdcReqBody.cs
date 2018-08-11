@@ -54,7 +54,8 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
 
         public HostAddress[] Addresses { get; set; }
 
-        // enc-authorization-data  [10] EncryptedData OPTIONAL-- AuthorizationData --,
+        public EncryptedData EncAuthorizationData { get; set; }
+
         public Ticket[] AdditionalTickets { get; set; }
 
 
@@ -135,6 +136,7 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                         break;
                     case 10:
                         // enc-authorization-data  [10] EncryptedData OPTIONAL-- AuthorizationData --,
+                        EncAuthorizationData = new EncryptedData(item, decoder);
                         break;
                     case 11:
                         // additional-tickets      [11] SEQUENCE OF Ticket OPTIONAL -- NOTE: not empty
