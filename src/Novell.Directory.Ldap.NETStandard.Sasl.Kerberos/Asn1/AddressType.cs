@@ -1,6 +1,11 @@
 ﻿namespace Novell.Directory.Ldap.Sasl.Asn1
 {
-    public enum AddressType
+    /// <summary>
+    /// All negative values for the host address type are reserved for local
+    /// use. All non-negative values are reserved for officially assigned
+    /// type fields and interpretations.
+    /// </summary>
+    public enum AddressType : int
     {
         IPv4 = 2,
         Diretional = 3,
