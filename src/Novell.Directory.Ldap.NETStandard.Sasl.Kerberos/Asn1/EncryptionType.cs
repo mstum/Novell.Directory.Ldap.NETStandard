@@ -42,7 +42,6 @@
         RC4_HMAC_NT = 23,
         RC4_HMAC_NT_EXP = 24,
 
-
         RC4_MD4 = -128, // FFFFFF80
         RC4_PLAIN2 = -129,
         RC4_LM = -130,

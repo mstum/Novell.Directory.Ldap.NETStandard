@@ -30,8 +30,7 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                 switch (itemId.Tag)
                 {
                     case 1:
-                        var type = ostring.DecodeAs<Asn1Integer>(decoder);
-                        Type = (AddressType)type.IntValue();
+                        Type = (AddressType)DecodeInteger(ostring, decoder);
                         break;
                     case 2:
                         Address = ostring.ByteValue();

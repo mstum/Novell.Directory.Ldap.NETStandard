@@ -5,23 +5,22 @@ using System.IO;
 namespace Novell.Directory.Ldap.Sasl.Asn1
 {
     /// <summary>
-    /// -- encoded Transited field
-    /// TransitedEncoding       ::= SEQUENCE {
-    ///         tr-type         [0] Int32 -- must be registered --,
-    ///         contents        [1] OCTET STRING
+    /// LastReq         ::=     SEQUENCE OF SEQUENCE {
+    ///         lr-type         [0] Int32,
+    ///         lr-value        [1] KerberosTime
     /// }
     /// </summary>
-    public class TransitedEncoding : KerberosAsn1Object
+    public class LastReq : KerberosAsn1Object
     {
         public int Type { get; set; }
-        public byte[] Contents { get; set; }
+        public DateTime Value { get; set; }
 
-        public TransitedEncoding()
+        public LastReq()
             : base(Asn1Sequence.Id)
         {
         }
 
-        public TransitedEncoding(Asn1Tagged input, IAsn1Decoder decoder)
+        public LastReq(Asn1Tagged input, IAsn1Decoder decoder)
             : base(Asn1Sequence.Id)
         {
             foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
@@ -34,7 +33,8 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                         Type = (int)DecodeInteger(ostring, decoder);
                         break;
                     case 2:
-                        Contents = ostring.ByteValue();
+                        var val = ostring.DecodeAs<Asn1GeneralizedTime>(decoder);
+                        Value = val.GeneralizedTime;
                         break;
                 }
             }

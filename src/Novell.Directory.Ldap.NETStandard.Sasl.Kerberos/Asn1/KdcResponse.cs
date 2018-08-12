@@ -43,12 +43,10 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                 switch (itemId.Tag)
                 {
                     case 0:
-                        var pvno = ostring.DecodeAs<Asn1Integer>(decoder);
-                        ProtocolVersionNumber = pvno.IntValue();
+                        ProtocolVersionNumber = (int)DecodeInteger(ostring, decoder);
                         break;
                     case 1:
-                        var msgType = ostring.DecodeAs<Asn1Integer>(decoder);
-                        MessageType = (MessageType)msgType.IntValue();
+                        MessageType = (MessageType)DecodeInteger(ostring, decoder);
                         break;
                     case 2:
                         var paseq = ostring.DecodeAs<Asn1Sequence>(decoder);

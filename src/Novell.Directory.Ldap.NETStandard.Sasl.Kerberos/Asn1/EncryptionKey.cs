@@ -39,8 +39,7 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                 switch (itemId.Tag)
                 {
                     case 0:
-                        var type = ostring.DecodeAs<Asn1Integer>(decoder);
-                        Type = (EncryptionType)type.IntValue();
+                        Type = (EncryptionType)DecodeInteger(ostring, decoder);
                         break;
                     case 1:
                         KeyValue = ostring.ByteValue();

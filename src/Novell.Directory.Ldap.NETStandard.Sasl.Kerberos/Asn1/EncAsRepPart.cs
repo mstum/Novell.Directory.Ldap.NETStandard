@@ -5,20 +5,18 @@ using System.IO;
 namespace Novell.Directory.Ldap.Sasl.Asn1
 {
     /// <summary>
-    /// AS-REP          ::= [APPLICATION 11] KDC-REP
+    /// EncASRepPart    ::= [APPLICATION 25] EncKDCRepPart
     /// </summary>
-    public class AsResponse : KdcResponse
+    public class EncAsRepPart : EncKdcRepPart
     {
-        public static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.Application, true, 11);
+        public static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.Application, true, 25);
 
-        // TODO: EcryptedData to EncASRepPart
-
-        public AsResponse()
+        public EncAsRepPart()
             : base(Id)
         {
         }
 
-        public AsResponse(Asn1Tagged input, IAsn1Decoder decoder)
+        public EncAsRepPart(Asn1Tagged input, IAsn1Decoder decoder)
             : base(Id, input, decoder)
         {
         }

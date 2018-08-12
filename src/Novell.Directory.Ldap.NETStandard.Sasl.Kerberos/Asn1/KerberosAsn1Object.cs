@@ -37,6 +37,18 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
             }
         }
 
+        protected T[] IterateAndTransform<T>(Asn1Tagged sequence, IAsn1Decoder decoder, Func<int, Asn1Object, T> processWithIndex)
+        {
+            var seq = SequenceFromTaggedItem(sequence, decoder);
+            return IterateAndTransform(seq, processWithIndex);
+        }
+
+        protected T[] IterateAndTransform<T>(Asn1OctetString sequence, IAsn1Decoder decoder, Func<int, Asn1Object, T> processWithIndex)
+        {
+            var seq = SequenceFromOctetString(sequence, decoder);
+            return IterateAndTransform(seq, processWithIndex);
+        }
+
         protected T[] IterateAndTransform<T>(Asn1Sequence sequence, Func<int, Asn1Object, T> processWithIndex)
         {
             var size = sequence.Size();
@@ -54,6 +66,17 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
         {
             var result = ostring.DecodeAs<Asn1Integer>(decoder);
             return result.LongValue();
+        }
+
+        protected Asn1Sequence SequenceFromTaggedItem(Asn1Tagged item, IAsn1Decoder decoder)
+        {
+            var ostring = item.TaggedValue as Asn1OctetString;
+            return SequenceFromOctetString(ostring, decoder);
+        }
+
+        protected Asn1Sequence SequenceFromOctetString(Asn1OctetString ostring, IAsn1Decoder decoder)
+        {
+            return decoder.Decode(ostring.ByteValue()) as Asn1Sequence;
         }
     }
 }

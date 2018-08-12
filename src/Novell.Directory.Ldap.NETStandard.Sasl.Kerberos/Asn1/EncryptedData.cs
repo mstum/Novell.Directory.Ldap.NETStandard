@@ -1,8 +1,6 @@
 ﻿using Novell.Directory.Ldap.Asn1;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace Novell.Directory.Ldap.Sasl.Asn1
 {
@@ -40,12 +38,10 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                 switch (itemId.Tag)
                 {
                     case 0:
-                        var type = ostring.DecodeAs<Asn1Integer>(decoder);
-                        Type = (EncryptionType)type.IntValue();
+                        Type = (EncryptionType)DecodeInteger(ostring, decoder);
                         break;
                     case 1:
-                        var kvno = ostring.DecodeAs<Asn1Integer>(decoder);
-                        KeyVersionNumber = (uint)kvno.LongValue();
+                        KeyVersionNumber = (uint)DecodeInteger(ostring, decoder);
                         break;
                     case 2:
                         CipherText = ostring.ByteValue();

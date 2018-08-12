@@ -41,8 +41,7 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                 switch (itemId.Tag)
                 {
                     case 0:
-                        var pvno = ostring.DecodeAs<Asn1Integer>(decoder);
-                        TicketVersionNumber = pvno.IntValue();
+                        TicketVersionNumber = (int)DecodeInteger(ostring, decoder);
                         break;
                     case 1:
                         var rs = ostring.DecodeAs<Asn1GeneralString>(decoder);

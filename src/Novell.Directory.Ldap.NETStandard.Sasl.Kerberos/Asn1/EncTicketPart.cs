@@ -90,9 +90,7 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                         }
                         break;
                     case 9:
-                        var caddrs = item.TaggedValue as Asn1OctetString;
-                        var caddrseq = decoder.Decode(caddrs.ByteValue()) as Asn1Sequence;
-                        CAddresses = IterateAndTransform(caddrseq, (ix, caddrItem) =>
+                        CAddresses = IterateAndTransform(item, decoder, (ix, caddrItem) =>
                         {
                             var itemSeq = caddrItem as Asn1Tagged;
                             return new HostAddress(itemSeq, decoder);

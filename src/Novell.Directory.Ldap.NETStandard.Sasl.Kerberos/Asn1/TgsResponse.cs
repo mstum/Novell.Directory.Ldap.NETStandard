@@ -11,7 +11,7 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
     {
         public static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.Application, true, 13);
 
-        // EncTGSRepPart
+        // TODO: EcryptedData to EncTGSRepPart
 
         public TgsResponse()
             : base(Id)

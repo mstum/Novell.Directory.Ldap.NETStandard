@@ -109,10 +109,7 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                         Nonce = (uint)DecodeInteger(ostring, decoder);
                         break;
                     case 8:
-                        var val = item.TaggedValue as Asn1OctetString;
-                        var sequence = decoder.Decode(val.ByteValue()) as Asn1Sequence;
-
-                        EncryptionType = IterateAndTransform(sequence, (ix, asn1) =>
+                        EncryptionType = IterateAndTransform(item, decoder, (ix, asn1) =>
                         {
                             var i = asn1 as Asn1Integer;
                             return (EncryptionType)i.IntValue();
@@ -120,11 +117,7 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                         break;
                     case 9:
                         // addresses               [9] HostAddresses OPTIONAL,
-                        var addrSeq = item.TaggedValue as Asn1OctetString;
-                        var addrSequence = decoder.Decode(addrSeq.ByteValue()) as Asn1Sequence;
-
-                        // TODO: Is this correct?
-                        Addresses = IterateAndTransform<HostAddress>(addrSequence, (ix, asn1) =>
+                        Addresses = IterateAndTransform(item, decoder, (ix, asn1) =>
                         {
                             var at = asn1 as Asn1Tagged;
                             return new HostAddress(at, decoder);
@@ -136,11 +129,7 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                         break;
                     case 11:
                         // additional-tickets      [11] SEQUENCE OF Ticket OPTIONAL -- NOTE: not empty
-                        var addTick = item.TaggedValue as Asn1OctetString;
-                        var addTickSeq = decoder.Decode(addTick.ByteValue()) as Asn1Sequence;
-
-                        // TODO: Is this correct?
-                        AdditionalTickets = IterateAndTransform(addTickSeq, (ix, asn1) =>
+                        AdditionalTickets = IterateAndTransform(item, decoder, (ix, asn1) =>
                         {
                             var at = asn1 as Asn1Tagged;
                             return new Ticket(at, decoder);
