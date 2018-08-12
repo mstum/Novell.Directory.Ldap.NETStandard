@@ -137,7 +137,7 @@ namespace Novell.Directory.Ldap.NETStandard.UnitTests
                 var decoder = new LberDecoder();
                 var tagged = decoder.Decode(b) as Asn1Tagged;
 
-                var kerbDec = new KerberosDecoder();
+                var kerbDec = new KerberosCodec();
                 var result = kerbDec.Decode(tagged, decoder) as AsRequest;
 
                 Assert.NotNull(result);
