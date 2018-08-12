@@ -1,0 +1,76 @@
+﻿using Novell.Directory.Ldap.Asn1;
+using System.Collections.Generic;
+
+namespace Novell.Directory.Ldap.Sasl.Asn1
+{
+    /// <summary>
+    /// KDC-REP         ::= SEQUENCE {
+    ///         pvno            [0] INTEGER (5),
+    ///         msg-type        [1] INTEGER (11 -- AS -- | 13 -- TGS --),
+    ///         padata          [2] SEQUENCE OF PA-DATA OPTIONAL
+    ///                                 -- NOTE: not empty --,
+    ///         crealm          [3] Realm,
+    ///         cname           [4] PrincipalName,
+    ///         ticket          [5] Ticket,
+    ///         enc-part        [6] EncryptedData
+    ///                                 -- EncASRepPart or EncTGSRepPart,
+    ///                                 -- as appropriate
+    /// }
+    /// </summary>
+    public abstract class KdcResponse : KerberosAsn1Object
+    {
+        public int ProtocolVersionNumber { get; set; }
+        public MessageType MessageType { get; set; }
+        public IList<PaData> PaData { get; set; }
+        public string CRealm { get; set; }
+        public PrincipalName CName { get; set; }
+        public Ticket Ticket { get; set; }
+        public EncryptedData EncPart { get; set; }
+
+        protected KdcResponse(Asn1Identifier id)
+            : base(id)
+        {
+            PaData = new List<PaData>();
+        }
+
+        protected KdcResponse(Asn1Identifier id, Asn1Tagged input, IAsn1Decoder decoder)
+            : this(id)
+        {
+            foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
+            {
+                var itemId = item.GetIdentifier();
+                var ostring = (Asn1OctetString)item.TaggedValue;
+                switch (itemId.Tag)
+                {
+                    case 0:
+                        var pvno = ostring.DecodeAs<Asn1Integer>(decoder);
+                        ProtocolVersionNumber = pvno.IntValue();
+                        break;
+                    case 1:
+                        var msgType = ostring.DecodeAs<Asn1Integer>(decoder);
+                        MessageType = (MessageType)msgType.IntValue();
+                        break;
+                    case 2:
+                        var paseq = ostring.DecodeAs<Asn1Sequence>(decoder);
+                        foreach (var data in IterateThroughSequence(paseq))
+                        {
+                            PaData.Add(new PaData(data, decoder));
+                        }
+                        break;
+                    case 3:
+                        CName = new PrincipalName(item, decoder);
+                        break;
+                    case 4:
+                        CName = new PrincipalName(item, decoder);
+                        break;
+                    case 5:
+                        Ticket = new Ticket(item, decoder);
+                        break;
+                    case 6:
+                        EncPart = new EncryptedData(item, decoder);
+                        break;
+                }
+            }
+        }
+    }
+}

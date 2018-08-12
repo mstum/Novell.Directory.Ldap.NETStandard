@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using Novell.Directory.Ldap.Asn1;
 
 namespace Novell.Directory.Ldap.Sasl.Asn1
@@ -108,8 +106,7 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                         }
                         break;
                     case 7:
-                        var nonce = ostring.DecodeAs<Asn1Integer>(decoder);
-                        Nonce = (uint)nonce.LongValue();
+                        Nonce = (uint)DecodeInteger(ostring, decoder);
                         break;
                     case 8:
                         var val = item.TaggedValue as Asn1OctetString;

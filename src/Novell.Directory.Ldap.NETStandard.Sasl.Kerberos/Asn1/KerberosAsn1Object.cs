@@ -49,5 +49,11 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
             }
             return result;
         }
+
+        protected long DecodeInteger(Asn1OctetString ostring, IAsn1Decoder decoder)
+        {
+            var result = ostring.DecodeAs<Asn1Integer>(decoder);
+            return result.LongValue();
+        }
     }
 }

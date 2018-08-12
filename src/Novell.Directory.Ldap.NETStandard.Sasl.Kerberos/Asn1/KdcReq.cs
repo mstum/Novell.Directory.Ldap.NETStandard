@@ -42,10 +42,11 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                         MessageType = (MessageType)msgType.IntValue();
                         break;
                     case 3:
-                        var paseq = ostring.DecodeAs<Asn1Sequence>(decoder);
-                        foreach (var data in IterateThroughSequence(paseq))
+                        var paDataSeq = ostring.DecodeAs<Asn1Sequence>(decoder);
+                        foreach (var data in IterateThroughSequence(paDataSeq))
                         {
-                            PaData.Add(new PaData(data, decoder));
+                            var newPaData = new PaData(data, decoder);
+                            PaData.Add(newPaData);
                         }
                         break;
                     case 4:
