@@ -106,7 +106,6 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                         {
                             RTime = rtime.GeneralizedTime;
                         }
-                        RTime = rtime.GeneralizedTime;
                         break;
                     case 7:
                         var nonce = ostring.DecodeAs<Asn1Integer>(decoder);
