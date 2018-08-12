@@ -3,17 +3,17 @@ using System.IO;
 
 namespace Novell.Directory.Ldap.Sasl.Asn1
 {
-    public class TgsReq : KdcReq
+    public class TgsRequest : KdcRequest
     {
         // TGS-REQ ::= [APPLICATION 12] KDC-REQ  
         public static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.Application, true, 12);
 
-        public TgsReq()
+        public TgsRequest()
             : base(Id)
         {
         }
 
-        public TgsReq(Asn1Tagged input, IAsn1Decoder decoder)
+        public TgsRequest(Asn1Tagged input, IAsn1Decoder decoder)
             : base(Id, input, decoder)
         {            
         }

@@ -138,11 +138,11 @@ namespace Novell.Directory.Ldap.NETStandard.UnitTests
                 var tagged = decoder.Decode(b) as Asn1Tagged;
 
                 var kerbDec = new KerberosDecoder();
-                var result = kerbDec.Decode(tagged, decoder) as AsReq;
+                var result = kerbDec.Decode(tagged, decoder) as AsRequest;
 
                 Assert.NotNull(result);
-                Assert.True(result.GetIdentifier().IsSameTagAs(AsReq.Id));
-                Assert.IsType<AsReq>(result);
+                Assert.True(result.GetIdentifier().IsSameTagAs(AsRequest.Id));
+                Assert.IsType<AsRequest>(result);
 
                 Assert.Equal(5, result.ProtocolVersionNumber);
                 Assert.Equal(MessageType.KRB_AS_REQ, result.MessageType);

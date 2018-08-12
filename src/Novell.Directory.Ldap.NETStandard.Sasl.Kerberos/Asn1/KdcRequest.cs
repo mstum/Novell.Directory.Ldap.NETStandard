@@ -13,18 +13,18 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
     ///         req-body        [4] KDC-REQ-BODY
     /// }
     /// </summary>
-    public abstract class KdcReq : KerberosAsn1Object
+    public abstract class KdcRequest : KerberosAsn1Object
     {
         public int ProtocolVersionNumber { get; set; }
         public MessageType MessageType { get; set; }
         public IList<PaData> PaData { get; set; }
         public KdcReqBody Body { get; set; }
 
-        protected KdcReq(Asn1Identifier id) : base(id) {
+        protected KdcRequest(Asn1Identifier id) : base(id) {
             PaData = new List<PaData>();
         }
 
-        protected KdcReq(Asn1Identifier id, Asn1Tagged input, IAsn1Decoder decoder) : base(id)
+        protected KdcRequest(Asn1Identifier id, Asn1Tagged input, IAsn1Decoder decoder) : base(id)
         {
             PaData = new List<PaData>();
             foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
