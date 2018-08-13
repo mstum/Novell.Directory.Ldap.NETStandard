@@ -10,10 +10,22 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
         {
         }
 
-        protected IEnumerable<Asn1Tagged> IterateThroughSequence(Asn1Tagged input, IAsn1Decoder decoder, bool contextTagsOnly)
+        protected IEnumerable<Asn1Tagged> IterateThroughSequence(Asn1Object input, IAsn1Decoder decoder, bool contextTagsOnly)
         {
-            var val = input.TaggedValue as Asn1OctetString;
-            var sequence = decoder.Decode(val.ByteValue()) as Asn1Sequence;
+            Asn1Sequence sequence;
+            if (input is Asn1Tagged tagged)
+            {
+                var val = tagged.TaggedValue as Asn1OctetString;
+                sequence = decoder.Decode(val.ByteValue()) as Asn1Sequence;
+            }
+            else if (input is Asn1Sequence seq)
+            {
+                sequence = seq;
+            }
+            else
+            {
+                throw new ArgumentException("Unsupported Sequence Type: " + input.GetType().Name);
+            }
 
             var size = sequence.Size();
             for (int i = 0; i < size; i++)

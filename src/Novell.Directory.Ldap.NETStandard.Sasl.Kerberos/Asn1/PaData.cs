@@ -21,8 +21,8 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
         {
         }
 
-        public PaData(Asn1Tagged input, IAsn1Decoder decoder)
-            : base(Asn1Sequence.Id)
+        public PaData(Asn1Object input, IAsn1Decoder decoder)
+            : this()
         {
             foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
             {

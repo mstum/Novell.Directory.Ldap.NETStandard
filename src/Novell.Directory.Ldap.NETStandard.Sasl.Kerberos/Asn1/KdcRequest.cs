@@ -41,11 +41,15 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                         break;
                     case 3:
                         var paDataSeq = ostring.DecodeAs<Asn1Sequence>(decoder);
-                        foreach (var data in IterateThroughSequence(paDataSeq))
+                        var size = paDataSeq.Size();
+                        var paData = new PaData[size];
+                        for (int i = 0; i < size; i++)
                         {
-                            var newPaData = new PaData(data, decoder);
-                            PaData.Add(newPaData);
+                            var paDataItem = paDataSeq.get_Renamed(i) as Asn1Sequence;
+                            var newPaData = new PaData(paDataItem, decoder);
+                            paData[i] = newPaData;
                         }
+                        PaData = paData;
                         break;
                     case 4:
                         Body = new KdcReqBody(item, decoder);
