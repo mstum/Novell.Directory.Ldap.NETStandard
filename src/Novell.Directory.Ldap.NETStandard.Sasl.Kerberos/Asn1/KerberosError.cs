@@ -37,7 +37,7 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
         public Microseconds? CUsec { get; set; }
         public DateTime STime { get; set; }
         public Microseconds? SUsec { get; set; }
-        public int ErrorCode { get; set; }
+        public KrbErrorCode ErrorCode { get; set; }
         public string CRealm { get; set; }
         public PrincipalName CName { get; set; }
         public string ServiceRealm { get; set; }
@@ -90,8 +90,7 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                         break;
                     case 6:
                         //         error-code      [6] Int32,
-                        // TODO: Make this an Enum
-                        ErrorCode = (int)DecodeInteger(ostring, decoder);
+                        ErrorCode = (KrbErrorCode)DecodeInteger(ostring, decoder);
                         break;
                     case 7:
                         //         crealm          [7] Realm OPTIONAL,
