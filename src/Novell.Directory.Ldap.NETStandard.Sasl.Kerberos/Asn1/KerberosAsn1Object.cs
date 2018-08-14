@@ -16,7 +16,13 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
             if (input is Asn1Tagged tagged)
             {
                 var val = tagged.TaggedValue as Asn1OctetString;
-                sequence = decoder.Decode(val.ByteValue()) as Asn1Sequence;
+                var decodedVal = decoder.Decode(val.ByteValue());
+                sequence = decodedVal as Asn1Sequence;
+
+                if (sequence == null)
+                {
+                    throw new ArgumentException(nameof(input) + " was Asn1Tagged, but did not contain an Asn1Sequence. Type decoded as: " + decodedVal?.GetType()?.Name ?? "null");
+                }
             }
             else if (input is Asn1Sequence seq)
             {
@@ -78,6 +84,13 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
         {
             var result = ostring.DecodeAs<Asn1Integer>(decoder);
             return result.LongValue();
+        }
+
+        protected string DecodeGeneralString(Asn1OctetString ostring, IAsn1Decoder decoder)
+        {
+            var rs = ostring.DecodeAs<Asn1GeneralString>(decoder);
+            var result = rs.StringValue();
+            return result;
         }
 
         protected Asn1Sequence SequenceFromTaggedItem(Asn1Tagged item, IAsn1Decoder decoder)

@@ -44,14 +44,12 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                         TicketVersionNumber = (int)DecodeInteger(ostring, decoder);
                         break;
                     case 1:
-                        var rs = ostring.DecodeAs<Asn1GeneralString>(decoder);
-                        Realm = rs.StringValue();
+                        Realm = DecodeGeneralString(ostring, decoder);
                         break;
                     case 2:
                         SName = new PrincipalName(item, decoder);
                         break;
                     case 3:
-                        // TODO: Test this
                         EncPart = new EncryptedData(item, decoder);
                         break;
                 }

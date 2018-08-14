@@ -56,13 +56,14 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                         }
                         break;
                     case 3:
-                        CName = new PrincipalName(item, decoder);
+                        CRealm = DecodeGeneralString(ostring, decoder);
                         break;
                     case 4:
                         CName = new PrincipalName(item, decoder);
                         break;
                     case 5:
-                        Ticket = new Ticket(item, decoder);
+                        var ticketAsn1 = ostring.DecodeAs<Asn1Tagged>(decoder);
+                        Ticket = new Ticket(ticketAsn1, decoder);
                         break;
                     case 6:
                         EncPart = new EncryptedData(item, decoder);
