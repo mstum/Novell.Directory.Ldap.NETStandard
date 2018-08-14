@@ -194,7 +194,7 @@ namespace Novell.Directory.Ldap.NETStandard.UnitTests
                 Assert.Equal(MessageType.KRB_AS_REQ, result.MessageType);
                 Assert.NotNull(result.PaData);
                 Assert.Single(result.PaData);
-                Assert.Equal(2, result.PaData[0].Type);
+                Assert.Equal(PaDataType.PA_ENC_TIMESTAMP, result.PaData[0].Type);
                 Assert.NotNull(result.Body);
 
                 var body = result.Body;

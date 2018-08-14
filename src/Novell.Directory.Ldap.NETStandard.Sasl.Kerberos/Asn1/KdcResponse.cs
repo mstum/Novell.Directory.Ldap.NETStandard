@@ -21,7 +21,7 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
     {
         public int ProtocolVersionNumber { get; set; }
         public MessageType MessageType { get; set; }
-        public IList<PaData> PaData { get; set; }
+        public IList<PreAuthenticationData> PaData { get; set; }
         public string CRealm { get; set; }
         public PrincipalName CName { get; set; }
         public Ticket Ticket { get; set; }
@@ -30,7 +30,7 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
         protected KdcResponse(Asn1Identifier id)
             : base(id)
         {
-            PaData = new List<PaData>();
+            PaData = new List<PreAuthenticationData>();
         }
 
         protected KdcResponse(Asn1Identifier id, Asn1Tagged input, IAsn1Decoder decoder)
@@ -52,7 +52,7 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                         var paseq = ostring.DecodeAs<Asn1Sequence>(decoder);
                         foreach (var data in IterateThroughSequence(paseq))
                         {
-                            PaData.Add(new PaData(data, decoder));
+                            PaData.Add(new PreAuthenticationData(data, decoder));
                         }
                         break;
                     case 3:

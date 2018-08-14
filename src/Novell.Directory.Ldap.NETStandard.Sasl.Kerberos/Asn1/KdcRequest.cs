@@ -17,16 +17,16 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
     {
         public int ProtocolVersionNumber { get; set; }
         public MessageType MessageType { get; set; }
-        public IList<PaData> PaData { get; set; }
+        public IList<PreAuthenticationData> PaData { get; set; }
         public KdcReqBody Body { get; set; }
 
         protected KdcRequest(Asn1Identifier id) : base(id) {
-            PaData = new List<PaData>();
+            PaData = new List<PreAuthenticationData>();
         }
 
         protected KdcRequest(Asn1Identifier id, Asn1Tagged input, IAsn1Decoder decoder) : base(id)
         {
-            PaData = new List<PaData>();
+            PaData = new List<PreAuthenticationData>();
             foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
             {
                 var itemId = item.GetIdentifier();
@@ -42,11 +42,11 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                     case 3:
                         var paDataSeq = ostring.DecodeAs<Asn1Sequence>(decoder);
                         var size = paDataSeq.Size();
-                        var paData = new PaData[size];
+                        var paData = new PreAuthenticationData[size];
                         for (int i = 0; i < size; i++)
                         {
                             var paDataItem = paDataSeq.get_Renamed(i) as Asn1Sequence;
-                            var newPaData = new PaData(paDataItem, decoder);
+                            var newPaData = new PreAuthenticationData(paDataItem, decoder);
                             paData[i] = newPaData;
                         }
                         PaData = paData;

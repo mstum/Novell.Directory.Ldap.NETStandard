@@ -11,17 +11,17 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
     ///         padata-value    [2] OCTET STRING -- might be encoded AP-REQ
     /// }
     /// </summary>
-    public class PaData : KerberosAsn1Object
+    public class PreAuthenticationData : KerberosAsn1Object
     {
-        public int Type { get; set; }
+        public PaDataType Type { get; set; }
         public byte[] Value { get; set; }
 
-        public PaData()
+        public PreAuthenticationData()
             : base(Asn1Sequence.Id)
         {
         }
 
-        public PaData(Asn1Object input, IAsn1Decoder decoder)
+        public PreAuthenticationData(Asn1Object input, IAsn1Decoder decoder)
             : this()
         {
             foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
@@ -31,7 +31,7 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                 switch (itemId.Tag)
                 {
                     case 1:
-                        Type = (int)DecodeInteger(ostring, decoder);
+                        Type = (PaDataType)DecodeInteger(ostring, decoder);
                         break;
                     case 2:
                         Value = ostring.ByteValue();
