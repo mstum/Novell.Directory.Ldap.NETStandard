@@ -39,15 +39,8 @@ namespace Novell.Directory.Ldap.Asn1
     ///     This class provides a means to manipulate ASN.1 Length's. It will
     ///     be used by Asn1Encoder's and Asn1Decoder's by composition.
     /// </summary>
-    [CLSCompliant(true)]
     public class Asn1Length
     {
-        /* Private variables
-        */
-
-        /* Constructors for Asn1Length
-        */
-
         /// <summary> Constructs an empty Asn1Length.  Values are added by calling reset.</summary>
         public Asn1Length()
         {
@@ -68,31 +61,7 @@ namespace Novell.Directory.Ldap.Asn1
         /// </param>
         public Asn1Length(Stream inRenamed)
         {
-            var r = inRenamed.ReadByte();
-            EncodedLength++;
-            if (r == 0x80)
-            {
-                Length = -1;
-            }
-            else if (r < 0x80)
-            {
-                Length = r;
-            }
-            else
-            {
-                Length = 0;
-                for (r = r & 0x7F; r > 0; r--)
-                {
-                    var part = inRenamed.ReadByte();
-                    EncodedLength++;
-                    if (part < 0)
-                    {
-                        throw new EndOfStreamException("BERDecoder: decode: EOF in Asn1Length");
-                    }
-
-                    Length = (Length << 8) + part;
-                }
-            }
+            Reset(inRenamed);
         }
 
         /// <summary> Returns the length of this Asn1Length.</summary>

@@ -135,7 +135,6 @@ namespace Novell.Directory.Ldap
             bool isUserModifiable, int usage)
             : base(LdapSchema.SchemaTypeNames[LdapSchema.Attribute])
         {
-            InitBlock();
             this.names = names;
             Oid = oid;
             Description = description;
@@ -163,7 +162,6 @@ namespace Novell.Directory.Ldap
         public LdapAttributeSchema(string raw)
             : base(LdapSchema.SchemaTypeNames[LdapSchema.Attribute])
         {
-            InitBlock();
             try
             {
                 var parser = new SchemaParser(raw);
@@ -173,22 +171,22 @@ namespace Novell.Directory.Ldap
                     names = parser.Names;
                 }
 
-                if ((object)parser.Id != null)
+                if (parser.Id != null)
                 {
                     Oid = parser.Id;
                 }
 
-                if ((object)parser.Description != null)
+                if (parser.Description != null)
                 {
                     Description = parser.Description;
                 }
 
-                if ((object)parser.Syntax != null)
+                if (parser.Syntax != null)
                 {
                     SyntaxString = parser.Syntax;
                 }
 
-                if ((object)parser.Superior != null)
+                if (parser.Superior != null)
                 {
                     Superior = parser.Superior;
                 }
@@ -291,12 +289,7 @@ namespace Novell.Directory.Ldap
         ///     DIRECTORY_OPERATION, DISTRIBUTED_OPERATION or
         ///     DSA_OPERATION.
         /// </returns>
-        public int Usage { get; private set; }
-
-        private void InitBlock()
-        {
-            Usage = UserApplications;
-        }
+        public int Usage { get; private set; } = UserApplications;
 
         /// <summary>
         ///     Returns a string in a format suitable for directly adding to a
@@ -310,7 +303,7 @@ namespace Novell.Directory.Ldap
             var valueBuffer = new StringBuilder("( ");
             string token;
 
-            if ((object)(token = Id) != null)
+            if ((token = Id) != null)
             {
                 valueBuffer.Append(token);
             }
@@ -336,7 +329,7 @@ namespace Novell.Directory.Ldap
                 }
             }
 
-            if ((object)(token = Description) != null)
+            if ((token = Description) != null)
             {
                 valueBuffer.Append(" DESC ");
                 valueBuffer.Append("'" + token + "'");
@@ -347,31 +340,31 @@ namespace Novell.Directory.Ldap
                 valueBuffer.Append(" OBSOLETE");
             }
 
-            if ((object)(token = Superior) != null)
+            if ((token = Superior) != null)
             {
                 valueBuffer.Append(" SUP ");
                 valueBuffer.Append("'" + token + "'");
             }
 
-            if ((object)(token = EqualityMatchingRule) != null)
+            if ((token = EqualityMatchingRule) != null)
             {
                 valueBuffer.Append(" EQUALITY ");
                 valueBuffer.Append("'" + token + "'");
             }
 
-            if ((object)(token = OrderingMatchingRule) != null)
+            if ((token = OrderingMatchingRule) != null)
             {
                 valueBuffer.Append(" ORDERING ");
                 valueBuffer.Append("'" + token + "'");
             }
 
-            if ((object)(token = SubstringMatchingRule) != null)
+            if ((token = SubstringMatchingRule) != null)
             {
                 valueBuffer.Append(" SUBSTR ");
                 valueBuffer.Append("'" + token + "'");
             }
 
-            if ((object)(token = SyntaxString) != null)
+            if ((token = SyntaxString) != null)
             {
                 valueBuffer.Append(" SYNTAX ");
                 valueBuffer.Append(token);
@@ -419,7 +412,7 @@ namespace Novell.Directory.Ldap
             while (en.MoveNext())
             {
                 token = (string)en.Current;
-                if ((object)token != null)
+                if (token != null)
                 {
                     valueBuffer.Append(" " + token);
                     strArray = GetQualifier(token);

@@ -10,12 +10,12 @@ namespace Novell.Directory.Ldap.Sasl
         public IReadOnlyList<string> SupportedMechanisms { get; }
             = new ReadOnlyCollection<string>(new string[] { SaslConstants.Mechanism.GssApi });
 
-        public ISaslClient CreateClient(string mechanism, string authorizationId, string protocol, string serverName, byte[] credentials, Hashtable saslBindProperties)
+        public ISaslClient CreateClient(string mechanism, string authorizationId, string serverName, byte[] credentials, Hashtable saslBindProperties)
         {
             switch (mechanism?.ToUpperInvariant())
             {
                 case SaslConstants.Mechanism.GssApi:
-                    return new KerberosSaslClient();
+                    return KerberosSaslClient.CreateClient(authorizationId, serverName, credentials, saslBindProperties);
                 default:
                     return null;
             }

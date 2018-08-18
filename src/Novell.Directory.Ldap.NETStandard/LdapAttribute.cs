@@ -32,7 +32,9 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 using Novell.Directory.Ldap.Utilclass;
@@ -101,7 +103,7 @@ namespace Novell.Directory.Ldap
         /// </param>
         public LdapAttribute(string attrName)
         {
-            if ((object)attrName == null)
+            if (attrName == null)
             {
                 throw new ArgumentException("Attribute name cannot be null");
             }
@@ -122,7 +124,6 @@ namespace Novell.Directory.Ldap
         ///     Note: If attrBytes represents a string it should be UTF-8 encoded.
         ///     @throws IllegalArgumentException if attrName or attrBytes is null.
         /// </param>
-        [CLSCompliant(false)]
         public LdapAttribute(string attrName, byte[] attrBytes)
             : this(attrName)
         {
@@ -150,16 +151,14 @@ namespace Novell.Directory.Ldap
         public LdapAttribute(string attrName, string attrString)
             : this(attrName)
         {
-            if ((object)attrString == null)
+            if (attrString == null)
             {
                 throw new ArgumentException("Attribute value cannot be null");
             }
 
             try
             {
-                var encoder = Encoding.GetEncoding("utf-8");
-                var ibytes = encoder.GetBytes(attrString);
-
+                var ibytes = attrString.ToUtf8Bytes();
                 Add(ibytes);
             }
             catch (IOException e)
@@ -191,16 +190,13 @@ namespace Novell.Directory.Ldap
             {
                 try
                 {
-                    if ((object)attrStrings[i] == null)
+                    if (attrStrings[i] == null)
                     {
                         throw new ArgumentException("Attribute value " + "at array index " + i + " cannot be null");
                     }
 
-                    var encoder = Encoding.GetEncoding("utf-8");
-                    var ibytes = encoder.GetBytes(attrStrings[i]);
+                    var ibytes = attrStrings[i].ToUtf8Bytes();
                     Add(ibytes);
-
-// this.add(attrStrings[i].getBytes("UTF-8"));
                 }
                 catch (IOException e)
                 {
@@ -217,7 +213,7 @@ namespace Novell.Directory.Ldap
         ///     Note: All string values will be UTF-8 encoded. To decode use the
         ///     String constructor. Example: new String( byteArray, "UTF-8" );.
         /// </returns>
-        public IEnumerator ByteValues => new ArrayEnumeration(ByteValueArray);
+        public IEnumerator<byte[]> ByteValues => new ArrayEnumeration<byte[]>(ByteValueArray);
 
         /// <summary>
         ///     Returns an enumerator for the string values of an attribute.
@@ -225,7 +221,7 @@ namespace Novell.Directory.Ldap
         /// <returns>
         ///     The string values of an attribute.
         /// </returns>
-        public IEnumerator StringValues => new ArrayEnumeration(StringValueArray);
+        public IEnumerator<string> StringValues => new ArrayEnumeration<string>(StringValueArray);
 
         /// <summary>
         ///     Returns the values of the attribute as an array of bytes.
@@ -234,7 +230,6 @@ namespace Novell.Directory.Ldap
         ///     The values as an array of bytes or an empty array if there are
         ///     no values.
         /// </returns>
-        [CLSCompliant(false)]
         public byte[][] ByteValueArray
         {
             get
@@ -280,13 +275,8 @@ namespace Novell.Directory.Ldap
                 {
                     try
                     {
-                        var encoder = Encoding.GetEncoding("utf-8");
-                        var dchar = encoder.GetChars((byte[])_values[j]);
-
-// char[] dchar = encoder.GetChars((byte[])values[j]);
-                        sva[j] = new string(dchar);
-
-// sva[j] = new String((byte[]) values[j], "UTF-8");
+                        var valueBytes = (byte[])_values[j];
+                        sva[j] = valueBytes.ToUtf8String();
                     }
                     catch (IOException uee)
                     {
@@ -323,11 +313,8 @@ namespace Novell.Directory.Ldap
                 {
                     try
                     {
-                        var encoder = Encoding.GetEncoding("utf-8");
-                        var dchar = encoder.GetChars((byte[])_values[0]);
-
-// char[] dchar = encoder.GetChars((byte[]) this.values[0]);
-                        rval = new string(dchar);
+                        var valueBytes = (byte[])_values[0];
+                        rval = valueBytes.ToUtf8String();
                     }
                     catch (IOException use)
                     {
@@ -347,7 +334,6 @@ namespace Novell.Directory.Ldap
         ///     <code>null</code> if. <code>this</code> attribute doesn't have a value.
         ///     If the attribute has no values. <code>null</code> is returned.
         /// </returns>
-        [CLSCompliant(false)]
         public byte[] ByteValue
         {
             get
@@ -412,10 +398,7 @@ namespace Novell.Directory.Ldap
                 _values = null;
                 try
                 {
-                    var encoder = Encoding.GetEncoding("utf-8");
-                    var ibytes = encoder.GetBytes(value);
-
-                    Add(ibytes);
+                    Add(value.ToUtf8Bytes());
                 }
                 catch (IOException ue)
                 {
@@ -475,16 +458,14 @@ namespace Novell.Directory.Ldap
         /// </param>
         public virtual void AddValue(string attrString)
         {
-            if ((object)attrString == null)
+            if (attrString == null)
             {
                 throw new ArgumentException("Attribute value cannot be null");
             }
 
             try
             {
-                var encoder = Encoding.GetEncoding("utf-8");
-                var ibytes = encoder.GetBytes(attrString);
-                Add(ibytes);
+                Add(attrString.ToUtf8Bytes());
             }
             catch (IOException ue)
             {
@@ -500,7 +481,6 @@ namespace Novell.Directory.Ldap
         ///     Note: If attrBytes represents a string it should be UTF-8 encoded.
         ///     @throws IllegalArgumentException if attrBytes is null.
         /// </param>
-        [CLSCompliant(false)]
         public void AddValue(byte[] attrBytes)
         {
             if (attrBytes == null)
@@ -522,7 +502,7 @@ namespace Novell.Directory.Ldap
         /// </param>
         public void AddBase64Value(string attrString)
         {
-            if ((object)attrString == null)
+            if (attrString == null)
             {
                 throw new ArgumentException("Attribute value cannot be null");
             }
@@ -586,7 +566,7 @@ namespace Novell.Directory.Ldap
         /// </param>
         public void AddUrlValue(string url)
         {
-            if ((object)url == null)
+            if (url == null)
             {
                 throw new ArgumentException("Attribute URL cannot be null");
             }
@@ -618,7 +598,7 @@ namespace Novell.Directory.Ldap
                 var inRenamed = webRequest.GetResponseAsync().ResultAndUnwrap().GetResponseStream();
 
                 // Read the bytes into buffers and store the them in an arraylist
-                var bufs = new ArrayList();
+                var bufs = new List<UrlData>();
                 var buf = new byte[4096];
                 int len, totalLength = 0;
                 while ((len = SupportClass.ReadInput(inRenamed, ref buf, 0, 4096)) != -1)
@@ -634,10 +614,10 @@ namespace Novell.Directory.Ldap
                 * it in this LdapAttribute
                 */
                 var data = new byte[totalLength];
-                var offset = 0; //
+                var offset = 0;
                 for (var i = 0; i < bufs.Count; i++)
                 {
-                    var b = (UrlData)bufs[i];
+                    var b = bufs[i];
                     len = b.GetLength();
                     Array.Copy(b.GetData(), 0, data, offset, len);
                     offset += len;
@@ -679,7 +659,7 @@ namespace Novell.Directory.Ldap
         /// </returns>
         public static string GetBaseName(string attrName)
         {
-            if ((object)attrName == null)
+            if (attrName == null)
             {
                 throw new ArgumentException("Attribute name cannot be null");
             }
@@ -721,7 +701,7 @@ namespace Novell.Directory.Ldap
         /// </returns>
         public static string[] GetSubtypes(string attrName)
         {
-            if ((object)attrName == null)
+            if (attrName == null)
             {
                 throw new ArgumentException("Attribute name cannot be null");
             }
@@ -758,7 +738,7 @@ namespace Novell.Directory.Ldap
         /// </returns>
         public bool HasSubtype(string subtype)
         {
-            if ((object)subtype == null)
+            if (subtype == null)
             {
                 throw new ArgumentException("subtype cannot be null");
             }
@@ -767,7 +747,7 @@ namespace Novell.Directory.Ldap
             {
                 for (var i = 0; i < _subTypes.Length; i++)
                 {
-                    if (_subTypes[i].ToUpper().Equals(subtype.ToUpper()))
+                    if (_subTypes[i].EqualsOrdinalCI(subtype))
                     {
                         return true;
                     }
@@ -804,12 +784,12 @@ namespace Novell.Directory.Ldap
             {
                 for (var j = 0; j < _subTypes.Length; j++)
                 {
-                    if ((object)_subTypes[j] == null)
+                    if (_subTypes[j] == null)
                     {
                         throw new ArgumentException("subtype " + "at array index " + i + " cannot be null");
                     }
 
-                    if (_subTypes[j].ToUpper().Equals(subtypes[i].ToUpper()))
+                    if (_subTypes[j].EqualsOrdinalCI(subtypes[i]))
                     {
                         goto gotSubType;
                     }
@@ -833,18 +813,14 @@ namespace Novell.Directory.Ldap
         /// </param>
         public virtual void RemoveValue(string attrString)
         {
-            if ((object)attrString == null)
+            if (attrString == null)
             {
                 throw new ArgumentException("Attribute value cannot be null");
             }
 
             try
             {
-                var encoder = Encoding.GetEncoding("utf-8");
-                var ibytes = encoder.GetBytes(attrString);
-                RemoveValue(ibytes);
-
-// this.removeValue(attrString.getBytes("UTF-8"));
+                RemoveValue(attrString.ToUtf8Bytes());
             }
             catch (IOException uee)
             {
@@ -864,7 +840,6 @@ namespace Novell.Directory.Ldap
         ///     no effect.
         ///     @throws IllegalArgumentException if attrBytes is null.
         /// </param>
-        [CLSCompliant(false)]
         public void RemoveValue(byte[] attrBytes)
         {
             if (attrBytes == null)
@@ -1033,18 +1008,14 @@ namespace Novell.Directory.Ldap
                             result.Append("','");
                         }
 
-                        if (((byte[])_values[i]).Length == 0)
+                        var valueBytes = (byte[])_values[i];
+
+                        if (valueBytes.Length == 0)
                         {
                             continue;
                         }
 
-                        var encoder = Encoding.GetEncoding("utf-8");
-
-// char[] dchar = encoder.GetChars((byte[]) values[i]);
-                        var dchar = encoder.GetChars((byte[])_values[i]);
-                        var sval = new string(dchar);
-
-// System.String sval = new String((byte[]) values[i], "UTF-8");
+                        var sval = valueBytes.ToUtf8String();
                         if (sval.Length == 0)
                         {
                             // didn't decode well, must be binary
@@ -1076,17 +1047,12 @@ namespace Novell.Directory.Ldap
 
             public UrlData(LdapAttribute enclosingInstance, byte[] data, int length)
             {
-                InitBlock(enclosingInstance);
+                EnclosingInstance = enclosingInstance;
                 _length = length;
                 _data = data;
             }
 
-            public LdapAttribute EnclosingInstance { get; private set; }
-
-            private void InitBlock(LdapAttribute enclosingInstance)
-            {
-                EnclosingInstance = enclosingInstance;
-            }
+            public LdapAttribute EnclosingInstance { get; }
 
             public int GetLength()
             {

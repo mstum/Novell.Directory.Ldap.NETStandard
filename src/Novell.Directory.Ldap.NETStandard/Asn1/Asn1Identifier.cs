@@ -69,8 +69,7 @@ namespace Novell.Directory.Ldap.Asn1
     ///         1 1 1 1 1 (> 30) multiple octet tag, more octets follow
     ///     </pre>
     /// </summary>
-    [CLSCompliant(true)]
-    public class Asn1Identifier : object
+    public class Asn1Identifier
     {
         /// <summary>
         ///     IsUniversal tag class.
@@ -130,22 +129,7 @@ namespace Novell.Directory.Ldap.Asn1
         /// </param>
         public Asn1Identifier(Stream inRenamed)
         {
-            var r = inRenamed.ReadByte();
-            EncodedLength++;
-            if (r < 0)
-            {
-                throw new EndOfStreamException("BERDecoder: decode: EOF in Identifier");
-            }
-
-            Asn1Class = r >> 6;
-            Constructed = (r & 0x20) != 0;
-            Tag = r & 0x1F; // if tag < 30 then its a single octet identifier.
-            if (Tag == 0x1F)
-
-            // if true, its a multiple octet identifier.
-            {
-                Tag = DecodeTagNumber(inRenamed);
-            }
+            Reset(inRenamed);
         }
 
         public Asn1Identifier()
@@ -185,7 +169,6 @@ namespace Novell.Directory.Ldap.Asn1
         /// </summary>
         /// <seealso cref="Universal">
         /// </seealso>
-        [CLSCompliant(false)]
         public bool IsUniversal => Asn1Class == Universal;
 
         /// <summary>
@@ -194,7 +177,6 @@ namespace Novell.Directory.Ldap.Asn1
         /// </summary>
         /// <seealso cref="Application">
         /// </seealso>
-        [CLSCompliant(false)]
         public bool IsApplication => Asn1Class == Application;
 
         /// <summary>
@@ -203,7 +185,6 @@ namespace Novell.Directory.Ldap.Asn1
         /// </summary>
         /// <seealso cref="Context">
         /// </seealso>
-        [CLSCompliant(false)]
         public bool IsContext => Asn1Class == Context;
 
         /// <summary>
@@ -211,7 +192,6 @@ namespace Novell.Directory.Ldap.Asn1
         ///     has a TAG CLASS of PRIVATE.
         /// </summary>
         /// <seealso cref="Private"></seealso>
-        [CLSCompliant(false)]
         public bool IsPrivate => Asn1Class == Private;
 
         /// <summary>

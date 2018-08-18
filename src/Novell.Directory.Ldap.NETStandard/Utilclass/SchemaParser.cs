@@ -31,6 +31,7 @@
 //
 
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -40,11 +41,11 @@ namespace Novell.Directory.Ldap.Utilclass
     {
         private readonly int _result;
         private string _objectClass;
-        private ArrayList _qualifiers;
+        private List<AttributeQualifier> _qualifiers = new List<AttributeQualifier>();
 
         public SchemaParser(string aString)
         {
-            InitBlock();
+            Usage = LdapAttributeSchema.UserApplications;
 
             int index;
 
@@ -99,7 +100,7 @@ namespace Novell.Directory.Ldap.Utilclass
                     {
                         if (st2.Lastttype == (int)TokenTypes.Word)
                         {
-                            if (st2.StringValue.ToUpper().Equals("NAME".ToUpper()))
+                            if (st2.StringValue.EqualsOrdinalCI("NAME"))
                             {
                                 if (st2.NextToken() == '\'')
                                 {
@@ -113,7 +114,7 @@ namespace Novell.Directory.Ldap.Utilclass
                                         var nameList = new ArrayList();
                                         while (st2.NextToken() == '\'')
                                         {
-                                            if ((object)st2.StringValue != null)
+                                            if (st2.StringValue != null)
                                             {
                                                 nameList.Add(st2.StringValue);
                                             }
@@ -130,7 +131,7 @@ namespace Novell.Directory.Ldap.Utilclass
                                 continue;
                             }
 
-                            if (st2.StringValue.ToUpper().Equals("DESC".ToUpper()))
+                            if (st2.StringValue.EqualsOrdinalCI("DESC"))
                             {
                                 if (st2.NextToken() == '\'')
                                 {
@@ -140,7 +141,7 @@ namespace Novell.Directory.Ldap.Utilclass
                                 continue;
                             }
 
-                            if (st2.StringValue.ToUpper().Equals("SYNTAX".ToUpper()))
+                            if (st2.StringValue.EqualsOrdinalCI("SYNTAX"))
                             {
                                 _result = st2.NextToken();
                                 if (_result == (int)TokenTypes.Word || _result == '\'')
@@ -153,7 +154,7 @@ namespace Novell.Directory.Ldap.Utilclass
                                 continue;
                             }
 
-                            if (st2.StringValue.ToUpper().Equals("EQUALITY".ToUpper()))
+                            if (st2.StringValue.EqualsOrdinalCI("EQUALITY"))
                             {
                                 if (st2.NextToken() == (int)TokenTypes.Word)
                                 {
@@ -163,7 +164,7 @@ namespace Novell.Directory.Ldap.Utilclass
                                 continue;
                             }
 
-                            if (st2.StringValue.ToUpper().Equals("ORDERING".ToUpper()))
+                            if (st2.StringValue.EqualsOrdinalCI("ORDERING"))
                             {
                                 if (st2.NextToken() == (int)TokenTypes.Word)
                                 {
@@ -173,7 +174,7 @@ namespace Novell.Directory.Ldap.Utilclass
                                 continue;
                             }
 
-                            if (st2.StringValue.ToUpper().Equals("SUBSTR".ToUpper()))
+                            if (st2.StringValue.EqualsOrdinalCI("SUBSTR"))
                             {
                                 if (st2.NextToken() == (int)TokenTypes.Word)
                                 {
@@ -183,7 +184,7 @@ namespace Novell.Directory.Ldap.Utilclass
                                 continue;
                             }
 
-                            if (st2.StringValue.ToUpper().Equals("FORM".ToUpper()))
+                            if (st2.StringValue.EqualsOrdinalCI("FORM"))
                             {
                                 if (st2.NextToken() == (int)TokenTypes.Word)
                                 {
@@ -193,7 +194,7 @@ namespace Novell.Directory.Ldap.Utilclass
                                 continue;
                             }
 
-                            if (st2.StringValue.ToUpper().Equals("OC".ToUpper()))
+                            if (st2.StringValue.EqualsOrdinalCI("OC"))
                             {
                                 if (st2.NextToken() == (int)TokenTypes.Word)
                                 {
@@ -203,7 +204,7 @@ namespace Novell.Directory.Ldap.Utilclass
                                 continue;
                             }
 
-                            if (st2.StringValue.ToUpper().Equals("SUP".ToUpper()))
+                            if (st2.StringValue.EqualsOrdinalCI("SUP"))
                             {
                                 var values = new ArrayList();
                                 st2.NextToken();
@@ -235,31 +236,31 @@ namespace Novell.Directory.Ldap.Utilclass
                                 continue;
                             }
 
-                            if (st2.StringValue.ToUpper().Equals("SINGLE-VALUE".ToUpper()))
+                            if (st2.StringValue.EqualsOrdinalCI("SINGLE-VALUE"))
                             {
                                 Single = true;
                                 continue;
                             }
 
-                            if (st2.StringValue.ToUpper().Equals("OBSOLETE".ToUpper()))
+                            if (st2.StringValue.EqualsOrdinalCI("OBSOLETE"))
                             {
                                 Obsolete = true;
                                 continue;
                             }
 
-                            if (st2.StringValue.ToUpper().Equals("COLLECTIVE".ToUpper()))
+                            if (st2.StringValue.EqualsOrdinalCI("COLLECTIVE"))
                             {
                                 Collective = true;
                                 continue;
                             }
 
-                            if (st2.StringValue.ToUpper().Equals("NO-USER-MODIFICATION".ToUpper()))
+                            if (st2.StringValue.EqualsOrdinalCI("NO-USER-MODIFICATION"))
                             {
                                 UserMod = false;
                                 continue;
                             }
 
-                            if (st2.StringValue.ToUpper().Equals("MUST".ToUpper()))
+                            if (st2.StringValue.EqualsOrdinalCI("MUST"))
                             {
                                 var values = new ArrayList();
                                 st2.NextToken();
@@ -290,7 +291,7 @@ namespace Novell.Directory.Ldap.Utilclass
                                 continue;
                             }
 
-                            if (st2.StringValue.ToUpper().Equals("MAY".ToUpper()))
+                            if (st2.StringValue.EqualsOrdinalCI("MAY"))
                             {
                                 var values = new ArrayList();
                                 st2.NextToken();
@@ -321,7 +322,7 @@ namespace Novell.Directory.Ldap.Utilclass
                                 continue;
                             }
 
-                            if (st2.StringValue.ToUpper().Equals("NOT".ToUpper()))
+                            if (st2.StringValue.EqualsOrdinalCI("NOT"))
                             {
                                 var values = new ArrayList();
                                 st2.NextToken();
@@ -352,7 +353,7 @@ namespace Novell.Directory.Ldap.Utilclass
                                 continue;
                             }
 
-                            if (st2.StringValue.ToUpper().Equals("AUX".ToUpper()))
+                            if (st2.StringValue.EqualsOrdinalCI("AUX"))
                             {
                                 var values = new ArrayList();
                                 st2.NextToken();
@@ -383,42 +384,42 @@ namespace Novell.Directory.Ldap.Utilclass
                                 continue;
                             }
 
-                            if (st2.StringValue.ToUpper().Equals("ABSTRACT".ToUpper()))
+                            if (st2.StringValue.EqualsOrdinalCI("ABSTRACT"))
                             {
                                 Type = LdapObjectClassSchema.Abstract;
                                 continue;
                             }
 
-                            if (st2.StringValue.ToUpper().Equals("STRUCTURAL".ToUpper()))
+                            if (st2.StringValue.EqualsOrdinalCI("STRUCTURAL"))
                             {
                                 Type = LdapObjectClassSchema.Structural;
                                 continue;
                             }
 
-                            if (st2.StringValue.ToUpper().Equals("AUXILIARY".ToUpper()))
+                            if (st2.StringValue.EqualsOrdinalCI("AUXILIARY"))
                             {
                                 Type = LdapObjectClassSchema.Auxiliary;
                                 continue;
                             }
 
-                            if (st2.StringValue.ToUpper().Equals("USAGE".ToUpper()))
+                            if (st2.StringValue.EqualsOrdinalCI("USAGE"))
                             {
                                 if (st2.NextToken() == (int)TokenTypes.Word)
                                 {
                                     currName = st2.StringValue;
-                                    if (currName.ToUpper().Equals("directoryOperation".ToUpper()))
+                                    if (currName.EqualsOrdinalCI("directoryOperation"))
                                     {
                                         Usage = LdapAttributeSchema.DirectoryOperation;
                                     }
-                                    else if (currName.ToUpper().Equals("distributedOperation".ToUpper()))
+                                    else if (currName.EqualsOrdinalCI("distributedOperation"))
                                     {
                                         Usage = LdapAttributeSchema.DistributedOperation;
                                     }
-                                    else if (currName.ToUpper().Equals("dSAOperation".ToUpper()))
+                                    else if (currName.EqualsOrdinalCI("dSAOperation"))
                                     {
                                         Usage = LdapAttributeSchema.DsaOperation;
                                     }
-                                    else if (currName.ToUpper().Equals("userApplications".ToUpper()))
+                                    else if (currName.EqualsOrdinalCI("userApplications"))
                                     {
                                         Usage = LdapAttributeSchema.UserApplications;
                                     }
@@ -427,7 +428,7 @@ namespace Novell.Directory.Ldap.Utilclass
                                 continue;
                             }
 
-                            if (st2.StringValue.ToUpper().Equals("APPLIES".ToUpper()))
+                            if (st2.StringValue.EqualsOrdinalCI("APPLIES"))
                             {
                                 var values = new ArrayList();
                                 st2.NextToken();
@@ -474,7 +475,7 @@ namespace Novell.Directory.Ldap.Utilclass
 
         public string[] Names { get; }
 
-        public IEnumerator Qualifiers => new ArrayEnumeration(_qualifiers.ToArray());
+        public IEnumerator<AttributeQualifier> Qualifiers => _qualifiers.GetEnumerator();
 
         public string Id { get; }
 
@@ -517,12 +518,6 @@ namespace Novell.Directory.Ldap.Utilclass
         public string NameForm { get; }
 
         public string ObjectClass => NameForm;
-
-        private void InitBlock()
-        {
-            Usage = LdapAttributeSchema.UserApplications;
-            _qualifiers = new ArrayList();
-        }
 
         private AttributeQualifier ParseQualifier(SchemaTokenCreator st, string name)
         {

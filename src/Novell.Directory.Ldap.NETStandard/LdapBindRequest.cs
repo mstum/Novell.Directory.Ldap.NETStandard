@@ -49,6 +49,8 @@ namespace Novell.Directory.Ldap
      */
     public class LdapBindRequest : LdapMessage
     {
+        public override DebugId DebugId { get; } = DebugId.ForType<LdapBindRequest>();
+
         /// <summary>
         ///     Constructs a simple bind request.
         /// </summary>
@@ -72,7 +74,6 @@ namespace Novell.Directory.Ldap
         ///     Any controls that apply to the simple bind request,
         ///     or null if none.
         /// </param>
-        [CLSCompliant(false)]
         public LdapBindRequest(int version, string dn, byte[] passwd, LdapControl[] cont)
             : base(
                 BindRequest,

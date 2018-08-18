@@ -44,6 +44,8 @@ namespace Novell.Directory.Ldap
     /// </summary>
     public class LdapExtendedResponse : LdapResponse
     {
+        public override DebugId DebugId { get; } = DebugId.ForType<LdapExtendedResponse>();
+
         static LdapExtendedResponse()
         {
             RegisteredResponses = new RespExtensionSet();
@@ -85,7 +87,6 @@ namespace Novell.Directory.Ldap
         /// <returns>
         ///     The value of the response.
         /// </returns>
-        [CLSCompliant(false)]
         public byte[] Value
         {
             get

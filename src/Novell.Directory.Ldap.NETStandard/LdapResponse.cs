@@ -51,6 +51,7 @@ namespace Novell.Directory.Ldap
         */
     public class LdapResponse : LdapMessage
     {
+        public override DebugId DebugId { get; } = DebugId.ForType<LdapResponse>();
         private readonly InterThreadException _exception;
 
         /// <summary>
@@ -220,11 +221,11 @@ namespace Novell.Directory.Ldap
                         {
                             // get the referral URL
                             var urlRef = new LdapUrl(aRef);
-                            if ((object)urlRef.GetDn() == null)
+                            if (urlRef.GetDn() == null)
                             {
                                 var origMsg = Asn1Object.RequestingMessage.Asn1Object;
                                 string dn;
-                                if ((object)(dn = origMsg.RequestDn) != null)
+                                if ((dn = origMsg.RequestDn) != null)
                                 {
                                     urlRef.SetDn(dn);
                                     aRef = urlRef.ToString();
@@ -388,12 +389,12 @@ namespace Novell.Directory.Ldap
         {
             Asn1Sequence ret;
 
-            if ((object)matchedDn == null)
+            if (matchedDn == null)
             {
                 matchedDn = string.Empty;
             }
 
-            if ((object)serverMessage == null)
+            if (serverMessage == null)
             {
                 serverMessage = string.Empty;
             }

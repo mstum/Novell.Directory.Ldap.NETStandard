@@ -53,8 +53,8 @@ namespace Novell.Directory.Ldap
         private readonly bool[] _sortAscending; // true if sorting ascending
 
         private readonly string[] _sortByNames; // names to to sort by.
-        private CompareInfo _collator;
-        private CultureInfo _location;
+        private CompareInfo _collator = CultureInfo.CurrentCulture.CompareInfo;
+        private CultureInfo _location = CultureInfo.CurrentCulture;
 
         /// <summary>
         ///     Constructs an object that sorts results by a single attribute, in
@@ -65,7 +65,6 @@ namespace Novell.Directory.Ldap
         /// </param>
         public LdapCompareAttrNames(string attrName)
         {
-            InitBlock();
             _sortByNames = new string[1];
             _sortByNames[0] = attrName;
             _sortAscending = new bool[1];
@@ -85,7 +84,6 @@ namespace Novell.Directory.Ldap
         /// </param>
         public LdapCompareAttrNames(string attrName, bool ascendingFlag)
         {
-            InitBlock();
             _sortByNames = new string[1];
             _sortByNames[0] = attrName;
             _sortAscending = new bool[1];
@@ -104,7 +102,6 @@ namespace Novell.Directory.Ldap
         /// </param>
         public LdapCompareAttrNames(string[] attrNames)
         {
-            InitBlock();
             _sortByNames = new string[attrNames.Length];
             _sortAscending = new bool[attrNames.Length];
             for (var i = 0; i < attrNames.Length; i++)
@@ -138,7 +135,6 @@ namespace Novell.Directory.Ldap
         /// </exception>
         public LdapCompareAttrNames(string[] attrNames, bool[] ascendingFlags)
         {
-            InitBlock();
             if (attrNames.Length != ascendingFlags.Length)
             {
                 throw new LdapException(ExceptionMessages.UnequalLengths, LdapException.InappropriateMatching, null);
@@ -259,13 +255,6 @@ namespace Novell.Directory.Ldap
             return -compare;
         }
 
-        private void InitBlock()
-        {
-// location = Locale.getDefault();
-            _location = CultureInfo.CurrentCulture;
-            _collator = CultureInfo.CurrentCulture.CompareInfo;
-        }
-
         /// <summary>
         ///     Determines if this comparator is equal to the comparator passed in.
         ///     This will return true if the comparator is an instance of
@@ -298,7 +287,7 @@ namespace Novell.Directory.Ldap
                     return false;
                 }
 
-                if (!comp._sortByNames[i].ToUpper().Equals(_sortByNames[i].ToUpper()))
+                if (!comp._sortByNames[i].EqualsOrdinalCI(_sortByNames[i]))
                 {
                     return false;
                 }

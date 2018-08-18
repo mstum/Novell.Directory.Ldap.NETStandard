@@ -7,7 +7,6 @@ namespace Novell.Directory.Ldap.NETStandard.UnitTests
     public class KerberosSaslTests
     {
         private const string _gssApi = SaslConstants.Mechanism.GssApi;
-        private const string _proto = DefaultSaslClientFactory.ProtocolLdap;
 
         [Fact]
         public void LdapConnection_AddKerberosSupport_AddsGssApiHandler()
@@ -25,7 +24,7 @@ namespace Novell.Directory.Ldap.NETStandard.UnitTests
             var conn = new LdapConnection();
             conn.AddKerberosSupport();
 
-            var client = conn.CreateClient(_gssApi, "unused", _proto, "unused", new byte[] { 0x00 }, new Hashtable());
+            var client = conn.CreateClient(_gssApi, "unused", "unused", new byte[] { 0x00 }, new Hashtable());
             Assert.NotNull(client);
             Assert.IsType<KerberosSaslClient>(client);
         }

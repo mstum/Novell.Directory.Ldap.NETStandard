@@ -154,14 +154,13 @@ namespace Novell.Directory.Ldap
         /// <summary> The OID string that identifies a StartTLS request and response.</summary>
         private const string StartTlsOid = "1.3.6.1.4.1.1466.20037";
 
-        private static object _nameLock; // protect agentNum
-        private static int _lConnNum = 0; // Debug, LdapConnection number
+        public virtual DebugId DebugId { get; } = DebugId.ForType<LdapConnection>();
 
         private LdapSearchConstraints _defSearchCons;
         private LdapControl[] _responseCtls;
 
         // Synchronization Object used to synchronize access to responseCtls
-        private object _responseCtlSemaphore;
+        private readonly object _responseCtlSemaphore = new object();
 
         /*
         * Constructors
@@ -177,9 +176,8 @@ namespace Novell.Directory.Ldap
         /// </param>
         public LdapConnection()
         {
-            InitBlock();
-
-            // Get a unique connection name for debug
+            _defSearchCons = new LdapSearchConstraints();
+            _saslClientFactories = new ConcurrentDictionary<string, ISaslClientFactory>(StringComparer.OrdinalIgnoreCase);
             Connection = new Connection();
         }
 
@@ -783,11 +781,9 @@ namespace Novell.Directory.Ldap
         public void Bind(int version, string dn, string passwd, LdapConstraints cons)
         {
             byte[] pw = null;
-            if ((object)passwd != null)
+            if (passwd != null)
             {
-                var encoder = Encoding.GetEncoding("utf-8");
-                var ibytes = encoder.GetBytes(passwd);
-                pw = ibytes;
+                pw = passwd.ToUtf8Bytes();
             }
 
             Bind(version, dn, pw, cons);
@@ -821,7 +817,6 @@ namespace Novell.Directory.Ldap
         ///     LdapException A general exception which includes an error
         ///     message and an Ldap error code.
         /// </exception>
-        [CLSCompliant(false)]
         public void Bind(int version, string dn, byte[] passwd)
         {
             Bind(version, dn, passwd, _defSearchCons);
@@ -858,7 +853,6 @@ namespace Novell.Directory.Ldap
         ///     LdapException A general exception which includes an error
         ///     message and an Ldap error code.
         /// </exception>
-        [CLSCompliant(false)]
         public void Bind(int version, string dn, byte[] passwd, LdapConstraints cons)
         {
             var queue = Bind(version, dn, passwd, null, cons);
@@ -1475,14 +1469,6 @@ namespace Novell.Directory.Ldap
             return new LdapSearchResults(queue, cons);
         }
 
-        private void InitBlock()
-        {
-            // TODO: Just move this into the constructor, since we only have one anyway?
-            _defSearchCons = new LdapSearchConstraints();
-            _responseCtlSemaphore = new object();
-            _saslClientFactories = new ConcurrentDictionary<string, ISaslClientFactory>(StringComparer.OrdinalIgnoreCase);
-        }
-
         public event RemoteCertificateValidationCallback UserDefinedServerCertValidationDelegate
         {
             add => Connection.OnCertificateValidation += value;
@@ -1599,17 +1585,17 @@ namespace Novell.Directory.Ldap
         /// </seealso>
         public object GetProperty(string name)
         {
-            if (name.ToUpper().Equals(LdapPropertySdk.ToUpper()))
+            if (name.EqualsOrdinalCI(LdapPropertySdk))
             {
                 return Connection.Sdk;
             }
 
-            if (name.ToUpper().Equals(LdapPropertyProtocol.ToUpper()))
+            if (name.EqualsOrdinalCI(LdapPropertyProtocol))
             {
                 return Connection.Protocol;
             }
 
-            if (name.ToUpper().Equals(LdapPropertySecurity.ToUpper()))
+            if (name.EqualsOrdinalCI(LdapPropertySecurity))
             {
                 return Connection.Security;
             }
@@ -1860,7 +1846,7 @@ namespace Novell.Directory.Ldap
                 throw new ArgumentException("The LdapEntry parameter" + " cannot be null");
             }
 
-            if ((object)entry.Dn == null)
+            if (entry.Dn == null)
             {
                 throw new ArgumentException("The DN value must be present" + " in the LdapEntry object");
             }
@@ -1903,7 +1889,6 @@ namespace Novell.Directory.Ldap
         ///     LdapException A general exception which includes an error
         ///     message and an Ldap error code.
         /// </exception>
-        [CLSCompliant(false)]
         public LdapResponseQueue Bind(int version, string dn, byte[] passwd, LdapResponseQueue queue)
         {
             return Bind(version, dn, passwd, queue, _defSearchCons);
@@ -1945,7 +1930,6 @@ namespace Novell.Directory.Ldap
         ///     LdapException A general exception which includes an error
         ///     message and an Ldap error code.
         /// </exception>
-        [CLSCompliant(false)]
         public LdapResponseQueue Bind(int version, string dn, byte[] passwd, LdapResponseQueue queue,
             LdapConstraints cons)
         {
@@ -1954,7 +1938,7 @@ namespace Novell.Directory.Ldap
                 cons = _defSearchCons;
             }
 
-            if ((object)dn == null)
+            if (dn == null)
             {
                 dn = string.Empty;
             }
@@ -1983,7 +1967,7 @@ namespace Novell.Directory.Ldap
             // For bind requests, if not connected, attempt to reconnect
             if (!Connection.Connected)
             {
-                if ((object)Connection.Host != null)
+                if (Connection.Host != null)
                 {
                     Connection.Connect(Connection.Host, Connection.Port);
                 }
@@ -2159,7 +2143,7 @@ namespace Novell.Directory.Ldap
                 throw new ArgumentException("compare: Exactly one value " + "must be present in the LdapAttribute");
             }
 
-            if ((object)dn == null)
+            if (dn == null)
             {
                 // Invalid parameter
                 throw new ArgumentException("compare: DN cannot be null");
@@ -2221,7 +2205,7 @@ namespace Novell.Directory.Ldap
         /// </exception>
         public LdapResponseQueue Delete(string dn, LdapResponseQueue queue, LdapConstraints cons)
         {
-            if ((object)dn == null)
+            if (dn == null)
             {
                 // Invalid DN parameter
                 throw new ArgumentException(ExceptionMessages.DnParamError);
@@ -2341,7 +2325,7 @@ namespace Novell.Directory.Ldap
             }
 
             // error check the parameters
-            if ((object)op.GetId() == null)
+            if (op.GetId() == null)
             {
                 // Invalid extended operation parameter, no OID specified
                 throw new ArgumentException(ExceptionMessages.OpParamError);
@@ -2479,7 +2463,7 @@ namespace Novell.Directory.Ldap
         public LdapResponseQueue Modify(string dn, LdapModification[] mods, LdapResponseQueue queue,
             LdapConstraints cons)
         {
-            if ((object)dn == null)
+            if (dn == null)
             {
                 // Invalid DN parameter
                 throw new ArgumentException(ExceptionMessages.DnParamError);
@@ -2688,7 +2672,7 @@ namespace Novell.Directory.Ldap
         public LdapResponseQueue Rename(string dn, string newRdn, string newParentdn, bool deleteOldRdn,
             LdapResponseQueue queue, LdapConstraints cons)
         {
-            if ((object)dn == null || (object)newRdn == null)
+            if (dn == null || newRdn == null)
             {
                 // Invalid DN or RDN parameter
                 throw new ArgumentException(ExceptionMessages.RdnParamError);
@@ -2795,7 +2779,7 @@ namespace Novell.Directory.Ldap
         public LdapSearchQueue Search(string @base, int scope, string filter, string[] attrs, bool typesOnly,
             LdapSearchQueue queue, LdapSearchConstraints cons)
         {
-            if ((object)filter == null)
+            if (filter == null)
             {
                 filter = "objectclass=*";
             }
@@ -3137,7 +3121,7 @@ namespace Novell.Directory.Ldap
                         try
                         {
                             var url = new LdapUrl(referrals[idx]);
-                            if (url.Host.ToUpper().Equals(rconn.Host.ToUpper()) && url.Port == rconn.Port)
+                            if (url.Host.EqualsOrdinalCI(rconn.Host) && url.Port == rconn.Port)
                             {
                                 refInfo = new ReferralInfo(rconn, referrals, url);
                                 break;
@@ -3215,6 +3199,9 @@ namespace Novell.Directory.Ldap
         {
             if (response.ResultCode == LdapException.Referral && cons.ReferralFollowing)
             {
+                // BUG: refConn is not used, and thus ReleaseReferralConnections won't do anything?
+                // Pretty sure that the last argument to ChaseReferral should be refConn instead of null
+
                 // Perform referral following and return
                 ArrayList refConn = null;
                 try

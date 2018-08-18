@@ -60,16 +60,6 @@ namespace Novell.Directory.Ldap
         void Run();
     }
 
-    public class Integer32 : object
-    {
-        public Integer32(int ival)
-        {
-            IntValue = ival;
-        }
-
-        public int IntValue { get; set; }
-    }
-
     /// <summary>
     ///     Contains conversion support elements such as classes, interfaces and static methods.
     /// </summary>
@@ -121,7 +111,6 @@ namespace Novell.Directory.Ldap
         ///     The number of characters read. The number will be less than or equal to count depending on the data available
         ///     in the source Stream. Returns -1 if the end of the stream is reached.
         /// </returns>
-        [CLSCompliant(false)]
         public static int ReadInput(Stream sourceStream, ref byte[] target, int start, int count)
         {
             // Returns 0 bytes if not enough space in target
@@ -173,7 +162,6 @@ namespace Novell.Directory.Ldap
         ///     The number of characters read. The number will be less than or equal to count depending on the data available
         ///     in the source TextReader. Returns -1 if the end of the stream is reached.
         /// </returns>
-        [CLSCompliant(false)]
         public static int ReadInput(TextReader sourceTextReader, ref byte[] target, int start, int count)
         {
             // Returns 0 bytes if not enough space in target
@@ -216,7 +204,6 @@ namespace Novell.Directory.Ldap
         /// </summary>
         /// <param name="literal">The literal to return.</param>
         /// <returns>The received value.</returns>
-        [CLSCompliant(false)]
         public static ulong Identity(ulong literal)
         {
             return literal;
@@ -2005,7 +1992,6 @@ namespace Novell.Directory.Ldap
             ///     Computes the hash value for the internal data digest.
             /// </summary>
             /// <returns>The array of signed bytes with the resulting hash value.</returns>
-            [CLSCompliant(false)]
             public byte[] DigestData()
             {
                 var result = Algorithm.ComputeHash(Data);
@@ -2019,7 +2005,6 @@ namespace Novell.Directory.Ldap
             /// </summary>
             /// <param name="newData">The array of bytes for final update to the digest.</param>
             /// <returns>An array of signed bytes with the resulting hash value.</returns>
-            [CLSCompliant(false)]
             public byte[] DigestData(byte[] newData)
             {
                 Update(newData);
@@ -2098,7 +2083,6 @@ namespace Novell.Directory.Ldap
             /// <param name="firstDigest">An array of signed bytes for comparison.</param>
             /// <param name="secondDigest">An array of signed bytes for comparison.</param>
             /// <returns>True if the input digest arrays are equal.</returns>
-            [CLSCompliant(false)]
             public static bool EquivalentDigest(byte[] firstDigest, byte[] secondDigest)
             {
                 var result = false;

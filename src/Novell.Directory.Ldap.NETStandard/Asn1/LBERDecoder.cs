@@ -64,24 +64,17 @@ namespace Novell.Directory.Ldap.Asn1
     ///     [11] ITU-T Rec. X.690, "Specification of ASN.1 encoding rules: Basic,
     ///     Canonical, and Distinguished Encoding Rules", 1994.
     /// </summary>
-    [CLSCompliant(true)]
     public class LberDecoder : IAsn1Decoder
     {
         // used to speed up decode, so it doesn't need to recreate an identifier every time
         // instead just reset is called CANNOT be static for multiple connections
-        private Asn1Identifier _asn1Id;
-        private Asn1Length _asn1Len;
-
-        public LberDecoder()
-        {
-            InitBlock();
-        }
+        private Asn1Identifier _asn1Id = new Asn1Identifier();
+        private Asn1Length _asn1Len = new Asn1Length();
 
         /* Generic decode routines
         */
 
         /// <summary> Decode an LBER encoded value into an Asn1Type from a byte array.</summary>
-        [CLSCompliant(false)]
         public Asn1Object Decode(byte[] valueRenamed)
         {
             Asn1Object asn1 = null;
@@ -254,17 +247,9 @@ namespace Novell.Directory.Ldap.Asn1
                 octets[i] = (byte)ret;
             }
 
-            var encoder = Encoding.GetEncoding("utf-8");
-            var dchar = encoder.GetChars(octets);
-            var rval = new string(dchar);
+            var rval = octets.ToUtf8String();
 
             return rval; // new String( "UTF8");
-        }
-
-        private void InitBlock()
-        {
-            _asn1Id = new Asn1Identifier();
-            _asn1Len = new Asn1Length();
         }
     }
 }
