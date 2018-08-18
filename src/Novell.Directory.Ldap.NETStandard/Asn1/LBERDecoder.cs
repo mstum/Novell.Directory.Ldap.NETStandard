@@ -31,6 +31,8 @@ namespace Novell.Directory.Ldap.Asn1
 {
     public class LberDecoder : IAsn1Decoder
     {
+        public Asn1EncodingType EncodingType => Asn1EncodingType.BER;
+
         private readonly ILogger _logger;
         private readonly Stack<DecodeAsn1Object> _additionalDecoders = new Stack<DecodeAsn1Object>();
         private readonly Asn1Identifier _asn1Id = new Asn1Identifier();

@@ -97,7 +97,7 @@ namespace Novell.Directory.Ldap.Controls
             : base(oid, critical, values)
         {
             /* Create a decoder object */
-            var decoder = new LberDecoder();
+            var decoder = Asn1CodecFactory.CreateDecoder(Asn1EncodingType.BER);
             if (decoder == null)
             {
                 throw new IOException("Decoding error");

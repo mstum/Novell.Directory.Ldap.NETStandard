@@ -132,7 +132,8 @@ namespace Novell.Directory.Ldap.Controls
                 sortKeyList.Add(key);
             }
 
-            SetValue(sortKeyList.GetEncoding(new LberEncoder()));
+            var encoder = Asn1CodecFactory.CreateEncoder(Asn1EncodingType.BER);
+            SetValue(sortKeyList.GetEncoding(encoder));
         }
     }
 }

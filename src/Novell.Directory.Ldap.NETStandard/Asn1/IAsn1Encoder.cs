@@ -50,6 +50,8 @@ namespace Novell.Directory.Ldap.Asn1
     /// </summary>
     public interface IAsn1Encoder
     {
+        Asn1EncodingType EncodingType { get; }
+
         /* Encoders for ASN.1 simple types */
 
         /// <summary>

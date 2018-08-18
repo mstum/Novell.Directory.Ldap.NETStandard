@@ -65,6 +65,8 @@ namespace Novell.Directory.Ldap.Asn1
     /// </summary>
     public class LberEncoder : IAsn1Encoder
     {
+        public Asn1EncodingType EncodingType => Asn1EncodingType.BER;
+
         /* Encoders for ASN.1 simple type Contents
                 */
 

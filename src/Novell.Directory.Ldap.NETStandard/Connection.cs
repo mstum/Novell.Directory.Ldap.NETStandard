@@ -100,9 +100,8 @@ namespace Novell.Directory.Ldap
         private int _cloneCount;
         private Thread _deadReader; // Identity of last reader thread
         private Exception _deadReaderException; // Last exception of reader
-        private LberDecoder _decoder;
-
-        private LberEncoder _encoder;
+        private IAsn1Decoder _decoder;
+        private IAsn1Encoder _encoder;
 
         // We need a message number for disconnect to grab the semaphore,
         // but may not have one, so we invent a unique one.
@@ -152,8 +151,8 @@ namespace Novell.Directory.Ldap
         /// </summary>
         internal Connection()
         {
-            _encoder = new LberEncoder();
-            _decoder = new LberDecoder();
+            _encoder = Asn1CodecFactory.CreateEncoder(Asn1EncodingType.BER);
+            _decoder = Asn1CodecFactory.CreateDecoder(Asn1EncodingType.BER);
             _stopReaderMessageId = ContinueReading;
             _messages = new MessageVector(5, 5);
             _unsolicitedListeners = new List<ILdapUnsolicitedNotificationListener>(3);

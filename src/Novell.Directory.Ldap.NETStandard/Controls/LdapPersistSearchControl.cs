@@ -75,7 +75,7 @@ namespace Novell.Directory.Ldap.Controls
         private static readonly int ChangesonlyIndex = 1;
         private static readonly int ReturncontrolsIndex = 2;
 
-        private static readonly LberEncoder SEncoder;
+        private static readonly IAsn1Encoder SEncoder;
 
         /// <summary> The requestOID of the persistent search control.</summary>
         private static readonly string RequestOid = "2.16.840.1.113730.3.4.3";
@@ -97,7 +97,7 @@ namespace Novell.Directory.Ldap.Controls
 
         static LdapPersistSearchControl()
         {
-            SEncoder = new LberEncoder();
+            SEncoder = Asn1CodecFactory.CreateEncoder(Asn1EncodingType.BER);
             /*
             * This is where we register the control response
             */

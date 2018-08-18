@@ -191,7 +191,8 @@ namespace Novell.Directory.Ldap.Controls
             * the ASN.1 encoded value of this control.  This encoding will be
             * appended to the search request when the control is sent.
             */
-            SetValue(_mVlvRequest.GetEncoding(new LberEncoder()));
+            var encoder = Asn1CodecFactory.CreateEncoder(Asn1EncodingType.BER);
+            SetValue(_mVlvRequest.GetEncoding(encoder));
         }
 
         /// <summary>
@@ -267,7 +268,8 @@ namespace Novell.Directory.Ldap.Controls
             * the ASN.1 encoded value of this control.  This encoding will be
             * appended to the search request when the control is sent.
             */
-            SetValue(_mVlvRequest.GetEncoding(new LberEncoder()));
+            var encoder = Asn1CodecFactory.CreateEncoder(Asn1EncodingType.BER);
+            SetValue(_mVlvRequest.GetEncoding(encoder));
         }
 
         /// <summary>
@@ -309,7 +311,8 @@ namespace Novell.Directory.Ldap.Controls
                 * the ASN.1 encoded value of this control.  This encoding will be
                 * appended to the search request when the control is sent.
                 */
-                SetValue(_mVlvRequest.GetEncoding(new LberEncoder()));
+                var encoder = Asn1CodecFactory.CreateEncoder(Asn1EncodingType.BER);
+                SetValue(_mVlvRequest.GetEncoding(encoder));
             }
         }
 
@@ -353,7 +356,8 @@ namespace Novell.Directory.Ldap.Controls
                 * the ASN.1 encoded value of this control.  This encoding will be
                 * appended to the search request when the control is sent.
                 */
-                SetValue(_mVlvRequest.GetEncoding(new LberEncoder()));
+                var encoder = Asn1CodecFactory.CreateEncoder(Asn1EncodingType.BER);
+                SetValue(_mVlvRequest.GetEncoding(encoder));
             }
         }
 
@@ -456,7 +460,8 @@ namespace Novell.Directory.Ldap.Controls
             * the ASN.1 encoded value of this control.  This encoding will be
             * appended to the search request when the control is sent.
             */
-            SetValue(_mVlvRequest.GetEncoding(new LberEncoder()));
+            var encoder = Asn1CodecFactory.CreateEncoder(Asn1EncodingType.BER);
+            SetValue(_mVlvRequest.GetEncoding(encoder));
         }
 
         // PROPOSED ADDITION TO NEXT VERSION OF DRAFT (v7)
@@ -498,7 +503,8 @@ namespace Novell.Directory.Ldap.Controls
             * the ASN.1 encoded value of this control.  This encoding will be
             * appended to the search request when the control is sent.
             */
-            SetValue(_mVlvRequest.GetEncoding(new LberEncoder()));
+            var encoder = Asn1CodecFactory.CreateEncoder(Asn1EncodingType.BER);
+            SetValue(_mVlvRequest.GetEncoding(encoder));
         }
     }
 }

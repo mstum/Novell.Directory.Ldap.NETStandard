@@ -36,6 +36,8 @@ namespace Novell.Directory.Ldap.Asn1
 
     public interface IAsn1Decoder
     {
+        Asn1EncodingType EncodingType { get; }
+
         void AddDecoder(DecodeAsn1Object decoder);
 
         Asn1Object Decode(byte[] input, DecodeAsn1Object contextItemDecoder);
