@@ -31,7 +31,7 @@ namespace Novell.Directory.Ldap.NETStandard.UnitTests
             public void Asn1Null_DecodesProperly()
             {
                 var deser = new LberDecoder();
-                var result = deser.Decode(new byte[] { 0x05, 0x00 });
+                var result = deser.Decode(new byte[] { 0x05, 0x00 }, null);
                 Assert.NotNull(result);
                 Assert.True(result.GetIdentifier().IsSameTagAs(Asn1Null.Id));
                 Assert.IsType<Asn1Null>(result);
@@ -44,7 +44,7 @@ namespace Novell.Directory.Ldap.NETStandard.UnitTests
                 var input = new byte[] { 0x1A, 0x05, 0x48, 0x65, 0x6C, 0x6C, 0x6F };
 
                 var deser = new LberDecoder();
-                var result = deser.Decode(input);
+                var result = deser.Decode(input, null);
 
                 Assert.NotNull(result);
                 Assert.True(result.GetIdentifier().IsSameTagAs(Asn1VisibleString.Id));
@@ -58,7 +58,7 @@ namespace Novell.Directory.Ldap.NETStandard.UnitTests
                 var input = new byte[] { 0x18, 0x0E, 0x32, 0x30, 0x31, 0x38, 0x30, 0x38, 0x30, 0x39, 0x31, 0x34, 0x33, 0x33, 0x32, 0x38 };
 
                 var deser = new LberDecoder();
-                var result = deser.Decode(input);
+                var result = deser.Decode(input, null);
 
                 Assert.NotNull(result);
                 Assert.True(result.GetIdentifier().IsSameTagAs(Asn1GeneralizedTime.Id));
@@ -71,7 +71,7 @@ namespace Novell.Directory.Ldap.NETStandard.UnitTests
                 var input = new byte[] { 0x03, 0x01, 0xFF };
                 var deser = new LberDecoder();
 
-                var bitString = deser.Decode(input) as Asn1BitString;
+                var bitString = deser.Decode(input, null) as Asn1BitString;
                 Assert.NotNull(bitString);
                 Assert.Equal(8, bitString.NumBits);
                 for (int i = 0; i < 8; i++)
@@ -86,7 +86,7 @@ namespace Novell.Directory.Ldap.NETStandard.UnitTests
                 var input = new byte[] { 0x03, 0x08, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
                 var deser = new LberDecoder();
 
-                var bitString = deser.Decode(input) as Asn1BitString;
+                var bitString = deser.Decode(input, null) as Asn1BitString;
                 Assert.NotNull(bitString);
                 Assert.Equal(64, bitString.NumBits);
                 for (int i = 0; i < 64; i++)
@@ -101,7 +101,7 @@ namespace Novell.Directory.Ldap.NETStandard.UnitTests
                 var input = new byte[] { 0x03, 0x05, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
                 var deser = new LberDecoder();
 
-                var bitString = deser.Decode(input) as Asn1BitString;
+                var bitString = deser.Decode(input, null) as Asn1BitString;
                 Assert.NotNull(bitString);
                 Assert.Equal(40, bitString.NumBits);
                 for (int i = 0; i < 40; i++)
@@ -116,7 +116,7 @@ namespace Novell.Directory.Ldap.NETStandard.UnitTests
                 var input = new byte[] { 0x03, 0x01, 0b01000101 };
                 var deser = new LberDecoder();
 
-                var bitString = deser.Decode(input) as Asn1BitString;
+                var bitString = deser.Decode(input, null) as Asn1BitString;
                 var sbf = bitString.ToFlagsEnum<SByteFlagsEnum>();
                 Assert.False(sbf.HasFlag(SByteFlagsEnum.One), "One");
                 Assert.True(sbf.HasFlag(SByteFlagsEnum.Two), "Two");
@@ -143,7 +143,7 @@ namespace Novell.Directory.Ldap.NETStandard.UnitTests
                 };
                 var deser = new LberDecoder();
 
-                var bitString = deser.Decode(input) as Asn1BitString;
+                var bitString = deser.Decode(input, null) as Asn1BitString;
 
                 var sbf = bitString.ToFlagsEnum<ULongFlagsEnum>();
 
@@ -225,7 +225,7 @@ namespace Novell.Directory.Ldap.NETStandard.UnitTests
                 };
                 var deser = new LberDecoder();
 
-                var bitString = deser.Decode(input) as Asn1BitString;
+                var bitString = deser.Decode(input, null) as Asn1BitString;
 
                 var sbf = bitString.ToFlagsEnum<ULongFlagsEnum>();
 

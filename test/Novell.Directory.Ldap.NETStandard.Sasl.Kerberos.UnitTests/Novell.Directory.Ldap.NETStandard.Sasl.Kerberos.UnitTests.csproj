@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <IsPackable>false</IsPackable>
+    <RootNamespace>Novell.Directory.Ldap.Sasl.Kerberos.UnitTests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Novell.Directory.Ldap.NETStandard.Sasl.Kerberos\Novell.Directory.Ldap.NETStandard.Sasl.Kerberos.csproj" />
     <ProjectReference Include="..\..\src\Novell.Directory.Ldap.NETStandard\Novell.Directory.Ldap.NETStandard.csproj" />
   </ItemGroup>
 

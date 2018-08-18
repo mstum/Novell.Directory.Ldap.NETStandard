@@ -7,7 +7,7 @@ using System.IO;
 using System.Text;
 using Xunit;
 
-namespace Novell.Directory.Ldap.NETStandard.UnitTests
+namespace Novell.Directory.Ldap.Sasl.Kerberos.UnitTests
 {
     public partial class Asn1Tests
     {

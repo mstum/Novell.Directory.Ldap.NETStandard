@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Description>Kerberos/GSSAPI support for Novell.Directory.Ldap.NETStandard</Description>
-    <Summary>Kerberos/GSSAPI support for LDAP</Summary>
-    <VersionPrefix>3.0.0-beta</VersionPrefix>
+    <Description>Kerberos v5 support for Novell.Directory.Ldap.NETStandard</Description>
+    <Summary>Kerberos v5 authentication support for LDAP</Summary>
+    <VersionPrefix>3.0.0-beta3</VersionPrefix>
     <Authors>Novell;dsbenghe;mstum</Authors>
-    <TargetFramework>netstandard1.3</TargetFramework>
+    <TargetFrameworks>netstandard1.3;netstandard2.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>Novell.Directory.Ldap.NETStandard.Sasl.Kerberos</AssemblyName>
     <PackageId>Novell.Directory.Ldap.NETStandard.Sasl.Kerberos</PackageId>

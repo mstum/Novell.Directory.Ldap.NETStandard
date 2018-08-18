@@ -3,7 +3,7 @@ using Novell.Directory.Ldap.Sasl.Kerberos;
 using System.Collections;
 using Xunit;
 
-namespace Novell.Directory.Ldap.NETStandard.UnitTests
+namespace Novell.Directory.Ldap.Sasl.Kerberos.UnitTests
 {
     public class KerberosSaslTests
     {
