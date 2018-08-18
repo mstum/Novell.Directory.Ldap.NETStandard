@@ -51,7 +51,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         ///     ID needs only be one Value for every instance,
         ///     thus we create it only once.
         /// </summary>
-        private static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.Application, true,
+        private new static readonly Asn1Identifier Id = new Asn1Identifier(TagClass.Application, true,
             LdapMessage.BindRequest);
 
         // *************************************************************************

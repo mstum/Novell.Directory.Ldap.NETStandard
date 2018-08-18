@@ -51,7 +51,7 @@ namespace Novell.Directory.Ldap.Asn1
         ///     ID needs only be one Value for every instance,
         ///     thus we create it only once.
         /// </summary>
-        public static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.Universal, true, Tag);
+        public static readonly Asn1Identifier Id = new Asn1Identifier(TagClass.Universal, true, Tag);
 
         /* Constructors for Asn1SequenceOf
         */
@@ -92,6 +92,12 @@ namespace Novell.Directory.Ldap.Asn1
         {
         }
 
+        public Asn1SequenceOf(IAsn1Decoder dec, Stream inRenamed, int len)
+            : this(dec, inRenamed, len, null)
+        {
+
+        }
+
         /// <summary>
         ///     Constructs an Asn1SequenceOf object by decoding data from an
         ///     input stream.
@@ -104,10 +110,10 @@ namespace Novell.Directory.Ldap.Asn1
         /// <param name="in">
         ///     A byte stream that contains the encoded ASN.1.
         /// </param>
-        public Asn1SequenceOf(IAsn1Decoder dec, Stream inRenamed, int len)
+        public Asn1SequenceOf(IAsn1Decoder dec, Stream inRenamed, int len, DecodeAsn1Object contextItemDecoder)
             : base(Id)
         {
-            DecodeStructured(dec, inRenamed, len);
+            DecodeStructured(dec, inRenamed, len, contextItemDecoder);
         }
 
         /* Asn1SequenceOf specific methods

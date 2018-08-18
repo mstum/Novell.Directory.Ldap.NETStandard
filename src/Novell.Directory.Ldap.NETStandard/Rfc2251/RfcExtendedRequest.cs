@@ -77,10 +77,10 @@ namespace Novell.Directory.Ldap.Rfc2251
         public RfcExtendedRequest(RfcLdapOid requestName, Asn1OctetString requestValue)
             : base(2)
         {
-            Add(new Asn1Tagged(new Asn1Identifier(Asn1Identifier.Context, false, RequestName), requestName, false));
+            Add(new Asn1Tagged(new Asn1Identifier(TagClass.ContextSpecific, false, RequestName), requestName, false));
             if (requestValue != null)
             {
-                Add(new Asn1Tagged(new Asn1Identifier(Asn1Identifier.Context, false, RequestValue), requestValue,
+                Add(new Asn1Tagged(new Asn1Identifier(TagClass.ContextSpecific, false, RequestValue), requestValue,
                     false));
             }
         }
@@ -119,7 +119,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         /// </summary>
         public override Asn1Identifier GetIdentifier()
         {
-            return new Asn1Identifier(Asn1Identifier.Application, true, LdapMessage.ExtendedRequest);
+            return new Asn1Identifier(TagClass.Application, true, LdapMessage.ExtendedRequest);
         }
     }
 }

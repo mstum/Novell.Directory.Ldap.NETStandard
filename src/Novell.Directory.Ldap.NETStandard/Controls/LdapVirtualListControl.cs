@@ -377,7 +377,7 @@ namespace Novell.Directory.Ldap.Controls
             * in the ASN.1.
             */
             _mVlvRequest.Add(new Asn1Tagged(
-                new Asn1Identifier(Asn1Identifier.Context, false, Greaterthanorequal),
+                new Asn1Identifier(TagClass.ContextSpecific, false, Greaterthanorequal),
                 new Asn1OctetString(_mJumpTo), false));
 
             /* Add the optional context string if one is available.
@@ -413,7 +413,7 @@ namespace Novell.Directory.Ldap.Controls
             /* Add the ASN.1 sequence to the encoded data
             */
             _mVlvRequest.Add(
-                new Asn1Tagged(new Asn1Identifier(Asn1Identifier.Context, true, Byoffset), byoffset, false));
+                new Asn1Tagged(new Asn1Identifier(TagClass.ContextSpecific, true, Byoffset), byoffset, false));
 
             /* Add the optional context string if one is available.
             */

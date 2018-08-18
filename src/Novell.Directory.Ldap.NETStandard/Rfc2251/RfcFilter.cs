@@ -251,13 +251,13 @@ namespace Novell.Directory.Ldap.Rfc2251
                 case And:
                 case Or:
                     tag = new Asn1Tagged(
-                        new Asn1Identifier(Asn1Identifier.Context, true, filterComp),
+                        new Asn1Identifier(TagClass.ContextSpecific, true, filterComp),
                         ParseFilterList(),
                         false);
                     break;
 
                 case Not:
-                    tag = new Asn1Tagged(new Asn1Identifier(Asn1Identifier.Context, true, filterComp), ParseFilter(),
+                    tag = new Asn1Tagged(new Asn1Identifier(TagClass.ContextSpecific, true, filterComp), ParseFilter(),
                         true);
                     break;
 
@@ -271,7 +271,7 @@ namespace Novell.Directory.Ldap.Rfc2251
                         case LessOrEqual:
                         case ApproxMatch:
                             tag = new Asn1Tagged(
-                                new Asn1Identifier(Asn1Identifier.Context, true, filterType),
+                                new Asn1Identifier(TagClass.ContextSpecific, true, filterType),
                                 new RfcAttributeValueAssertion(
                                     new RfcAttributeDescription(_ft.Attr),
                                     new RfcAssertionValue(UnescapeString(valueRenamed))), false);
@@ -282,7 +282,7 @@ namespace Novell.Directory.Ldap.Rfc2251
                             {
                                 // present
                                 tag = new Asn1Tagged(
-                                    new Asn1Identifier(Asn1Identifier.Context, false, Present),
+                                    new Asn1Identifier(TagClass.ContextSpecific, false, Present),
                                     new RfcAttributeDescription(_ft.Attr), false);
                             }
                             else if (valueRenamed.IndexOf('*') != -1)
@@ -311,7 +311,7 @@ namespace Novell.Directory.Ldap.Rfc2251
                                             // '**'
                                             seq.Add(
                                                 new Asn1Tagged(
-                                                    new Asn1Identifier(Asn1Identifier.Context, false, Any),
+                                                    new Asn1Identifier(TagClass.ContextSpecific, false, Any),
                                                     new RfcLdapString(UnescapeString(string.Empty)), false));
                                         }
                                     }
@@ -323,7 +323,7 @@ namespace Novell.Directory.Ldap.Rfc2251
                                             // initial
                                             seq.Add(
                                                 new Asn1Tagged(
-                                                    new Asn1Identifier(Asn1Identifier.Context, false, Initial),
+                                                    new Asn1Identifier(TagClass.ContextSpecific, false, Initial),
                                                     new RfcLdapString(UnescapeString(subTok)), false));
                                         }
                                         else if (cnt < tokCnt)
@@ -331,7 +331,7 @@ namespace Novell.Directory.Ldap.Rfc2251
                                             // any
                                             seq.Add(
                                                 new Asn1Tagged(
-                                                    new Asn1Identifier(Asn1Identifier.Context, false, Any),
+                                                    new Asn1Identifier(TagClass.ContextSpecific, false, Any),
                                                     new RfcLdapString(UnescapeString(subTok)), false));
                                         }
                                         else
@@ -339,7 +339,7 @@ namespace Novell.Directory.Ldap.Rfc2251
                                             // final
                                             seq.Add(
                                                 new Asn1Tagged(
-                                                    new Asn1Identifier(Asn1Identifier.Context, false, Final),
+                                                    new Asn1Identifier(TagClass.ContextSpecific, false, Final),
                                                     new RfcLdapString(UnescapeString(subTok)), false));
                                         }
                                     }
@@ -348,14 +348,14 @@ namespace Novell.Directory.Ldap.Rfc2251
                                 }
 
                                 tag = new Asn1Tagged(
-                                    new Asn1Identifier(Asn1Identifier.Context, true, Substrings),
+                                    new Asn1Identifier(TagClass.ContextSpecific, true, Substrings),
                                     new RfcSubstringFilter(new RfcAttributeDescription(_ft.Attr), seq), false);
                             }
                             else
                             {
                                 // simple
                                 tag = new Asn1Tagged(
-                                    new Asn1Identifier(Asn1Identifier.Context, true, EqualityMatch),
+                                    new Asn1Identifier(TagClass.ContextSpecific, true, EqualityMatch),
                                     new RfcAttributeValueAssertion(
                                         new RfcAttributeDescription(_ft.Attr),
                                         new RfcAssertionValue(UnescapeString(valueRenamed))), false);
@@ -393,7 +393,7 @@ namespace Novell.Directory.Ldap.Rfc2251
                             }
 
                             tag = new Asn1Tagged(
-                                new Asn1Identifier(Asn1Identifier.Context, true, ExtensibleMatch),
+                                new Asn1Identifier(TagClass.ContextSpecific, true, ExtensibleMatch),
                                 new RfcMatchingRuleAssertion(
                                     matchingRule == null ? null : new RfcMatchingRuleId(matchingRule),
                                     type == null ? null : new RfcAttributeDescription(type),
@@ -655,7 +655,7 @@ namespace Novell.Directory.Ldap.Rfc2251
             _finalFound = false;
             var seq = new Asn1SequenceOf(5);
             Asn1Object current = new Asn1Tagged(
-                new Asn1Identifier(Asn1Identifier.Context, true, Substrings),
+                new Asn1Identifier(TagClass.ContextSpecific, true, Substrings),
                 new RfcSubstringFilter(new RfcAttributeDescription(attrName), seq), false);
             AddObject(current);
             SupportClass.StackPush(_filterStack, seq);
@@ -711,7 +711,7 @@ namespace Novell.Directory.Ldap.Rfc2251
                 }
 
                 substringSeq.Add(new Asn1Tagged(
-                    new Asn1Identifier(Asn1Identifier.Context, false, type),
+                    new Asn1Identifier(TagClass.ContextSpecific, false, type),
                     new RfcLdapString(valueRenamed), false));
             }
             catch (InvalidCastException e)
@@ -780,7 +780,7 @@ namespace Novell.Directory.Ldap.Rfc2251
             }
 
             Asn1Object current = new Asn1Tagged(
-                new Asn1Identifier(Asn1Identifier.Context, true, rfcType),
+                new Asn1Identifier(TagClass.ContextSpecific, true, rfcType),
                 new RfcAttributeValueAssertion(
                     new RfcAttributeDescription(attrName),
                     new RfcAssertionValue(valueRenamed)), false);
@@ -798,7 +798,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         public void AddPresent(string attrName)
         {
             Asn1Object current = new Asn1Tagged(
-                new Asn1Identifier(Asn1Identifier.Context, false, Present),
+                new Asn1Identifier(TagClass.ContextSpecific, false, Present),
                 new RfcAttributeDescription(attrName), false);
             AddObject(current);
         }
@@ -825,7 +825,7 @@ namespace Novell.Directory.Ldap.Rfc2251
             bool useDnMatching)
         {
             Asn1Object current = new Asn1Tagged(
-                new Asn1Identifier(Asn1Identifier.Context, true, ExtensibleMatch),
+                new Asn1Identifier(TagClass.ContextSpecific, true, ExtensibleMatch),
                 new RfcMatchingRuleAssertion(
                     matchingRule == null ? null : new RfcMatchingRuleId(matchingRule),
                     attrName == null ? null : new RfcAttributeDescription(attrName),
@@ -849,12 +849,12 @@ namespace Novell.Directory.Ldap.Rfc2251
             Asn1Object current;
             if (rfcType == And || rfcType == Or)
             {
-                current = new Asn1Tagged(new Asn1Identifier(Asn1Identifier.Context, true, rfcType), new Asn1SetOf(),
+                current = new Asn1Tagged(new Asn1Identifier(TagClass.ContextSpecific, true, rfcType), new Asn1SetOf(),
                     false);
             }
             else if (rfcType == Not)
             {
-                current = new Asn1Tagged(new Asn1Identifier(Asn1Identifier.Context, true, rfcType), null, true);
+                current = new Asn1Tagged(new Asn1Identifier(TagClass.ContextSpecific, true, rfcType), null, true);
             }
             else
             {

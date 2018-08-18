@@ -221,7 +221,7 @@ namespace Novell.Directory.Ldap.Asn1
         /// <summary> Encode an Asn1Identifier directly into the specified outputstream.</summary>
         public void Encode(Asn1Identifier id, Stream outRenamed)
         {
-            var c = id.Asn1Class;
+            var c = (int)id.Asn1Class;
             var t = id.Tag;
             var ccf = (byte)((c << 6) | (id.Constructed ? 0x20 : 0));
 

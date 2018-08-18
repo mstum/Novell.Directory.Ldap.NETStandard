@@ -9,7 +9,7 @@ namespace Novell.Directory.Ldap.Asn1
     public class Asn1GeneralizedTime : Asn1VisibleString
     {
         public new const int Tag = 24;
-        public new static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.Universal, true, Tag);
+        public new static readonly Asn1Identifier Id = new Asn1Identifier(TagClass.Universal, true, Tag);
 
         public DateTime GeneralizedTime { get; protected set; }
 

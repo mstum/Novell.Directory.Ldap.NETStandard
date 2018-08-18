@@ -49,7 +49,7 @@ namespace Novell.Directory.Ldap.Asn1
         ///     Id needs only be one Value for every instance,
         ///     thus we create it only once.
         /// </summary>
-        public static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.Universal, true, Tag);
+        public static readonly Asn1Identifier Id = new Asn1Identifier(TagClass.Universal, true, Tag);
 
         /* Constructors for Asn1SetOf
                 */

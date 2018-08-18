@@ -601,7 +601,7 @@ namespace Novell.Directory.Ldap
                 var bufs = new List<UrlData>();
                 var buf = new byte[4096];
                 int len, totalLength = 0;
-                while ((len = SupportClass.ReadInput(inRenamed, ref buf, 0, 4096)) != -1)
+                while ((len = SupportClass.ReadInput(inRenamed, buf, 0, 4096)) != -1)
                 {
                     bufs.Add(new UrlData(this, buf, len));
                     buf = new byte[4096];

@@ -117,7 +117,7 @@ namespace Novell.Directory.Ldap.Controls
                 if (keys[i].MatchRule != null)
                 {
                     key.Add(new Asn1Tagged(
-                        new Asn1Identifier(Asn1Identifier.Context, false, OrderingRule),
+                        new Asn1Identifier(TagClass.ContextSpecific, false, OrderingRule),
                         new Asn1OctetString(keys[i].MatchRule), false));
                 }
 
@@ -125,7 +125,7 @@ namespace Novell.Directory.Ldap.Controls
                 {
                     // only add if true
                     key.Add(new Asn1Tagged(
-                        new Asn1Identifier(Asn1Identifier.Context, false, ReverseOrder),
+                        new Asn1Identifier(TagClass.ContextSpecific, false, ReverseOrder),
                         new Asn1Boolean(true), false));
                 }
 

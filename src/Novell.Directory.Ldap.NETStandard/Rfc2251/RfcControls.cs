@@ -96,7 +96,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         /// <summary> Override getIdentifier to return a context specific id.</summary>
         public override Asn1Identifier GetIdentifier()
         {
-            return new Asn1Identifier(Asn1Identifier.Context, true, Controls);
+            return new Asn1Identifier(TagClass.ContextSpecific, true, Controls);
         }
     }
 }

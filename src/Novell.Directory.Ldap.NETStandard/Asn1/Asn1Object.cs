@@ -111,7 +111,7 @@ namespace Novell.Directory.Ldap.Asn1
             var sb = new StringBuilder();
             var id = GetIdentifier(); // could be overridden.
 
-            sb.Append(classTypes[id.Asn1Class]).Append(id.Tag).Append("] ");
+            sb.Append(classTypes[(int)id.Asn1Class]).Append(id.Tag).Append("] ");
 
             return sb.ToString();
         }

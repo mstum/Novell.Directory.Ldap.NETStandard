@@ -1,4 +1,4 @@
-/******************************************************************************
+﻿/******************************************************************************
 * The MIT License
 * Copyright (c) 2003 Novell Inc.  www.novell.com
 *
@@ -21,155 +21,168 @@
 * SOFTWARE.
 *******************************************************************************/
 
-//
-// Novell.Directory.Ldap.Asn1.LBERDecoder.cs
-//
-// Author:
-//   Sunil Kumar (Sunilk@novell.com)
-//
-// (C) 2003 Novell, Inc (http://www.novell.com)
-//
-
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Microsoft.Extensions.Logging;
 
 namespace Novell.Directory.Ldap.Asn1
 {
-    /// <summary>
-    ///     This class provides LBER decoding routines for ASN.1 Types. LBER is a
-    ///     subset of BER as described in the following taken from 5.1 of RFC 2251:
-    ///     5.1. Mapping Onto BER-based Transport Services
-    ///     The protocol elements of Ldap are encoded for exchange using the
-    ///     Basic Encoding Rules (BER) [11] of ASN.1 [3]. However, due to the
-    ///     high overhead involved in using certain elements of the BER, the
-    ///     following additional restrictions are placed on BER-encodings of Ldap
-    ///     protocol elements:
-    ///     <li>(1) Only the definite form of length encoding will be used.</li>
-    ///     <li>(2) OCTET STRING values will be encoded in the primitive form only.</li>
-    ///     <li>
-    ///         (3) If the value of a BOOLEAN type is true, the encoding MUST have
-    ///         its contents octets set to hex "FF".
-    ///     </li>
-    ///     <li>
-    ///         (4) If a value of a type is its default value, it MUST be absent.
-    ///         Only some BOOLEAN and INTEGER types have default values in this
-    ///         protocol definition.
-    ///         These restrictions do not apply to ASN.1 types encapsulated inside of
-    ///         OCTET STRING values, such as attribute values, unless otherwise
-    ///         noted.
-    ///     </li>
-    ///     [3] ITU-T Rec. X.680, "Abstract Syntax Notation One (ASN.1) -
-    ///     Specification of Basic Notation", 1994.
-    ///     [11] ITU-T Rec. X.690, "Specification of ASN.1 encoding rules: Basic,
-    ///     Canonical, and Distinguished Encoding Rules", 1994.
-    /// </summary>
     public class LberDecoder : IAsn1Decoder
     {
-        // used to speed up decode, so it doesn't need to recreate an identifier every time
-        // instead just reset is called CANNOT be static for multiple connections
-        private Asn1Identifier _asn1Id = new Asn1Identifier();
-        private Asn1Length _asn1Len = new Asn1Length();
+        private readonly ILogger _logger;
+        private readonly Stack<DecodeAsn1Object> _additionalDecoders = new Stack<DecodeAsn1Object>();
+        private readonly Asn1Identifier _asn1Id = new Asn1Identifier();
+        private readonly Asn1Length _asn1Len = new Asn1Length();
 
-        /* Generic decode routines
-        */
+        public LberDecoder(ILogger logger = null)
+        {
+            _logger = logger.OrNullLogger();
+        }
 
-        /// <summary> Decode an LBER encoded value into an Asn1Type from a byte array.</summary>
-        public Asn1Object Decode(byte[] valueRenamed)
+        public void AddDecoder(DecodeAsn1Object decoder)
+            => _additionalDecoders.Push(decoder ?? throw new ArgumentNullException(nameof(decoder)));
+
+        public Asn1Object Decode(byte[] input, DecodeAsn1Object contextItemDecoder)
         {
             Asn1Object asn1 = null;
 
-            using (var inRenamed = new MemoryStream(valueRenamed))
+            using (var inputStream = input.CreateReadStream())
             {
                 try
                 {
-                    asn1 = Decode(inRenamed);
+                    asn1 = Decode(inputStream, contextItemDecoder);
                 }
                 catch (IOException ioe)
                 {
-                    Logger.Log.LogWarning("Exception swallowed", ioe);
+                    _logger.LogWarning("Error when Decoding", ioe);
                 }
             }
 
             return asn1;
         }
 
-        /// <summary> Decode an LBER encoded value into an Asn1Type from an InputStream.</summary>
-        public Asn1Object Decode(Stream inRenamed)
+        public Asn1Object Decode(Stream input, DecodeAsn1Object contextItemDecoder)
         {
             var len = new int[1];
-            return Decode(inRenamed, len);
+            return Decode(input, len, contextItemDecoder);
         }
 
-        /// <summary>
-        ///     Decode an LBER encoded value into an Asn1Object from an InputStream.
-        ///     This method also returns the total length of this encoded
-        ///     Asn1Object (length of type + length of length + length of content)
-        ///     in the parameter len. This information is helpful when decoding
-        ///     structured types.
-        /// </summary>
-        public Asn1Object Decode(Stream inRenamed, int[] len)
+        public Asn1Object Decode(Stream input, int[] length, DecodeAsn1Object contextItemDecoder)
         {
-            _asn1Id.Reset(inRenamed);
-            _asn1Len.Reset(inRenamed);
-
-            var length = _asn1Len.Length;
-            len[0] = _asn1Id.EncodedLength + _asn1Len.EncodedLength + length;
+            var asn1Len = AdvanceStream(input, length);
 
             if (_asn1Id.IsUniversal)
             {
-                switch (_asn1Id.Tag)
+                return HandleUniversal(_asn1Id, input, asn1Len, contextItemDecoder);
+            }
+            else if (_asn1Id.IsApplication)
+            {
+                return HandleApplication(_asn1Id, input, asn1Len);
+            }
+            else if (_asn1Id.IsContext || _asn1Id.IsPrivate)
+            {
+                if (contextItemDecoder != null)
                 {
-                    case Asn1Sequence.Tag:
-                        return new Asn1Sequence(this, inRenamed, length);
+                    var props = CreateProps(_asn1Id, input, asn1Len);
+                    var result = contextItemDecoder.Invoke(props);
+                    if (result != null)
+                    {
+                        return result;
+                    }
+                }
 
-                    case Asn1Set.Tag:
-                        return new Asn1Set(this, inRenamed, length);
+                // If the Context Decoder couldn't do it, try the Application decoder
+                return HandleApplication(_asn1Id, input, asn1Len);
+            }
 
-                    case Asn1Boolean.Tag:
-                        return new Asn1Boolean(this, inRenamed, length);
+            // Fallback, just return an Asn1Tagged
+            return new Asn1Tagged(this, input, asn1Len, _asn1Id.Clone());
+        }
 
-                    case Asn1Integer.Tag:
-                        return new Asn1Integer(this, inRenamed, length);
-
-                    case Asn1OctetString.Tag:
-                        return new Asn1OctetString(this, inRenamed, length);
-
-                    case Asn1Enumerated.Tag:
-                        return new Asn1Enumerated(this, inRenamed, length);
-
-                    case Asn1Null.Tag:
-                        return new Asn1Null(); // has no content to decode.
-
-                    case Asn1VisibleString.Tag:
-                        return new Asn1VisibleString(this, inRenamed, length);
-
-                    case Asn1GeneralizedTime.Tag:
-                        return new Asn1GeneralizedTime(this, inRenamed, length);
-
-                    case Asn1GeneralString.Tag:
-                        return new Asn1GeneralString(this, inRenamed, length);
-
-                    case Asn1BitString.Tag:
-                        return new Asn1BitString(this, inRenamed, length);
-
-                    default:
-                        throw new EndOfStreamException("Unknown tag"); // !!! need a better exception
+        private Asn1Object HandleApplication(Asn1Identifier asn1Id, Stream input, int asn1Len)
+        {
+            if (_additionalDecoders.IsNotEmpty())
+            {
+                var props = CreateProps(asn1Id, input, asn1Len);
+                foreach (var handler in _additionalDecoders)
+                {
+                    var result = handler.Invoke(props);
+                    if (result != null)
+                    {
+                        return result;
+                    }
                 }
             }
 
-            // APPLICATION or CONTEXT-SPECIFIC tag
-            return new Asn1Tagged(this, inRenamed, length, (Asn1Identifier)_asn1Id.Clone());
+            // Fallback, just return an Asn1Tagged
+            return new Asn1Tagged(this, input, asn1Len, asn1Id.Clone());
         }
 
-        /* Decoders for ASN.1 simple type Contents */
+        private Asn1Object HandleUniversal(Asn1Identifier asn1Id, Stream input, int asn1Len, DecodeAsn1Object contextItemDecoder)
+        {
+            // Universal tags are reverved for use within the ASN.1 Spec, so we're always handling them ourselves.
+            switch (asn1Id.Tag)
+            {
+                case Asn1Sequence.Tag:
+                    return new Asn1Sequence(this, input, asn1Len, contextItemDecoder);
 
-        /// <summary> Decode a boolean directly from a stream.</summary>
-        public bool DecodeBoolean(Stream inRenamed, int len)
+                case Asn1Set.Tag:
+                    return new Asn1Set(this, input, asn1Len, contextItemDecoder);
+
+                case Asn1Boolean.Tag:
+                    return new Asn1Boolean(this, input, asn1Len);
+
+                case Asn1Integer.Tag:
+                    return new Asn1Integer(this, input, asn1Len);
+
+                case Asn1OctetString.Tag:
+                    return new Asn1OctetString(this, input, asn1Len);
+
+                case Asn1Enumerated.Tag:
+                    return new Asn1Enumerated(this, input, asn1Len);
+
+                case Asn1Null.Tag:
+                    return new Asn1Null(); // has no content to decode.
+
+                case Asn1VisibleString.Tag:
+                    return new Asn1VisibleString(this, input, asn1Len);
+
+                case Asn1GeneralizedTime.Tag:
+                    return new Asn1GeneralizedTime(this, input, asn1Len);
+
+                case Asn1GeneralString.Tag:
+                    return new Asn1GeneralString(this, input, asn1Len);
+
+                case Asn1BitString.Tag:
+                    return new Asn1BitString(this, input, asn1Len);
+
+                default:
+                    var errorMsg = "Unsupported Universal Tag: " + _asn1Id;
+                    _logger.LogWarning(errorMsg);
+                    throw new Asn1DecodingException(errorMsg, _asn1Id);
+            }
+        }
+
+        private int AdvanceStream(Stream input, int[] length)
+        {
+            _asn1Id.Reset(input);
+            _asn1Len.Reset(input);
+            _logger.LogDebug("Advanced Stream, current tag: " + _asn1Id);
+
+            var asn1Len = _asn1Len.Length;
+            length[0] = _asn1Id.EncodedLength + _asn1Len.EncodedLength + asn1Len;
+            return asn1Len;
+        }
+
+        private Asn1DecoderProperties CreateProps(Asn1Identifier asn1Id, Stream input, int asn1Len)
+            => new Asn1DecoderProperties(this, asn1Id.Clone(), input, asn1Len, _logger);
+
+        public bool DecodeBoolean(Stream input, int len)
         {
             var lber = new byte[len];
-
-            var i = SupportClass.ReadInput(inRenamed, ref lber, 0, lber.Length);
+            var i = SupportClass.ReadInput(input, lber, 0, lber.Length);
 
             if (i != len)
             {
@@ -179,14 +192,29 @@ namespace Novell.Directory.Ldap.Asn1
             return lber[0] == 0x00 ? false : true;
         }
 
-        /// <summary>
-        ///     Decode a Numeric type directly from a stream. Decodes INTEGER
-        ///     and ENUMERATED types.
-        /// </summary>
-        public long DecodeNumeric(Stream inRenamed, int len)
+        public string DecodeCharacterString(Stream input, int len)
+        {
+            var octets = new byte[len];
+
+            for (var i = 0; i < len; i++)
+            {
+                var ret = input.ReadByte(); // blocks
+                if (ret == -1)
+                {
+                    throw new EndOfStreamException("LBER: CHARACTER STRING: decode error: EOF");
+                }
+
+                octets[i] = (byte)ret;
+            }
+
+            var result = Encoding.UTF8.GetString(octets);
+            return result;
+        }
+
+        public long DecodeNumeric(Stream input, int len)
         {
             long l = 0;
-            var r = inRenamed.ReadByte();
+            var r = (long)input.ReadByte();
 
             if (r < 0)
             {
@@ -203,7 +231,7 @@ namespace Novell.Directory.Ldap.Asn1
 
             for (var i = 1; i < len; i++)
             {
-                r = inRenamed.ReadByte();
+                r = input.ReadByte();
                 if (r < 0)
                 {
                     throw new EndOfStreamException("LBER: NUMERIC: decode error: EOF");
@@ -215,8 +243,7 @@ namespace Novell.Directory.Ldap.Asn1
             return l;
         }
 
-        /// <summary> Decode an OctetString directly from a stream.</summary>
-        public byte[] DecodeOctetString(Stream inRenamed, int len)
+        public byte[] DecodeOctetString(Stream input, int len)
         {
             var octets = new byte[len];
             var totalLen = 0;
@@ -224,32 +251,101 @@ namespace Novell.Directory.Ldap.Asn1
             while (totalLen < len)
             {
                 // Make sure we have read all the data
-                var inLen = SupportClass.ReadInput(inRenamed, ref octets, totalLen, len - totalLen);
+                var inLen = SupportClass.ReadInput(input, octets, totalLen, len - totalLen);
                 totalLen += inLen;
             }
 
             return octets;
         }
 
-        /// <summary> Decode a CharacterString directly from a stream.</summary>
-        public string DecodeCharacterString(Stream inRenamed, int len)
-        {
-            var octets = new byte[len];
-
-            for (var i = 0; i < len; i++)
-            {
-                var ret = inRenamed.ReadByte(); // blocks
-                if (ret == -1)
-                {
-                    throw new EndOfStreamException("LBER: CHARACTER STRING: decode error: EOF");
-                }
-
-                octets[i] = (byte)ret;
-            }
-
-            var rval = octets.ToUtf8String();
-
-            return rval; // new String( "UTF8");
-        }
+        /* X.690
+         *
+         * Encoding order:
+         * a) identifier octets (see 8.1.2);
+         * b) length octets (see 8.1.3);
+         * c) contents octets (see 8.1.4);
+         * d) end-of-contents octets (see 8.1.5) if required
+         *
+         * Tag class, Bits      8   7
+         * ==========================
+         * Universal            0   0
+         * Application          0   1
+         * ContextSpecific      1   0
+         * Private              1   1
+         *
+         * bit 6: Primitive = 0, Constructed = 1
+         * bits 5 to 1 shall encode the number of the tag as a binary integer with bit 5 as the most significant bit
+         * For tags with a number greater than or equal to 31, the identifier
+         * shall comprise a leading octet followed by one or more subsequent octets.
+         *
+         * The leading octet shall be encoded as follows:
+         * bits 8 and 7 shall be encoded to represent the class of the tag as listed in Table 1;
+         * bit 6 shall be a zero or a one according to the rules of 8.1.2.5;
+         * bits 5 to 1 shall be encoded as 11111
+         *
+         * The subsequent octets shall encode the number of the tag as follows:
+         * bit 8 of each octet shall be set to one unless it is the last octet of the identifier octets;
+         *
+         * bits 7 to 1 of the first subsequent octet, followed by bits 7 to 1 of the second subsequent octet, followed
+         * in turn by bits 7 to 1 of each further octet, up to and including the last subsequent octet in the identifier
+         * octets shall be the encoding of an unsigned binary integer equal to the tag number, with bit 7 of the first
+         * subsequent octet as the most significant bit;
+         *
+         * bits 7 to 1 of the first subsequent octet shall not all be zero.
+         *
+         *  8   7   6   5   4   3   2   1
+         * [x] [x] [x] [1] [1] [1] [1] [1] Leading Octet
+         * [1] [1] [1] [1] [1] [1] [1] [1] First Subsequent Octet. Bit 8 = 1 means that there's at least one more octet.
+         * [0] [0] [0] [0] [1] [1] [1] [0] Second (and here, last subsequent octet)
+         *
+         * The Tag in this case is 16270 dec.
+         * 0 from the leading Octet (We don't count those 5 bits)
+         * We then combine the Bits 7-1 from each further octet to one one long, so in this case
+         * 1111111 from Octet 2
+         * 0001110 from Octet 3
+         * => 11111110001110 => 16270 dec
+         *
+         * Another example: [APPLICATION 141] = 7F 81 0D
+         * 01111111 10000001 00001101
+         *
+         * 01: Application Tag
+         * 1: Constructed
+         * 11111: Long Tag
+         *
+         * 1: There's another Octet later
+         * 0000001: Tag part
+         *
+         * 0: Last Octet
+         * 0001101: Tag part
+         *
+         * 00000010001101 = 141 dec
+         *
+         * // 0011 0000
+         * 61 Hex = 0110 0001
+         * 01: Application Tag
+         * 1: Constructed
+         * 00001: Tag 1
+         *
+         * Simpletest:
+         * 61 0F 30 0D A0 03 02 01 7B A1 06 0C 04 54 65 73 74
+         *
+         * 61 [APPLICATION 1], constructed
+         * 0F Length: 15 Bytes
+         * 30 [UNIVERSAL 16], constructed (= Sequence and Sequence-of types)
+         * 0D Length: 13 Bytes
+         * A0 [ContextSpecific 0], constructed (Because the tag is assigned explicitly) - A0 = 1010 0000
+         * 03 Length: 3
+         * 02 [UNIVERSAL 2], primitive (= Integer type)
+         * 01 Length: 1 Byte
+         * 7B Integer Value: 123
+         * A1 [ConextSpecific 1], constructed - A1 = 1010 0001
+         * 06 Length: 6
+         * 0C [UNIVERSAL 12], primitive (= UTF8String type)
+         * 04 Length: 4
+         * 54 T
+         * 65 e
+         * 73 s
+         * 74 t
+         */
     }
 }

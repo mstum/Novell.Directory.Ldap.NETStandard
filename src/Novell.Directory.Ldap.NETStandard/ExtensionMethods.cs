@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -56,5 +57,8 @@ namespace Novell.Directory.Ldap
 
         internal static Stream CreateReadStream(this byte[] bytes) 
             => new MemoryStream(bytes, writable: false);
+
+        internal static ILogger OrNullLogger(this ILogger logger)
+            => logger ?? Logger.NullLogger.Instance;
     }
 }

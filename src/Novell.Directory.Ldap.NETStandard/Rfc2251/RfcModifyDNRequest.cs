@@ -66,7 +66,7 @@ namespace Novell.Directory.Ldap.Rfc2251
             Add(deleteoldrdn);
             if (newSuperior != null)
             {
-                newSuperior.SetIdentifier(new Asn1Identifier(Asn1Identifier.Context, false, 0));
+                newSuperior.SetIdentifier(new Asn1Identifier(TagClass.ContextSpecific, false, 0));
                 Add(newSuperior);
             }
         }
@@ -107,7 +107,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         /// </summary>
         public override Asn1Identifier GetIdentifier()
         {
-            return new Asn1Identifier(Asn1Identifier.Application, true, LdapMessage.ModifyRdnRequest);
+            return new Asn1Identifier(TagClass.Application, true, LdapMessage.ModifyRdnRequest);
         }
     }
 }

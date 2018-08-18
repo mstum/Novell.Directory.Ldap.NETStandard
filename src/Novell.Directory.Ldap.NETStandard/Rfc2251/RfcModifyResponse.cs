@@ -85,7 +85,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         /// <summary> Override getIdentifier to return an application-wide id.</summary>
         public override Asn1Identifier GetIdentifier()
         {
-            return new Asn1Identifier(Asn1Identifier.Application, true, LdapMessage.ModifyResponse);
+            return new Asn1Identifier(TagClass.Application, true, LdapMessage.ModifyResponse);
         }
     }
 }

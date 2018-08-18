@@ -47,12 +47,9 @@ namespace Novell.Directory.Ldap.Asn1
         ///     Id needs only be one Value for every instance,
         ///     thus we create it only once.
         /// </summary>
-        public static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.Universal, false, Tag);
+        public static readonly Asn1Identifier Id = new Asn1Identifier(TagClass.Universal, false, Tag);
 
         private readonly byte[] _content;
-
-        /* Constructors for Asn1OctetString
-                */
 
         /// <summary>
         ///     Call this constructor to construct an Asn1OctetString
@@ -81,7 +78,8 @@ namespace Novell.Directory.Ldap.Asn1
         {
             try
             {
-                var ibytes = content.ToUtf8Bytes();
+                var encoder = Encoding.GetEncoding("utf-8");
+                var ibytes = encoder.GetBytes(content);
                 _content = ibytes;
             }
             catch (IOException uee)
@@ -108,9 +106,6 @@ namespace Novell.Directory.Ldap.Asn1
             _content = len > 0 ? (byte[])dec.DecodeOctetString(inRenamed, len) : new byte[0];
         }
 
-        /* Asn1Object implementation
-        */
-
         /// <summary>
         ///     Call this method to encode the current instance into the
         ///     specified output stream using the specified encoder object.
@@ -127,22 +122,10 @@ namespace Novell.Directory.Ldap.Asn1
             enc.Encode(this, outRenamed);
         }
 
-        /*Asn1OctetString specific methods
-        */
-
         /// <summary> Returns the content of this Asn1OctetString as a byte array.</summary>
         public byte[] ByteValue()
         {
             return _content;
-        }
-
-        public T DecodeAs<T>(IAsn1Decoder decoder) where T : Asn1Object
-        {
-            using (var ms = ByteValue().CreateReadStream())
-            {
-                var result = decoder.Decode(ms);
-                return result as T;
-            }
         }
 
         /// <summary> Returns the content of this Asn1OctetString as a String.</summary>
@@ -151,11 +134,12 @@ namespace Novell.Directory.Ldap.Asn1
             string s = null;
             try
             {
-                s = _content.ToUtf8String();
+                var encoder = Encoding.GetEncoding("utf-8");
+                var dchar = encoder.GetChars(_content);
+                s = new string(dchar);
             }
             catch (IOException uee)
             {
-                // TODO: Why? Just remove the try..catch?
                 throw new Exception(uee.ToString());
             }
 

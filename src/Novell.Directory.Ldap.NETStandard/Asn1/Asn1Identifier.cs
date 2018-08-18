@@ -69,38 +69,8 @@ namespace Novell.Directory.Ldap.Asn1
     ///         1 1 1 1 1 (> 30) multiple octet tag, more octets follow
     ///     </pre>
     /// </summary>
-    public class Asn1Identifier
+    public sealed class Asn1Identifier : object
     {
-        /// <summary>
-        ///     IsUniversal tag class.
-        ///     UNIVERSAL = 0.
-        /// </summary>
-        public const int Universal = 0;
-
-        /// <summary>
-        ///     IsApplication-wide tag class.
-        ///     APPLICATION = 1.
-        /// </summary>
-        public const int Application = 1;
-
-        /// <summary>
-        ///     IsContext-specific tag class.
-        ///     CONTEXT = 2.
-        /// </summary>
-        public const int Context = 2;
-
-        /// <summary>
-        ///     IsPrivate-use tag class.
-        ///     PRIVATE = 3.
-        /// </summary>
-        private const int Private = 3;
-
-        /* IsPrivate variables
-        */
-
-        /* Constructors for Asn1Identifier
-        */
-
         /// <summary>
         ///     Constructs an Asn1Identifier using the classtype, form and tag.
         /// </summary>
@@ -113,7 +83,7 @@ namespace Novell.Directory.Ldap.Asn1
         /// <param name="tag">
         ///     The tag of this identifier.
         /// </param>
-        public Asn1Identifier(int tagClass, bool constructed, int tag)
+        public Asn1Identifier(TagClass tagClass, bool constructed, int tag)
         {
             Asn1Class = tagClass;
             Constructed = constructed;
@@ -139,15 +109,7 @@ namespace Novell.Directory.Ldap.Asn1
         /// <summary>
         ///     Returns the CLASS of this Asn1Identifier as an int value.
         /// </summary>
-        /// <seealso cref="Universal">
-        /// </seealso>
-        /// <seealso cref="Application">
-        /// </seealso>
-        /// <seealso cref="Context">
-        /// </seealso>
-        /// <seealso cref="Private">
-        /// </seealso>
-        public int Asn1Class { get; private set; }
+        public TagClass Asn1Class { get; private set; }
 
         /// <summary>
         ///     Return a boolean indicating if the constructed bit is set.
@@ -167,32 +129,25 @@ namespace Novell.Directory.Ldap.Asn1
         ///     Returns a boolean value indicating whether or not this Asn1Identifier
         ///     has a TAG CLASS of UNIVERSAL.
         /// </summary>
-        /// <seealso cref="Universal">
-        /// </seealso>
-        public bool IsUniversal => Asn1Class == Universal;
+        public bool IsUniversal => Asn1Class == TagClass.Universal;
 
         /// <summary>
         ///     Returns a boolean value indicating whether or not this Asn1Identifier
         ///     has a TAG CLASS of APPLICATION.
         /// </summary>
-        /// <seealso cref="Application">
-        /// </seealso>
-        public bool IsApplication => Asn1Class == Application;
+        public bool IsApplication => Asn1Class == TagClass.Application;
 
         /// <summary>
         ///     Returns a boolean value indicating whether or not this Asn1Identifier
         ///     has a TAG CLASS of CONTEXT-SPECIFIC.
         /// </summary>
-        /// <seealso cref="Context">
-        /// </seealso>
-        public bool IsContext => Asn1Class == Context;
+        public bool IsContext => Asn1Class == TagClass.ContextSpecific;
 
         /// <summary>
         ///     Returns a boolean value indicating whether or not this Asn1Identifier
         ///     has a TAG CLASS of PRIVATE.
         /// </summary>
-        /// <seealso cref="Private"></seealso>
-        public bool IsPrivate => Asn1Class == Private;
+        public bool IsPrivate => Asn1Class == TagClass.Private;
 
         /// <summary>
         ///     Decode an Asn1Identifier directly from an InputStream and
@@ -211,13 +166,12 @@ namespace Novell.Directory.Ldap.Asn1
                 throw new EndOfStreamException("BERDecoder: decode: EOF in Identifier");
             }
 
-            Asn1Class = r >> 6;
+            Asn1Class = (TagClass)(r >> 6);
             Constructed = (r & 0x20) != 0;
             Tag = r & 0x1F; // if tag < 30 then its a single octet identifier.
             if (Tag == 0x1F)
-
-            // if true, its a multiple octet identifier.
             {
+                // if true, its a multiple octet identifier.
                 Tag = DecodeTagNumber(inRenamed);
             }
         }

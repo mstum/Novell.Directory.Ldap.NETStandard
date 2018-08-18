@@ -79,7 +79,7 @@ namespace Novell.Directory.Ldap
                 BindRequest,
                 new RfcBindRequest(new Asn1Integer(version), new RfcLdapDn(dn),
                     new RfcAuthenticationChoice(new Asn1Tagged(
-                        new Asn1Identifier(Asn1Identifier.Context, false, 0),
+                        new Asn1Identifier(TagClass.ContextSpecific, false, 0),
                         new Asn1OctetString(passwd), false))), cont)
         {
         }

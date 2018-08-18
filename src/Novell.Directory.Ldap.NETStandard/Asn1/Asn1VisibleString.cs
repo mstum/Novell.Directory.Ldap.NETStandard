@@ -18,7 +18,7 @@ namespace Novell.Directory.Ldap.Asn1
         protected byte[] Content { get; set; }
 
         public const int Tag = 26;
-        public static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.Universal, true, Tag);
+        public static readonly Asn1Identifier Id = new Asn1Identifier(TagClass.Universal, true, Tag);
 
         public Asn1VisibleString() : base(Id)
         {

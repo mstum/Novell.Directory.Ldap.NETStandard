@@ -83,7 +83,7 @@ namespace Novell.Directory.Ldap.Controls
             }
 
             // We should get a sequence initially
-            var asnObj = decoder.Decode(valueRenamed);
+            var asnObj = decoder.Decode(valueRenamed, null);
 
             if (asnObj == null || !(asnObj is Asn1Sequence))
             {

@@ -31,6 +31,8 @@
 //
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Novell.Directory.Ldap.Asn1
@@ -41,7 +43,7 @@ namespace Novell.Directory.Ldap.Asn1
     ///     This class inherits from the Asn1Structured class which
     ///     provides functionality to hold multiple Asn1 components.
     /// </summary>
-    public class Asn1Sequence : Asn1Structured
+    public class Asn1Sequence : Asn1Structured, IReadOnlyList<Asn1Object>
     {
         /// <summary> ASN.1 SEQUENCE tag definition.</summary>
         public const int Tag = 0x10;
@@ -50,7 +52,7 @@ namespace Novell.Directory.Ldap.Asn1
         ///     ID is added for Optimization.
         ///     id needs only be one Value for every instance Thus we create it only once.
         /// </summary>
-        public static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.Universal, true, Tag);
+        public static readonly Asn1Identifier Id = new Asn1Identifier(TagClass.Universal, true, Tag);
 
         /* Constructors for Asn1Sequence
                 */
@@ -93,6 +95,11 @@ namespace Novell.Directory.Ldap.Asn1
         {
         }
 
+        public Asn1Sequence(IAsn1Decoder dec, Stream inRenamed, int len)
+            : this(dec, inRenamed, len, null)
+        { 
+        }
+
         /// <summary>
         ///     Constructs an Asn1Sequence object by decoding data from an
         ///     input stream.
@@ -105,19 +112,47 @@ namespace Novell.Directory.Ldap.Asn1
         /// <param name="in">
         ///     A byte stream that contains the encoded ASN.1.
         /// </param>
-        public Asn1Sequence(IAsn1Decoder dec, Stream inRenamed, int len)
+        public Asn1Sequence(IAsn1Decoder dec, Stream inRenamed, int len, DecodeAsn1Object contextItemDecoder)
             : base(Id)
         {
-            DecodeStructured(dec, inRenamed, len);
+            DecodeStructured(dec, inRenamed, len, contextItemDecoder);
         }
 
-        /* Asn1Sequence specific methods
-        */
+        public Asn1Object this[int index] => get_Renamed(index);
+
+        public int Count => Size();
+
+        public IEnumerator<Asn1Object> GetEnumerator()
+        {
+            var c = Count;
+            for (int i = 0; i < c; i++)
+            {
+                yield return this[i];
+            }
+        }
 
         /// <summary> Return a String representation of this Asn1Sequence.</summary>
         public override string ToString()
         {
             return ToString("SEQUENCE: { ");
         }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        public TResult[] TransformWithIndex<TInput, TResult>(Func<int, TInput, TResult> transformer) where TInput : Asn1Object
+        {
+            var size = Count;
+            var result = new TResult[size];
+            for (int i = 0; i < size; i++)
+            {
+                var item = get_Renamed(i) as TInput;
+                var r = transformer(i, item);
+                result[i] = r;
+            }
+            return result;
+        }
+
+        public TResult[] Transform<TInput, TResult>(Func<TInput, TResult> transformer) where TInput : Asn1Object
+            => TransformWithIndex<TInput, TResult>((ix, input) => transformer(input));
     }
 }

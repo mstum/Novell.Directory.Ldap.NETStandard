@@ -108,7 +108,7 @@ namespace Novell.Directory.Ldap.Rfc2251
         /// </summary>
         public override Asn1Identifier GetIdentifier()
         {
-            return new Asn1Identifier(Asn1Identifier.Application, true, LdapMessage.AddRequest);
+            return new Asn1Identifier(TagClass.Application, true, LdapMessage.AddRequest);
         }
     }
 }

@@ -111,7 +111,7 @@ namespace Novell.Directory.Ldap
         ///     The number of characters read. The number will be less than or equal to count depending on the data available
         ///     in the source Stream. Returns -1 if the end of the stream is reached.
         /// </returns>
-        public static int ReadInput(Stream sourceStream, ref byte[] target, int start, int count)
+        public static int ReadInput(Stream sourceStream, byte[] target, int start, int count)
         {
             // Returns 0 bytes if not enough space in target
             if (target.Length == 0)
