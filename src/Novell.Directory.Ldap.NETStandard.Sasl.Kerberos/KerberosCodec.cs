@@ -1,13 +1,15 @@
 ﻿using Novell.Directory.Ldap.Asn1;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
-namespace Novell.Directory.Ldap.Sasl.Asn1
+namespace Novell.Directory.Ldap.Sasl.Kerberos
 {
-    public class KerberosCodec
+    public static class KerberosCodec
     {
-        public KerberosAsn1Object Decode(Asn1Tagged input, IAsn1Decoder decoder)
+        public static Asn1Object DecodeKerberosObject(Asn1DecoderProperties props)
         {
             // Valid Kerberos PDUs (Top-Level Objects):
             //  1 Ticket
@@ -22,28 +24,30 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
             // 22 KRB-CRED
             // 30 KRB-ERROR
             //
-            // All other Kerberos Object are meant to be contained, and will thus throw an exception
-            var id = input.GetIdentifier();
+            // Anything else won't be decoded by this method as it's
+            // meant to be part of one of the PDUs.
+
+            var id = props.Identifier;
 
             if (id.IsSameTagAs(Ticket.Id))
             {
-                return new Ticket(input, decoder);
+                return new Ticket(props);
             }
             if (id.IsSameTagAs(AsRequest.Id))
             {
-                return new AsRequest(input, decoder);
+                return new AsRequest(props);
             }
             if (id.IsSameTagAs(AsResponse.Id))
             {
-                return new AsResponse(input, decoder);
+                return new AsResponse(props);
             }
             if (id.IsSameTagAs(TgsRequest.Id))
             {
-                return new TgsRequest(input, decoder);
+                return new TgsRequest(props);
             }
             if (id.IsSameTagAs(TgsResponse.Id))
             {
-                return new TgsResponse(input, decoder);
+                return new TgsResponse(props);
             }
 
             // 14 AP-REQ
@@ -54,10 +58,11 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
 
             if (id.IsSameTagAs(KerberosError.Id))
             {
-                return new KerberosError(input, decoder);
+                return new KerberosError(props);
             }
 
-            throw new InvalidOperationException("Trying to decode a Non-PDU object: " + id.ToString());
+            props.Logger.LogDebug($"{nameof(KerberosCodec)} does not handle ASN.1 objects with ID {id}");
+            return null;
         }
     }
 }

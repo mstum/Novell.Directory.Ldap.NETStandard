@@ -1,20 +1,20 @@
 ﻿using Novell.Directory.Ldap.Asn1;
 using System.IO;
 
-namespace Novell.Directory.Ldap.Sasl.Asn1
+namespace Novell.Directory.Ldap.Sasl.Kerberos
 {
     public class TgsRequest : KdcRequest
     {
         // TGS-REQ ::= [APPLICATION 12] KDC-REQ  
-        public static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.Application, true, 12);
+        public static readonly Asn1Identifier Id = new Asn1Identifier(TagClass.Application, true, 12);
 
         public TgsRequest()
             : base(Id)
         {
         }
 
-        public TgsRequest(Asn1Tagged input, IAsn1Decoder decoder)
-            : base(Id, input, decoder)
+        public TgsRequest(Asn1DecoderProperties props)
+            : base(Id, props)
         {            
         }
 

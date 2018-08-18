@@ -39,6 +39,7 @@ namespace Novell.Directory.Ldap.Asn1
         void AddDecoder(DecodeAsn1Object decoder);
 
         Asn1Object Decode(byte[] input, DecodeAsn1Object contextItemDecoder);
+
         Asn1Object Decode(Stream input, DecodeAsn1Object contextItemDecoder);
 
         /// <summary>

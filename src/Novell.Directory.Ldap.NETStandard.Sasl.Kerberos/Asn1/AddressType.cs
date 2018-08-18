@@ -1,4 +1,4 @@
-﻿namespace Novell.Directory.Ldap.Sasl.Asn1
+﻿namespace Novell.Directory.Ldap.Sasl.Kerberos
 {
     /// <summary>
     /// All negative values for the host address type are reserved for local

@@ -1,7 +1,7 @@
 ﻿using Novell.Directory.Ldap.Asn1;
 using System;
 
-namespace Novell.Directory.Ldap.Sasl.Asn1
+namespace Novell.Directory.Ldap.Sasl.Kerberos
 {
     /// <summary>
     /// EncKDCRepPart   ::= SEQUENCE {
@@ -41,7 +41,7 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
             LastReq = Array.Empty<LastReq>();
         }
 
-        protected EncKdcRepPart(Asn1Identifier id, Asn1Tagged input, IAsn1Decoder decoder)
+        protected EncKdcRepPart(Asn1Identifier id, Asn1DecoderProperties props)
             : this(id)
         {
             foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
@@ -123,6 +123,19 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                         break;
                 }
             }
+        }
+
+        private Asn1Object DecodeContentTagHandler(Asn1DecoderProperties props)
+        {
+            var id = props.Identifier;
+            var dec = props.Decoder;
+            if (id.IsContext)
+            {
+                switch (id.Tag)
+                {
+                }
+            }
+            return null;
         }
     }
 }

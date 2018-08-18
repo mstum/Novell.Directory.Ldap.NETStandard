@@ -2,14 +2,14 @@
 using System;
 using System.IO;
 
-namespace Novell.Directory.Ldap.Sasl.Asn1
+namespace Novell.Directory.Ldap.Sasl.Kerberos
 {
     /// <summary>
     /// AS-REP          ::= [APPLICATION 11] KDC-REP
     /// </summary>
     public class AsResponse : KdcResponse
     {
-        public static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.Application, true, 11);
+        public static readonly Asn1Identifier Id = new Asn1Identifier(TagClass.Application, true, 11);
 
         // TODO: EcryptedData to EncASRepPart
 
@@ -18,8 +18,8 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
         {
         }
 
-        public AsResponse(Asn1Tagged input, IAsn1Decoder decoder)
-            : base(Id, input, decoder)
+        public AsResponse(Asn1DecoderProperties props)
+            : base(Id, props)
         {
         }
 

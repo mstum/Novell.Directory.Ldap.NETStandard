@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace Novell.Directory.Ldap.Sasl.Asn1
+namespace Novell.Directory.Ldap.Sasl.Kerberos
 {
     /// <summary>
     /// Checksum        ::= SEQUENCE {
@@ -15,23 +15,31 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
         public ChecksumType Type { get; set; }
         public byte[] Value { get; set; }
 
-        public Checksum(Asn1Tagged input, IAsn1Decoder decoder)
+        public Checksum(Asn1DecoderProperties props)
              : base(Asn1Sequence.Id)
         {
-            foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
+            props.Decode(DecodeContentTagHandler);
+        }
+
+        private Asn1Object DecodeContentTagHandler(Asn1DecoderProperties props)
+        {
+            var id = props.Identifier;
+            var dec = props.Decoder;
+            if (id.IsContext)
             {
-                var itemId = item.GetIdentifier();
-                var ostring = (Asn1OctetString)item.TaggedValue;
-                switch (itemId.Tag)
+                switch (id.Tag)
                 {
+                    case 0:
+                        var asn1tvno = DecodeAs<Asn1Integer>(props);
+                        Type = (ChecksumType)asn1tvno.IntValue();
+                        return asn1tvno;
                     case 1:
-                        Type = (ChecksumType)DecodeInteger(ostring, decoder);
-                        break;
-                    case 2:
-                        Value = ostring.ByteValue();
-                        break;
+                        var value = DecodeAs<Asn1OctetString>(props);
+                        Value = value.ByteValue();
+                        return value;
                 }
             }
+            return null;
         }
 
         public override void Encode(IAsn1Encoder enc, Stream outRenamed)

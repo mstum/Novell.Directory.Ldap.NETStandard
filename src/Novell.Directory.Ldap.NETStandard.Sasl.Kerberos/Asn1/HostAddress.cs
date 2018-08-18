@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace Novell.Directory.Ldap.Sasl.Asn1
+namespace Novell.Directory.Ldap.Sasl.Kerberos
 {
     /// <summary>
     /// HostAddress     ::= SEQUENCE  {
@@ -20,23 +20,31 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
         {
         }
 
-        public HostAddress(Asn1Tagged input, IAsn1Decoder decoder)
-            : base(Asn1Sequence.Id)
+        public HostAddress(Asn1DecoderProperties props)
+            : this()
         {
-            foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
+            props.Decode(DecodeContentTagHandler);
+        }
+
+        private Asn1Object DecodeContentTagHandler(Asn1DecoderProperties props)
+        {
+            var id = props.Identifier;
+            var dec = props.Decoder;
+            if (id.IsContext)
             {
-                var itemId = item.GetIdentifier();
-                var ostring = (Asn1OctetString)item.TaggedValue;
-                switch (itemId.Tag)
+                switch (id.Tag)
                 {
                     case 1:
-                        Type = (AddressType)DecodeInteger(ostring, decoder);
-                        break;
+                        var asn1AType = DecodeAs<Asn1Integer>(props);
+                        Type = (AddressType)asn1AType.IntValue();
+                        return asn1AType;
                     case 2:
-                        Address = ostring.ByteValue();
-                        break;
+                        var addr = DecodeAs<Asn1OctetString>(props);
+                        Address = addr.ByteValue();
+                        return addr;
                 }
             }
+            return null;
         }
 
         public override void Encode(IAsn1Encoder enc, Stream outRenamed)

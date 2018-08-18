@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Novell.Directory.Ldap.Sasl
+namespace Novell.Directory.Ldap.Sasl.Kerberos
 {
     public class KerberosSaslClient : BaseSaslClient
     {

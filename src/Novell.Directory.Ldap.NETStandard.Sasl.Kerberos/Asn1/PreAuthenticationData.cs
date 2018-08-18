@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace Novell.Directory.Ldap.Sasl.Asn1
+namespace Novell.Directory.Ldap.Sasl.Kerberos
 {
     /// <summary>
     /// PA-DATA         ::= SEQUENCE {
@@ -21,23 +21,33 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
         {
         }
 
-        public PreAuthenticationData(Asn1Object input, IAsn1Decoder decoder)
+        public PreAuthenticationData(Asn1DecoderProperties props)
             : this()
         {
-            foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
+            props.Decode(DecodeContentTagHandler);
+        }
+
+        private Asn1Object DecodeContentTagHandler(Asn1DecoderProperties props)
+        {
+            var id = props.Identifier;
+            var dec = props.Decoder;
+            if (id.IsContext)
             {
-                var itemId = item.GetIdentifier();
-                var ostring = (Asn1OctetString)item.TaggedValue;
-                switch (itemId.Tag)
+                switch (id.Tag)
                 {
                     case 1:
-                        Type = (PaDataType)DecodeInteger(ostring, decoder);
-                        break;
+                        // padata-type     [1] Int32,
+                        var asn1Int = DecodeAs<Asn1Integer>(props);
+                        Type = (PaDataType)asn1Int.IntValue();
+                        return asn1Int;
                     case 2:
-                        Value = ostring.ByteValue();
-                        break;
+                        // padata-value    [2] OCTET STRING -- might be encoded AP-REQ
+                        var paDataValue = DecodeAs<Asn1OctetString>(props);
+                        Value = paDataValue.ByteValue();
+                        return paDataValue;
                 }
             }
+            return null;
         }
 
         public override void Encode(IAsn1Encoder enc, Stream outRenamed)

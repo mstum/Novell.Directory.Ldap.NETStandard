@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace Novell.Directory.Ldap.Sasl.Asn1
+namespace Novell.Directory.Ldap.Sasl.Kerberos
 {
     /// <summary>
     /// Ticket          ::= [APPLICATION 1] SEQUENCE {
@@ -15,7 +15,7 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
     public class Ticket : KerberosAsn1Object
     {
         public const int Tag = 1;
-        public static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.Application, true, Tag);
+        public static readonly Asn1Identifier Id = new Asn1Identifier(TagClass.Application, true, Tag);
 
         public int TicketVersionNumber { get; set; }
         public string Realm { get; set; }
@@ -31,29 +31,42 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
         {
         }
 
-        public Ticket(Asn1Tagged input, IAsn1Decoder decoder)
-            : base(Id)
+        public Ticket(Asn1DecoderProperties props)
+            : this()
         {
-            foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
+            props.Decode(DecodeContentTagHandler);
+        }
+
+        private Asn1Object DecodeContentTagHandler(Asn1DecoderProperties props)
+        {
+            var id = props.Identifier;
+            var dec = props.Decoder;
+            if (id.IsContext)
             {
-                var itemId = item.GetIdentifier();
-                var ostring = (Asn1OctetString)item.TaggedValue;
-                switch (itemId.Tag)
+                switch (id.Tag)
                 {
                     case 0:
-                        TicketVersionNumber = (int)DecodeInteger(ostring, decoder);
-                        break;
+                        // tkt-vno         [0] INTEGER (5),
+                        var asn1tvno = DecodeAs<Asn1Integer>(props);
+                        TicketVersionNumber = asn1tvno.IntValue();
+                        return asn1tvno;
                     case 1:
-                        Realm = DecodeGeneralString(ostring, decoder);
-                        break;
+                        // realm           [1] Realm,
+                        var realm = DecodeAs<Asn1GeneralString>(props);
+                        Realm = realm.StringValue();
+                        return realm;
                     case 2:
-                        SName = new PrincipalName(item, decoder);
-                        break;
+                        // sname           [2] PrincipalName,
+                        SName = new PrincipalName(props);
+                        return SName;
                     case 3:
-                        EncPart = new EncryptedData(item, decoder);
-                        break;
+                        // enc-part        [3] EncryptedData -- EncTicketPart
+                        EncPart = new EncryptedData(props);
+                        return EncPart;
                 }
             }
+
+            return null;
         }
 
         public override void Encode(IAsn1Encoder enc, Stream outRenamed)

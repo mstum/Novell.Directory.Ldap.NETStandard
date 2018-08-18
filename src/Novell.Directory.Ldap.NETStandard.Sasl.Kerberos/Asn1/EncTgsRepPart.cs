@@ -2,22 +2,22 @@
 using System;
 using System.IO;
 
-namespace Novell.Directory.Ldap.Sasl.Asn1
+namespace Novell.Directory.Ldap.Sasl.Kerberos
 {
     /// <summary>
     /// EncTGSRepPart   ::= [APPLICATION 26] EncKDCRepPart
     /// </summary>
     public class EncTgsRepPart : EncKdcRepPart
     {
-        public static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.Application, true, 26);
+        public static readonly Asn1Identifier Id = new Asn1Identifier(TagClass.Application, true, 26);
 
         public EncTgsRepPart()
             : base(Id)
         {
         }
 
-        public EncTgsRepPart(Asn1Tagged input, IAsn1Decoder decoder)
-            : base(Id, input, decoder)
+        public EncTgsRepPart(Asn1DecoderProperties props)
+            : base(Id, props)
         {
         }
 

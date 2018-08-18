@@ -1,4 +1,4 @@
-﻿namespace Novell.Directory.Ldap.Sasl.Asn1
+﻿namespace Novell.Directory.Ldap.Sasl.Kerberos
 {
     /// <remarks>
     /// These are signed values ranging from -2147483648 to 2147483647.  Positive

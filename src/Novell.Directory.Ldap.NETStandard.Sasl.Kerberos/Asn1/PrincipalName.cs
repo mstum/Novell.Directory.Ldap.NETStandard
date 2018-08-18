@@ -2,7 +2,7 @@
 using System.IO;
 using Novell.Directory.Ldap.Asn1;
 
-namespace Novell.Directory.Ldap.Sasl.Asn1
+namespace Novell.Directory.Ldap.Sasl.Kerberos
 {
     /// PrincipalName   ::= SEQUENCE {
     ///         name-type       [0] Int32,
@@ -17,28 +17,33 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
         {
         }
 
-        public PrincipalName(Asn1Tagged input, IAsn1Decoder decoder) : base(Asn1Sequence.Id)
+        public PrincipalName(Asn1DecoderProperties props) : this()
         {
-            foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
-            {
-                var itemId = item.GetIdentifier();
+            props.Decode(DecodeContentTagHandler);
+        }
 
-                var ostring = (Asn1OctetString)item.TaggedValue;
-                switch (itemId.Tag)
+        private Asn1Object DecodeContentTagHandler(Asn1DecoderProperties props)
+        {
+            var id = props.Identifier;
+            var dec = props.Decoder;
+            if (id.IsContext)
+            {
+                switch (id.Tag)
                 {
                     case 0:
-                        Type = (NameType)DecodeInteger(ostring, decoder);
-                        break;
+                        // name-type       [0] Int32,
+                        var asn1Int = props.DecodeAs<Asn1Integer>();
+                        Type = (NameType)asn1Int.IntValue();
+                        return asn1Int;
                     case 1:
-                        var names = ostring.DecodeAs<Asn1Sequence>(decoder);
-                        Name = IterateAndTransform(names, (ix, asn1) =>
-                        {
-                            var ns = asn1 as Asn1GeneralString;
-                            return ns.StringValue();
-                        });
-                        break;
+                        // name-string     [1] SEQUENCE OF KerberosString
+                        var nameSeq = props.DecodeAs<Asn1Sequence>();
+                        Name = nameSeq.Transform<Asn1GeneralString, string>(gs => gs.StringValue());
+                        return nameSeq;
                 }
             }
+
+            return null;
         }
 
         public override void Encode(IAsn1Encoder enc, Stream outRenamed)

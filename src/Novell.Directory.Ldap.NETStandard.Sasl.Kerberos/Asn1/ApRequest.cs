@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace Novell.Directory.Ldap.Sasl.Asn1
+namespace Novell.Directory.Ldap.Sasl.Kerberos
 {
     /// <summary>
     /// AP-REQ          ::= [APPLICATION 14] SEQUENCE {
@@ -55,6 +55,19 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                         break;
                 }
             }
+        }
+
+        private Asn1Object DecodeContentTagHandler(Asn1DecoderProperties props)
+        {
+            var id = props.Identifier;
+            var dec = props.Decoder;
+            if (id.IsContext)
+            {
+                switch (id.Tag)
+                {
+                }
+            }
+            return null;
         }
 
         public override void Encode(IAsn1Encoder enc, Stream outRenamed)

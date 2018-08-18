@@ -1,7 +1,8 @@
 ﻿using Novell.Directory.Ldap.Asn1;
+using System;
 using System.Collections.Generic;
 
-namespace Novell.Directory.Ldap.Sasl.Asn1
+namespace Novell.Directory.Ldap.Sasl.Kerberos
 {
     /// <summary>
     /// KDC-REQ         ::= SEQUENCE {
@@ -24,38 +25,46 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
             PaData = new List<PreAuthenticationData>();
         }
 
-        protected KdcRequest(Asn1Identifier id, Asn1Tagged input, IAsn1Decoder decoder) : base(id)
+        protected KdcRequest(Asn1Identifier id, Asn1DecoderProperties props) : this(id)
         {
-            PaData = new List<PreAuthenticationData>();
-            foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
+            props.Decode(DecodeContentTagHandler);
+        }
+
+        private Asn1Object DecodeContentTagHandler(Asn1DecoderProperties props)
+        {
+            var id = props.Identifier;
+            var dec = props.Decoder;
+            if (id.IsContext)
             {
-                var itemId = item.GetIdentifier();
-                var ostring = (Asn1OctetString)item.TaggedValue;
-                switch (itemId.Tag)
+                switch (id.Tag)
                 {
                     case 1:
-                        ProtocolVersionNumber = (int)DecodeInteger(ostring, decoder);
-                        break;
+                        // pvno            [1] INTEGER (5) ,
+                        var asn1pvno = DecodeAs<Asn1Integer>(props);
+                        ProtocolVersionNumber = asn1pvno.IntValue();
+                        return asn1pvno;
                     case 2:
-                        MessageType = (MessageType)DecodeInteger(ostring, decoder);
-                        break;
+                        // msg-type        [2] INTEGER (10 -- AS -- | 12 -- TGS --),
+                        var asn1msgType = DecodeAs<Asn1Integer>(props);
+                        MessageType = (MessageType)asn1msgType.IntValue();
+                        return asn1msgType;
                     case 3:
-                        var paDataSeq = ostring.DecodeAs<Asn1Sequence>(decoder);
-                        var size = paDataSeq.Size();
-                        var paData = new PreAuthenticationData[size];
-                        for (int i = 0; i < size; i++)
+                        //padata          [3] SEQUENCE OF PA-DATA OPTIONAL -- NOTE: not empty --,
+                        var paDataSeq = props.DecodeAs<Asn1Sequence>();
+                        PaData = paDataSeq.Transform<Asn1Sequence, PreAuthenticationData>(paInput =>
                         {
-                            var paDataItem = paDataSeq.get_Renamed(i) as Asn1Sequence;
-                            var newPaData = new PreAuthenticationData(paDataItem, decoder);
-                            paData[i] = newPaData;
-                        }
-                        PaData = paData;
-                        break;
+                            throw new NotImplementedException();
+                        });
+                        return paDataSeq;
                     case 4:
-                        Body = new KdcReqBody(item, decoder);
-                        break;
+                        //req-body        [4] KDC-REQ-BODY
+                        Body = new KdcReqBody(props);
+                        return Body;
+                       
                 }
             }
+
+            return null;
         }
     }
 }

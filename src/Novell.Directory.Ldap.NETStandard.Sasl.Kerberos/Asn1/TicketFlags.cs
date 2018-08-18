@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Novell.Directory.Ldap.Sasl.Asn1
+namespace Novell.Directory.Ldap.Sasl.Kerberos
 {
     /// <summary>
     /// TicketFlags     ::= KerberosFlags

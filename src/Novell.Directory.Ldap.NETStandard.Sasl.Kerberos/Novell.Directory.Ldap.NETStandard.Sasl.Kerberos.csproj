@@ -20,7 +20,7 @@
     <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <RootNamespace>Novell.Directory.Ldap.Sasl</RootNamespace>
+    <RootNamespace>Novell.Directory.Ldap.Sasl.Kerberos</RootNamespace>
   </PropertyGroup>
   <PropertyGroup>
     <NoWarn>1701;1702;1705;CS1570;CS1571;CS1572;CS1573;CS1591;CS0419</NoWarn>

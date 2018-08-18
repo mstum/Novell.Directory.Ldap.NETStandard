@@ -2,7 +2,7 @@
 using System.IO;
 using Novell.Directory.Ldap.Asn1;
 
-namespace Novell.Directory.Ldap.Sasl.Asn1
+namespace Novell.Directory.Ldap.Sasl.Kerberos
 {
     /// <summary>
     /// KDC-REQ-BODY    ::= SEQUENCE {
@@ -64,79 +64,91 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
             AdditionalTickets = Array.Empty<Ticket>();
         }
 
-        public KdcReqBody(Asn1Tagged input, IAsn1Decoder decoder) : this()
+        public KdcReqBody(Asn1DecoderProperties props) : this()
         {
-            foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
+            props.Decode(DecodeContentTagHandler);
+        }
+
+        private Asn1Object DecodeContentTagHandler(Asn1DecoderProperties props)
+        {
+            var id = props.Identifier;
+            var dec = props.Decoder;
+            if (id.IsContext)
             {
-                var itemId = item.GetIdentifier();
-                var ostring = (Asn1OctetString)item.TaggedValue;
-                switch (itemId.Tag)
+                switch (id.Tag)
                 {
                     case 0:
-                        // TODO: Padding? 0x03 0x05 0x00 0x00 0x00 0x00 0x00
-                        var kdcOpt = ostring.DecodeAs<Asn1BitString>(decoder);
+                        // kdc-options             [0] KDCOptions,
+                        var kdcOpt = props.DecodeAs<Asn1BitString>();
                         KdcOptions = kdcOpt.ToFlagsEnum<KdcOptions>();
-                        break;
+                        return kdcOpt;
                     case 1:
-                        CName = new PrincipalName(item, decoder);
-                        break;
+                        // cname                   [1] PrincipalName OPTIONAL -- Used only in AS-REQ --,
+                        CName = new PrincipalName(props);
+                        return CName;
                     case 2:
-                        var rs = ostring.DecodeAs<Asn1GeneralString>(decoder);
-                        Realm = rs.StringValue();
-                        break;
+                        // realm                   [2] Realm
+                        var realm = DecodeAs<Asn1GeneralString>(props);
+                        Realm = realm.StringValue();
+                        return realm;
                     case 3:
-                        SName = new PrincipalName(item, decoder);
-                        break;
+                        // sname                   [3] PrincipalName OPTIONAL,
+                        SName = new PrincipalName(props);
+                        return SName;
                     case 4:
-                        var from = ostring.DecodeAs<Asn1GeneralizedTime>(decoder);
+                        // from                    [4] KerberosTime OPTIONAL,
+                        var from = DecodeAs<Asn1GeneralizedTime>(props);
                         if (from.GeneralizedTime != DateTime.MinValue)
                         {
                             From = from.GeneralizedTime;
                         }
-                        break;
+                        return from;
                     case 5:
-                        var till = ostring.DecodeAs<Asn1GeneralizedTime>(decoder);
+                        // till                    [5] KerberosTime,
+                        var till = DecodeAs<Asn1GeneralizedTime>(props);
                         Till = till.GeneralizedTime;
-                        break;
+                        return till;
                     case 6:
-                        var rtime = ostring.DecodeAs<Asn1GeneralizedTime>(decoder);
+                        // rtime                   [6] KerberosTime OPTIONAL,
+                        var rtime = DecodeAs<Asn1GeneralizedTime>(props);
                         if (rtime.GeneralizedTime != DateTime.MinValue)
                         {
                             RTime = rtime.GeneralizedTime;
                         }
-                        break;
+                        return rtime;
                     case 7:
-                        Nonce = (uint)DecodeInteger(ostring, decoder);
-                        break;
+                        // nonce                   [7] UInt32,
+                        var asn1nonce = DecodeAs<Asn1Integer>(props);
+                        Nonce = (uint)asn1nonce.LongValue();
+                        return asn1nonce;
                     case 8:
-                        EncryptionType = IterateAndTransform(item, decoder, (ix, asn1) =>
-                        {
-                            var i = asn1 as Asn1Integer;
-                            return (EncryptionType)i.IntValue();
-                        });
-                        break;
+                        // etype                   [8] SEQUENCE OF Int32 -- EncryptionType
+                        var etypeSeq = props.DecodeAs<Asn1Sequence>();
+                        EncryptionType = etypeSeq.Transform<Asn1Integer, EncryptionType>(inInt => (EncryptionType)inInt.IntValue());
+                        return etypeSeq;
                     case 9:
                         // addresses               [9] HostAddresses OPTIONAL,
-                        Addresses = IterateAndTransform(item, decoder, (ix, asn1) =>
+                        var addrSeq = props.DecodeAs<Asn1Sequence>();
+                        Addresses = addrSeq.Transform<Asn1Sequence, HostAddress>(inSeq =>
                         {
-                            var at = asn1 as Asn1Tagged;
-                            return new HostAddress(at, decoder);
+                            throw new NotImplementedException();
                         });
-                        break;
+                        return addrSeq;
                     case 10:
-                        // enc-authorization-data  [10] EncryptedData OPTIONAL-- AuthorizationData --,
-                        EncAuthorizationData = new EncryptedData(item, decoder);
-                        break;
+                        // enc-authorization-data  [10] EncryptedData OPTIONAL
+                        EncAuthorizationData = new EncryptedData(props);
+                        return EncAuthorizationData;
                     case 11:
-                        // additional-tickets      [11] SEQUENCE OF Ticket OPTIONAL -- NOTE: not empty
-                        AdditionalTickets = IterateAndTransform(item, decoder, (ix, asn1) =>
+                        // additional-tickets      [11] SEQUENCE OF Ticket OPTIONAL
+                        var ticketSeq = props.DecodeAs<Asn1Sequence>();
+                        AdditionalTickets = ticketSeq.Transform<Asn1Sequence, Ticket>(inSeq =>
                         {
-                            var at = asn1 as Asn1Tagged;
-                            return new Ticket(at, decoder);
+                            throw new NotImplementedException();
                         });
-                        break;
+                        return ticketSeq;
                 }
             }
+            return null;
         }
 
         public override void Encode(IAsn1Encoder enc, Stream outRenamed)

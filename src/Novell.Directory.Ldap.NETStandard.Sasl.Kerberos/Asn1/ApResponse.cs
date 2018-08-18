@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace Novell.Directory.Ldap.Sasl.Asn1
+namespace Novell.Directory.Ldap.Sasl.Kerberos
 {
     /// <summary>
     /// AP-REP          ::= [APPLICATION 15] SEQUENCE {
@@ -13,7 +13,7 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
     /// </summary>
     public class ApResponse : KerberosAsn1Object
     {
-        public static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.Application, true, 15);
+        public static readonly Asn1Identifier Id = new Asn1Identifier(TagClass.Application, true, 15);
 
         public int ProtocolVersionNumber { get; set; }
         public MessageType Type { get; set; }
@@ -44,6 +44,19 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
                         break;
                 }
             }
+        }
+
+        private Asn1Object DecodeContentTagHandler(Asn1DecoderProperties props)
+        {
+            var id = props.Identifier;
+            var dec = props.Decoder;
+            if (id.IsContext)
+            {
+                switch (id.Tag)
+                {
+                }
+            }
+            return null;
         }
 
         public override void Encode(IAsn1Encoder enc, Stream outRenamed)

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Novell.Directory.Ldap.Sasl
+namespace Novell.Directory.Ldap.Sasl.Kerberos
 {
     public class KerberosSaslClientFactory : ISaslClientFactory
     {

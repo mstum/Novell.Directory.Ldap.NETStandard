@@ -2,14 +2,14 @@
 using System;
 using System.IO;
 
-namespace Novell.Directory.Ldap.Sasl.Asn1
+namespace Novell.Directory.Ldap.Sasl.Kerberos
 {
     /// <summary>
     /// TGS-REP         ::= [APPLICATION 13] KDC-REP
     /// </summary>
     public class TgsResponse : KdcResponse
     {
-        public static readonly Asn1Identifier Id = new Asn1Identifier(Asn1Identifier.Application, true, 13);
+        public static readonly Asn1Identifier Id = new Asn1Identifier(TagClass.Application, true, 13);
 
         // TODO: EcryptedData to EncTGSRepPart
 
@@ -18,8 +18,8 @@ namespace Novell.Directory.Ldap.Sasl.Asn1
         {
         }
 
-        public TgsResponse(Asn1Tagged input, IAsn1Decoder decoder)
-            : base(Id, input, decoder)
+        public TgsResponse(Asn1DecoderProperties props)
+            : base(Id, props)
         {
         }
 
