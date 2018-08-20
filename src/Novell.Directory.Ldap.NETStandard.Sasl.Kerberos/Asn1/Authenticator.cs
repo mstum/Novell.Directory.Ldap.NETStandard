@@ -38,62 +38,10 @@ namespace Novell.Directory.Ldap.Sasl.Kerberos
             AuthorizationData = Array.Empty<AuthorizationData>();
         }
 
-        public Authenticator(Asn1Tagged input, IAsn1Decoder decoder)
+        public Authenticator(Asn1DecoderProperties props)
             : this()
         {
-            foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
-            {
-                var itemId = item.GetIdentifier();
-                var ostring = (Asn1OctetString)item.TaggedValue;
-                switch (itemId.Tag)
-                {
-                    case 0:
-                        //         authenticator-vno       [0] INTEGER (5),
-                        AuthenticatorVersionNumber = (int)DecodeInteger(ostring, decoder);
-                        break;
-                    case 1:
-                        //         crealm                  [1] Realm,
-                        var cr = ostring.DecodeAs<Asn1GeneralString>(decoder);
-                        CRealm = cr.StringValue();
-                        break;
-                    case 2:
-                        //         cname                   [2] PrincipalName,
-                        var cname = ostring.DecodeAs<Asn1Tagged>(decoder);
-                        CName = new PrincipalName(cname, decoder);
-                        break;
-                    case 3:
-                        //         cksum                   [3] Checksum OPTIONAL,
-                        var cksum = ostring.DecodeAs<Asn1Tagged>(decoder);
-                        Checksum = new Checksum(cksum, decoder);
-                        break;
-                    case 4:
-                        //         cusec                   [4] Microseconds,
-                        CUsec = new Microseconds((int)DecodeInteger(ostring, decoder));
-                        break;
-                    case 5:
-                        //         ctime                   [5] KerberosTime,
-                        var ctime = ostring.DecodeAs<Asn1GeneralizedTime>(decoder);
-                        CTime = ctime.GeneralizedTime;
-                        break;
-                    case 6:
-                        //         subkey                  [6] EncryptionKey OPTIONAL,
-                        var ekey = ostring.DecodeAs<Asn1Tagged>(decoder);
-                        SubKey = new EncryptionKey(ekey, decoder);
-                        break;
-                    case 7:
-                        //         seq-number              [7] UInt32 OPTIONAL,
-                        SeqNumber = (uint)DecodeInteger(ostring, decoder);
-                        break;
-                    case 8:
-                        //         authorization-data      [8] AuthorizationData OPTIONAL
-                        AuthorizationData = IterateAndTransform(item, decoder, (ix, asn1) =>
-                        {
-                            var asn1Tagged = asn1 as Asn1Tagged;
-                            return new AuthorizationData(asn1Tagged, decoder);
-                        });
-                        break;
-                }
-            }
+            props.Decode(DecodeContentTagHandler);
         }
 
         private Asn1Object DecodeContentTagHandler(Asn1DecoderProperties props)
@@ -104,6 +52,51 @@ namespace Novell.Directory.Ldap.Sasl.Kerberos
             {
                 switch (id.Tag)
                 {
+                    case 0:
+                        //         authenticator-vno       [0] INTEGER (5),
+                        var asn1avno = DecodeAs<Asn1Integer>(props);
+                        AuthenticatorVersionNumber = asn1avno.IntValue();
+                        return asn1avno;
+                    case 1:
+                        //         crealm                  [1] Realm,
+                        var crealm = DecodeAs<Asn1GeneralString>(props);
+                        CRealm = crealm.StringValue();
+                        return crealm;
+                    case 2:
+                        //         cname                   [2] PrincipalName,
+                        CName = new PrincipalName(props);
+                        return CName;
+                    case 3:
+                        //         cksum                   [3] Checksum OPTIONAL,
+                        Checksum = new Checksum(props);
+                        return Checksum;
+                    case 4:
+                        //         cusec                   [4] Microseconds,
+                        var cusec = DecodeAs<Asn1Integer>(props);
+                        CUsec = new Microseconds(cusec.IntValue());
+                        return cusec;
+                    case 5:
+                        //         ctime                   [5] KerberosTime,
+                        var ctime = DecodeAs<Asn1GeneralizedTime>(props);
+                        CTime = ctime.GeneralizedTime;
+                        return ctime;
+                    case 6:
+                        //         subkey                  [6] EncryptionKey OPTIONAL,
+                        SubKey = new EncryptionKey(props);
+                        return SubKey;
+                    case 7:
+                        //         seq-number              [7] UInt32 OPTIONAL,
+                        var asn1seqno = DecodeAs<Asn1Integer>(props);
+                        SeqNumber = (uint)asn1seqno.LongValue();
+                        return asn1seqno;
+                    case 8:
+                        //         authorization-data      [8] AuthorizationData OPTIONAL
+                        var authDataSeq = props.DecodeAs<Asn1Sequence>();
+                        AuthorizationData = authDataSeq.Transform<Asn1Sequence, AuthorizationData>(inSeq =>
+                        {
+                            throw new NotImplementedException();
+                        });
+                        return authDataSeq;
                 }
             }
             return null;

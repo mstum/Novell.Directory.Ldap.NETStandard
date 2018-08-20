@@ -27,7 +27,7 @@ namespace Novell.Directory.Ldap.Sasl.Kerberos
             props.Decode(DecodeContentTagHandler);
         }
 
-        private Asn1Object DecodeContentTagHandler(Asn1DecoderProperties props)
+        internal Asn1Object DecodeContentTagHandler(Asn1DecoderProperties props)
         {
             var id = props.Identifier;
             var dec = props.Decoder;

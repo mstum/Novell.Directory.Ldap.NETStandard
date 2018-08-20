@@ -98,7 +98,7 @@ namespace Novell.Directory.Ldap.Asn1
         }
 
         /// <summary> Decode an Asn1Structured type from an InputStream.</summary>
-        protected internal void DecodeStructured(IAsn1Decoder dec, Stream inRenamed, int len, DecodeAsn1Object contextItemDecoder)
+        protected internal void DecodeStructured(IAsn1Decoder dec, Stream inRenamed, int len, Asn1DecoderProperties contextItemDecoder)
         {
             var componentLen = new int[1]; // collects length of component
 

@@ -44,7 +44,9 @@ namespace Novell.Directory.Ldap.Sasl.Kerberos
         public EncTicketPart(Asn1DecoderProperties props)
             : base(Id)
         {
-            foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
+            props.Decode(DecodeContentTagHandler);
+
+            /*foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
             {
                 var itemId = item.GetIdentifier();
                 var ostring = (Asn1OctetString)item.TaggedValue;
@@ -100,7 +102,7 @@ namespace Novell.Directory.Ldap.Sasl.Kerberos
                         AuthorizationData = new AuthorizationData(item, decoder);
                         break;
                 }
-            }
+            }*/
         }
 
         private Asn1Object DecodeContentTagHandler(Asn1DecoderProperties props)

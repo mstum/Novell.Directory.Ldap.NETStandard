@@ -24,26 +24,10 @@ namespace Novell.Directory.Ldap.Sasl.Kerberos
         {
         }
 
-        public ApResponse(Asn1Tagged input, IAsn1Decoder decoder)
+        public ApResponse(Asn1DecoderProperties props)
             : base(Id)
         {
-            foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
-            {
-                var itemId = item.GetIdentifier();
-                var ostring = (Asn1OctetString)item.TaggedValue;
-                switch (itemId.Tag)
-                {
-                    case 0:
-                        ProtocolVersionNumber = (int)DecodeInteger(ostring, decoder);
-                        break;
-                    case 1:
-                        Type = (MessageType)DecodeInteger(ostring, decoder);
-                        break;
-                    case 2:
-                        EncPart = new EncryptedData(item, decoder);
-                        break;
-                }
-            }
+            props.Decode(DecodeContentTagHandler);
         }
 
         private Asn1Object DecodeContentTagHandler(Asn1DecoderProperties props)
@@ -54,6 +38,20 @@ namespace Novell.Directory.Ldap.Sasl.Kerberos
             {
                 switch (id.Tag)
                 {
+                    case 0:
+                        //         pvno            [0] INTEGER (5)
+                        var asn1Int = DecodeAs<Asn1Integer>(props);
+                        ProtocolVersionNumber = asn1Int.IntValue();
+                        return asn1Int;
+                    case 1:
+                        //         msg-type        [1] INTEGER (15),
+                        var asn1MType = DecodeAs<Asn1Integer>(props);
+                        Type = (MessageType)asn1MType.IntValue();
+                        return asn1MType;
+                    case 2:
+                        //         enc-part        [2] EncryptedData -- EncAPRepPart
+                        EncPart = new EncryptedData(props);
+                        return EncPart;
                 }
             }
             return null;

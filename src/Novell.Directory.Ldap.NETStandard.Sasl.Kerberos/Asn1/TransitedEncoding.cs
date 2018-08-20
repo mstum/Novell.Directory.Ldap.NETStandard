@@ -24,7 +24,9 @@ namespace Novell.Directory.Ldap.Sasl.Kerberos
         public TransitedEncoding(Asn1DecoderProperties props)
             : base(Asn1Sequence.Id)
         {
-            foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
+            props.Decode(DecodeContentTagHandler);
+
+            /*foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
             {
                 var itemId = item.GetIdentifier();
                 var ostring = (Asn1OctetString)item.TaggedValue;
@@ -37,7 +39,7 @@ namespace Novell.Directory.Ldap.Sasl.Kerberos
                         Contents = ostring.ByteValue();
                         break;
                 }
-            }
+            }*/
         }
 
         private Asn1Object DecodeContentTagHandler(Asn1DecoderProperties props)

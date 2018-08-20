@@ -25,20 +25,7 @@ namespace Novell.Directory.Ldap.Sasl.Kerberos
         public AuthorizationData(Asn1DecoderProperties props)
             : base(Asn1Sequence.Id)
         {
-            foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
-            {
-                var itemId = item.GetIdentifier();
-                var ostring = (Asn1OctetString)item.TaggedValue;
-                switch (itemId.Tag)
-                {
-                    case 1:
-                        Type = (int)DecodeInteger(ostring, decoder);
-                        break;
-                    case 2:
-                        Data = ostring.ByteValue();
-                        break;
-                }
-            }
+            props.Decode(DecodeContentTagHandler);
         }
 
         private Asn1Object DecodeContentTagHandler(Asn1DecoderProperties props)
@@ -49,6 +36,16 @@ namespace Novell.Directory.Ldap.Sasl.Kerberos
             {
                 switch (id.Tag)
                 {
+                    case 0:
+                        //         ad-type         [0] Int32,
+                        var asn1Int = DecodeAs<Asn1Integer>(props);
+                        Type = asn1Int.IntValue();
+                        return asn1Int;
+                    case 1:
+                        //         ad-data         [1] OCTET STRING
+                        var adata = DecodeAs<Asn1OctetString>(props);
+                        Data = adata.ByteValue();
+                        return adata;
                 }
             }
             return null;

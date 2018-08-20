@@ -50,11 +50,12 @@ namespace Novell.Directory.Ldap.Sasl.Kerberos
                         return asn1msgType;
                     case 3:
                         //padata          [3] SEQUENCE OF PA-DATA OPTIONAL -- NOTE: not empty --,
-                        var paDataSeq = props.DecodeAs<Asn1Sequence>();
+                        /*var paDataSeq = props.DecodeAs<Asn1Sequence>(p => new PreAuthenticationData(p));
                         PaData = paDataSeq.Transform<Asn1Sequence, PreAuthenticationData>(paInput =>
                         {
                             throw new NotImplementedException();
-                        });
+                        });*/
+                        var paDataSeq = SequenceOfItems.PaDataSequence(props);
                         return paDataSeq;
                     case 4:
                         //req-body        [4] KDC-REQ-BODY

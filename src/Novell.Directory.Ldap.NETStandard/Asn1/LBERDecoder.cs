@@ -46,7 +46,7 @@ namespace Novell.Directory.Ldap.Asn1
         public void AddDecoder(DecodeAsn1Object decoder)
             => _additionalDecoders.Push(decoder ?? throw new ArgumentNullException(nameof(decoder)));
 
-        public Asn1Object Decode(byte[] input, DecodeAsn1Object contextItemDecoder)
+        public Asn1Object Decode(byte[] input, Asn1DecoderProperties contextItemDecoder)
         {
             Asn1Object asn1 = null;
 
@@ -65,15 +65,26 @@ namespace Novell.Directory.Ldap.Asn1
             return asn1;
         }
 
-        public Asn1Object Decode(Stream input, DecodeAsn1Object contextItemDecoder)
+        public Asn1Object Decode(Stream input, Asn1DecoderProperties contextItemDecoder)
         {
             var len = new int[1];
             return Decode(input, len, contextItemDecoder);
         }
 
-        public Asn1Object Decode(Stream input, int[] length, DecodeAsn1Object contextItemDecoder)
+        public Asn1Object Decode(Stream input, int[] length, Asn1DecoderProperties contextItemDecoder)
         {
             var asn1Len = AdvanceStream(input, length);
+
+            if (contextItemDecoder == null)
+            {
+                contextItemDecoder = new Asn1DecoderProperties();
+            }
+
+            contextItemDecoder.Identifier = _asn1Id.Clone();
+            contextItemDecoder.Length = asn1Len;
+            contextItemDecoder.Logger = _logger;
+            contextItemDecoder.Decoder = this;
+            contextItemDecoder.Input = input;
 
             if (_asn1Id.IsUniversal)
             {
@@ -81,33 +92,31 @@ namespace Novell.Directory.Ldap.Asn1
             }
             else if (_asn1Id.IsApplication)
             {
-                return HandleApplication(_asn1Id, input, asn1Len);
+                return HandleApplication(contextItemDecoder);
             }
             else if (_asn1Id.IsContext || _asn1Id.IsPrivate)
             {
-                if (contextItemDecoder != null)
+                if (contextItemDecoder?.ContextDecoder != null)
                 {
-                    var props = CreateProps(_asn1Id, input, asn1Len);
-                    var result = contextItemDecoder.Invoke(props);
+                    var result = contextItemDecoder.ContextDecoder.Invoke(contextItemDecoder);
                     if (result != null)
                     {
                         return result;
                     }
                 }
 
-                // If the Context Decoder couldn't do it, try the Application decoder
-                return HandleApplication(_asn1Id, input, asn1Len);
+                // Already tried the context decoder, so try the Application decoder
+                return HandleApplication(contextItemDecoder);
             }
 
             // Fallback, just return an Asn1Tagged
             return new Asn1Tagged(this, input, asn1Len, _asn1Id.Clone());
         }
 
-        private Asn1Object HandleApplication(Asn1Identifier asn1Id, Stream input, int asn1Len)
+        private Asn1Object HandleApplication(Asn1DecoderProperties props)
         {
             if (_additionalDecoders.IsNotEmpty())
             {
-                var props = CreateProps(asn1Id, input, asn1Len);
                 foreach (var handler in _additionalDecoders)
                 {
                     var result = handler.Invoke(props);
@@ -119,10 +128,10 @@ namespace Novell.Directory.Ldap.Asn1
             }
 
             // Fallback, just return an Asn1Tagged
-            return new Asn1Tagged(this, input, asn1Len, asn1Id.Clone());
+            return new Asn1Tagged(this, props.Input, props.Length, props.Identifier);
         }
 
-        private Asn1Object HandleUniversal(Asn1Identifier asn1Id, Stream input, int asn1Len, DecodeAsn1Object contextItemDecoder)
+        private Asn1Object HandleUniversal(Asn1Identifier asn1Id, Stream input, int asn1Len, Asn1DecoderProperties contextItemDecoder)
         {
             // Universal tags are reverved for use within the ASN.1 Spec, so we're always handling them ourselves.
             switch (asn1Id.Tag)
@@ -177,9 +186,6 @@ namespace Novell.Directory.Ldap.Asn1
             length[0] = _asn1Id.EncodedLength + _asn1Len.EncodedLength + asn1Len;
             return asn1Len;
         }
-
-        private Asn1DecoderProperties CreateProps(Asn1Identifier asn1Id, Stream input, int asn1Len)
-            => new Asn1DecoderProperties(this, asn1Id.Clone(), input, asn1Len, _logger);
 
         public bool DecodeBoolean(Stream input, int len)
         {

@@ -28,33 +28,10 @@ namespace Novell.Directory.Ldap.Sasl.Kerberos
         {
         }
 
-        public ApRequest(Asn1Tagged input, IAsn1Decoder decoder)
+        public ApRequest(Asn1DecoderProperties props)
             : base(Asn1Sequence.Id)
         {
-            foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
-            {
-                var itemId = item.GetIdentifier();
-                var ostring = (Asn1OctetString)item.TaggedValue;
-                switch (itemId.Tag)
-                {
-                    case 1:
-                        ProtocolVersionNumber = (int)DecodeInteger(ostring, decoder);
-                        break;
-                    case 2:
-                        Type = (MessageType)DecodeInteger(ostring, decoder);
-                        break;
-                    case 3:
-                        var apOpt = ostring.DecodeAs<Asn1BitString>(decoder);
-                        Options = apOpt.ToFlagsEnum<ApOptions>();
-                        break;
-                    case 4:
-                        Ticket = new Ticket(item, decoder);
-                        break;
-                    case 5:
-                        Authenticator = new EncryptedData(item, decoder);
-                        break;
-                }
-            }
+            props.Decode(DecodeContentTagHandler);
         }
 
         private Asn1Object DecodeContentTagHandler(Asn1DecoderProperties props)
@@ -65,6 +42,29 @@ namespace Novell.Directory.Ldap.Sasl.Kerberos
             {
                 switch (id.Tag)
                 {
+                    case 0:
+                        //         pvno            [0] INTEGER (5),
+                        var asn1Int = DecodeAs<Asn1Integer>(props);
+                        ProtocolVersionNumber = asn1Int.IntValue();
+                        return asn1Int;
+                    case 1:
+                        //         msg-type        [1] INTEGER (14),
+                        var asn1MType = DecodeAs<Asn1Integer>(props);
+                        Type = (MessageType)asn1MType.IntValue();
+                        return asn1MType;
+                    case 2:
+                        //         ap-options      [2] APOptions,
+                        var apOptions = props.DecodeAs<Asn1BitString>();
+                        Options = apOptions.ToFlagsEnum<ApOptions>();
+                        return apOptions;
+                    case 3:
+                        //         ticket          [3] Ticket,
+                        Ticket = new Ticket(props);
+                        return Ticket;
+                    case 4:
+                        //         authenticator   [4] EncryptedData -- Authenticator
+                        Authenticator = new EncryptedData(props);
+                        return Authenticator;
                 }
             }
             return null;

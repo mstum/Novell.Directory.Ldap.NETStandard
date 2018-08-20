@@ -44,7 +44,12 @@ namespace Novell.Directory.Ldap.Sasl.Kerberos
         protected EncKdcRepPart(Asn1Identifier id, Asn1DecoderProperties props)
             : this(id)
         {
-            foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
+            props.Decode(DecodeContentTagHandler);
+        }
+
+        private Asn1Object DecodeContentTagHandler(Asn1DecoderProperties props)
+        {
+            /* foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
             {
                 var itemId = item.GetIdentifier();
                 var ostring = (Asn1OctetString)item.TaggedValue;
@@ -122,17 +127,40 @@ namespace Novell.Directory.Ldap.Sasl.Kerberos
                         });
                         break;
                 }
-            }
-        }
-
-        private Asn1Object DecodeContentTagHandler(Asn1DecoderProperties props)
-        {
+            }*/
             var id = props.Identifier;
             var dec = props.Decoder;
             if (id.IsContext)
             {
                 switch (id.Tag)
                 {
+                    case 0:
+                        //         key             [0] EncryptionKey,
+                        Key = new EncryptionKey(props);
+                        return Key;
+                    case 1:
+                    //         last-req        [1] LastReq,                    
+                    case 2:
+                    //         nonce           [2] UInt32,
+                    case 3:
+                    //         key-expiration  [3] KerberosTime OPTIONAL,
+                    case 4:
+                    //         flags           [4] TicketFlags,
+                    case 5:
+                    //         authtime        [5] KerberosTime,
+                    case 6:
+                    //         starttime       [6] KerberosTime OPTIONAL,
+                    case 7:
+                    //         endtime         [7] KerberosTime,
+                    case 8:
+                    //         renew-till      [8] KerberosTime OPTIONAL,
+                    case 9:
+                    //         srealm          [9] Realm,
+                    case 10:
+                    //         sname           [10] PrincipalName,
+                    case 11:
+                        //         caddr           [11] HostAddresses OPTIONAL
+                        break;
                 }
             }
             return null;

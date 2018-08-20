@@ -15,7 +15,7 @@ namespace Novell.Directory.Ldap.Sasl.Kerberos
 
         public AsRequest(Asn1DecoderProperties props)
             : base(Id, props)
-        {            
+        {
         }
 
         public override void Encode(IAsn1Encoder enc, Stream outRenamed)

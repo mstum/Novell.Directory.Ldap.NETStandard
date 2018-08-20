@@ -36,7 +36,9 @@ namespace Novell.Directory.Ldap.Sasl.Kerberos
         protected KdcResponse(Asn1Identifier id, Asn1DecoderProperties props)
             : this(id)
         {
-            foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
+            props.Decode(DecodeContentTagHandler);
+
+            /*foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
             {
                 var itemId = item.GetIdentifier();
                 var ostring = (Asn1OctetString)item.TaggedValue;
@@ -69,7 +71,7 @@ namespace Novell.Directory.Ldap.Sasl.Kerberos
                         EncPart = new EncryptedData(item, decoder);
                         break;
                 }
-            }
+            }*/
         }
 
         private Asn1Object DecodeContentTagHandler(Asn1DecoderProperties props)

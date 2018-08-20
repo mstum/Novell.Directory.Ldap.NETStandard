@@ -12,26 +12,27 @@ namespace Novell.Directory.Ldap.Asn1
 
     public class Asn1DecoderProperties
     {
-        public IAsn1Decoder Decoder { get; }
-        public Asn1Identifier Identifier { get; }
-        public Stream Input { get; }
-        public int Length { get; }
-        public ILogger Logger { get; }
+        public DecodeAsn1Object ContextDecoder { get; set; }
 
-        public Asn1DecoderProperties(IAsn1Decoder decoder, Asn1Identifier id, Stream input, int length, ILogger logger)
+        public IAsn1Decoder Decoder { get; set; }
+        public Asn1Identifier Identifier { get; set; }
+        public Stream Input { get; set; }
+        public int Length { get; set; }
+        public ILogger Logger { get; set; }
+
+        public Stack<Asn1Object> Context { get; set; }
+
+        public Asn1Object Decode(DecodeAsn1Object newContextDecoder)
         {
-            Decoder = decoder;
-            Identifier = id;
-            Input = input;
-            Length = length;
-            Logger = logger.OrNullLogger();
+            DecodeAsn1Object prev = ContextDecoder;
+            ContextDecoder = newContextDecoder;
+            var result = Decoder.Decode(Input, this);
+            ContextDecoder = prev;
+            return result;
         }
 
-        public Asn1Object Decode(DecodeAsn1Object contextItemDecoder = null)
-            => Decoder.Decode(Input, contextItemDecoder);
-
-        public T DecodeAs<T>(DecodeAsn1Object contextItemDecoder = null) where T : Asn1Object
-            => Decode(contextItemDecoder) as T;
+        public T DecodeAs<T>(DecodeAsn1Object newContextDecoder = null) where T : Asn1Object
+            => Decode(newContextDecoder) as T;
     }
 
     public interface IAsn1Decoder
@@ -40,9 +41,9 @@ namespace Novell.Directory.Ldap.Asn1
 
         void AddDecoder(DecodeAsn1Object decoder);
 
-        Asn1Object Decode(byte[] input, DecodeAsn1Object contextItemDecoder);
+        Asn1Object Decode(byte[] input, Asn1DecoderProperties contextItemDecoder);
 
-        Asn1Object Decode(Stream input, DecodeAsn1Object contextItemDecoder);
+        Asn1Object Decode(Stream input, Asn1DecoderProperties contextItemDecoder);
 
         /// <summary>
         ///     Decode an encoded value into an Asn1Object from an InputStream.
@@ -56,7 +57,7 @@ namespace Novell.Directory.Ldap.Asn1
         /// <param name="input">
         ///     An input stream containig the encoded ASN.1 data.
         /// </param>
-        Asn1Object Decode(Stream input, int[] length, DecodeAsn1Object contextItemDecoder);
+        Asn1Object Decode(Stream input, int[] length, Asn1DecoderProperties contextItemDecoder);
 
         // TODO: Are these useful?
         bool DecodeBoolean(Stream input, int len);

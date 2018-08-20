@@ -31,7 +31,9 @@ namespace Novell.Directory.Ldap.Sasl.Kerberos
 
         public EncryptionKey(Asn1DecoderProperties props) : base(Asn1Sequence.Id)
         {
-            foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
+            props.Decode(DecodeContentTagHandler);
+
+            /*            foreach (var item in IterateThroughSequence(input, decoder, contextTagsOnly: true))
             {
                 var itemId = item.GetIdentifier();
 
@@ -45,7 +47,7 @@ namespace Novell.Directory.Ldap.Sasl.Kerberos
                         KeyValue = ostring.ByteValue();
                         break;
                 }
-            }
+            }*/
         }
 
         private Asn1Object DecodeContentTagHandler(Asn1DecoderProperties props)

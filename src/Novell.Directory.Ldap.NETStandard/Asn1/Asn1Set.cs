@@ -89,7 +89,7 @@ namespace Novell.Directory.Ldap.Asn1
         /// <param name="in">
         ///     A byte stream that contains the encoded ASN.1.
         /// </param>
-        public Asn1Set(IAsn1Decoder dec, Stream inRenamed, int len, DecodeAsn1Object contextItemDecoder)
+        public Asn1Set(IAsn1Decoder dec, Stream inRenamed, int len, Asn1DecoderProperties contextItemDecoder)
             : base(Id)
         {
             DecodeStructured(dec, inRenamed, len, contextItemDecoder);
